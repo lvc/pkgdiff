@@ -1,1 +1,8 @@
-Package Changes Analyzer (pkgdiff) - a tool for analyzing changes in Linux software packages (RPM, DEB, TAR.GZ, ...).
+NAME:
+  Package Changes Analyzer (pkgdiff) - a tool for analyzing changes in Linux software packages (RPM, DEB, TAR.GZ, etc).
+
+USAGE:
+  pkgdiff -old OLD.rpm -new NEW.rpm
+
+ADV. USAGE:
+  For advanced usage, see output of --help option
