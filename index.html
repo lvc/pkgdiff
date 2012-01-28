@@ -51,27 +51,45 @@
     
       <p>Package Changes Analyzer (pkgdiff) is a tool for analyzing changes in Linux software packages (RPM, DEB, TAR.GZ, etc).
 
-The tool is intended for Linux maintainers who are interested in ensuring compatibility of old and new versions of packages.
-
-This tool is free software: you can redistribute it and/or modify it under the terms of the GNU GPL.</p>
+The tool is intended for Linux maintainers who are interested in ensuring compatibility of old and new versions of packages.</p>
     
-
+<h2>Supported Platforms</h2>
+GNU/Linux, FreeBSD
     
       <h2>Dependencies</h2>
-      <p>Requires:
-  Perl 5 (5.8-5.14),
-  GNU Wdiff,
-  GNU Binutils (readelf),
-  RPM (rpm2cpio, rpm) for analysis of RPM packages,
-  DPKG (dpkg-deb, dpkg) for analysis of DEB packages.
+<p>
+Requires:
+<ul>
+<li>
+  <a href="http://www.perl.org/" target="_blank" rel="nofollow">Perl 5</a> (5.8-5.14)
+</li>
+<li>
+  <a href="http://www.gnu.org/software/wdiff/" target="_blank" rel="nofollow">GNU Wdiff</a>
+</li>
+<li>
+  <a href="http://www.gnu.org/software/binutils/" target="_blank" rel="nofollow">GNU Binutils</a> (readelf)
+</li>
+<li>
+  <a href="http://rpm.org/" target="_blank" rel="nofollow">RPM</a> (rpm2cpio, rpm) for analysis of RPM packages
+</li>
+<li>
+  <a href="http://packages.debian.org/squeeze/dpkg" target="_blank" rel="nofollow">DPKG</a> (dpkg-deb, dpkg) for analysis of DEB packages
+</li>
+</ul>
 
 Suggests:
-  ABI Compliance Checker (>=1.96)</p>
+<ul>
+<li>
+  <a href="http://forge.ispras.ru/projects/abi-compliance-checker">ABI Compliance Checker</a> (&gt;=1.96)
+</p>
+</li>
+</ul>
     
 
     
-      <h2>Install</h2>
+      <h2>Installation</h2>
       <p>sudo perl Makefile.pl --install --prefix=PREFIX [/usr, /usr/local]</p>
+      <p>This command will install a  <code>pkgdiff</code>  program to the <code>PREFIX/bin</code> system directory and private modules into the <code>PREFIX/share</code>.</p>
 
       <h2>Usage</h2>
       <p>pkgdiff -old OLD.rpm -new NEW.rpm</p>
