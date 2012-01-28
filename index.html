@@ -52,12 +52,22 @@
       <p>Package Changes Analyzer (pkgdiff) is a tool for analyzing changes in Linux software packages (RPM, DEB, TAR.GZ, etc).
 
 The tool is intended for Linux maintainers who are interested in ensuring compatibility of old and new versions of packages.</p>
+
+<h2>Downloads</h2>
+The latest release can be downloaded from <a href="https://github.com/pkgdiff/pkgdiff/downloads" rel="nofollow">this page</a>.
+
+<p>Read-only access to the latest development version:</p>
+
+<pre>    git clone git://github.com/pkgdiff/pkgdiff</pre>
+
+<h2>License</h2>
+
+<p>This program is free software. You may use, redistribute and/or modify it under the terms of the <a href="http://www.gnu.org/licenses/" rel="nofollow">GNU GPL</a></p>
     
 <h2>Supported Platforms</h2>
 GNU/Linux, FreeBSD
     
       <h2>Dependencies</h2>
-<p>
 Requires:
 <ul>
 <li>
@@ -83,11 +93,10 @@ Suggests:
   <a href="http://forge.ispras.ru/projects/abi-compliance-checker">ABI Compliance Checker</a> (&gt;=1.96)
 </li>
 </ul>
-</p>
     
     
       <h2>Installation</h2>
-      <p><code>sudo perl Makefile.pl --install --prefix=PREFIX [/usr, /usr/local]</code></p>
+      <p><pre>sudo perl Makefile.pl --install --prefix=PREFIX [/usr, /usr/local]</pre></p>
       <p>This command will install a  <code>pkgdiff</code>  program to the <code>PREFIX/bin</code> system directory and private modules into the <code>PREFIX/share</code>.</p>
 
       <h2>Usage</h2>
@@ -98,24 +107,26 @@ Suggests:
 
       <h2>Adv. Usage</h2>
       <p>For advanced usage, see output of --help option</p>
-    
-      <h2>License</h2>
-      <p>GNU GPL</p>
-    
-      <h2>Authors</h2>
-      <p>Andrey Ponomarenko (aponomarenko@mandriva.org)</p>
-    
+      <pre>  pkgdiff --help</pre>
+<p>If you need to analyze a group of packages then you can create an XML-descriptor of this group (<code>OLD.xml</code> file):</p>
 
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="https://github.com/pkgdiff/pkgdiff/zipball/master">zip</a> or
-      <a href="https://github.com/pkgdiff/pkgdiff/tarball/master">tar formats</a>.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/pkgdiff/pkgdiff</pre>
-    </p>
+<pre>  &lt;version&gt;      2.24.1  &lt;/version&gt;    &lt;group&gt;      libglib  &lt;/group&gt;    &lt;packages&gt;      libglib2.0-devel-2.24.1-1mdv2010.1.i586.rpm      libglib2.0_0-2.24.1-1mdv2010.1.i586.rpm  &lt;/packages&gt;</pre>
+
+<p>And then pass XML-descriptors of old and new versions of a group to the tool:</p>
+
+<pre>  pkgdiff -old OLD.xml -new NEW.xml</pre>
+
+<p>The HTML report will be generated to:</p>
+
+<pre>    pkgdiff_reports/&lt;group&gt;/&lt;v1&gt;_to_&lt;v2&gt;/compat_report.html</pre>
+
+      <h2>Bugs</h2>
+      <p>Please post your bug reports, feature requests and questions to the <a href="https://github.com/pkgdiff/pkgdiff/issues" rel="nofollow">issue tracker</a>.</p>
+    
+      <h2>Maintainers</h2>
+      The tool is developed by the <a href="http://www.rosalinux.org/">ROSA Laboratory</a>.
+
+<p><a href="http://andrey-ponomarenko.myopenid.com/" rel="nofollow">Andrey Ponomarenko</a> is the leader of this project.</p>
 
     <div class="footer">
       get the source code on GitHub : <a href="https://github.com/pkgdiff/pkgdiff">pkgdiff/pkgdiff</a>
