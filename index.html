@@ -37,9 +37,9 @@
 
     <div class="download">
       <a href="https://github.com/pkgdiff/pkgdiff/zipball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/zip.png"></a>
+        <img border="0" width="90" src="https://github.com/images/modules/download/zip.png" alt="" /></a>
       <a href="https://github.com/pkgdiff/pkgdiff/tarball/master">
-        <img border="0" width="90" src="https://github.com/images/modules/download/tar.png"></a>
+        <img border="0" width="90" src="https://github.com/images/modules/download/tar.png" alt="" /></a>
     </div>
 
     <h1><a href="https://github.com/pkgdiff/pkgdiff">pkgdiff</a></h1>
@@ -81,18 +81,20 @@ Suggests:
 <ul>
 <li>
   <a href="http://forge.ispras.ru/projects/abi-compliance-checker">ABI Compliance Checker</a> (&gt;=1.96)
-</p>
 </li>
 </ul>
+</p>
     
-
     
       <h2>Installation</h2>
-      <p>sudo perl Makefile.pl --install --prefix=PREFIX [/usr, /usr/local]</p>
+      <p><code>sudo perl Makefile.pl --install --prefix=PREFIX [/usr, /usr/local]</code></p>
       <p>This command will install a  <code>pkgdiff</code>  program to the <code>PREFIX/bin</code> system directory and private modules into the <code>PREFIX/share</code>.</p>
 
       <h2>Usage</h2>
-      <p>pkgdiff -old OLD.rpm -new NEW.rpm</p>
+      <p><pre>pkgdiff -old OLD.rpm -new NEW.rpm</pre></p>
+<p>The HTML report will be generated to:</p>
+
+<pre>  pkgdiff_reports/&lt;pkg&gt;/&lt;v1&gt;_to_&lt;v2&gt;/compat_report.html</pre>
 
       <h2>Adv. Usage</h2>
       <p>For advanced usage, see output of --help option</p>
@@ -100,16 +102,8 @@ Suggests:
       <h2>License</h2>
       <p>GNU GPL</p>
     
-
-    
       <h2>Authors</h2>
-      <p>Andrey Ponomarenko (aponomarenko@mandriva.org)
-<br/>      </p>
-    
-
-    
-      <h2>Contact</h2>
-      <p>aponomarenko@mandriva.org</p>
+      <p>Andrey Ponomarenko (aponomarenko@mandriva.org)</p>
     
 
     <h2>Download</h2>
