@@ -97,7 +97,7 @@ Suggests:
     
       <h2>Installation</h2>
       <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;sudo perl Makefile.pl --install --prefix=PREFIX [/usr, /usr/local]&nbsp;</code>
-      <p>This command will install a  <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff&nbsp;</code>  program to the <code>PREFIX/bin</code> system directory and private modules into the <code>PREFIX/share</code>.</p>
+      <p>This command will install a  <code>pkgdiff</code>  program to the <code>PREFIX/bin</code> system directory and private modules into the <code>PREFIX/share</code>.</p>
 
       <h2>Usage</h2>
       <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff -old OLD.rpm -new NEW.rpm&nbsp;</code>
@@ -110,18 +110,20 @@ Suggests:
       <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff --help&nbsp;</code>
 <p>If you need to analyze a group of packages then you can create an XML-descriptor of this group (OLD.xml file):</p>
 
+<div style='padding-left:10px;'>
   &lt;version&gt;<br/>
-      2.24.1<br/>
-  &lt;/version&gt;<br/>
+      &nbsp;&nbsp;2.24.1<br/>
+  &lt;/version&gt;<br/><br/>
 
   &lt;group&gt;<br/>
-      libglib<br/>
-  &lt;/group&gt;<br/>
+      &nbsp;&nbsp;libglib<br/>
+  &lt;/group&gt;<br/><br/>
 
   &lt;packages&gt;<br/>
-      libglib2.0-devel-2.24.1-1mdv2010.1.i586.rpm<br/>
-      libglib2.0_0-2.24.1-1mdv2010.1.i586.rpm<br/>
+      &nbsp;&nbsp;libglib2.0-devel-2.24.1-1mdv2010.1.i586.rpm<br/>
+      &nbsp;&nbsp;libglib2.0_0-2.24.1-1mdv2010.1.i586.rpm<br/>
   &lt;/packages&gt;<br/>
+</div>
 
 <p>And then pass XML-descriptors of old and new versions of a group to the tool:</p>
 
