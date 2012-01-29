@@ -1,8 +1,9 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <meta charset='utf-8'>
-
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="keywords" content="pkgdiff, rpm, deb, diff, changes" />
+  <meta name="description" content="A tool for analyzing changes in Linux software packages" />
   <title>pkgdiff - Package Changes Analyzer</title>
 
   <style type="text/css">
@@ -53,6 +54,23 @@
 
 The tool is intended for Linux maintainers who are interested in ensuring compatibility of old and new versions of packages.</p>
 
+<table style='border:1px solid grey;'><tr><td>
+<div>Table of Contents</div>
+<ul>
+<li><a href="#Downloads" rel="nofollow">Downloads</a></li>
+<li><a href="#License" rel="nofollow">License</a></li>
+<li><a href="#Supported_Platforms" rel="nofollow">Supported Platforms</a></li>
+<li><a href="#Dependencies" rel="nofollow">Dependencies</a></li>
+<li><a href="#Installation" rel="nofollow">Installation</a></li>
+<li><a href="#Usage" rel="nofollow">Usage</a></li>
+<li><a href="#Adv_Usage" rel="nofollow">Adv. Usage</a></li>
+<li><a href="#Examples" rel="nofollow">Examples</a></li>
+<li><a href="#Bugs" rel="nofollow">Bugs</a></li>
+<li><a href="#Maintainers" rel="nofollow">Maintainers</a></li>
+</ul>
+</td></tr></table>
+
+<a name="Downloads"></a>
 <h2>Downloads</h2>
 The latest release can be downloaded from <a href="https://github.com/pkgdiff/pkgdiff/downloads" rel="nofollow">this page</a>.
 
@@ -60,13 +78,15 @@ The latest release can be downloaded from <a href="https://github.com/pkgdiff/pk
 
 <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;git clone git://github.com/pkgdiff/pkgdiff&nbsp;</code>
 
+<a name="License"></a>
 <h2>License</h2>
-
 <p>This program is free software. You may use, redistribute and/or modify it under the terms of the <a href="http://www.gnu.org/licenses/" rel="nofollow">GNU GPL</a></p>
-    
+
+<a name="Supported_Platforms"></a>
 <h2>Supported Platforms</h2>
 GNU/Linux, FreeBSD
     
+<a name="Dependencies"></a>
 <h2>Dependencies</h2>
 Requires:
 <ul>
@@ -97,20 +117,22 @@ Suggests:
 </li>
 </ul>
     
-    
-      <h2>Installation</h2>
-      <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;sudo perl Makefile.pl --install --prefix=PREFIX [/usr, /usr/local]&nbsp;</code>
-      <p>This command will install a  <code>pkgdiff</code>  program to the <code>PREFIX/bin</code> system directory and private modules into the <code>PREFIX/share</code>.</p>
+<a name="Installation"></a>
+<h2>Installation</h2>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;sudo perl Makefile.pl --install --prefix=PREFIX [/usr, /usr/local]&nbsp;</code>
+<p>This command will install a  <code>pkgdiff</code>  program to the <code>PREFIX/bin</code> system directory and private modules into the <code>PREFIX/share</code>.</p>
 
-      <h2>Usage</h2>
-      <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff -old OLD.rpm -new NEW.rpm&nbsp;</code>
+<a name="Usage"></a>
+<h2>Usage</h2>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff -old OLD.rpm -new NEW.rpm&nbsp;</code>
 <p>The HTML report will be generated to:</p>
 
 <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff_reports/&lt;pkg&gt;/&lt;v1&gt;_to_&lt;v2&gt;/compat_report.html&nbsp;</code>
 
-      <h2>Adv. Usage</h2>
-      <p>For advanced usage, see output of --help option:</p>
-      <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff --help&nbsp;</code>
+<a name="Adv_Usage"></a>
+<h2>Adv. Usage</h2>
+<p>For advanced usage, see output of --help option:</p>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff --help&nbsp;</code>
 <p>If you need to analyze a group of packages then you can create an XML-descriptor of this group (OLD.xml file):</p>
 
 <div style='padding-left:20px;'>
@@ -136,17 +158,20 @@ Suggests:
 
 <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff_reports/&lt;group&gt;/&lt;v1&gt;_to_&lt;v2&gt;/compat_report.html&nbsp;</code>
 
-      <h2>Examples</h2>
-      <p>Compare 0.4.1 and 0.8.1 versions of libqb SRPM-packages:</p>
-      <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff -old libqb-0.4.1-2.fc15.src.rpm -new libqb-0.8.1-2.fc16.src.rpm&nbsp;</code>
-      <p>The HTML report will be generated to:</p>
-      <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff_reports/libqb/0.4.1_to_0.8.1/<a style='color:Blue;' href="pkgdiff_reports/libqb/0.4.1_to_0.8.1/compat_report.html">compat_report.html</a>&nbsp;</code>
-      
-      <h2>Bugs</h2>
-      <p>Please post your bug reports, feature requests and questions to the <a href="https://github.com/pkgdiff/pkgdiff/issues" rel="nofollow">issue tracker</a>.</p>
-    
-      <h2>Maintainers</h2>
-      The tool is developed by the <a href="http://www.rosalinux.org/">ROSA Laboratory</a>.
+<a name="Examples"></a>
+<h2>Examples</h2>
+<p>Compare 0.4.1 and 0.8.1 versions of libqb SRPM-packages:</p>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff -old libqb-0.4.1-2.fc15.src.rpm -new libqb-0.8.1-2.fc16.src.rpm&nbsp;</code>
+<p>The HTML report will be generated to:</p>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff_reports/libqb/0.4.1_to_0.8.1/<a style='color:Blue;' href="pkgdiff_reports/libqb/0.4.1_to_0.8.1/compat_report.html">compat_report.html</a>&nbsp;</code>
+
+<a name="Bugs"></a>
+<h2>Bugs</h2>
+<p>Please post your bug reports, feature requests and questions to the <a href="https://github.com/pkgdiff/pkgdiff/issues" rel="nofollow">issue tracker</a>.</p>
+
+<a name="Maintainers"></a>
+<h2>Maintainers</h2>
+The tool is developed by the <a href="http://www.rosalinux.org/">ROSA Laboratory</a>.
 
 <p><a href="http://andrey-ponomarenko.myopenid.com/" rel="nofollow">Andrey Ponomarenko</a> is the leader of this project.</p>
 
