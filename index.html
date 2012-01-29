@@ -71,19 +71,22 @@ GNU/Linux, FreeBSD
 Requires:
 <ul>
 <li>
-  <a href="http://www.perl.org/" target="_blank" rel="nofollow">Perl 5</a> (5.8-5.14)
+  <a href="http://www.perl.org/" rel="nofollow">Perl 5</a> (5.8-5.14)
 </li>
 <li>
-  <a href="http://www.gnu.org/software/wdiff/" target="_blank" rel="nofollow">GNU Wdiff</a>
+  <a href="http://www.gnu.org/software/wdiff/" rel="nofollow">GNU Wdiff</a>
 </li>
 <li>
-  <a href="http://www.gnu.org/software/binutils/" target="_blank" rel="nofollow">GNU Binutils</a> (readelf)
+  <a href="http://www.gnu.org/software/gawk/" rel="nofollow">GNU awk</a>
 </li>
 <li>
-  <a href="http://rpm.org/" target="_blank" rel="nofollow">RPM</a> (rpm2cpio, rpm) for analysis of RPM packages
+  <a href="http://www.gnu.org/software/binutils/" rel="nofollow">GNU Binutils</a> (readelf)
 </li>
 <li>
-  <a href="http://packages.debian.org/squeeze/dpkg" target="_blank" rel="nofollow">DPKG</a> (dpkg-deb, dpkg) for analysis of DEB packages
+  <a href="http://rpm.org/" rel="nofollow">RPM</a> (rpm2cpio, rpm) for analysis of RPM packages
+</li>
+<li>
+  <a href="http://packages.debian.org/squeeze/dpkg" rel="nofollow">DPKG</a> (dpkg-deb, dpkg) for analysis of DEB packages
 </li>
 </ul>
 
@@ -106,7 +109,7 @@ Suggests:
 <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff_reports/&lt;pkg&gt;/&lt;v1&gt;_to_&lt;v2&gt;/compat_report.html&nbsp;</code>
 
       <h2>Adv. Usage</h2>
-      <p>For advanced usage, see output of --help option</p>
+      <p>For advanced usage, see output of --help option:</p>
       <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff --help&nbsp;</code>
 <p>If you need to analyze a group of packages then you can create an XML-descriptor of this group (OLD.xml file):</p>
 
@@ -136,7 +139,7 @@ Suggests:
       <h2>Examples</h2>
       <p>Compare 0.4.1 and 0.8.1 versions of libqb SRPM-packages:</p>
       <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff -old pkgs/libqb-0.4.1-2.fc15.src.rpm -new pkgs/libqb-0.8.1-2.fc16.src.rpm&nbsp;</code>
-      The HTML report will be generated to:
+      <p>The HTML report will be generated to:</p>
       <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff_reports/libqb/0.4.1_to_0.8.1/<a href="pkgdiff_reports/libqb/0.4.1_to_0.8.1/compat_report.html">compat_report.html</a>&nbsp;</code>
       
       <h2>Bugs</h2>
