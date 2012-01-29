@@ -1,0 +1,73 @@
+
+Copyright (C) 2011-2012 ROSA Laboratory.
+All rights reserved.
+
+
+RELEASE INFORMATION
+
+Project:           Package Changes Analyzer (pkgdiff)
+Version:           1.0
+Date:              2012-01-29
+
+
+This INSTALL.txt file explains how to install and setup environment
+for this tool in your computer.
+
+
+Content:
+
+   1. Requirements for Linux and FreeBSD
+   2. Configuring and Installing for Linux and FreeBSD
+   3. Running the Tool
+
+
+1. REQUIREMENTS FOR LINUX AND FREEBSD
+=====================================
+
+   1. Perl 5 (5.8-5.14)
+   2. GNU Binutils (readelf)
+   3. GNU Wdiff
+   4. GNU Awk
+   
+
+1.1 Analysis of RPM packages
+
+   RPM (rpm, rpm2cpio)
+
+1.2 Analysis of DEB packages
+
+   DPKG (dpkg, dpkg-deb)
+
+1.3 Suggestions
+
+   ABI Compliance Checker (>=1.96)
+
+
+
+2. CONFIGURING AND INSTALLING FOR LINUX AND FREEBSD
+===================================================
+
+   This command will install an pkgdiff program in the
+   PREFIX/bin system directory and private modules into the PREFIX/share:
+
+     sudo perl Makefile.pl -install --prefix=PREFIX [/usr, /usr/local, ...]
+
+2.1 Update
+
+     sudo perl Makefile.pl -update --prefix=PREFIX
+
+2.2 Remove
+
+     sudo perl Makefile.pl -remove --prefix=PREFIX
+
+
+
+3. RUNNING THE TOOL
+===================
+
+   1. pkgdiff -old OLD.rpm -new NEW.rpm
+   2. For advanced usage, see output of --help option
+
+
+
+Enjoy!

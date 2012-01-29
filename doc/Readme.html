@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="keywords" content="pkgdiff, rpm, deb, diff, changes" />
+  <meta name="description" content="A tool for analyzing changes in Linux software packages" />
+  <title>pkgdiff - Package Changes Analyzer</title>
+
+  <style type="text/css">
+    body {
+      margin-top: 1.0em;
+      background-color: #deeef7;
+      font-family: Helvetica, Arial, FreeSans, san-serif;
+      color: #000000;
+    }
+    #container {
+      margin: 0 auto;
+      width: 700px;
+    }
+    h1 { font-size: 3.8em; color: #211108; margin-bottom: 3px; }
+    h1 .small { font-size: 0.4em; }
+    h1 a { text-decoration: none }
+    h2 { font-size: 1.5em; color: #211108; }
+    h3 { text-align: center; color: #211108; }
+    a { color: #211108; }
+    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    .download { float: right; }
+    pre { background: #000; color: #fff; padding: 15px;}
+    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+    .footer { text-align:center; padding-top:30px; font-style: italic; }
+  </style>
+</head>
+
+<body>
+  <a href="https://github.com/pkgdiff/pkgdiff"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+
+  <div id="container">
+
+    <div class="download">
+      <a href="https://github.com/pkgdiff/pkgdiff/zipball/master">
+        <img style="border: 0;" width="90" src="https://github.com/images/modules/download/zip.png" alt="" /></a>
+      <a href="https://github.com/pkgdiff/pkgdiff/tarball/master">
+        <img style="border: 0;" width="90" src="https://github.com/images/modules/download/tar.png" alt="" /></a>
+    </div>
+
+    <h1><a href="https://github.com/pkgdiff/pkgdiff">pkgdiff</a></h1>
+
+    <div class="description">
+      A tool for analyzing changes in Linux software packages
+    </div>
+
+    
+      <p>Package Changes Analyzer (pkgdiff) is a tool for analyzing changes in Linux software packages (RPM, DEB, TAR.GZ, etc).
+
+The tool is intended for Linux maintainers who are interested in ensuring compatibility of old and new versions of packages.</p>
+
+<table style='border:1px solid grey;'><tr><td>
+<div>Table of Contents</div>
+<ul>
+<li><a href="#Downloads" rel="nofollow">Downloads</a></li>
+<li><a href="#License" rel="nofollow">License</a></li>
+<li><a href="#Supported_Platforms" rel="nofollow">Supported Platforms</a></li>
+<li><a href="#Dependencies" rel="nofollow">Dependencies</a></li>
+<li><a href="#Installation" rel="nofollow">Installation</a></li>
+<li><a href="#Usage" rel="nofollow">Usage</a></li>
+<li><a href="#Adv_Usage" rel="nofollow">Adv. Usage</a></li>
+<li><a href="#Examples" rel="nofollow">Examples</a></li>
+<li><a href="#Bugs" rel="nofollow">Bugs</a></li>
+<li><a href="#Maintainers" rel="nofollow">Maintainers</a></li>
+</ul>
+</td></tr></table>
+
+<a name="Downloads"></a>
+<h2>Downloads</h2>
+The latest release can be downloaded from <a href="https://github.com/pkgdiff/pkgdiff/downloads" rel="nofollow">this page</a>.
+
+<p>Read-only access to the latest development version:</p>
+
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;git clone git://github.com/pkgdiff/pkgdiff&nbsp;</code>
+
+<a name="License"></a>
+<h2>License</h2>
+<p>This program is free software. You may use, redistribute and/or modify it under the terms of the <a href="http://www.gnu.org/licenses/" rel="nofollow">GNU GPL</a></p>
+
+<a name="Supported_Platforms"></a>
+<h2>Supported Platforms</h2>
+GNU/Linux, FreeBSD
+    
+<a name="Dependencies"></a>
+<h2>Dependencies</h2>
+Requires:
+<ul>
+<li>
+  <a href="http://www.perl.org/" rel="nofollow">Perl 5</a> (5.8-5.14)
+</li>
+<li>
+  <a href="http://www.gnu.org/software/wdiff/" rel="nofollow">GNU Wdiff</a>
+</li>
+<li>
+  <a href="http://www.gnu.org/software/gawk/" rel="nofollow">GNU awk</a>
+</li>
+<li>
+  <a href="http://www.gnu.org/software/binutils/" rel="nofollow">GNU Binutils</a> (readelf)
+</li>
+<li>
+  <a href="http://rpm.org/" rel="nofollow">RPM</a> (rpm2cpio, rpm) for analysis of RPM packages
+</li>
+<li>
+  <a href="http://packages.debian.org/squeeze/dpkg" rel="nofollow">DPKG</a> (dpkg-deb, dpkg) for analysis of DEB packages
+</li>
+</ul>
+
+Suggests:
+<ul>
+<li>
+  <a href="http://forge.ispras.ru/projects/abi-compliance-checker">ABI Compliance Checker</a> (&gt;=1.96)
+</li>
+</ul>
+    
+<a name="Installation"></a>
+<h2>Installation</h2>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;sudo perl Makefile.pl --install --prefix=PREFIX [/usr, /usr/local]&nbsp;</code>
+<p>This command will install a  <code>pkgdiff</code>  program to the <code>PREFIX/bin</code> system directory and private modules into the <code>PREFIX/share</code>.</p>
+
+<a name="Usage"></a>
+<h2>Usage</h2>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff -old OLD.rpm -new NEW.rpm&nbsp;</code>
+<p>The HTML report will be generated to:</p>
+
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff_reports/&lt;pkg&gt;/&lt;v1&gt;_to_&lt;v2&gt;/compat_report.html&nbsp;</code>
+
+<a name="Adv_Usage"></a>
+<h2>Adv. Usage</h2>
+<p>For advanced usage, see output of --help option:</p>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff --help&nbsp;</code>
+<p>If you need to analyze a group of packages then you can create an XML-descriptor of this group (OLD.xml file):</p>
+
+<div style='padding-left:20px;'>
+  &lt;version&gt;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;2.24.1<br/>
+  &lt;/version&gt;<br/><br/>
+
+  &lt;group&gt;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;libglib<br/>
+  &lt;/group&gt;<br/><br/>
+
+  &lt;packages&gt;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;libglib2.0-devel-2.24.1-1mdv2010.1.i586.rpm<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;libglib2.0_0-2.24.1-1mdv2010.1.i586.rpm<br/>
+  &lt;/packages&gt;<br/>
+</div>
+
+<p>And then pass XML-descriptors of old and new versions of a group to the tool:</p>
+
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff -old OLD.xml -new NEW.xml&nbsp;</code>
+
+<p>The HTML report will be generated to:</p>
+
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff_reports/&lt;group&gt;/&lt;v1&gt;_to_&lt;v2&gt;/compat_report.html&nbsp;</code>
+
+<a name="Examples"></a>
+<h2>Examples</h2>
+<p>Compare 0.4.1 and 0.8.1 versions of libqb SRPM-packages:</p>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff -old libqb-0.4.1-2.fc15.src.rpm -new libqb-0.8.1-2.fc16.src.rpm&nbsp;</code>
+<p>The HTML report will be generated to:</p>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff_reports/libqb/0.4.1_to_0.8.1/<a style='color:Blue;' href="http://pkgdiff.github.com/pkgdiff/pkgdiff_reports/libqb/0.4.1_to_0.8.1/compat_report.html">compat_report.html</a>&nbsp;</code>
+
+<br/><br/>
+<p>Compare 0.10.23 and 0.10.32 versions of gstreamer TXZ-packages:</p>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff -old gstreamer-0.10.23-i486-1.txz -new gstreamer-0.10.32-i486-1.txz&nbsp;</code>
+<p>The HTML report will be generated to:</p>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff_reports/gstreamer/0.10.23-i486-1_to_0.10.32-i486-1/<a style='color:Blue;' href="http://pkgdiff.github.com/pkgdiff/pkgdiff_reports/gstreamer/0.10.23-i486-1_to_0.10.32-i486-1/compat_report.html">compat_report.html</a>&nbsp;</code>
+
+<br/><br/>
+<p>Compare 2.3.12 and 2.4.5 versions of libfreetype6 group of RPM-packages:</p>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff -old 2.3.12.xml -new 2.4.5.xml&nbsp;</code>
+
+<p>File 2.3.12.xml:</p>
+<div style='padding-left:20px;'>
+  &lt;version&gt;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;2.3.12<br/>
+  &lt;/version&gt;<br/><br/>
+
+  &lt;group&gt;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;libfreetype6<br/>
+  &lt;/group&gt;<br/><br/>
+
+  &lt;packages&gt;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;libfreetype6-2.3.12-1mdv2010.1.i586.rpm<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm<br/>
+  &lt;/packages&gt;<br/>
+</div>
+
+<p>File 2.4.5.xml:</p>
+<div style='padding-left:20px;'>
+  &lt;version&gt;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;2.4.5<br/>
+  &lt;/version&gt;<br/><br/>
+
+  &lt;group&gt;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;libfreetype6<br/>
+  &lt;/group&gt;<br/><br/>
+
+  &lt;packages&gt;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;libfreetype6-2.4.5-2-mdv2011.0.i586.rpm<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;libfreetype6-devel-2.4.5-2-mdv2011.0.i586.rpm<br/>
+  &lt;/packages&gt;<br/>
+</div>
+
+<p>The HTML report will be generated to:</p>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;pkgdiff_reports/libfreetype6/2.3.12_to_2.4.5/<a style='color:Blue;' href="http://pkgdiff.github.com/pkgdiff/pkgdiff_reports/libfreetype6/2.3.12_to_2.4.5/compat_report.html">compat_report.html</a>&nbsp;</code>
+
+<a name="Bugs"></a>
+<h2>Bugs</h2>
+<p>Please post your bug reports, feature requests and questions to the <a href="https://github.com/pkgdiff/pkgdiff/issues" rel="nofollow">issue tracker</a>.</p>
+
+<a name="Maintainers"></a>
+<h2>Maintainers</h2>
+The tool is developed by the <a href="http://www.rosalinux.org/">ROSA Laboratory</a>.
+
+<p><a href="http://andrey-ponomarenko.myopenid.com/" rel="nofollow">Andrey Ponomarenko</a> is the leader of this project.</p>
+
+    <div class="footer">
+      get the source code on GitHub : <a href="https://github.com/pkgdiff/pkgdiff">pkgdiff/pkgdiff</a>
+    </div>
+
+  </div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-19501755-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>"
+</body>
+</html>

@@ -1,0 +1,79 @@
+body {
+    font-family:Arial;
+    color:Black;
+    font-size:14px;
+}
+hr {
+    color:Black;
+    background-color:Black;
+    height:1px;
+    border:0;
+}
+h1 {
+    margin-bottom:0px;
+    padding-bottom:0px;
+    font-size:26px;
+}
+h2 {
+    margin-bottom:0px;
+    padding-bottom:0px;
+    font-size:20px;
+    white-space:nowrap;
+}
+table.summary {
+    border-collapse:collapse;
+    border:1px outset black;
+}
+table.summary th {
+    background-color:#eeeeee;
+    font-weight:bold;
+    text-align:left;
+    font-size:15px;
+    white-space:nowrap;
+    border:1px inset gray;
+}
+table.summary td {
+    padding-left:5px;
+    padding-right:5px;
+    text-align:right;
+    font-size:16px;
+    white-space:nowrap;
+    border:1px inset gray;
+}
+table.summary td.left {
+    text-align:left;
+}
+table.summary th.left {
+    text-align:left;
+    font-weight:100;
+}
+table.summary td.f_path {
+    font-size:14px;
+    font-family:Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
+}
+td.passed, tr.passed {
+    background-color:#CCFFCC;
+}
+td.warning, tr.warning {
+    background-color:#F4F4AF;
+}
+td.renamed, tr.renamed {
+    background-color:#FFDAA3;
+}
+td.moved, tr.moved {
+    background-color:#FFDAA3;
+}
+td.failed, tr.failed {
+    background-color:#FFC3CE;
+}
+td.new, tr.new {
+    background-color:#C6DEFF;
+}
+a.default {
+    color:#336699;
+}
+div.p_list {
+    padding-left:10px;
+    color:#333333;
+    font-size:15px;
+}
