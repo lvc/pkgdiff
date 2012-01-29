@@ -1,0 +1,64 @@
+Using GCC 4.5 (i586-suse-linux)
+checking header(s) 2.3.12 ...
+Temporary header file '/tmp/RnweG0ntro/dump1.h' with the following content will be compiled to create GCC translation unit dump:
+
+  // add includes
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftwinfnt.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/t1tables.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/fttypes.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftoutln.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftlcdfil.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/ft2build.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftstroke.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftgzip.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftsystem.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftgxval.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftmoderr.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftmm.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftchapters.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/tttags.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftotval.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftpfr.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/config/ftconfig.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftlist.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftbdf.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftlzw.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftbbox.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/fttrigon.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/config/ftstdlib.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/config/ftmodule.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/config/ftheader.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftgasp.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/freetype.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/config/ftoption.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftglyph.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftsynth.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftcache.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/tttables.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ttnameid.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftxf86.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftimage.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftmac.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftmodapi.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/fterrors.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftrender.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftsizes.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftadvanc.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftbitmap.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftincrem.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ttunpat.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/fterrdef.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/multiarch-i386-linux/freetype2/freetype/config/ftconfig.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftsnames.h"
+  #include "/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftcid.h"
+
+The GCC parameters:
+  gcc -fdump-translation-unit -fkeep-inline-functions -c -x c++-header -fpermissive -w "/tmp/RnweG0ntro/dump1.h"  -I/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include -I/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2
+
+In file included from /tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/freetype.h:34:0,
+                 from /tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/ftwinfnt.h:23,
+                 from /tmp/RnweG0ntro/dump1.h:3:
+/tmp/dKud9Kggcm/content1/libfreetype6-devel-2.3.12-1mdv2010.1.i586.rpm/usr/include/freetype2/freetype/config/ftconfig.h:2:32: fatal error: multiarch-dispatch.h: No such file or directory
+compilation terminated.
+
+ERROR: can't compile header(s)
