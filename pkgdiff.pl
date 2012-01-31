@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# pkgdiff - Package Changes Analyzer 1.0
+# pkgdiff - Package Changes Analyzer 1.0.1
 # A tool for analyzing changes in Linux software packages
 #
 # Copyright (C) 2011-2012 ROSA Laboratory.
@@ -46,7 +46,7 @@ use File::Path qw(mkpath rmtree);
 use File::Temp qw(tempdir);
 use Cwd qw(abs_path cwd);
 
-my $TOOL_VERSION = "1.0";
+my $TOOL_VERSION = "1.0.1";
 my $ORIG_DIR = cwd();
 my $TMP_DIR = tempdir(CLEANUP=>1);
 
@@ -1381,13 +1381,23 @@ sub cut_path_prefix($$)
     return $Path;
 }
 
+sub get_abs_path($)
+{ # abs_path() should NOT be called for absolute inputs
+  # because it can change them (symlinks)
+    my $Path = $_[0];
+    if($Path!~/\A\//) {
+        $Path = abs_path($Path);
+    }
+    return $Path;
+}
+
 sub cmd_find($$$$)
 { # native "find" is much faster than File::Find (~6x)
   # also the File::Find doesn't support --maxdepth N option
   # so using the cross-platform wrapper for the native one
     my ($Path, $Type, $Name, $MaxDepth) = @_;
     return () if(not $Path or not -e $Path);
-    $Path = abs_path($Path);
+    $Path = get_abs_path($Path);
     if(-d $Path and -l $Path
     and $Path!~/\/\Z/)
     { # for directories that are symlinks
