@@ -2070,12 +2070,12 @@ sub get_Summary()
     my $Verdict = "";
     if($TotalChanged)
     {
-        $Verdict = "<span style='color:Red;'><b>Incompatible</b></span>";
+        $Verdict = "<span style='color:Red;'><b>Changed</b></span>";
         $RESULT{"compat"} = "Incompatible";
     }
     else
     {
-        $Verdict = "<span style='color:Green;'><b>Compatible</b></span>";
+        $Verdict = "<span style='color:Green;'><b>Unchanged</b></span>";
         $RESULT{"compat"} = "Compatible";
     }
     $TestResults .= "<tr><th class='left'>Verdict</th><td>$Verdict</td></tr>\n";
