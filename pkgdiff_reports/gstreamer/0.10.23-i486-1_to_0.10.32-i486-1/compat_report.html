@@ -92,18 +92,21 @@ div.p_list {
 <body>
 <div><a name='Top'></a>
 <h1>Changes report for the <span style='color:Blue;'>gstreamer</span> package between <span style='color:Red;'>0.10.23-i486-1</span> and <span style='color:Red;'>0.10.32-i486-1</span> versions</h1>
+<br/><table class='summary'>
+    <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
+    <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>
 <h2>Test Info</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th class='left'>Package Name</th><td>gstreamer</td></tr>
-<tr><th class='left'>Package Format</th><td>ARCHIVE</td></tr>
+<tr><th class='left'>Package Format</th><td>TXZ</td></tr>
 <tr><th class='left'>Version #1</th><td>0.10.23-i486-1</td></tr>
 <tr><th class='left'>Version #2</th><td>0.10.32-i486-1</td></tr>
 </table>
 <h2>Test Results</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>2</a></td></tr>
-<tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>435</a></td></tr>
-<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed</b></span></td></tr>
+<tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>434</a></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(72.81%)</b></span></td></tr>
 </table>
 <a name='Deps'></a>
 <a name='Files'></a><h2>Changes In Files</h2><hr/>
@@ -142,14 +145,14 @@ div.p_list {
 <td><a href='#ManPages' style='color:Blue;'>6</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#ManPages' style='color:Blue;'>6</a></td>
+<td><a href='#ManPages' style='color:Blue;'>3</a></td>
 </tr>
 <tr>
-<td class='left'>Pkg-config metadata</td>
-<td><a href='#PkgConfigs' style='color:Blue;'>6</a></td>
-<td><a href='#PkgConfigs' style='color:Blue;'>1</a></td>
+<td class='left'>Pkg-config file</td>
+<td><a href='#PkgConfigFiles' style='color:Blue;'>6</a></td>
+<td><a href='#PkgConfigFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
-<td><a href='#PkgConfigs' style='color:Blue;'>5</a></td>
+<td><a href='#PkgConfigFiles' style='color:Blue;'>5</a></td>
 </tr>
 <tr>
 <td class='left'>SGML document</td>
@@ -159,11 +162,18 @@ div.p_list {
 <td><a href='#SGMLDocuments' style='color:Blue;'>3</a></td>
 </tr>
 <tr>
-<td class='left'>XML file</td>
-<td><a href='#XMLFiles' style='color:Blue;'>6</a></td>
+<td class='left'>XML document</td>
+<td><a href='#XMLDocuments' style='color:Blue;'>6</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#XMLFiles' style='color:Blue;'>6</a></td>
+<td><a href='#XMLDocuments' style='color:Blue;'>6</a></td>
+</tr>
+<tr>
+<td class='left'>Gettext file</td>
+<td><a href='#GettextFiles' style='color:Blue;'>37</a></td>
+<td><a href='#GettextFiles' style='color:Blue;'>6</a></td>
+<td>0</td>
+<td><a href='#GettextFiles' style='color:Blue;'>31</a></td>
 </tr>
 <tr>
 <td class='left'>Shell program</td>
@@ -194,17 +204,31 @@ div.p_list {
 <td><a href='#M4' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
-<td class='left'>Images</td>
-<td><a href='#Images' style='color:Blue;'>13</a></td>
+<td class='left'>Image file</td>
+<td><a href='#ImageFiles' style='color:Blue;'>13</a></td>
 <td>0</td>
 <td>0</td>
 <td>0</td>
 </tr>
 <tr>
+<td class='left'>Change log</td>
+<td><a href='#ChangeLogs' style='color:Blue;'>3</a></td>
+<td><a href='#ChangeLogs' style='color:Blue;'>2</a></td>
+<td><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
+<td>0</td>
+</tr>
+<tr>
 <td class='left'>Directory</td>
-<td><a href='#Directories' style='color:Blue;'>107</a></td>
+<td><a href='#Directories' style='color:Blue;'>106</a></td>
 <td><a href='#Directories' style='color:Blue;'>16</a></td>
 <td><a href='#Directories' style='color:Blue;'>4</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Info file</td>
+<td><a href='#InfoFiles' style='color:Blue;'>6</a></td>
+<td><a href='#InfoFiles' style='color:Blue;'>3</a></td>
+<td><a href='#InfoFiles' style='color:Blue;'>3</a></td>
 <td>0</td>
 </tr>
 <tr>
@@ -215,18 +239,18 @@ div.p_list {
 <td>0</td>
 </tr>
 <tr>
-<td class='left'>Text file</td>
-<td><a href='#TextFiles' style='color:Blue;'>16</a></td>
-<td><a href='#TextFiles' style='color:Blue;'>8</a></td>
-<td><a href='#TextFiles' style='color:Blue;'>7</a></td>
+<td class='left'>Readme file</td>
+<td><a href='#ReadmeFiles' style='color:Blue;'>2</a></td>
+<td><a href='#ReadmeFiles' style='color:Blue;'>1</a></td>
+<td><a href='#ReadmeFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
 </tr>
 <tr>
-<td class='left'>Other</td>
-<td><a href='#OtherFiles' style='color:Blue;'>39</a></td>
-<td><a href='#OtherFiles' style='color:Blue;'>7</a></td>
-<td><a href='#OtherFiles' style='color:Blue;'>1</a></td>
-<td><a href='#OtherFiles' style='color:Blue;'>31</a></td>
+<td class='left'>Text file</td>
+<td><a href='#TextFiles' style='color:Blue;'>7</a></td>
+<td><a href='#TextFiles' style='color:Blue;'>3</a></td>
+<td><a href='#TextFiles' style='color:Blue;'>3</a></td>
+<td>0</td>
 </tr>
 </table>
 <a name='HeaderFiles'></a>
@@ -791,67 +815,67 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/bin/gst-feedback</td>
 <td class='warning'>changed</td>
-<td></td>
+<td><a href='diffs/usr/bin/gst-feedback-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-inspect</td>
 <td class='warning'>changed</td>
-<td></td>
+<td><a href='diffs/usr/bin/gst-inspect-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-inspect-0.10</td>
 <td class='warning'>changed</td>
-<td></td>
+<td><a href='diffs/usr/bin/gst-inspect-0.10-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-launch</td>
 <td class='warning'>changed</td>
-<td></td>
+<td><a href='diffs/usr/bin/gst-launch-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-launch-0.10</td>
 <td class='warning'>changed</td>
-<td></td>
+<td><a href='diffs/usr/bin/gst-launch-0.10-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-typefind</td>
 <td class='warning'>changed</td>
-<td></td>
+<td><a href='diffs/usr/bin/gst-typefind-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-typefind-0.10</td>
 <td class='warning'>changed</td>
-<td></td>
+<td><a href='diffs/usr/bin/gst-typefind-0.10-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-xmlinspect</td>
 <td class='warning'>changed</td>
-<td></td>
+<td><a href='diffs/usr/bin/gst-xmlinspect-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-xmlinspect-0.10</td>
 <td class='warning'>changed</td>
-<td></td>
+<td><a href='diffs/usr/bin/gst-xmlinspect-0.10-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-xmllaunch</td>
 <td class='warning'>changed</td>
-<td></td>
+<td><a href='diffs/usr/bin/gst-xmllaunch-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-xmllaunch-0.10</td>
 <td class='warning'>changed</td>
-<td></td>
+<td><a href='diffs/usr/bin/gst-xmllaunch-0.10-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
@@ -920,8 +944,8 @@ div.p_list {
 <tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/man/man1/gst-feedback-0.10.1.gz</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/usr/man/man1/gst-feedback-0.10.1.gz-diff.html' style='color:Blue;'>diff</a></td>
+<td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -938,14 +962,14 @@ div.p_list {
 </tr>
 <tr>
 <td class='left f_path'>usr/man/man1/gst-typefind-0.10.1.gz</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/usr/man/man1/gst-typefind-0.10.1.gz-diff.html' style='color:Blue;'>diff</a></td>
+<td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/man/man1/gst-xmlinspect-0.10.1.gz</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/usr/man/man1/gst-xmlinspect-0.10.1.gz-diff.html' style='color:Blue;'>diff</a></td>
+<td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -955,8 +979,8 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='PkgConfigs'></a>
-<h2>Pkg-config Metadata Files (6)</h2><hr/>
+<a name='PkgConfigFiles'></a>
+<h2>Pkg-config Files (6)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
@@ -1019,8 +1043,8 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='XMLFiles'></a>
-<h2>XML Files (6)</h2><hr/>
+<a name='XMLDocuments'></a>
+<h2>XML Documents (6)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
@@ -1057,6 +1081,233 @@ div.p_list {
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/gstreamer-plugins-0.10.devhelp2</td>
 <td class='warning'>changed</td>
 <td><a href='diffs/usr/share/gtk-doc/html/gstreamer-plugins-0.10/gstreamer-plugins-0.10.devhelp2-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='GettextFiles'></a>
+<h2>Gettext Files (37)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>usr/share/locale/af/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/az/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/be/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/bg/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/ca/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/cs/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/da/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/de/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>usr/share/locale/el/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/en_GB/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/es/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>usr/share/locale/eu/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/fi/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/fr/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>usr/share/locale/gl/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/hu/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/id/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/it/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/ja/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>usr/share/locale/lt/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/nb/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/nl/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/pl/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/pt_BR/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>usr/share/locale/ro/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/ru/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/rw/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/sk/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>usr/share/locale/sl/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/sq/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/sr/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/sv/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/tr/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/uk/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/vi/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/zh_CN/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/locale/zh_TW/LC_MESSAGES/gstreamer-0.10.mo</td>
+<td class='warning'>changed</td>
+<td></td>
 <td></td>
 </tr>
 </table>
@@ -1812,8 +2063,8 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='Images'></a>
-<h2>Images (13)</h2><hr/>
+<a name='ImageFiles'></a>
+<h2>Image Files (13)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
@@ -1895,16 +2146,28 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='Directories'></a>
-<h2>Directories (107)</h2><hr/>
+<a name='ChangeLogs'></a>
+<h2>Change Logs (3)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
-<td class='left f_path'></td>
-<td class='passed'>unchanged</td>
+<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/NEWS</td>
+<td class='moved' rowspan='2'>moved</td>
+<td rowspan='2'><a href='diffs/usr/doc/gstreamer-0.10.23/NEWS-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/NEWS</td></tr>
+<tr>
+<td class='left f_path new'>usr/doc/gstreamer-0.10.32/ChangeLog</td>
+<td class='new'>added</td>
 <td></td>
 <td></td>
 </tr>
+</table>
+<a name='Directories'></a>
+<h2>Directories (106)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>install</td>
 <td class='passed'>unchanged</td>
@@ -2537,6 +2800,32 @@ div.p_list {
 <td></td>
 </tr>
 </table>
+<a name='InfoFiles'></a>
+<h2>Info Files (6)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/AUTHORS</td>
+<td class='moved' rowspan='2'>moved</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/AUTHORS</td></tr>
+<tr>
+<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/INSTALL</td>
+<td class='moved' rowspan='2'>moved</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/INSTALL</td></tr>
+<tr>
+<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/TODO</td>
+<td class='moved' rowspan='2'>moved</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/TODO</td></tr>
+</table>
 <a name='Licenses'></a>
 <h2>Licenses (2)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
@@ -2549,8 +2838,20 @@ div.p_list {
 </tr>
 <tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/COPYING</td></tr>
 </table>
+<a name='ReadmeFiles'></a>
+<h2>Readme Files (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/README</td>
+<td class='moved' rowspan='2'>moved</td>
+<td rowspan='2'><a href='diffs/usr/doc/gstreamer-0.10.23/README-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/README</td></tr>
+</table>
 <a name='TextFiles'></a>
-<h2>Text Files (16)</h2><hr/>
+<h2>Text Files (7)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
@@ -2567,20 +2868,6 @@ div.p_list {
 </tr>
 <tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/ABOUT-NLS</td></tr>
 <tr>
-<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/AUTHORS</td>
-<td class='moved' rowspan='2'>moved</td>
-<td rowspan='2'></td>
-<td rowspan='2'></td>
-</tr>
-<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/AUTHORS</td></tr>
-<tr>
-<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/INSTALL</td>
-<td class='moved' rowspan='2'>moved</td>
-<td rowspan='2'></td>
-<td rowspan='2'></td>
-</tr>
-<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/INSTALL</td></tr>
-<tr>
 <td class='left f_path failed'>usr/doc/gstreamer-0.10.23/MAINTAINERS</td>
 <td class='moved' rowspan='2'>moved</td>
 <td rowspan='2'><a href='diffs/usr/doc/gstreamer-0.10.23/MAINTAINERS-diff.html' style='color:Blue;'>diff</a></td>
@@ -2588,266 +2875,12 @@ div.p_list {
 </tr>
 <tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/MAINTAINERS</td></tr>
 <tr>
-<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/NEWS</td>
-<td class='moved' rowspan='2'>moved</td>
-<td rowspan='2'><a href='diffs/usr/doc/gstreamer-0.10.23/NEWS-diff.html' style='color:Blue;'>diff</a></td>
-<td rowspan='2'></td>
-</tr>
-<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/NEWS</td></tr>
-<tr>
-<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/README</td>
-<td class='moved' rowspan='2'>moved</td>
-<td rowspan='2'><a href='diffs/usr/doc/gstreamer-0.10.23/README-diff.html' style='color:Blue;'>diff</a></td>
-<td rowspan='2'></td>
-</tr>
-<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/README</td></tr>
-<tr>
 <td class='left f_path failed'>usr/doc/gstreamer-0.10.23/RELEASE</td>
 <td class='moved' rowspan='2'>moved</td>
 <td rowspan='2'><a href='diffs/usr/doc/gstreamer-0.10.23/RELEASE-diff.html' style='color:Blue;'>diff</a></td>
 <td rowspan='2'></td>
 </tr>
 <tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/RELEASE</td></tr>
-<tr>
-<td class='left f_path new'>usr/doc/gstreamer-0.10.32/ChangeLog</td>
-<td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
-</table>
-<a name='OtherFiles'></a>
-<h2>Other Files (39)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/TODO</td>
-<td class='moved' rowspan='2'>moved</td>
-<td rowspan='2'></td>
-<td rowspan='2'></td>
-</tr>
-<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/TODO</td></tr>
-<tr>
-<td class='left f_path'>usr/share/locale/af/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/az/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/be/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/bg/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/ca/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/cs/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/da/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/de/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path new'>usr/share/locale/el/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/en_GB/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/es/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path new'>usr/share/locale/eu/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/fi/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/fr/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path new'>usr/share/locale/gl/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/hu/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/id/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/it/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/ja/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path new'>usr/share/locale/lt/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/nb/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/nl/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/pl/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/pt_BR/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path new'>usr/share/locale/ro/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/ru/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/rw/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/sk/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path new'>usr/share/locale/sl/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/sq/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/sr/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/sv/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/tr/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/uk/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/vi/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/zh_CN/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/locale/zh_TW/LC_MESSAGES/gstreamer-0.10.mo</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
 </table>
 <a name='Packages'></a>
 <h2>Packages (2)</h2><hr/>
@@ -2858,6 +2891,6 @@ gstreamer-0.10.32-i486-1.txz<br/>
 <br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
 </div>
 <br/><br/><br/><hr/>
-<div style='width:100%;font-size:11px;' align='right'><i>Generated on Sun Jan 29 19:43:08 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> 1.0.1 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Thu Feb  9 16:21:51 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.1 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
 <div style='height:999px;'></div>
 </body></html>

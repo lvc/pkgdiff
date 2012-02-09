@@ -92,6 +92,9 @@ div.p_list {
 <body>
 <div><a name='Top'></a>
 <h1>Changes report for the <span style='color:Blue;'>libqb</span> package between <span style='color:Red;'>0.4.1</span> and <span style='color:Red;'>0.8.1</span> versions</h1>
+<br/><table class='summary'>
+    <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
+    <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>
 <h2>Test Info</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th class='left'>Package Name</th><td>libqb</td></tr>
@@ -104,8 +107,8 @@ div.p_list {
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>2</a></td></tr>
 <tr><th class='left'>Total Dependencies</th><td><a href='#Deps' style='color:Blue;'>6</a></td></tr>
-<tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>147</a></td></tr>
-<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed</b></span></td></tr>
+<tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>146</a></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(78.95%)</b></span></td></tr>
 </table>
 <a name='Info'></a>
 <h2>Changes In Package Info</h2><hr/>
@@ -183,14 +186,14 @@ div.p_list {
 <td><a href='#SpecFiles' style='color:Blue;'>2</a></td>
 </tr>
 <tr>
-<td class='left'>Patches</td>
+<td class='left'>Patch</td>
 <td><a href='#Patches' style='color:Blue;'>1</a></td>
 <td><a href='#Patches' style='color:Blue;'>1</a></td>
 <td>0</td>
 <td>0</td>
 </tr>
 <tr>
-<td class='left'>Automake files</td>
+<td class='left'>Automake file</td>
 <td><a href='#AutomakeFiles' style='color:Blue;'>15</a></td>
 <td><a href='#AutomakeFiles' style='color:Blue;'>2</a></td>
 <td>0</td>
@@ -218,11 +221,11 @@ div.p_list {
 <td><a href='#ManPages' style='color:Blue;'>9</a></td>
 </tr>
 <tr>
-<td class='left'>Pkg-config metadata</td>
-<td><a href='#PkgConfigs' style='color:Blue;'>1</a></td>
+<td class='left'>Pkg-config file</td>
+<td><a href='#PkgConfigFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#PkgConfigs' style='color:Blue;'>1</a></td>
+<td><a href='#PkgConfigFiles' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
 <td class='left'>Perl program</td>
@@ -253,10 +256,24 @@ div.p_list {
 <td>0</td>
 </tr>
 <tr>
+<td class='left'>Change log</td>
+<td><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
 <td class='left'>Directory</td>
-<td><a href='#Directories' style='color:Blue;'>10</a></td>
+<td><a href='#Directories' style='color:Blue;'>9</a></td>
 <td><a href='#Directories' style='color:Blue;'>1</a></td>
 <td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Info file</td>
+<td><a href='#InfoFiles' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td><a href='#InfoFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
 </tr>
 <tr>
@@ -267,11 +284,18 @@ div.p_list {
 <td>0</td>
 </tr>
 <tr>
+<td class='left'>Readme file</td>
+<td><a href='#ReadmeFiles' style='color:Blue;'>2</a></td>
+<td><a href='#ReadmeFiles' style='color:Blue;'>1</a></td>
+<td><a href='#ReadmeFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+</tr>
+<tr>
 <td class='left'>Text file</td>
-<td><a href='#TextFiles' style='color:Blue;'>9</a></td>
-<td><a href='#TextFiles' style='color:Blue;'>2</a></td>
-<td><a href='#TextFiles' style='color:Blue;'>2</a></td>
 <td><a href='#TextFiles' style='color:Blue;'>4</a></td>
+<td><a href='#TextFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td><a href='#TextFiles' style='color:Blue;'>3</a></td>
 </tr>
 </table>
 <a name='HeaderFiles'></a>
@@ -944,8 +968,8 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='PkgConfigs'></a>
-<h2>Pkg-config Metadata Files (1)</h2><hr/>
+<a name='PkgConfigFiles'></a>
+<h2>Pkg-config Files (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
@@ -1101,16 +1125,21 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='Directories'></a>
-<h2>Directories (10)</h2><hr/>
+<a name='ChangeLogs'></a>
+<h2>Change Logs (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
-<td class='left f_path'></td>
-<td class='passed'>unchanged</td>
-<td></td>
+<td class='left f_path'>ChangeLog</td>
+<td class='warning'>changed</td>
+<td><a href='diffs/ChangeLog-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
+</table>
+<a name='Directories'></a>
+<h2>Directories (9)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>build-aux</td>
 <td class='passed'>unchanged</td>
@@ -1166,6 +1195,23 @@ div.p_list {
 <td></td>
 </tr>
 </table>
+<a name='InfoFiles'></a>
+<h2>Info Files (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>INSTALL</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>TODO</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+</tr>
+</table>
 <a name='Licenses'></a>
 <h2>Licenses (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
@@ -1177,8 +1223,20 @@ div.p_list {
 <td></td>
 </tr>
 </table>
+<a name='ReadmeFiles'></a>
+<h2>Readme Files (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>README</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td rowspan='2'><a href='diffs/README-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>README.markdown</td></tr>
+</table>
 <a name='TextFiles'></a>
-<h2>Text Files (9)</h2><hr/>
+<h2>Text Files (4)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
@@ -1194,12 +1252,6 @@ div.p_list {
 <td></td>
 </tr>
 <tr>
-<td class='left f_path'>ChangeLog</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/ChangeLog-diff.html' style='color:Blue;'>diff</a></td>
-<td></td>
-</tr>
-<tr>
 <td class='left f_path'>include/config.h.in</td>
 <td class='warning'>changed</td>
 <td><a href='diffs/include/config.h.in-diff.html' style='color:Blue;'>diff</a></td>
@@ -1208,25 +1260,6 @@ div.p_list {
 <tr>
 <td class='left f_path new'>include/qb/qbconfig.h.in</td>
 <td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>INSTALL</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path failed'>README</td>
-<td class='renamed' rowspan='2'>renamed</td>
-<td rowspan='2'><a href='diffs/README-diff.html' style='color:Blue;'>diff</a></td>
-<td rowspan='2'></td>
-</tr>
-<tr><td class='left f_path  new'>README.markdown</td></tr>
-<tr>
-<td class='left f_path failed'>TODO</td>
-<td class='failed'>removed</td>
 <td></td>
 <td></td>
 </tr>
@@ -1240,6 +1273,6 @@ libqb-0.8.1-2.fc16.src.rpm<br/>
 <br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
 </div>
 <br/><br/><br/><hr/>
-<div style='width:100%;font-size:11px;' align='right'><i>Generated on Sun Jan 29 16:29:28 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> 1.0.1 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Thu Feb  9 16:22:30 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.1 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
 <div style='height:999px;'></div>
 </body></html>
