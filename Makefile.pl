@@ -187,7 +187,7 @@ sub scenario()
         if(-d $ARCHIVE_DIR."/modules")
         {
                 print "-- Installing $MODULES_PATH\n";
-                mkpath($MODULES_PATH);
+                mkpath($MODULES_PATH."/modules");
                 copyDir($ARCHIVE_DIR."/modules", $MODULES_PATH);
                 my $TOOLS_PATH = $MODULES_PATH."/modules/Internals/Tools";
                 my @Tools = listDir($TOOLS_PATH);
