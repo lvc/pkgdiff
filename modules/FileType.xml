@@ -1,0 +1,1149 @@
+<files>
+
+<type>
+    <id>
+        HEADER
+    </id>
+    <summary>
+        Header file
+    </summary>
+    <weight>
+        10
+    </weight>
+</type>
+
+<type>
+    <id>
+        SHLIB
+    </id>
+    <summary>
+        Shared library
+    </summary>
+    <weight>
+        9
+    </weight>
+</type>
+
+<type>
+    <id>
+        SPEC
+    </id>
+    <summary>
+        Spec file
+    </summary>
+    <weight>
+        9
+    </weight>
+</type>
+
+<type>
+    <id>
+        C_SRC
+    </id>
+    <summary>
+        C program
+    </summary>
+    <weight>
+        9
+    </weight>
+</type>
+
+<type>
+    <id>
+        PATCH
+    </id>
+    <summary>
+        Patch
+    </summary>
+    <title>
+        Patches
+    </title>
+    <weight>
+        8
+    </weight>
+</type>
+
+<type>
+    <id>
+        STLIB
+    </id>
+    <summary>
+        Static library
+    </summary>
+    <weight>
+        8
+    </weight>
+</type>
+
+<type>
+    <id>
+        CPP_SRC
+    </id>
+    <summary>
+        C++ program
+    </summary>
+    <weight>
+        8
+    </weight>
+</type>
+
+<type>
+    <id>
+        ADA
+    </id>
+    <summary>
+        Ada program
+    </summary>
+    <weight>
+        7
+    </weight>
+</type>
+
+<type>
+    <id>
+        FORTRAN
+    </id>
+    <summary>
+        Fortran program
+    </summary>
+    <weight>
+        7
+    </weight>
+</type>
+
+<type>
+    <id>
+        LIBTOOL
+    </id>
+    <summary>
+        Libtool library file
+    </summary>
+    <weight>
+        5
+    </weight>
+    <anchor>
+        LibtoolFiles
+    </anchor>
+</type>
+
+<type>
+    <id>
+        MANPAGE
+    </id>
+    <summary>
+        Man page
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        QT_UI
+    </id>
+    <summary>
+        Qt UI file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        QT_SS
+    </id>
+    <summary>
+        Qt style sheet
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        QT_MESSAGE
+    </id>
+    <summary>
+        Qt Message file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        QT_HELP
+    </id>
+    <summary>
+        Qt Help file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        OBJECTIVEC
+    </id>
+    <summary>
+        Objective-C program
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        SGML
+    </id>
+    <summary>
+        SGML document
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        QT_PROJECT
+    </id>
+    <summary>
+        Qt Project file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        FSH
+    </id>
+    <summary>
+        OpenGL FSH file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        GLSL
+    </id>
+    <summary>
+        GLSL Shader file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        XCODE
+    </id>
+    <summary>
+        Xcode file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        PLIST
+    </id>
+    <summary>
+        Mac Property list
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        QT_RESOURCE
+    </id>
+    <summary>
+        Qt Resource file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        QT_DOC
+    </id>
+    <summary>
+        Qt Doc file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        XBEL
+    </id>
+    <summary>
+        XBEL bookmark
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        IDL
+    </id>
+    <summary>
+        IDL file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        QML
+    </id>
+    <summary>
+        QML file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        XML
+    </id>
+    <summary>
+        XML document
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        WML
+    </id>
+    <summary>
+        WML document
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        MAKEFILE
+    </id>
+    <summary>
+        Makefile
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        UCM
+    </id>
+    <summary>
+        UCM file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        GYP
+    </id>
+    <summary>
+        GYP file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        PKGCONFIG
+    </id>
+    <summary>
+        Pkg-config file
+    </summary>
+    <weight>
+        5
+    </weight>
+    <anchor>
+        PkgConfigFiles
+    </anchor>
+</type>
+
+<type>
+    <id>
+        OOO
+    </id>
+    <summary>
+        OpenOffice file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        QT_TS
+    </id>
+    <summary>
+        Qt Translation file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        DOT
+    </id>
+    <summary>
+        DOT Graph file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        DESKTOP
+    </id>
+    <summary>
+        Desktop entry
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        MSVC
+    </id>
+    <summary>
+        MSVC file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        POSTSCRIPT
+    </id>
+    <summary>
+        PostScript file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        JAVASCRIPT
+    </id>
+    <summary>
+        JavaScript file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        PARAM
+    </id>
+    <summary>
+        Parameter file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        DOXYGEN
+    </id>
+    <summary>
+        Doxygen file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        QML_PROJECT
+    </id>
+    <summary>
+        QML Project file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        OBJECTIVECPP
+    </id>
+    <summary>
+        Objective-C++ program
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        CMAKE
+    </id>
+    <summary>
+        Cmake file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        EXE
+    </id>
+    <summary>
+        Executable file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        AUTOMAKE
+    </id>
+    <summary>
+        Automake file
+    </summary>
+    <weight>
+        5
+    </weight>
+</type>
+
+<type>
+    <id>
+        GPERF
+    </id>
+    <summary>
+        GNU Gperf file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        YAML
+    </id>
+    <summary>
+        YAML file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        PYTHON
+    </id>
+    <summary>
+        Python program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        PYTHON_PYC
+    </id>
+    <summary>
+        Python compiled program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        FONT
+    </id>
+    <summary>
+        Font file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        ENCODING
+    </id>
+    <summary>
+        Encoding file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        GO
+    </id>
+    <summary>
+        Go program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        IBY
+    </id>
+    <summary>
+        ROM Image file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        JAVA
+    </id>
+    <summary>
+        Java program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        CS
+    </id>
+    <summary>
+        C# program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        SCALA
+    </id>
+    <summary>
+        Scala program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        SHELL
+    </id>
+    <summary>
+        Shell program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        ASSEMBLER
+    </id>
+    <summary>
+        Assembler program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        PERL_TEST
+    </id>
+    <summary>
+        Perl test program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        PERL
+    </id>
+    <summary>
+        Perl program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        PYTHON_EGG
+    </id>
+    <summary>
+        Python egg
+    </summary>
+    <title>
+        Python Eggs
+    </title>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        RUBY
+    </id>
+    <summary>
+        Ruby program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        PHP
+    </id>
+    <summary>
+        PHP program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        GETTEXT
+    </id>
+    <summary>
+        Gettext file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        XQ
+    </id>
+    <summary>
+        XQuery file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        JAVACLASS
+    </id>
+    <summary>
+        Java class
+    </summary>
+    <title>
+        Java Classes
+    </title>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        PERL_MODULE
+    </id>
+    <summary>
+        Perl module
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        PERL_XS
+    </id>
+    <summary>
+        Perl XS file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        JSON
+    </id>
+    <summary>
+        JSON file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        POD
+    </id>
+    <summary>
+        POD document
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        SKIN
+    </id>
+    <summary>
+        Skin file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        CSS
+    </id>
+    <summary>
+        CSS style sheet
+    </summary>
+    <weight>
+        3
+    </weight>
+    <anchor>
+        CSS
+    </anchor>
+</type>
+
+<type>
+    <id>
+        DATA
+    </id>
+    <summary>
+        Data file
+    </summary>
+    <weight>
+        3
+    </weight>
+</type>
+
+<type>
+    <id>
+        M4
+    </id>
+    <summary>
+        M4 macro file
+    </summary>
+    <weight>
+        3
+    </weight>
+    <anchor>
+        M4
+    </anchor>
+</type>
+
+<type>
+    <id>
+        SYMLINK
+    </id>
+    <summary>
+        Symbolic link
+    </summary>
+    <weight>
+        3
+    </weight>
+</type>
+
+<type>
+    <id>
+        HTML
+    </id>
+    <summary>
+        HTML page
+    </summary>
+    <weight>
+        3
+    </weight>
+    <anchor>
+        HTML
+    </anchor>
+</type>
+
+<type>
+    <id>
+        PRECOMPILED_HEADER
+    </id>
+    <summary>
+        Precompiled header
+    </summary>
+    <weight>
+        3
+    </weight>
+</type>
+
+<type>
+    <id>
+        CONFIG
+    </id>
+    <summary>
+        Configuration file
+    </summary>
+    <weight>
+        3
+    </weight>
+</type>
+
+<type>
+    <id>
+        PDF
+    </id>
+    <summary>
+        PDF file
+    </summary>
+    <weight>
+        2
+    </weight>
+</type>
+
+<type>
+    <id>
+        IMAGE
+    </id>
+    <summary>
+        Image file
+    </summary>
+    <weight>
+        2
+    </weight>
+</type>
+
+<type>
+    <id>
+        AUDIO
+    </id>
+    <summary>
+        Audio file
+    </summary>
+    <weight>
+        2
+    </weight>
+</type>
+
+<type>
+    <id>
+        VIDEO
+    </id>
+    <summary>
+        Video file
+    </summary>
+    <weight>
+        2
+    </weight>
+</type>
+
+<type>
+    <id>
+        ICON
+    </id>
+    <summary>
+        Icon
+    </summary>
+    <weight>
+        2
+    </weight>
+</type>
+
+<type>
+    <id>
+        INFORM
+    </id>
+    <summary>
+        Info file
+    </summary>
+    <weight>
+        1
+    </weight>
+</type>
+
+<type>
+    <id>
+        DIR
+    </id>
+    <summary>
+        Directory
+    </summary>
+    <weight>
+        1
+    </weight>
+</type>
+
+<type>
+    <id>
+        CHANGELOG
+    </id>
+    <summary>
+        Change log
+    </summary>
+    <weight>
+        1
+    </weight>
+</type>
+
+<type>
+    <id>
+        TEXT
+    </id>
+    <summary>
+        Text file
+    </summary>
+    <weight>
+        1
+    </weight>
+</type>
+
+<type>
+    <id>
+        ARCHIVE
+    </id>
+    <summary>
+        Archive
+    </summary>
+    <title>
+        Archives
+    </title>
+    <weight>
+        1
+    </weight>
+</type>
+
+<type>
+    <id>
+        README
+    </id>
+    <summary>
+        Readme file
+    </summary>
+    <weight>
+        1
+    </weight>
+</type>
+
+<type>
+    <id>
+        LICENSE
+    </id>
+    <summary>
+        License
+    </summary>
+    <weight>
+        1
+    </weight>
+</type>
+
+<type>
+    <id>
+        OTHER
+    </id>
+    <summary>
+        Other
+    </summary>
+    <title>
+        Other Files
+    </title>
+    <weight>
+        0
+    </weight>
+</type>
+
+</files>

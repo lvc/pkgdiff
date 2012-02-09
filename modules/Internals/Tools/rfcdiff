@@ -106,7 +106,7 @@ export version="1.41"
 export progdate=""
 export prelines="10"
 export basename=$(basename $0)
-export workdir=`mktemp -d`
+export workdir=`mktemp -d -t rfcdiff.XXXXXXXX`
 export pagecache1="$workdir/pagecache1"
 export pagecache2="$workdir/pagecache2"
 

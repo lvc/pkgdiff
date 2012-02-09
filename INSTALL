@@ -6,8 +6,8 @@ All rights reserved.
 RELEASE INFORMATION
 
 Project:           Package Changes Analyzer (pkgdiff)
-Version:           1.0.1
-Date:              2012-01-31
+Version:           1.1
+Date:              2012-02-09
 
 
 This INSTALL.txt file explains how to install and setup environment
@@ -40,7 +40,7 @@ Content:
 
 1.3 Suggestions
 
-   ABI Compliance Checker (>=1.96)
+   ABI Compliance Checker (>=1.96.7)
 
 
 

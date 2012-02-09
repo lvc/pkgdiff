@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# pkgdiff - Package Changes Analyzer 1.0.1
+# pkgdiff - Package Changes Analyzer 1.1
 # A tool for analyzing changes in Linux software packages
 #
 # Copyright (C) 2011-2012 ROSA Laboratory.
@@ -26,7 +26,7 @@
 #
 # SUGGESTIONS
 # ===========
-#  ABI Compliance Checker (>=1.96)
+#  ABI Compliance Checker (>=1.96.7)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ use File::Path qw(mkpath rmtree);
 use File::Temp qw(tempdir);
 use Cwd qw(abs_path cwd);
 
-my $TOOL_VERSION = "1.0.1";
+my $TOOL_VERSION = "1.1";
 my $ORIG_DIR = cwd();
 my $TMP_DIR = tempdir(CLEANUP=>1);
 
@@ -58,7 +58,7 @@ my $DIFF = $MODULES_DIR."/Internals/Tools/rfcdiff";
 my $ABICC = "abi-compliance-checker";
 
 my ($Help, $ShowVersion, $DumpVersion, $GenerateTemplate, %Descriptor,
-$CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug);
+$CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug, $SizeLimit);
 
 my $CmdName = get_filename($0);
 
@@ -125,8 +125,9 @@ GetOptions("h|help!" => \$Help,
   "pkg-manager=s" => \$PackageManager,
   "t|template!" => \$GenerateTemplate,
   "report-path=s" => \$OutputReportPath,
-  "details" => \$ShowDetails,
-  "debug" => \$Debug
+  "details!" => \$ShowDetails,
+  "size-limit=s" => \$SizeLimit,
+  "debug!" => \$Debug
 ) or ERR_MESSAGE();
 
 sub ERR_MESSAGE()
@@ -211,6 +212,9 @@ OTHER OPTIONS:
   -details
       Try to create detailed reports.
 
+  -size-limit <size>
+      Don't analyze files larger than <size> in kilobytes.
+
   -debug
       Show debug info.
 
@@ -251,6 +255,11 @@ my $DescriptorTemplate = "
        directories with packages, one per line */
 </packages>
 
+<skip_files>
+    /* The list of files that should
+       not be analyzed, one per line */
+</skip_files>
+
 </descriptor>";
 
 my %Group = (
@@ -258,180 +267,7 @@ my %Group = (
     "Count2"=>0
 );
 
-my %FormatInfo = (
-    "HEADER" => {
-        "Descr"=>"Header file",
-        "N"=>10
-    },
-    "C_SRC" => {
-        "Descr"=>"C program",
-        "N"=>9
-    },
-    "CPP_SRC" => {
-        "Descr"=>"CPP program",
-        "N"=>8
-    },
-    "F_SRC" => {
-        "Descr"=>"Fortran program",
-        "N"=>7
-    },
-    "SHLIB" => {
-        "Descr"=>"Shared library",
-        "N"=>9
-    },
-    "EXE" => {
-        "Descr"=>"Executable file",
-        "N"=>5
-    },
-    "STLIB" => {
-        "Descr"=>"Static library",
-        "N"=>8
-    },
-    "PKGCONFIG" => {
-        "Descr"=>"Pkg-config metadata",
-        "Title"=>"Pkg-config Metadata Files",
-        "Anchor"=>"PkgConfigs",
-        "N"=>5
-    },
-    "DOXYGEN" => {
-        "Descr"=>"Doxygen file",
-        "N"=>5
-    },
-    "AUTOMAKE" => {
-        "Descr"=>"Automake files",
-        "N"=>5
-    },
-    "MAKEFILE" => {
-        "Descr"=>"Makefile",
-        "N"=>5
-    },
-    "CMAKE" => {
-        "Descr"=>"Cmake file",
-        "N"=>5
-    },
-    "XML" => {
-        "Descr"=>"XML file",
-        "N"=>5
-    },
-    "SGML" => {
-        "Descr"=>"SGML document",
-        "N"=>5
-    },
-    "XBEL" => {
-        "Descr"=>"XBEL bookmark",
-        "N"=>5
-    },
-    "MANPAGE" => {
-        "Descr"=>"Man page",
-        "N"=>5
-    },
-    "DIR" => {
-        "Descr"=>"Directory",
-        "N"=>1
-    },
-    "SYMLINK" => {
-        "Descr"=>"Symbolic link",
-        "N"=>3
-    },
-    "TEXT" => {
-        "Descr"=>"Text file",
-        "N"=>1
-    },
-    "LIBTOOL" => {
-        "Descr"=>"Libtool library file",
-        "Anchor"=>"LibtoolFiles",
-        "N"=>5
-    },
-    "PS" => {
-        "Descr"=>"PostScript file",
-        "N"=>5
-    },
-    "DESKTOP" => {
-        "Descr"=>"Desktop entry",
-        "N"=>5
-    },
-    "HTML" => {
-        "Descr"=>"HTML page",
-        "Anchor"=>"HTML",
-        "N"=>3
-    },
-    "CSS" => {
-        "Descr"=>"CSS style sheet",
-        "Title"=>"CSS Style Sheets",
-        "Anchor"=>"CSS",
-        "N"=>3
-    },
-    "M4" => {
-        "Descr"=>"M4 macro file",
-        "Anchor"=>"M4",
-        "N"=>3
-    },
-    "SHELL" => {
-        "Descr"=>"Shell program",
-        "N"=>4
-    },
-    "PERL" => {
-        "Descr"=>"Perl program",
-        "N"=>4
-    },
-    "PYTHON" => {
-        "Descr"=>"Python program",
-        "N"=>4
-    },
-    "RUBY" => {
-        "Descr"=>"Ruby program",
-        "N"=>4
-    },
-    "JAVA" => {
-        "Descr"=>"Java program",
-        "N"=>4
-    },
-    "GETTEXT" => {
-        "Descr"=>"Gettext file",
-        "N"=>4
-    },
-    "IMAGE" => {
-        "Descr"=>"Image",
-        "Descr"=>"Images",
-        "N"=>2
-    },
-    "PARAM" => {
-        "Descr"=>"Parameter file",
-        "N"=>5
-    },
-    "SPEC" => {
-        "Descr"=>"Spec file",
-        "N"=>9
-    },
-    "PATCH" => {
-        "Descr"=>"Patch",
-        "Descr"=>"Patches",
-        "N"=>8
-    },
-    "MSVC" => {
-        "Descr"=>"MSVC file",
-        "N"=>5
-    },
-    "OOO" => {
-        "Descr"=>"OpenOffice file",
-        "N"=>5
-    },
-    "LICENSE" => {
-        "Descr"=>"License",
-        "Title"=>"Licenses",
-        "N"=>1
-    },
-    "ARCHIVE" => {
-        "Descr"=>"Archive",
-        "Title"=>"Archives",
-        "N"=>1
-    },
-    "OTHER" => {
-        "Descr"=>"Other",
-        "Title"=>"Other Files",
-        "N"=>0
-    }
-);
+my %FormatInfo = ();
 
 # Cache
 my %Cache;
@@ -462,6 +298,7 @@ my %RenamedFiles;
 my %RenamedFiles_R;
 my %MovedFiles;
 my %MovedFiles_R;
+my %SkipFiles;
 
 # Report
 my $REPORT_PATH;
@@ -469,7 +306,30 @@ my $REPORT_DIR;
 my %RESULT;
 
 # Other
-my $ARCHIVE_EXT = "tar\.gz|tgz|tar\.z|tar\.xz|tar\.bz2|txz|zip|tar|lzma|gz|jar";
+my %ArchiveFormats = (
+    "TAR.GZ"   => ["tar.gz", "tgz",
+                   "tar.Z", "taz"],
+
+    "TAR.XZ"   => ["tar.xz", "txz"],
+
+    "TAR.BZ2"  => ["tar.bz2", "tbz2",
+                   "tbz", "tb2"],
+
+    "TAR.LZMA" => ["tar.lzma",
+                   "tlzma"],
+
+    "TAR.LZ"   => ["tar.lz", "tlz"],
+
+    "ZIP"      => ["zip"],
+    "TAR"      => ["tar"],
+    "LZMA"     => ["lzma"],
+    "GZ"       => ["gz"],
+
+    "JAR"      => ["jar", "war",
+                   "ear"]
+);
+
+my $ARCHIVE_EXT = getArchivePattern();
 
 sub get_Modules()
 {
@@ -528,7 +388,20 @@ sub compareFiles($$$$)
     { # compare md5 sum or size
         return (-1, "", "");
     }
+    if(skip_file($P1, 1))
+    { # <skip_files>
+        return (2, "", "");
+    }
+    if(defined $SizeLimit)
+    {
+        if(-s $P1 > $SizeLimit*1024
+        or -s $P2 > $SizeLimit*1024)
+        {
+            return (2, "", "");
+        }
+    }
     my ($Changed, $DLink, $RLink) = ();
+    
     if($Format eq "HEADER"
     or $Format eq "PKGCONFIG"
     or $Format eq "TEXT"
@@ -538,28 +411,79 @@ sub compareFiles($$$$)
     or $Format eq "M4"
     or $Format eq "SHELL"
     or $Format eq "PERL"
+    or $Format eq "PERL_MODULE"
+    or $Format eq "PERL_TEST"
+    or $Format eq "PERL_XS"
+    or $Format eq "POD"
     or $Format eq "PYTHON"
     or $Format eq "RUBY"
+    or $Format eq "PHP"
     or $Format eq "JAVA"
-    or $Format eq "LICENSE"
+    or $Format eq "CS"
+    or $Format eq "ASSEMBLER"
+    or $Format eq "FONT"
+    or $Format eq "IBY"
+    or $Format eq "XQ"
+    or $Format eq "SCALA"
+    or $Format eq "GO"
     or $Format eq "DOXYGEN"
     or $Format eq "AUTOMAKE"
     or $Format eq "MAKEFILE"
     or $Format eq "CMAKE"
     or $Format eq "XML"
+    or $Format eq "YAML"
+    or $Format eq "JSON"
     or $Format eq "XBEL"
     or $Format eq "SGML"
+    or $Format eq "UCM"
     or $Format eq "SPEC"
     or $Format eq "PATCH"
+    or $Format eq "QT_PROJECT"
+    or $Format eq "QT_RESOURCE"
+    or $Format eq "QT_TS"
+    or $Format eq "QT_DOC"
+    or $Format eq "QT_UI"
+    or $Format eq "QT_SS"
+    or $Format eq "QML"
+    or $Format eq "QML_PROJECT"
+    or $Format eq "FSH"
+    or $Format eq "GPERF"
+    or $Format eq "GLSL"
+    or $Format eq "IDL"
+    or $Format eq "OBJECTIVEC"
+    or $Format eq "OBJECTIVECPP"
+    or $Format eq "JAVASCRIPT"
+    or $Format eq "GYP"
+    or $Format eq "DATA"
+    or $Format eq "DOT"
     or $Format eq "C_SRC"
     or $Format eq "CPP_SRC"
-    or $Format eq "F_SRC")
+    or $Format eq "FORTRAN"
+    or $Format eq "ADA")
     {
         $DLink = diffFiles($P1, $P2, getRPath("diffs", $N1));
     }
+    elsif($Format eq "LICENSE"
+    or $Format eq "CHANGELOG"
+    or $Format eq "README"
+    or $Format eq "INFORM")
+    {
+        if($P1=~/\.($ARCHIVE_EXT)\Z/i)
+        { # changelog.Debian.gz
+            my $Page1 = showFile($P1, "ARCHIVE", 1);
+            my $Page2 = showFile($P2, "ARCHIVE", 2);
+            $DLink = diffFiles($Page1, $Page2, getRPath("diffs", $N1));
+        }
+        else
+        { 
+            $DLink = diffFiles($P1, $P2, getRPath("diffs", $N1));
+        }
+    }
     elsif($Format eq "SHLIB"
+    or $Format eq "EXE"
     or $Format eq "MANPAGE"
-    or $Format eq "SYMLINK")
+    or $Format eq "SYMLINK"
+    or $Format eq "JAVACLASS")
     {
         my $Page1 = showFile($P1, $Format, 1);
         my $Page2 = showFile($P2, $Format, 2);
@@ -600,25 +524,56 @@ sub showFile($$$)
 {
     my ($Path, $Format, $Version) = @_;
     my $Name = get_filename($Path);
+    my $SPath = $TMP_DIR."/".$Format."/".$Version."/".$Name;
     my $Cmd = "";
     if($Format eq "MANPAGE")
     {
         $Name=~s/\.(gz|bz2|xz)\Z//;
-        $Cmd = "man";
+        $Cmd = "man $Path";
+    }
+    elsif($Format eq "ARCHIVE")
+    {
+        my $Unpack = $TMP_DIR."/unpack/";
+        rmtree($Unpack);
+        unpackArchive($Path, $Unpack);
+        my @Contents = listDir($Unpack);
+        if($#Contents==0) {
+            $Cmd = "cat $Unpack/".$Contents[0];
+        }
+        else {
+            return "";
+        }
     }
     elsif($Format eq "SHLIB"
+    or $Format eq "EXE"
     or $Format eq "STLIB")
     {
-        $Cmd = "readelf -Wa";
+        $Cmd = "readelf -Wa $Path";
     }
     elsif($Format eq "SYMLINK")
     {
-        $Cmd = "file -b";
+        $Cmd = "file -b $Path";
     }
-    my $SPath = $TMP_DIR."/".$Format."/".$Version."/".$Name;
+    elsif($Format eq "JAVACLASS")
+    {
+        if(not checkCmd("javap")) {
+            return "";
+        }
+        my ($Dir, $File) = separate_path($Path);
+        $File=~s/\.class\Z//;
+        $File=~s/\$/./;
+        $Path = $File;
+        $Cmd = "javap $Path"; # -s -c -private -verbose
+        chdir($Dir);
+    }
     mkpath(get_dirname($SPath));
-    system($Cmd." $Path >$SPath 2>$TMP_DIR/null");
-    if($Format eq "SHLIB")
+    system($Cmd." >".$SPath." 2>$TMP_DIR/null");
+    if($Format eq "JAVACLASS") {
+        chdir($ORIG_DIR);
+    }
+    if($Format eq "SHLIB"
+    or $Format eq "EXE"
+    or $Format eq "STLIB")
     {
         my $Content = readFile($SPath);
         # 00bf608c  00000008 R_386_RELATIVE
@@ -758,14 +713,19 @@ sub runABICC($)
         </headers>";
     writeFile($D1P, $D1);
     writeFile($D2P, $D2);
+    my $LogPath = "$REPORT_DIR/logs/abicc-log.txt";
     $Cmd .= " --report-path=$Path";
-    $Cmd .= " --log-path=$REPORT_DIR/logs/abicc-log.txt";
+    $Cmd .= " --log-path=$LogPath";
     $Cmd .= " -quiet";
+    printMsg("INFO", "Running ABICC ...");
     system($Cmd);
     my $Ret = $?>>8;
     if($Ret==0 or $Ret==1)
     { # the tool has run without any errors
         return ($Cache{"runABICC"} = $Path);
+    }
+    else {
+        printMsg("WARNING", "Failed to run ABICC, see error log:\n  $LogPath");
     }
     return ($Cache{"runABICC"} = "");
 }
@@ -782,8 +742,13 @@ sub getLibName($)
 sub diffFiles($$$)
 {
     my ($P1, $P2, $Path) = @_;
+    if(not $P1 or not $P2) {
+        return "";
+    }
     mkpath(get_dirname($Path));
-    system("sh $DIFF --width 75 --stdout $P1 $P2 >$Path 2>$TMP_DIR/null");
+    my $Cmd = "sh $DIFF --width 75 --stdout ".$P1." ".$P2." >".$Path." 2>$TMP_DIR/null";
+    $Cmd=~s/\$/\\\$/g;
+    system($Cmd);
     if(-s $Path<3500)
     { # may be identical
         if(readFilePart($Path, 2)=~/The files are identical/)
@@ -885,18 +850,21 @@ sub detectChanges()
             "Changed"=>0
         );
     }
+    my (%AddedByDir, %RemovedByDir, %AddedByName, %RemovedByName) = ();
     foreach my $Name (sort keys(%{$PackageFiles{1}}))
     { # detect removed files
         my $Format = getFormat($PackageFiles{1}{$Name});
         $FormatFiles{1}{$Format}{$PackageFiles{1}{$Name}}=1;
-        if(not defined $PackageFiles{2}{$Name}) {
+        if(not defined $PackageFiles{2}{$Name})
+        {
             $RemovedFiles{$Name}=1;
+            $RemovedByDir{get_dirname($Name)}{$Name}=1;
+            $RemovedByName{get_filename($Name)}{$Name}=1;
         }
         else {
             $StableFiles{$Name}=1;
         }
     }
-    my (%AddedByDir, %AddedByName) = ();
     foreach my $Name (keys(%{$PackageFiles{2}}))
     { # checking added files
         my $Format = getFormat($PackageFiles{2}{$Name});
@@ -918,32 +886,39 @@ sub detectChanges()
     foreach my $Name (sort keys(%RemovedFiles))
     { # checking renamed files
         my $Format = getFormat($PackageFiles{1}{$Name});
-        foreach my $Added (sort keys(%{$AddedByDir{get_dirname($Name)}}))
+        my @Added = keys(%{$AddedByDir{get_dirname($Name)}});
+        foreach my $File (sort @Added)
         {
-            if($Format ne getFormat($PackageFiles{2}{$Added}))
+            if($Format ne getFormat($PackageFiles{2}{$File}))
             { # different formats
                 next;
             }
-            if(isRenamed($Name, $Added))
+            if(isRenamed($Name, $File))
             {
-                $RenamedFiles{$Name} = $Added;
-                $RenamedFiles_R{$Added} = $Name;
+                $RenamedFiles{$Name} = $File;
+                $RenamedFiles_R{$File} = $Name;
             }
         }
     }
     foreach my $Name (sort keys(%RemovedFiles))
     { # checking moved files
         my $Format = getFormat($PackageFiles{1}{$Name});
-        foreach my $Added (sort keys(%{$AddedByName{get_filename($Name)}}))
-        {
-            if($Format ne getFormat($PackageFiles{2}{$Added}))
-            { # different formats
-                next;
-            }
-            if(isMoved($Name, $Added))
+        my @Removed = keys(%{$RemovedByName{get_filename($Name)}});
+        my @Added = keys(%{$AddedByName{get_filename($Name)}});
+        if($#Added==0 and $#Removed==0)
+        { # one added
+          # one removed
+            foreach my $File (sort @Added)
             {
-                $MovedFiles{$Name} = $Added;
-                $MovedFiles_R{$Added} = $Name;
+                if($Format ne getFormat($PackageFiles{2}{$File}))
+                { # different formats
+                    next;
+                }
+                if(isMoved($Name, $File))
+                {
+                    $MovedFiles{$Name} = $File;
+                    $MovedFiles_R{$File} = $Name;
+                }
             }
         }
     }
@@ -951,7 +926,7 @@ sub detectChanges()
     { # checking files
         my $Path = $PackageFiles{1}{$Name};
         if($Debug) {
-            print "$Name\n";
+            printMsg("INFO", $Name);
         }
         my ($NewPath, $NewName) = ($PackageFiles{2}{$Name}, $Name);
         my $Format = getFormat($Path);
@@ -980,10 +955,15 @@ sub detectChanges()
             $Details{"Diff"} = $DLink;
             $Details{"Report"} = $RLink;
         }
+        elsif($Changed==2)
+        {
+            $Details{"Status"} = "changed";
+            $Details{"Skipped"} = 1;
+        }
         elsif($Changed==-1)
         {
             $Details{"Status"} = "unchanged";
-            $Details{"Diff"} = "empty";
+            $Details{"Empty"} = 1;
         }
         else
         {
@@ -1012,17 +992,21 @@ sub detectChanges()
     { # removed/changed deps
         foreach my $Name (keys(%{$PackageDeps{1}{$Kind}}))
         {
+            $DepChanges{$Kind}{"Total"} += 1;
             if(not defined($PackageDeps{2}{$Kind})
             or not defined($PackageDeps{2}{$Kind}{$Name}))
             {
                 $DepChanges{$Kind}{"Details"}{$Name}{"Status"} = "removed";
+                $DepChanges{$Kind}{"Removed"} += 1;
                 next;
             }
             my %Info1 = %{$PackageDeps{1}{$Kind}{$Name}};
             my %Info2 = %{$PackageDeps{2}{$Kind}{$Name}};
             if($Info1{"Op"} and $Info1{"V"}
-            and ($Info1{"Op"} ne $Info2{"Op"} or $Info1{"V"} ne $Info2{"V"})) {
+            and ($Info1{"Op"} ne $Info2{"Op"} or $Info1{"V"} ne $Info2{"V"}))
+            {
                 $DepChanges{$Kind}{"Details"}{$Name}{"Status"} = "changed";
+                $DepChanges{$Kind}{"Changed"} += 1;
             }
             else {
                 $DepChanges{$Kind}{"Details"}{$Name}{"Status"} = "unchanged";
@@ -1037,6 +1021,8 @@ sub detectChanges()
             or not defined($PackageDeps{1}{$Kind}{$Name}))
             {
                 $DepChanges{$Kind}{"Details"}{$Name}{"Status"} = "added";
+                $DepChanges{$Kind}{"Added"} += 1;
+                $DepChanges{$Kind}{"Total"} += 1;
             }
         }
     }
@@ -1101,29 +1087,41 @@ sub get_Report_Headers()
     {
         my $Old = $PackageInfo{$Package}{"V1"};
         my $New = $PackageInfo{$Package}{"V2"};
-        my $DLink = "";
-        if($Old ne $New)
-        {
-            my $P1 = $TMP_DIR."/1/".$Package."-info";
-            my $P2 = $TMP_DIR."/2/".$Package."-info";
-            writeFile($P1, $Old);
-            writeFile($P2, $New);
-            $DLink = diffFiles($P1, $P2, getRPath("info-diffs", $Package."-info"));
-            $DLink =~s/\A\Q$REPORT_DIR\E\///;
-        }
         $Report .= "<tr>\n";
-        $Report .= "<td class='left f_path'>$Package</td>\n";
-        if($DLink)
+        if($Old and not $New)
         {
-            $Report .= "<td class='warning'>changed</td>\n";
-            $Report .= "<td><a href='".$DLink."' style='color:Blue;'>diff</a></td>\n";
+            $Report .= "<td class='left f_path failed'>$Package</td>\n";
+            $Report .= "<td class='failed'>removed</td><td></td>\n";
+        }
+        elsif(not $Old and $New)
+        {
+            $Report .= "<td class='left f_path new'>$Package</td>\n";
+            $Report .= "<td class='new'>added</td><td></td>\n";
         }
         else
         {
-            $Report .= "<td class='passed'>unchanged</td>\n";
-            $Report .= "<td></td>\n";
+            my $DLink = "";
+            if($Old ne $New)
+            {
+                my $P1 = $TMP_DIR."/1/".$Package."-info";
+                my $P2 = $TMP_DIR."/2/".$Package."-info";
+                writeFile($P1, $Old);
+                writeFile($P2, $New);
+                $DLink = diffFiles($P1, $P2, getRPath("info-diffs", $Package."-info"));
+                $DLink =~s/\A\Q$REPORT_DIR\E\///;
+            }
+            $Report .= "<td class='left f_path'>$Package</td>\n";
+            if($DLink)
+            {
+                $Report .= "<td class='warning'>changed</td>\n";
+                $Report .= "<td><a href='".$DLink."' style='color:Blue;'>diff</a></td>\n";
+            }
+            else
+            {
+                $Report .= "<td class='passed'>unchanged</td>\n";
+                $Report .= "<td></td>\n";
+            }
         }
-        
         $Report .= "</tr>\n";
     }
     $Report .= "</table>\n";
@@ -1177,10 +1175,25 @@ sub get_Report_Deps()
     return $Report;
 }
 
+sub divideStr($)
+{
+    my $Str = $_[0];
+    my $MAXLENGTH = 99;
+    if(length($Str)>$MAXLENGTH)
+    {
+        my $Begin = substr($Str, 0, $MAXLENGTH);
+        my $End = substr($Str, $MAXLENGTH);
+        return ($Begin, divideStr($End));
+    }
+    else {
+        return ($Str);
+    }
+}
+
 sub get_Report_Files()
 {
     my $Report = "";
-    foreach my $Format (sort {$FormatInfo{$b}{"N"}<=>$FormatInfo{$a}{"N"}} sort keys(%FileChanges))
+    foreach my $Format (sort {$FormatInfo{$b}{"Weight"}<=>$FormatInfo{$a}{"Weight"}} sort keys(%FileChanges))
     {
         if(not $FileChanges{$Format}{"Total"}) {
             next;
@@ -1212,7 +1225,7 @@ sub get_Report_Files()
                 $Color1 = " failed";
             }
             $Report .= "<tr>\n";
-            $Report .= "<td class='left f_path$Color1\'>".$File."</td>\n";
+            $Report .= "<td class='left f_path$Color1\'>".join("<br/>", divideStr($File))."</td>\n";
             if($Info{"Status"} eq "changed") {
                 $Report .= "<td class='warning'>".$Info{"Status"}."</td>\n";
             }
@@ -1234,27 +1247,20 @@ sub get_Report_Files()
             else {
                 $Report .= "<td>unknown</td>\n";
             }
-            if(my $Link = $Info{"Diff"})
-            {
-                if($Link eq "empty") {
-                    $Report .= "<td$Join></td>\n";
-                }
-                else {
-                    $Report .= "<td$Join><a href='".$Link."' style='color:Blue;'>diff</a></td>\n";
-                }
-                
+            if(my $Link = $Info{"Diff"}) {
+                $Report .= "<td$Join><a href='".$Link."' style='color:Blue;'>diff</a></td>\n";
+            }
+            elsif($Info{"Empty"}) {
+                $Report .= "<td$Join></td>\n";
+            }
+            elsif($Info{"Skipped"}) {
+                $Report .= "<td$Join>skipped</td>\n";
             }
             else {
                 $Report .= "<td$Join></td>\n";
             }
-            if(my $Link = $Info{"Report"})
-            {
-                if($Link eq "empty") {
-                    $Report .= "<td$Join></td>\n";
-                }
-                else {
-                    $Report .= "<td$Join><a href='".$Link."' style='color:Blue;'>report</a></td>\n";
-                }
+            if(my $Link = $Info{"Report"}) {
+                $Report .= "<td$Join><a href='".$Link."' style='color:Blue;'>report</a></td>\n";
             }
             else {
                 $Report .= "<td$Join></td>\n";
@@ -1460,17 +1466,29 @@ sub getFormat_($)
     { # RPM package
         return "RPM";
     }
-    elsif($Name=~/\.(h|hh|hp|hxx|hpp|h\+\+|tcc)\Z/i)
-    { # Header file
+    elsif($Name=~/\.(h|hh|hp|hxx|hpp|h\+\+|tcc|hp)\Z/i
+    or ($Name!~/\.(\w+)\Z/i and $Dir=~/(\A|\/)include(\/|\Z)/))
+    { # include/QtWebKit/QWebSelectData
+      # QtOpenVG/qvg.h
+      # libtiff/tiffio.hxx
         return "HEADER";
     }
-    elsif($Name=~/\.(cpp|cxx|c\+\+)\Z/i)
-    { # Source file
+    elsif($Name=~/\.(cpp|cxx|c\+\+|cc|ii|cp)\Z/i
+    or $Name=~/\.(C)\Z/)
+    { # C++
         return "CPP_SRC";
     }
-    elsif($Name=~/\.(c)\Z/i)
-    { # Source file
+    elsif($Name=~/\.(c|i)\Z/i)
+    { # C
         return "C_SRC";
+    }
+    elsif($Name=~/\.(m|mi)\Z/i)
+    { # mac/WebCoreView.m
+        return "OBJECTIVEC";
+    }
+    elsif($Name=~/\.(mm|mii)\Z/i)
+    { # qmenu_mac.mm
+        return "OBJECTIVECPP";
     }
     elsif($Name=~/\.(so)[0-9\-\.\_]*\Z/i)
     { # Shared library
@@ -1480,62 +1498,89 @@ sub getFormat_($)
     { # Static library
         return "STLIB";
     }
-    elsif($Name=~/\.(txt)\Z/i)
-    { # Text
-        return "TEXT";
+    elsif($Name=~/\A(readme)(\W|\Z)/i
+    or $Name=~/\.(readme)\Z/i)
+    { # README
+        return "README";
+    }
+    elsif($Name=~/\A(TODO|NOTES|AUTHORS|THANKS)\Z/i
+    or $Name=~/\A(PATCHING|ANNOUNCE|MANIFEST)\Z/
+    or $Name=~/\A(INSTALL)(\.|\Z)/)
+    { # Info
+        return "INFORM";
+    }
+    elsif($Name=~/\A(license|copyright|copying|artistic)(\W|\Z)/i
+    or $Name=~/\.(license)\Z/i)
+    { # APACHE.license
+      # LGPL.license
+      # COPYRIGHT.IBM
+        return "LICENSE";
+    }
+    elsif($Name=~/\A(changelog|changes|NEWS)(\W|\Z)/i)
+    { # ChangeLog-2003-10-25
+      # docs/CHANGES
+      # freetype/ChangeLog
+        return "CHANGELOG";
     }
     elsif($Name=~/\.(la)\Z/i)
-    { # Libtool
+    {
         return "LIBTOOL";
     }
     elsif($Name=~/\.(desktop)\Z/i)
-    { # Desktop
+    {
         return "DESKTOP";
     }
-    elsif($Name=~/\.(ps|eps)\Z/i)
-    { # Libtool
-        return "PS";
+    elsif($Name=~/\.(ps|eps|pfa)\Z/i)
+    {
+        return "POSTSCRIPT";
     }
     elsif((($Name=~/\.(gz|xz|lzma)\Z/i or $Name=~/\.(\d)\Z/i)
-    and $Dir=~/\/(man\d*)(\/|\Z)/)
-    or ($Name=~/\.(\d)\Z/i and $Dir=~/\/(doc|docs)(\/|\Z)/))
-    { # Manual pages
+    and $Dir=~/\/(man\d*|manpages)(\/|\Z)/)
+    or ($Name=~/\.(\d)\Z/i and $Dir=~/\/(doc|docs)(\/|\Z)/)
+    or $Name=~/\.(man)\Z/i)
+    { # harmattan/manpages/uic.1
         return "MANPAGE";
     }
     elsif($Name=~/\.(pc|pc\.in)\Z/i)
     { # Manual pages
         return "PKGCONFIG";
     }
-    elsif($Name=~/\A(license|copyright|copying)\Z/i)
-    { # Manual pages
-        return "LICENSE";
-    }
     elsif($Name=~/\.($ARCHIVE_EXT)\Z/i)
     { # Archives
         return "ARCHIVE";
     }
-    elsif($Name=~/\.(dox)(\.in|)\Z/i)
-    { # Doxygen
+    elsif($Name=~/\.(dox|doxyfile)(\.in|)\Z/i
+    or $Name=~/\ADoxyfile\Z/i)
+    { # Doxyfile
         return "DOXYGEN";
     }
     elsif($Name=~/\AMakefile\.(am|in)(\.in|)\Z/i
-    or $Name=~/\Aconfigure\.(ac)\Z/i)
+    or $Name=~/\Aconfigure\.(ac)\Z/i
+    or ($Name=~/make/i and $Name=~/\.(am)\Z/i))
     { # Automake
         return "AUTOMAKE";
     }
-    elsif($Name=~/\A(Makefile)\Z/i
-    or $Name=~/\.(mk)\Z/i)
+    elsif($Name=~/\A(Makefile)(\.|\Z)/i
+    or $Name=~/\.(mk|make)\Z/i)
     { # Makefiles
         return "MAKEFILE";
     }
-    elsif($Name=~/\A(CMakeLists\.txt)\Z/i
-    or $Name=~/\.(cmake)\Z/i)
+    elsif($Name=~/\A(CMakeLists.*\.txt)\Z/i
+    or $Name=~/\.(cmake|cmakein)\Z/i)
     { # Cmake
         return "CMAKE";
     }
     elsif($Name=~/\.(xbel)\Z/i)
     { # Bookmarks
         return "XBEL";
+    }
+    elsif($Name=~/\.(enc|utf)\Z/i)
+    { # Encoding
+        return "ENCODING";
+    }
+    elsif($Name=~/\.(ucm)\Z/i)
+    { # Unicode Character Mapping
+        return "UCM";
     }
     elsif($Name=~/\.(sgml)\Z/i)
     { # SGML
@@ -1549,49 +1594,133 @@ sub getFormat_($)
     { # HTML Pages
         return "HTML";
     }
-    elsif($Name=~/\.(xml)(\.in|)\Z/i)
+    elsif($Name=~/\.(xml|xsl|xsd|xslt|dtd)(\.in|)\Z/i)
     { # XML
         return "XML";
+    }
+    elsif($Name=~/\.(wml)\Z/i)
+    { # trafficinfo/time_example.wml
+        return "WML";
+    }
+    elsif($Name=~/\.(yml)\Z/i)
+    { # YAML
+        return "YAML";
+    }
+    elsif($Name=~/\.(json)\Z/i)
+    { # JSON
+        return "JSON";
     }
     elsif($Name=~/\.(css)\Z/i)
     {
         return "CSS";
     }
     elsif($Name=~/\.(prm|par|ff)\Z/i)
-    {
+    { # Parameter file
         return "PARAM";
     }
-    elsif($Name=~/\.(f|for|f90|f95)\Z/i)
+    elsif($Name=~/\.(f|for|ftn|fpp|f90|f95|f03|f08)\Z/i)
     { # Fortran
-        return "F_SRC";
+        return "FORTRAN";
+    }
+    elsif($Name=~/\.(ads|adb)\Z/i)
+    { # Ada
+        return "ADA";
+    }
+    elsif($Name=~/\.(asm|s|sx)\Z/i)
+    { # libjpeg/jmemdosa.asm
+        return "ASSEMBLER";
+    }
+    elsif($Name=~/\.(scl)\Z/i)
+    { # Scala
+        return "SCALA";
+    }
+    elsif($Name=~/\.(go)\Z/i)
+    { # Go
+        return "GO";
+    }
+    elsif($Name=~/\.(bdf|ttf|pfb|qpf|qpf2)\Z/i)
+    { # Fonts
+        return "FONT";
+    }
+    elsif($Name=~/\.(wav|aiff|flac|aac|mpc|ogg|wma|mp3)\Z/i)
+    { # Audio
+        return "AUDIO";
+    }
+    elsif($Name=~/\.(swf|flv|mng|avi|3gp|divx|mp4|mpeg|mpeg4|mpg|mpg2|ogv)\Z/i)
+    { # Video
+        return "VIDEO";
     }
     elsif($Name=~/\.(sh|csh)\Z/i)
     { # Shell
         return "SHELL";
     }
-    elsif($Name=~/\.(pl|pm)\Z/i)
+    elsif($Name=~/\.(pl|plx|e2x)\Z/i)
     { # Perl
         return "PERL";
+    }
+    elsif($Name=~/\.(pm)\Z/i)
+    { # Perl module
+        return "PERL_MODULE";
+    }
+    elsif($Name=~/\.(t)\Z/i)
+    { # Perl test
+        return "PERL_TEST";
+    }
+    elsif($Name=~/\.(xs)\Z/i)
+    { # Perl XS
+        return "PERL_XS";
+    }
+    elsif($Name=~/\.(pod)\Z/i)
+    { # POD
+        return "POD";
     }
     elsif($Name=~/\.(py)(\.in|)\Z/i)
     { # Python
         return "PYTHON";
     }
+    elsif($Name=~/\.(egg)\Z/i)
+    { # Egg
+        return "PYTHON_EGG";
+    }
+    elsif($Name=~/\.(pyc)\Z/i)
+    { # Pyc
+        return "PYTHON_PYC";
+    }
     elsif($Name=~/\.(rb)\Z/i)
     { # Ruby
         return "RUBY";
     }
-    elsif($Name=~/\.(java)\Z/i)
+    elsif($Name=~/\.(php)\Z/i)
+    { # PHP
+        return "PHP";
+    }
+    elsif($Name=~/\.(java|jsp|jj)\Z/i)
     { # Java
         return "JAVA";
     }
-    elsif($Name=~/\.(gmo|po|pot)\Z/i)
+    elsif($Name=~/\.(cs)\Z/i)
+    { # CS
+        return "CS";
+    }
+    elsif($Name=~/\.(skin)\Z/i)
+    { # *.skin
+        return "SKIN";
+    }
+    elsif($Name=~/\.(class)\Z/i)
+    { # Java
+        return "JAVACLASS";
+    }
+    elsif($Name=~/\.(gmo|po|mo|pot)\Z/i)
     { # Gettext
         return "GETTEXT";
     }
-    elsif($Name=~/\.(png|jpg|gif)\Z/i)
+    elsif($Name=~/\.(png|jpg|jpeg|exif|raw|bmp|pbm|webp|img|gif|svg|tiff|xcf|icns|xpm)\Z/i)
     { # Images
         return "IMAGE";
+    }
+    elsif($Name=~/\.(ico|icon)\Z/i)
+    { # Icons
+        return "ICON";
     }
     elsif($Name=~/\.(spec)(\.in|)\Z/i)
     { # Spec-files
@@ -1605,16 +1734,130 @@ sub getFormat_($)
     { # Patch
         return "PATCH";
     }
-    elsif($Name=~/\.(vcxproj|vcproj|vcprojin|vcxproj\.filters|vcxproj\.filtersin|sln)\Z/i
-    or $Name=~/\.(def|defs|rc|rc\.in|msc|msc\.in|win32)\Z/i)
+    elsif($Name=~/\.(pro|pri|prf)\Z/i)
+    { # libqt4-gui-tests.pro
+      # features/mac/ppc.prf
+        return "QT_PROJECT";
+    }
+    elsif($Name=~/\.(qrc)\Z/i)
+    { # designer.qrc
+        return "QT_RESOURCE";
+    }
+    elsif($Name=~/\.(ts|qph)\Z/i)
+    { # translations/qt_de.ts
+      # phrasebooks/russian.qph
+        return "QT_TS";
+    }
+    elsif($Name=~/\.(qdoc|qdocconf|qdocinc)\Z/i)
+    { # platforms/qt-embedded.qdoc
+      # test/macros.qdocconf
+      # platforms/emb-opengl.qdocinc
+        return "QT_DOC";
+    }
+    elsif($Name=~/\.(ui)\Z/i)
+    { # linguist/mainwindow.ui
+        return "QT_UI";
+    }
+    elsif($Name=~/\.(qss)\Z/i)
+    { # styledemo/files/khaki.qss
+        return "QT_SS";
+    }
+    elsif($Name=~/\.(qm)\Z/i)
+    { # i18n/translations/i18n_sv.qm
+        return "QT_MESSAGE";
+    }
+    elsif($Name=~/\.(qhp|qch|qhc|qhcp)\Z/i)
+    { # doc/assistant.qhp
+        return "QT_HELP";
+    }
+    elsif($Name=~/\.(qml|qs)\Z/i)
+    { # calculator.qml
+        return "QML";
+    }
+    elsif($Name=~/\.(qmlproject)\Z/i)
+    { # demos.qmlproject
+        return "QML_PROJECT";
+    }
+    elsif($Name=~/\.(iby)\Z/i)
+    { # s60installs/qt.iby
+        return "IBY";
+    }
+    elsif($Name=~/\.(gperf)\Z/i)
+    { # platform/ColorData.gperf
+        return "GPERF";
+    }
+    elsif($Name=~/\.(glsl|glslf|glslv)\Z/i)
+    { # opengl/util/ellipse_aa.glsl
+      # shaders/frag.glslf
+      # shaders/vert.glslv
+        return "GLSL";
+    }
+    elsif($Name=~/\.(xcconfig|pbxproj|xcodeproj)\Z/i)
+    { # Version.xcconfig
+      # gtest.xcodeproj/project.pbxproj
+        return "XCODE";
+    }
+    elsif($Name=~/\.(plist)\Z/i)
+    { # demos/qtdemo/Info_mac.plist
+        return "PLIST";
+    }
+    elsif($Name=~/\.(xq)\Z/i)
+    { # patternist/pathAB.xq
+        return "XQ";
+    }
+    elsif($Name=~/\.(fsh)\Z/i)
+    { # boxes/dotted.fsh
+        return "FSH";
+    }
+    elsif($Name=~/\.(idl)\Z/i)
+    { # page/Screen.idl
+        return "IDL";
+    }
+    elsif($Name=~/\.(js)\Z/i)
+    { # scripts/functions.js
+        return "JAVASCRIPT";
+    }
+    elsif($Name=~/\.(dot)\Z/i)
+    { # doc/Choice_diagram.dot
+        return "DOT";
+    }
+    elsif($Name=~/\.(pdf)\Z/i)
+    {
+        return "PDF";
+    }
+    elsif($Name=~/\.(gyp|gypi)\Z/i)
+    { # toolsets/toolsets.gyp
+      # src/builddir.gypi
+        return "GYP";
+    }
+    elsif($Name=~/\.(gch|pch)\Z/i)
+    {
+        return "PRECOMPILED_HEADER";
+    }
+    elsif($Name=~/\.(vcxproj|vcproj|vcprojin|vcxproj\.filters|vcxproj\.filtersin|sln|vc9|resx)\Z/i
+    or $Name=~/\.(def|defs|rc|rc\.in|msc|msc\.in|win32|bat|vc6|vcwin32|vbs|cmd|dsw|dsp|csproj|vbproj)\Z/i)
     { # MSVC++
         return "MSVC";
+    }
+    elsif($Name=~/\.(txt)\Z/i)
+    { # Text
+        return "TEXT";
+    }
+    elsif($Name=~/\.(conf|config)\Z/i)
+    { # linux-g++-32/qmake.conf
+        return "CONFIG";
     }
     elsif(-f $Path)
     {
         my $Type = getType($Path);
         if($Type=~/shell/i) {
             return "SHELL";
+        }
+        elsif($Type=~/POD document/i) {
+            return "POD";
+        }
+        elsif($Type=~/perl\d* module/i) {
+            return "PERL_MODULE";
         }
         elsif($Type=~/perl/i) {
             return "PERL";
@@ -1624,6 +1867,9 @@ sub getFormat_($)
         }
         elsif($Type=~/ruby/i) {
             return "RUBY";
+        }
+        elsif($Type=~/php/i) {
+            return "PHP";
         }
         elsif($Type=~/java/i) {
             return "JAVA";
@@ -1640,9 +1886,6 @@ sub getFormat_($)
         elsif($Type=~/gettext/i) {
             return "GETTEXT";
         }
-        elsif($Type=~/text/i) {
-            return "TEXT";
-        }
         elsif($Type=~/executable/i) {
             return "EXE";
         }
@@ -1651,6 +1894,27 @@ sub getFormat_($)
         }
         elsif($Type=~/compressed/i) {
             return "ARCHIVE";
+        }
+        elsif($Type=~/video/i) {
+            return "VIDEO";
+        }
+        elsif($Type=~/audio/i) {
+            return "AUDIO";
+        }
+        elsif($Type=~/image/i) {
+            return "IMAGE";
+        }
+        elsif($Type=~/font/i) {
+            return "FONT";
+        }
+        elsif($Type=~/data/i) {
+            return "DATA";
+        }
+        elsif($Type=~/text/i) {
+            return "TEXT";
+        }
+        elsif($Type=~/PostScript/i) {
+            return "POSTSCRIPT";
         }
     }
     return "OTHER";
@@ -1723,6 +1987,55 @@ sub readDescriptor($$)
     else {
         exitStatus("Error", "packages in the XML-descriptor are not specified (<packages> section)");
     }
+    foreach my $Path (split(/\s*\n\s*/, parseTag(\$Content, "skip_files")))
+    {
+        my ($CPath, $Type) = classifyPath($Path);
+        $SkipFiles{$Version}{$Type}{$CPath} = 1;
+    }
+}
+
+sub classifyPath($)
+{
+    my $Path = $_[0];
+    if($Path=~/[\*\[]/)
+    { # wildcard
+        $Path=~s/\*/.*/g;
+        $Path=~s/\\/\\\\/g;
+        return ($Path, "Pattern");
+    }
+    elsif($Path=~/[\/\\]/)
+    { # directory or relative path
+        return ($Path, "Path");
+    }
+    else {
+        return ($Path, "Name");
+    }
+}
+
+sub skip_file($$)
+{
+    my ($Path, $Version) = @_;
+    return 0 if(not $Path or not $Version);
+    my $Name = get_filename($Path);
+    if($SkipFiles{$Version}{"Name"}{$Name}) {
+        return 1;
+    }
+    foreach my $Dir (keys(%{$SkipFiles{$Version}{"Path"}}))
+    {
+        if($Path=~/\Q$Dir\E/) {
+            return 1;
+        }
+    }
+    foreach my $Pattern (keys(%{$SkipFiles{$Version}{"Pattern"}}))
+    {
+        if($Name=~/$Pattern/) {
+            return 1;
+        }
+        if($Pattern=~/[\/\\]/ and $Path=~/$Pattern/) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 sub sepDep($)
@@ -1749,6 +2062,11 @@ sub registerPackage($$)
     my ($CPath, $Attr) = readPackage($Path, $Version);
     $TargetPackages{$Version}{$PkgName} = 1;
     $Group{"Count$Version"} += 1;
+    my @Contents = listDir($CPath);
+    my $Prefix = "";
+    if($#Contents==0 and -d $CPath."/".$Contents[0]) {
+        $Prefix = $Contents[0];
+    }
     foreach my $File (cmd_find($CPath, "", "", ""))
     { # search for all files
         my $FName = cut_path_prefix($File, $CPath);
@@ -1759,27 +2077,32 @@ sub registerPackage($$)
         }
         elsif($PkgFormat eq "ARCHIVE")
         {
-            my @Contents = listDir($CPath);
-            if($#Contents==0 and -d $CPath."/".$Contents[0])
-            {
-                $FName = cut_path_prefix($FName, $Contents[0]);
+            if($Prefix) {
+                $FName = cut_path_prefix($FName, $Prefix);
             }
+        }
+        if(not $FName) {
+            next;
         }
         my $SubDir = "$TMP_DIR/xcontent$Version/$FName";
         $PackageFiles{$Version}{$FName} = $File;
-        if(getFormat($File) eq "ARCHIVE")
-        { # go into archives
+        if(not get_dirname($FName)
+        and getFormat($File) eq "ARCHIVE")
+        { # go into archives (for SRPM)
             unpackArchive($File, $SubDir);
-            my @Contents = listDir($SubDir);
+            my @SubContents = listDir($SubDir);
             my $G = "";
-            if($#Contents==0 and -d $SubDir."/".$Contents[0])
+            if($#SubContents==0 and -d $SubDir."/".$SubContents[0])
             { # libsample-x.y.z.tar.gz/libsample-x.y.z
-                $G = get_filename($File)."/".$Contents[0];
-                $SubDir .= "/".$Contents[0];
+                $G = get_filename($File)."/".$SubContents[0];
+                $SubDir .= "/".$SubContents[0];
             }
             foreach my $SubFile (cmd_find($SubDir, "", "", ""))
             { # search for all files in archive
                 my $SFName = cut_path_prefix($SubFile, $SubDir);
+                if(not $SFName) {
+                    next;
+                }
                 $PackageFiles{$Version}{$SFName} = $SubFile;
                 $FileGroup{$Version}{$SFName} = $G;
             }
@@ -1815,32 +2138,58 @@ sub listDir($)
     return @Contents;
 }
 
+sub getArchiveFormat($)
+{
+    my $Pkg = get_filename($_[0]);
+    foreach (sort {length($b)<=>length($a)} keys(%ArchiveFormats))
+    {
+        my $P = $ArchiveFormats{$_};
+        if($Pkg=~/\.($P)\Z/) {
+            return $_;
+        }
+    }
+    return "";
+}
+
 sub unpackArchive($$)
 {
     my ($Pkg, $OutDir) = @_;
     mkpath($OutDir);
     my $Cmd = "";
-    if($Pkg=~/\.(tar\.gz|tgz|tar\.Z)\Z/)
+    my $Format = getArchiveFormat($Pkg);
+    if($Format eq "TAR.GZ")
     { # TAR.GZ, TGZ, TAR.Z
         $Cmd = "tar -xzf $Pkg --directory=$OutDir";
     }
-    elsif($Pkg=~/\.tar\.bz2\Z/)
-    { # TAR.BZ2
+    elsif($Format eq "TAR.BZ2")
+    { # TAR.BZ2, TBZ
         $Cmd = "tar -xjf $Pkg --directory=$OutDir";
     }
-    elsif($Pkg=~/\.(tar\.xz|txz)\Z/)
-    { # TAR.XZ
+    elsif($Format eq "TAR.XZ")
+    { # TAR.XZ, TXZ
         $Cmd = "tar -Jxf $Pkg --directory=$OutDir";
     }
-    elsif($Pkg=~/\.tar\Z/)
+    elsif($Format eq "TAR.LZMA")
+    { # TAR.LZMA, TLZMA
+        $Cmd = "tar -xf $Pkg --lzma --directory=$OutDir";
+    }
+    elsif($Format eq "TAR.LZ")
+    { # TAR.LZ, TLZ
+        $Cmd = "tar -xf $Pkg --lzip --directory=$OutDir";
+    }
+    elsif($Format eq "TAR")
     { # TAR
         $Cmd = "tar -xf $Pkg --directory=$OutDir";
     }
-    elsif($Pkg=~/\.zip\Z/i)
+    elsif($Format eq "GZ")
+    { # GZ
+        $Cmd = "cp $Pkg $OutDir && cd $OutDir && gunzip ".get_filename($Pkg);
+    }
+    elsif($Format eq "ZIP")
     { # ZIP
         $Cmd = "unzip $Pkg -d $OutDir";
     }
-    elsif($Pkg=~/\.jar\Z/)
+    elsif($Format eq "JAR")
     { # JAR
         $Cmd = "cd $OutDir && jar -xf $Pkg";
     }
@@ -1857,7 +2206,6 @@ sub readPackage($$)
     my $CPath = "$TMP_DIR/content$Version/".get_filename($Path);
     my %Attributes = ();
     my $Format = getFormat($Path);
-    $Group{"Format"}{$Format} = 1;
     if($Format eq "DEB")
     { # Deb package
         if(not checkCmd("dpkg-deb")) {
@@ -1893,6 +2241,8 @@ sub readPackage($$)
                 }
             }
         }
+        $PackageInfo{$Attributes{"Name"}}{"V$Version"} = $Info;
+        $Group{"Format"}{$Format} = 1;
     }
     elsif($Format eq "RPM" or $Format eq "SRPM")
     { # RPM or SRPM package
@@ -1919,6 +2269,7 @@ sub readPackage($$)
             }
         }
         $PackageInfo{$Attributes{"Name"}}{"V$Version"} = readRPM($Path, "--info");
+        $Group{"Format"}{$Format} = 1;
     }
     elsif($Format eq "ARCHIVE")
     { # TAR.GZ and others
@@ -1935,6 +2286,7 @@ sub readPackage($$)
             $Attributes{"Name"} = get_filename($Path);
             $Attributes{"Name"}=~s/\.($ARCHIVE_EXT)\Z//;
         }
+        $Group{"Format"}{uc(getExt($Path))} = 1;
     }
     return ($CPath, \%Attributes);
 }
@@ -1984,7 +2336,7 @@ sub get_Footer($)
 {
     my $Name = $_[0];
     my $Footer = "<div style='width:100%;font-size:11px;' align='right'><i>Generated on ".(localtime time); # report date
-    $Footer .= " by <a href='".$HomePage{"Dev"}."'>Package Changes Analyzer</a>"; # tool name
+    $Footer .= " by <a href='".$HomePage{"Dev"}."'>Package Changes Analyzer</a> - PkgDiff"; # tool name
     my $ToolSummary = "<br/>A tool for analyzing changes in Linux software packages&#160;&#160;";
     $Footer .= " $TOOL_VERSION &#160;$ToolSummary</i></div>"; # tool version
     return $Footer;
@@ -2013,6 +2365,28 @@ sub get_Header()
     return $Header;
 }
 
+sub cut_off_number($$)
+{
+    my ($num, $digs_to_cut) = @_;
+    if($num!~/\./)
+    {
+        $num .= ".";
+        foreach (1 .. $digs_to_cut-1) {
+            $num .= "0";
+        }
+    }
+    elsif($num=~/\.(.+)\Z/ and length($1)<$digs_to_cut-1)
+    {
+        foreach (1 .. $digs_to_cut - 1 - length($1)) {
+            $num .= "0";
+        }
+    }
+    elsif($num=~/\d+\.(\d){$digs_to_cut,}/) {
+      $num=sprintf("%.".($digs_to_cut-1)."f", $num);
+    }
+    return $num;
+}
+
 sub get_Summary()
 {
     my $TestInfo = "<h2>Test Info</h2><hr/>\n";
@@ -2023,7 +2397,7 @@ sub get_Summary()
     else {
         $TestInfo .= "<tr><th class='left'>Package Name</th><td>".$Group{"Name"}."</td></tr>\n";
     }
-    my @Formats = keys(%{$Group{"Format"}});
+    my @Formats = sort keys(%{$Group{"Format"}});
     $TestInfo .= "<tr><th class='left'>Package Format</th><td>".join(", ", @Formats)."</td></tr>\n";
     if($Group{"Arch"}) {
         $TestInfo .= "<tr><th class='left'>Package Arch</th><td>".$Group{"Arch"}."</td></tr>\n";
@@ -2046,7 +2420,7 @@ sub get_Summary()
     if(keys(%TotalDeps)>0) {
         $Deps_Link = "<a href='#Deps' style='color:Blue;'>".keys(%TotalDeps)."</a>";
     }
-    if(not ($#Formats==0 and $Formats[0] eq "ARCHIVE")) {
+    if($Group{"Format"}{"DEB"} or $Group{"Format"}{"RPM"} or $Group{"Format"}{"SRPM"}) {
         $TestResults .= "<tr><th class='left'>Total Dependencies</th><td>".$Deps_Link."</td></tr>\n";
     }
     
@@ -2061,16 +2435,45 @@ sub get_Summary()
         $TestResults .= "<tr><th class='left'>Usage In Other<br/>Packages</th><td><a href='#Usage'>$UsedBy</a></td></tr>\n";
     }
     
-    my $TotalChanged = 0;
+    my ($TotalChanged, $Total) = (0, 0);
     foreach my $Format (keys(%FileChanges))
     {
         $TotalChanged += $FileChanges{$Format}{"Removed"};
         $TotalChanged += $FileChanges{$Format}{"Changed"};
+        $TotalChanged += $FileChanges{$Format}{"Added"};
+        $Total += $FileChanges{$Format}{"Total"};
     }
+    foreach my $Kind (keys(%DepChanges))
+    {
+        $TotalChanged += $DepChanges{$Kind}{"Removed"};
+        $TotalChanged += $DepChanges{$Kind}{"Changed"};
+        $TotalChanged += $DepChanges{$Kind}{"Added"};
+        $Total += $DepChanges{$Kind}{"Total"};
+    }
+    my $Affected = 0;
+    if($Total) {
+        $Affected = 100*$TotalChanged/$Total;
+    }
+    if($Affected
+    and my $Num = cut_off_number($Affected, 3))
+    {
+        if($Num eq "0.00") {
+            $Num = cut_off_number($Affected, 7);
+        }
+        if($Num eq "0.000000") {
+            $Num = $Affected;
+        }
+        $Affected = $Num;
+    }
+    if($Affected>=100) {
+        $Affected = 100;
+    }
+    $Affected=~s/\.00\Z//g;
+    
     my $Verdict = "";
     if($TotalChanged)
     {
-        $Verdict = "<span style='color:Red;'><b>Changed</b></span>";
+        $Verdict = "<span style='color:Red;'><b>Changed<br/>(".$Affected."%)</b></span>";
         $RESULT{"compat"} = "Incompatible";
     }
     else
@@ -2084,13 +2487,13 @@ sub get_Summary()
     my $FileChanges = "<a name='Files'></a><h2>Changes In Files</h2><hr/>\n";
     $FileChanges .= "<table cellpadding='3' cellspacing='0' class='summary'>\n";
     $FileChanges .= "<tr><th>File Type</th><th>Total</th><th>Added</th><th>Removed</th><th>Changed</th></tr>\n";
-    foreach my $Format (sort {$FormatInfo{$b}{"N"}<=>$FormatInfo{$a}{"N"}} sort keys(%FormatInfo))
+    foreach my $Format (sort {$FormatInfo{$b}{"Weight"}<=>$FormatInfo{$a}{"Weight"}} sort keys(%FormatInfo))
     {
         if(not $FileChanges{$Format}{"Total"}) {
             next;
         }
         $FileChanges .= "<tr>\n";
-        $FileChanges .= "<td class='left'>".$FormatInfo{$Format}{"Descr"}."</td>\n";
+        $FileChanges .= "<td class='left'>".$FormatInfo{$Format}{"Summary"}."</td>\n";
         foreach ("Total", "Added", "Removed", "Changed")
         {
             my $Link = "0";
@@ -2102,7 +2505,10 @@ sub get_Summary()
         $FileChanges .= "</tr>\n";
     }
     $FileChanges .= "</table>\n";
-    return $TestInfo.$TestResults.get_Report_Headers().get_Report_Deps().$FileChanges;
+    my $Legend = "<br/><table class='summary'>
+    <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
+    <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>\n";
+    return $Legend.$TestInfo.$TestResults.get_Report_Headers().get_Report_Deps().$FileChanges;
 }
 
 sub get_Source()
@@ -2144,25 +2550,47 @@ sub createHtmlReport($)
     printMsg("INFO", "see detailed report:\n  $Path");
 }
 
-sub setFormatInfo()
+sub readFileTypes()
 {
+    my $FileTypes = readFile($MODULES_DIR."/FileType.xml");
+    while(my $FileType = parseTag(\$FileTypes, "type"))
+    {
+        my $ID = parseTag(\$FileType, "id");
+        if(not $ID) {
+            next;
+        }
+        if(my $Summary = parseTag(\$FileType, "summary")) {
+            $FormatInfo{$ID}{"Summary"} = $Summary;
+        }
+        if(my $Title = parseTag(\$FileType, "title")) {
+            $FormatInfo{$ID}{"Title"} = $Title;
+        }
+        if(my $Weight = parseTag(\$FileType, "weight")) {
+            $FormatInfo{$ID}{"Weight"} = $Weight;
+        }
+        if(my $Anchor = parseTag(\$FileType, "anchor")) {
+            $FormatInfo{$ID}{"Anchor"} = $Anchor;
+        }
+    }
     foreach my $Format (keys(%FormatInfo))
     {
         if(not $FormatInfo{$Format}{"Title"})
         {
-            $FormatInfo{$Format}{"Title"} = $FormatInfo{$Format}{"Descr"};
+            $FormatInfo{$Format}{"Title"} = $FormatInfo{$Format}{"Summary"};
             while($FormatInfo{$Format}{"Title"}=~/ ([a-z]+)/)
             {
                 my ($W, $UW) = ($1, ucfirst($1));
                 $FormatInfo{$Format}{"Title"}=~s/ $W/ $UW/g;
             }
-            $FormatInfo{$Format}{"Title"}=~s/(file|page|link|program|bookmark|document)\Z/$1s/i;
+            $FormatInfo{$Format}{"Title"}=~s/(file|page|link|program|bookmark|document|log|license|header|sheet|module)\Z/$1s/i;
             $FormatInfo{$Format}{"Title"}=~s/(librar|director|entr)y\Z/$1ies/i;
         }
         if(not $FormatInfo{$Format}{"Anchor"})
         {
             $FormatInfo{$Format}{"Anchor"} = $FormatInfo{$Format}{"Title"};
             $FormatInfo{$Format}{"Anchor"}=~s/\s//g;
+            $FormatInfo{$Format}{"Anchor"}=~s/C\+\+/CPP/g;
+            $FormatInfo{$Format}{"Anchor"}=~s/C#/CS/g;
         }
     }
 }
@@ -2188,6 +2616,19 @@ sub cmpVersions($$)
     return -1 if($#V1Parts < $#V2Parts);
     return 1 if($#V1Parts > $#V2Parts);
     return 0;
+}
+
+sub getArchivePattern()
+{
+    my @Groups = ();
+    foreach (sort {length($b)<=>length($a)} keys(%ArchiveFormats))
+    {
+        my @Fmts = @{$ArchiveFormats{$_}};
+        $ArchiveFormats{$_} = join("|", @Fmts);
+        $ArchiveFormats{$_}=~s/\./\\./g;
+        push(@Groups, $ArchiveFormats{$_});
+    }
+    return join("|", @Groups);
 }
 
 sub scenario()
@@ -2237,7 +2678,7 @@ sub scenario()
     if(not -f $Descriptor{2}) {
         exitStatus("Access_Error", "can't access file \'".$Descriptor{2}."\'");
     }
-    setFormatInfo();
+    readFileTypes();
     printMsg("INFO", "reading packages ...");
     if(getFormat($Descriptor{1})=~/\A(RPM|SRPM|DEB|ARCHIVE)\Z/)
     {
