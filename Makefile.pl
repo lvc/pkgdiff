@@ -187,14 +187,13 @@ sub scenario()
         if(-d $ARCHIVE_DIR."/modules")
         {
                 print "-- Installing $MODULES_PATH\n";
-                mkpath($MODULES_PATH."/modules");
+                mkpath($MODULES_PATH);
                 copyDir($ARCHIVE_DIR."/modules", $MODULES_PATH);
                 my $TOOLS_PATH = $MODULES_PATH."/modules/Internals/Tools";
                 my @Tools = listDir($TOOLS_PATH);
                 foreach my $Tool (@Tools) {
                     chmod(0755, $TOOLS_PATH."/".$Tool);
                 }
-                
         }
         
         # check PATH
@@ -233,6 +232,7 @@ sub copyDir($$)
         }
         else
         { # files
+            mkpath(dirname($Inst));
             copy($Path, $Inst);
         }
     }
