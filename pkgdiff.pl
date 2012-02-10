@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# pkgdiff - Package Changes Analyzer 1.1
+# pkgdiff - Package Changes Analyzer 1.1.1
 # A tool for analyzing changes in Linux software packages
 #
 # Copyright (C) 2011-2012 ROSA Laboratory.
@@ -46,7 +46,7 @@ use File::Path qw(mkpath rmtree);
 use File::Temp qw(tempdir);
 use Cwd qw(abs_path cwd);
 
-my $TOOL_VERSION = "1.1";
+my $TOOL_VERSION = "1.1.1";
 my $ORIG_DIR = cwd();
 my $TMP_DIR = tempdir(CLEANUP=>1);
 
@@ -320,7 +320,7 @@ my %ArchiveFormats = (
 
     "TAR.LZ"   => ["tar.lz", "tlz"],
 
-    "ZIP"      => ["zip"],
+    "ZIP"      => ["zip", "zae"],
     "TAR"      => ["tar"],
     "LZMA"     => ["lzma"],
     "GZ"       => ["gz"],
@@ -405,12 +405,13 @@ sub compareFiles($$$$)
     if($Format eq "HEADER"
     or $Format eq "PKGCONFIG"
     or $Format eq "TEXT"
-    or $Format eq "LIBTOOL"
     or $Format eq "DESKTOP"
     or $Format eq "PARAM"
     or $Format eq "M4"
     or $Format eq "SHELL"
     or $Format eq "PERL"
+    or $Format eq "LUA"
+    or $Format eq "AWK"
     or $Format eq "PERL_MODULE"
     or $Format eq "PERL_TEST"
     or $Format eq "PERL_XS"
@@ -422,6 +423,7 @@ sub compareFiles($$$$)
     or $Format eq "CS"
     or $Format eq "ASSEMBLER"
     or $Format eq "FONT"
+    or $Format eq "RST"
     or $Format eq "IBY"
     or $Format eq "XQ"
     or $Format eq "SCALA"
@@ -634,7 +636,7 @@ sub getMD5($)
     if(not $Path) {
         return 0;
     }
-    my $MD5 = `md5sum $Path`;
+    my $MD5 = `md5sum \"$Path\"`;
     if($MD5=~/\A(\w+)/) {
         return $1;
     }
@@ -746,7 +748,7 @@ sub diffFiles($$$)
         return "";
     }
     mkpath(get_dirname($Path));
-    my $Cmd = "sh $DIFF --width 75 --stdout ".$P1." ".$P2." >".$Path." 2>$TMP_DIR/null";
+    my $Cmd = "sh $DIFF --width 75 --stdout \"".$P1."\" \"".$P2."\" >\"".$Path."\" 2>$TMP_DIR/null";
     $Cmd=~s/\$/\\\$/g;
     system($Cmd);
     if(-s $Path<3500)
@@ -1448,6 +1450,7 @@ sub getFormat_($)
 {
     my $Path = $_[0];
     my ($Dir, $Name) = separate_path($Path);
+    $Name=~s/\~\Z//g; # backup files
     if(-l $Path) {
         return "SYMLINK";
     }
@@ -1504,13 +1507,13 @@ sub getFormat_($)
         return "README";
     }
     elsif($Name=~/\A(TODO|NOTES|AUTHORS|THANKS)\Z/i
-    or $Name=~/\A(PATCHING|ANNOUNCE|MANIFEST)\Z/
+    or $Name=~/\A(PATCHING|ANNOUNCE|MANIFEST|FAQ|HACKING)\Z/
     or $Name=~/\A(INSTALL)(\.|\Z)/)
     { # Info
         return "INFORM";
     }
-    elsif($Name=~/\A(license|copyright|copying|artistic)(\W|\Z)/i
-    or $Name=~/\.(license)\Z/i)
+    elsif($Name=~/\A(license|licence|copyright|copying|artistic)(\W|\Z)/i
+    or $Name=~/\.(license|licence)\Z/i or $Name=~/\A(gpl|lgpl)(\.txt|)\Z/i)
     { # APACHE.license
       # LGPL.license
       # COPYRIGHT.IBM
@@ -1522,7 +1525,7 @@ sub getFormat_($)
       # freetype/ChangeLog
         return "CHANGELOG";
     }
-    elsif($Name=~/\.(la)\Z/i)
+    elsif($Name=~/\.(la|lo|plo)\Z/i)
     {
         return "LIBTOOL";
     }
@@ -1550,7 +1553,7 @@ sub getFormat_($)
         return "ARCHIVE";
     }
     elsif($Name=~/\.(dox|doxyfile)(\.in|)\Z/i
-    or $Name=~/\ADoxyfile\Z/i)
+    or $Name=~/\ADoxyfile(\W|\Z)/i)
     { # Doxyfile
         return "DOXYGEN";
     }
@@ -1566,13 +1569,21 @@ sub getFormat_($)
         return "MAKEFILE";
     }
     elsif($Name=~/\A(CMakeLists.*\.txt)\Z/i
-    or $Name=~/\.(cmake|cmakein)\Z/i)
-    { # Cmake
+    or $Name=~/\.(cmake|cmakein)(\.in|)\Z/i)
+    { # CMake
         return "CMAKE";
     }
     elsif($Name=~/\.(xbel)\Z/i)
     { # Bookmarks
         return "XBEL";
+    }
+    elsif($Name=~/\.(wrl|vrml)\Z/i)
+    {
+        return "VRML";
+    }
+    elsif($Name=~/\.(iv)\Z/i)
+    {
+        return "IV";
     }
     elsif($Name=~/\.(enc|utf)\Z/i)
     { # Encoding
@@ -1602,7 +1613,7 @@ sub getFormat_($)
     { # trafficinfo/time_example.wml
         return "WML";
     }
-    elsif($Name=~/\.(yml)\Z/i)
+    elsif($Name=~/\.(yml|yaml)\Z/i)
     { # YAML
         return "YAML";
     }
@@ -1650,13 +1661,41 @@ sub getFormat_($)
     { # Video
         return "VIDEO";
     }
-    elsif($Name=~/\.(sh|csh)\Z/i)
+    elsif($Name=~/\.(sh|csh|bash)\Z/i)
     { # Shell
         return "SHELL";
     }
     elsif($Name=~/\.(pl|plx|e2x)\Z/i)
     { # Perl
         return "PERL";
+    }
+    elsif($Name=~/\.(lua)\Z/i)
+    {
+        return "LUA";
+    }
+    elsif($Name=~/\.(awk)\Z/i)
+    {
+        return "AWK";
+    }
+    elsif($Name=~/\.(gpg)\Z/i)
+    {
+        return "GPG";
+    }
+    elsif($Name=~/\.(rtf)\Z/i)
+    {
+        return "RTF";
+    }
+    elsif($Name=~/\.(mat)\Z/i)
+    {
+        return "MATLAB";
+    }
+    elsif($Name=~/\.(rst)\Z/i)
+    {
+        return "RST";
+    }
+    elsif($Name=~/\.(latex|tex)\Z/i)
+    {
+        return "LATEX";
     }
     elsif($Name=~/\.(pm)\Z/i)
     { # Perl module
@@ -1690,9 +1729,13 @@ sub getFormat_($)
     { # Ruby
         return "RUBY";
     }
-    elsif($Name=~/\.(php)\Z/i)
+    elsif($Name=~/\.(php|phpt)\Z/i)
     { # PHP
         return "PHP";
+    }
+    elsif($Name=~/\.(sql)\Z/i)
+    { # *.sql
+        return "SQL";
     }
     elsif($Name=~/\.(java|jsp|jj)\Z/i)
     { # Java
@@ -1714,7 +1757,7 @@ sub getFormat_($)
     { # Gettext
         return "GETTEXT";
     }
-    elsif($Name=~/\.(png|jpg|jpeg|exif|raw|bmp|pbm|webp|img|gif|svg|tiff|xcf|icns|xpm)\Z/i)
+    elsif($Name=~/\.(png|jpg|jpeg|exif|raw|bmp|pbm|webp|img|gif|svg|tiff|xcf|icns|xpm|dia)\Z/i)
     { # Images
         return "IMAGE";
     }
@@ -1730,7 +1773,7 @@ sub getFormat_($)
     { # OpenOffice
         return "OOO";
     }
-    elsif($Name=~/\.(patch)\Z/i)
+    elsif($Name=~/\.(patch|diff)\Z/i)
     { # Patch
         return "PATCH";
     }
@@ -1834,8 +1877,8 @@ sub getFormat_($)
     {
         return "PRECOMPILED_HEADER";
     }
-    elsif($Name=~/\.(vcxproj|vcproj|vcprojin|vcxproj\.filters|vcxproj\.filtersin|sln|vc9|resx)\Z/i
-    or $Name=~/\.(def|defs|rc|rc\.in|msc|msc\.in|win32|bat|vc6|vcwin32|vbs|cmd|dsw|dsp|csproj|vbproj)\Z/i)
+    elsif($Name=~/\.(vcxproj|vcproj|vcprojin|vcxproj\.filters|vcxproj\.filtersin|sln|vc9|resx)(\.in|)\Z/i
+    or $Name=~/\.(def|defs|rc|rc\.in|msc|msc\.in|win32|bat|vc6|vcwin32|vbs|cmd|dsw|dsp|csproj|vbproj)(\.in|)\Z/i)
     { # MSVC++
         return "MSVC";
     }
@@ -1843,7 +1886,7 @@ sub getFormat_($)
     { # Text
         return "TEXT";
     }
-    elsif($Name=~/\.(conf|config)\Z/i)
+    elsif($Name=~/\.(conf|config|cfg)\Z/i)
     { # linux-g++-32/qmake.conf
         return "CONFIG";
     }
@@ -1892,7 +1935,7 @@ sub getFormat_($)
         elsif($Type=~/shared object/i) {
             return "SHLIB";
         }
-        elsif($Type=~/compressed/i) {
+        elsif($Type=~/compressed|archive data/i) {
             return "ARCHIVE";
         }
         elsif($Type=~/video/i) {
@@ -1906,6 +1949,15 @@ sub getFormat_($)
         }
         elsif($Type=~/font/i) {
             return "FONT";
+        }
+        elsif($Type=~/GPG key/i) {
+            return "GPG";
+        }
+        elsif($Type=~/Rich Text Format/i) {
+            return "RTF";
+        }
+        elsif($Type=~/Matlab/i) {
+            return "MATLAB";
         }
         elsif($Type=~/data/i) {
             return "DATA";
@@ -2582,7 +2634,7 @@ sub readFileTypes()
                 my ($W, $UW) = ($1, ucfirst($1));
                 $FormatInfo{$Format}{"Title"}=~s/ $W/ $UW/g;
             }
-            $FormatInfo{$Format}{"Title"}=~s/(file|page|link|program|bookmark|document|log|license|header|sheet|module)\Z/$1s/i;
+            $FormatInfo{$Format}{"Title"}=~s/(file|page|link|program|bookmark|document|package|log|license|header|sheet|module)\Z/$1s/i;
             $FormatInfo{$Format}{"Title"}=~s/(librar|director|entr)y\Z/$1ies/i;
         }
         if(not $FormatInfo{$Format}{"Anchor"})
@@ -2733,7 +2785,7 @@ sub scenario()
     }
     $Group{"Arch"} = $Group{"Arch1"};
     if($Group{"Arch1"} ne $Group{"Arch2"}) {
-        printMsg("WARNING", "different architectures of packages");
+        printMsg("WARNING", "different architectures of packages (\"".$Group{"Arch1"}."\" and \"".$Group{"Arch2"}."\")");
     }
     if(defined $Group{"Format"}{"DEB"}
     and defined $Group{"Format"}{"RPM"}) {

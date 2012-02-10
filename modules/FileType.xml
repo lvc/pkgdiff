@@ -83,7 +83,7 @@
         C++ program
     </summary>
     <weight>
-        8
+        9
     </weight>
 </type>
 
@@ -542,7 +542,7 @@
         CMAKE
     </id>
     <summary>
-        Cmake file
+        CMake file
     </summary>
     <weight>
         5
@@ -755,6 +755,30 @@
 
 <type>
     <id>
+        LUA
+    </id>
+    <summary>
+        Lua program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        AWK
+    </id>
+    <summary>
+        Awk program
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
         PYTHON_EGG
     </id>
     <summary>
@@ -794,10 +818,106 @@
 
 <type>
     <id>
+        SQL
+    </id>
+    <summary>
+        SQL file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
         GETTEXT
     </id>
     <summary>
         Gettext file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        GPG
+    </id>
+    <summary>
+        GNU GPG file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        RTF
+    </id>
+    <summary>
+        RTF file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        RST
+    </id>
+    <summary>
+        RST file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        VRML
+    </id>
+    <summary>
+        VRML file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        IV
+    </id>
+    <summary>
+        Scene graph file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        MATLAB
+    </id>
+    <summary>
+        MATLAB file
+    </summary>
+    <weight>
+        4
+    </weight>
+</type>
+
+<type>
+    <id>
+        LATEX
+    </id>
+    <summary>
+        LaTeX document
     </summary>
     <weight>
         4
@@ -1038,6 +1158,42 @@
     </id>
     <summary>
         Icon
+    </summary>
+    <weight>
+        2
+    </weight>
+</type>
+
+<type>
+    <id>
+        RPM
+    </id>
+    <summary>
+        RPM package
+    </summary>
+    <weight>
+        2
+    </weight>
+</type>
+
+<type>
+    <id>
+        SRPM
+    </id>
+    <summary>
+        SRPM package
+    </summary>
+    <weight>
+        2
+    </weight>
+</type>
+
+<type>
+    <id>
+        DEB
+    </id>
+    <summary>
+        Deb package
     </summary>
     <weight>
         2
