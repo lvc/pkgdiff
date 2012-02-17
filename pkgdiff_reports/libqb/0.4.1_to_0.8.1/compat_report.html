@@ -3,9 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="libqb, changes, report" />
-    <meta name="description" content="Changes report for the libqb package between 0.4.1 and 0.8.1 versions" />
+    <meta name="description" content="Changes report for the libqb package between 0.4.1-2.fc15 and 0.8.1-2.fc16 versions" />
     <title>
-        libqb: 0.4.1 to 0.8.1 changes report
+        libqb: 0.4.1-2.fc15 to 0.8.1-2.fc16 changes report
     </title>
 <style type="text/css">
 body {
@@ -91,7 +91,7 @@ div.p_list {
 </head>
 <body>
 <div><a name='Top'></a>
-<h1>Changes report for the <span style='color:Blue;'>libqb</span> package between <span style='color:Red;'>0.4.1</span> and <span style='color:Red;'>0.8.1</span> versions</h1>
+<h1>Changes report for the <span style='color:Blue;'>libqb</span> package between <span style='color:Red;'>0.4.1-2.fc15</span> and <span style='color:Red;'>0.8.1-2.fc16</span> versions</h1>
 <br/><table class='summary'>
     <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
     <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>
@@ -100,20 +100,20 @@ div.p_list {
 <tr><th class='left'>Package Name</th><td>libqb</td></tr>
 <tr><th class='left'>Package Format</th><td>SRPM</td></tr>
 <tr><th class='left'>Package Arch</th><td>x86_64</td></tr>
-<tr><th class='left'>Version #1</th><td>0.4.1</td></tr>
-<tr><th class='left'>Version #2</th><td>0.8.1</td></tr>
+<tr><th class='left'>Version #1</th><td>0.4.1-2.fc15</td></tr>
+<tr><th class='left'>Version #2</th><td>0.8.1-2.fc16</td></tr>
 </table>
 <h2>Test Results</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>2</a></td></tr>
 <tr><th class='left'>Total Dependencies</th><td><a href='#Deps' style='color:Blue;'>6</a></td></tr>
 <tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>146</a></td></tr>
-<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(78.95%)</b></span></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(39.49%)</b></span></td></tr>
 </table>
 <a name='Info'></a>
 <h2>Changes In Package Info</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>Package</th><th>Status</th><th>HTML Diff</th></tr>
+<tr><th>Package</th><th>Status</th><th>Visual Diff</th></tr>
 <tr>
 <td class='left f_path'>libqb</td>
 <td class='warning'>changed</td>
@@ -166,10 +166,10 @@ div.p_list {
 <tr><th>File Type</th><th>Total</th><th>Added</th><th>Removed</th><th>Changed</th></tr>
 <tr>
 <td class='left'>Header file</td>
-<td><a href='#HeaderFiles' style='color:Blue;'>23</a></td>
-<td><a href='#HeaderFiles' style='color:Blue;'>5</a></td>
+<td><a href='#HeaderFiles' style='color:Blue;'>25</a></td>
+<td><a href='#HeaderFiles' style='color:Blue;'>6</a></td>
 <td>0</td>
-<td><a href='#HeaderFiles' style='color:Blue;'>16</a></td>
+<td><a href='#HeaderFiles' style='color:Blue;'>17</a></td>
 </tr>
 <tr>
 <td class='left'>C program</td>
@@ -187,10 +187,24 @@ div.p_list {
 </tr>
 <tr>
 <td class='left'>Patch</td>
-<td><a href='#Patches' style='color:Blue;'>1</a></td>
-<td><a href='#Patches' style='color:Blue;'>1</a></td>
+<td><a href='#Patchs' style='color:Blue;'>1</a></td>
+<td><a href='#Patchs' style='color:Blue;'>1</a></td>
 <td>0</td>
 <td>0</td>
+</tr>
+<tr>
+<td class='left'>Perl program</td>
+<td><a href='#PerlPrograms' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Shell program</td>
+<td><a href='#ShellPrograms' style='color:Blue;'>12</a></td>
+<td><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
+<td><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
+<td><a href='#ShellPrograms' style='color:Blue;'>3</a></td>
 </tr>
 <tr>
 <td class='left'>Automake file</td>
@@ -200,11 +214,11 @@ div.p_list {
 <td><a href='#AutomakeFiles' style='color:Blue;'>12</a></td>
 </tr>
 <tr>
-<td class='left'>Doxygen file</td>
-<td><a href='#DoxygenFiles' style='color:Blue;'>4</a></td>
+<td class='left'>M4 macro file</td>
+<td><a href='#M4' style='color:Blue;'>6</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#DoxygenFiles' style='color:Blue;'>3</a></td>
+<td><a href='#M4' style='color:Blue;'>3</a></td>
 </tr>
 <tr>
 <td class='left'>Makefile</td>
@@ -228,25 +242,18 @@ div.p_list {
 <td><a href='#PkgConfigFiles' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
-<td class='left'>Perl program</td>
-<td><a href='#PerlPrograms' style='color:Blue;'>1</a></td>
+<td class='left'>Doxygen file</td>
+<td><a href='#DoxygenFiles' style='color:Blue;'>4</a></td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
+<td><a href='#DoxygenFiles' style='color:Blue;'>3</a></td>
 </tr>
 <tr>
-<td class='left'>Shell program</td>
-<td><a href='#ShellPrograms' style='color:Blue;'>12</a></td>
-<td><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
-<td><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
-<td><a href='#ShellPrograms' style='color:Blue;'>3</a></td>
-</tr>
-<tr>
-<td class='left'>M4 macro file</td>
-<td><a href='#M4' style='color:Blue;'>6</a></td>
+<td class='left'>Directory</td>
+<td><a href='#Directories' style='color:Blue;'>9</a></td>
+<td><a href='#Directories' style='color:Blue;'>1</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#M4' style='color:Blue;'>3</a></td>
 </tr>
 <tr>
 <td class='left'>Archive</td>
@@ -263,17 +270,10 @@ div.p_list {
 <td><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
-<td class='left'>Directory</td>
-<td><a href='#Directories' style='color:Blue;'>9</a></td>
-<td><a href='#Directories' style='color:Blue;'>1</a></td>
+<td class='left'>Information file</td>
+<td><a href='#InformationFiles' style='color:Blue;'>2</a></td>
 <td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td class='left'>Info file</td>
-<td><a href='#InfoFiles' style='color:Blue;'>2</a></td>
-<td>0</td>
-<td><a href='#InfoFiles' style='color:Blue;'>1</a></td>
+<td><a href='#InformationFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
 </tr>
 <tr>
@@ -292,20 +292,26 @@ div.p_list {
 </tr>
 <tr>
 <td class='left'>Text file</td>
-<td><a href='#TextFiles' style='color:Blue;'>4</a></td>
-<td><a href='#TextFiles' style='color:Blue;'>1</a></td>
+<td><a href='#TextFiles' style='color:Blue;'>2</a></td>
 <td>0</td>
-<td><a href='#TextFiles' style='color:Blue;'>3</a></td>
+<td>0</td>
+<td><a href='#TextFiles' style='color:Blue;'>2</a></td>
 </tr>
 </table>
 <a name='HeaderFiles'></a>
-<h2>Header Files (23)</h2><hr/>
+<h2>Header Files (25)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>docs/mainpage.h</td>
 <td class='warning'>changed</td>
 <td><a href='diffs/docs/mainpage.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>include/config.h.in</td>
+<td class='warning'>changed</td>
+<td><a href='diffs/include/config.h.in-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
@@ -328,6 +334,12 @@ div.p_list {
 </tr>
 <tr>
 <td class='left f_path new'>include/qb/qbconfig.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/qb/qbconfig.h.in</td>
 <td class='new'>added</td>
 <td></td>
 <td></td>
@@ -444,7 +456,7 @@ div.p_list {
 <a name='CPrograms'></a>
 <h2>C Programs (48)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path new'>examples/ipcclient.c</td>
 <td class='new'>added</td>
@@ -737,7 +749,7 @@ div.p_list {
 <a name='SpecFiles'></a>
 <h2>Spec Files (2)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>libqb.spec</td>
 <td class='warning'>changed</td>
@@ -751,12 +763,100 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='Patches'></a>
-<h2>Patches (1)</h2><hr/>
+<a name='Patchs'></a>
+<h2>Patchs (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path new'>0001-UTIL-fix-qb_timespec_add_ms.patch</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='PerlPrograms'></a>
+<h2>Perl Programs (1)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>build-aux/gitlog-to-changelog</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ShellPrograms'></a>
+<h2>Shell Programs (12)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>autogen.sh</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>build-aux/git-version-gen</td>
+<td class='warning'>changed</td>
+<td><a href='diffs/build-aux/git-version-gen-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>compile</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>config.guess</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>config.sub</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>configure</td>
+<td class='warning'>changed</td>
+<td><a href='diffs/configure-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>depcomp</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>install-sh</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>ltmain.sh</td>
+<td class='warning'>changed</td>
+<td><a href='diffs/ltmain.sh-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>missing</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>tests/check_resources.sh</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>tests/resources.test</td>
 <td class='new'>added</td>
 <td></td>
 <td></td>
@@ -765,7 +865,7 @@ div.p_list {
 <a name='AutomakeFiles'></a>
 <h2>Automake Files (15)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>configure.ac</td>
 <td class='warning'>changed</td>
@@ -857,30 +957,42 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='DoxygenFiles'></a>
-<h2>Doxygen Files (4)</h2><hr/>
+<a name='M4'></a>
+<h2>M4 Macro Files (6)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
-<td class='left f_path'>docs/html.dox</td>
+<td class='left f_path'>aclocal.m4</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/docs/html.dox-diff.html' style='color:Blue;'>diff</a></td>
+<td><a href='diffs/aclocal.m4-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
-<td class='left f_path'>docs/html.dox.in</td>
+<td class='left f_path'>m4/libtool.m4</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/docs/html.dox.in-diff.html' style='color:Blue;'>diff</a></td>
+<td><a href='diffs/m4/libtool.m4-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
-<td class='left f_path'>docs/man.dox</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/docs/man.dox-diff.html' style='color:Blue;'>diff</a></td>
+<td class='left f_path'>m4/ltoptions.m4</td>
+<td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
-<td class='left f_path'>docs/man.dox.in</td>
+<td class='left f_path'>m4/ltsugar.m4</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>m4/ltversion.m4</td>
+<td class='warning'>changed</td>
+<td><a href='diffs/m4/ltversion.m4-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>m4/lt~obsolete.m4</td>
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
@@ -889,7 +1001,7 @@ div.p_list {
 <a name='Makefiles'></a>
 <h2>Makefiles (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>build-aux/release.mk</td>
 <td class='passed'>unchanged</td>
@@ -900,7 +1012,7 @@ div.p_list {
 <a name='ManPages'></a>
 <h2>Man Pages (11)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>docs/man3/qbarray.h.3</td>
 <td class='warning'>changed</td>
@@ -971,7 +1083,7 @@ div.p_list {
 <a name='PkgConfigFiles'></a>
 <h2>Pkg-config Files (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>lib/libqb.pc.in</td>
 <td class='warning'>changed</td>
@@ -979,167 +1091,39 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='PerlPrograms'></a>
-<h2>Perl Programs (1)</h2><hr/>
+<a name='DoxygenFiles'></a>
+<h2>Doxygen Files (4)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
-<td class='left f_path'>build-aux/gitlog-to-changelog</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-</table>
-<a name='ShellPrograms'></a>
-<h2>Shell Programs (12)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path'>autogen.sh</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>build-aux/git-version-gen</td>
+<td class='left f_path'>docs/html.dox</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/build-aux/git-version-gen-diff.html' style='color:Blue;'>diff</a></td>
+<td><a href='diffs/docs/html.dox-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
-<td class='left f_path'>compile</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>config.guess</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>config.sub</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>configure</td>
+<td class='left f_path'>docs/html.dox.in</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/configure-diff.html' style='color:Blue;'>diff</a></td>
+<td><a href='diffs/docs/html.dox.in-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
-<td class='left f_path'>depcomp</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>install-sh</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>ltmain.sh</td>
+<td class='left f_path'>docs/man.dox</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/ltmain.sh-diff.html' style='color:Blue;'>diff</a></td>
+<td><a href='diffs/docs/man.dox-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
-<td class='left f_path'>missing</td>
+<td class='left f_path'>docs/man.dox.in</td>
 <td class='passed'>unchanged</td>
 <td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path failed'>tests/check_resources.sh</td>
-<td class='failed'>removed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path new'>tests/resources.test</td>
-<td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
-</table>
-<a name='M4'></a>
-<h2>M4 Macro Files (6)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path'>aclocal.m4</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/aclocal.m4-diff.html' style='color:Blue;'>diff</a></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>m4/libtool.m4</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/m4/libtool.m4-diff.html' style='color:Blue;'>diff</a></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>m4/ltoptions.m4</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>m4/ltsugar.m4</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>m4/ltversion.m4</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/m4/ltversion.m4-diff.html' style='color:Blue;'>diff</a></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>m4/lt~obsolete.m4</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-</table>
-<a name='Archives'></a>
-<h2>Archives (2)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path failed'>libqb-0.4.1.tar.gz</td>
-<td class='failed'>removed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path new'>libqb-0.8.1.tar.xz</td>
-<td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
-</table>
-<a name='ChangeLogs'></a>
-<h2>Change Logs (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path'>ChangeLog</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/ChangeLog-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 </table>
 <a name='Directories'></a>
 <h2>Directories (9)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>build-aux</td>
 <td class='passed'>unchanged</td>
@@ -1195,10 +1179,33 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='InfoFiles'></a>
-<h2>Info Files (2)</h2><hr/>
+<a name='Archives'></a>
+<h2>Archives (2)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>libqb-0.4.1.tar.gz</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>libqb-0.8.1.tar.xz</td></tr>
+</table>
+<a name='ChangeLogs'></a>
+<h2>Change Logs (1)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>ChangeLog</td>
+<td class='warning'>changed</td>
+<td><a href='diffs/ChangeLog-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='InformationFiles'></a>
+<h2>Information Files (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>INSTALL</td>
 <td class='passed'>unchanged</td>
@@ -1215,7 +1222,7 @@ div.p_list {
 <a name='Licenses'></a>
 <h2>Licenses (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>COPYING</td>
 <td class='passed'>unchanged</td>
@@ -1226,7 +1233,7 @@ div.p_list {
 <a name='ReadmeFiles'></a>
 <h2>Readme Files (2)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>README</td>
 <td class='renamed' rowspan='2'>renamed</td>
@@ -1236,9 +1243,9 @@ div.p_list {
 <tr><td class='left f_path  new'>README.markdown</td></tr>
 </table>
 <a name='TextFiles'></a>
-<h2>Text Files (4)</h2><hr/>
+<h2>Text Files (2)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>.tarball-version</td>
 <td class='warning'>changed</td>
@@ -1251,18 +1258,6 @@ div.p_list {
 <td><a href='diffs/.version-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
-<tr>
-<td class='left f_path'>include/config.h.in</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/include/config.h.in-diff.html' style='color:Blue;'>diff</a></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path new'>include/qb/qbconfig.h.in</td>
-<td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
 </table>
 <a name='Packages'></a>
 <h2>Packages (2)</h2><hr/>
@@ -1273,6 +1268,6 @@ libqb-0.8.1-2.fc16.src.rpm<br/>
 <br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
 </div>
 <br/><br/><br/><hr/>
-<div style='width:100%;font-size:11px;' align='right'><i>Generated on Thu Feb  9 16:22:30 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.1 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Fri Feb 17 11:56:37 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.2 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
 <div style='height:999px;'></div>
 </body></html>

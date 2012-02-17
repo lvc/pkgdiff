@@ -106,7 +106,7 @@ div.p_list {
 <table cellpadding='3' cellspacing='0' class='summary'>
 <tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>2</a></td></tr>
 <tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>434</a></td></tr>
-<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(72.81%)</b></span></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(22.14%)</b></span></td></tr>
 </table>
 <a name='Deps'></a>
 <a name='Files'></a><h2>Changes In Files</h2><hr/>
@@ -127,6 +127,13 @@ div.p_list {
 <td><a href='#SharedLibraries' style='color:Blue;'>2</a></td>
 </tr>
 <tr>
+<td class='left'>Shell program</td>
+<td><a href='#ShellPrograms' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td>0</td>
+<td><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
 <td class='left'>Executable file</td>
 <td><a href='#ExecutableFiles' style='color:Blue;'>12</a></td>
 <td><a href='#ExecutableFiles' style='color:Blue;'>1</a></td>
@@ -134,11 +141,18 @@ div.p_list {
 <td><a href='#ExecutableFiles' style='color:Blue;'>11</a></td>
 </tr>
 <tr>
-<td class='left'>Libtool library file</td>
+<td class='left'>Libtool file</td>
 <td><a href='#LibtoolFiles' style='color:Blue;'>8</a></td>
 <td><a href='#LibtoolFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
 <td><a href='#LibtoolFiles' style='color:Blue;'>7</a></td>
+</tr>
+<tr>
+<td class='left'>M4 macro file</td>
+<td><a href='#M4' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td><a href='#M4' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
 <td class='left'>Man page</td>
@@ -169,25 +183,18 @@ div.p_list {
 <td><a href='#XMLDocuments' style='color:Blue;'>6</a></td>
 </tr>
 <tr>
-<td class='left'>Gettext file</td>
-<td><a href='#GettextFiles' style='color:Blue;'>37</a></td>
-<td><a href='#GettextFiles' style='color:Blue;'>6</a></td>
-<td>0</td>
-<td><a href='#GettextFiles' style='color:Blue;'>31</a></td>
-</tr>
-<tr>
-<td class='left'>Shell program</td>
-<td><a href='#ShellPrograms' style='color:Blue;'>2</a></td>
-<td>0</td>
-<td>0</td>
-<td><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
-</tr>
-<tr>
 <td class='left'>CSS style sheet</td>
 <td><a href='#CSS' style='color:Blue;'>3</a></td>
 <td>0</td>
 <td>0</td>
 <td><a href='#CSS' style='color:Blue;'>3</a></td>
+</tr>
+<tr>
+<td class='left'>Gettext file</td>
+<td><a href='#GettextFiles' style='color:Blue;'>37</a></td>
+<td><a href='#GettextFiles' style='color:Blue;'>6</a></td>
+<td>0</td>
+<td><a href='#GettextFiles' style='color:Blue;'>31</a></td>
 </tr>
 <tr>
 <td class='left'>HTML page</td>
@@ -197,24 +204,10 @@ div.p_list {
 <td><a href='#HTML' style='color:Blue;'>105</a></td>
 </tr>
 <tr>
-<td class='left'>M4 macro file</td>
-<td><a href='#M4' style='color:Blue;'>1</a></td>
-<td>0</td>
-<td>0</td>
-<td><a href='#M4' style='color:Blue;'>1</a></td>
-</tr>
-<tr>
 <td class='left'>Image file</td>
 <td><a href='#ImageFiles' style='color:Blue;'>13</a></td>
 <td>0</td>
 <td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td class='left'>Change log</td>
-<td><a href='#ChangeLogs' style='color:Blue;'>3</a></td>
-<td><a href='#ChangeLogs' style='color:Blue;'>2</a></td>
-<td><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
 <td>0</td>
 </tr>
 <tr>
@@ -225,10 +218,17 @@ div.p_list {
 <td>0</td>
 </tr>
 <tr>
-<td class='left'>Info file</td>
-<td><a href='#InfoFiles' style='color:Blue;'>6</a></td>
-<td><a href='#InfoFiles' style='color:Blue;'>3</a></td>
-<td><a href='#InfoFiles' style='color:Blue;'>3</a></td>
+<td class='left'>Change log</td>
+<td><a href='#ChangeLogs' style='color:Blue;'>3</a></td>
+<td><a href='#ChangeLogs' style='color:Blue;'>2</a></td>
+<td><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Information file</td>
+<td><a href='#InformationFiles' style='color:Blue;'>6</a></td>
+<td><a href='#InformationFiles' style='color:Blue;'>3</a></td>
+<td><a href='#InformationFiles' style='color:Blue;'>3</a></td>
 <td>0</td>
 </tr>
 <tr>
@@ -256,7 +256,7 @@ div.p_list {
 <a name='HeaderFiles'></a>
 <h2>Header Files (82)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/include/gstreamer-0.10/gst/base/gstadapter.h</td>
 <td class='warning'>changed</td>
@@ -753,7 +753,7 @@ div.p_list {
 <a name='SharedLibraries'></a>
 <h2>Shared Libraries (13)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/lib/gstreamer-0.10/libgstcoreelements.so</td>
 <td class='warning'>changed</td>
@@ -808,10 +808,27 @@ div.p_list {
 </tr>
 <tr><td class='left f_path  new'>usr/lib/libgstreamer-0.10.so.0.28.0</td></tr>
 </table>
+<a name='ShellPrograms'></a>
+<h2>Shell Programs (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>install/doinst.sh</td>
+<td class='warning'>changed</td>
+<td><a href='diffs/install/doinst.sh-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/bin/gst-feedback-0.10</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+</tr>
+</table>
 <a name='ExecutableFiles'></a>
 <h2>Executable Files (12)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-feedback</td>
 <td class='warning'>changed</td>
@@ -886,25 +903,25 @@ div.p_list {
 </tr>
 </table>
 <a name='LibtoolFiles'></a>
-<h2>Libtool Library Files (8)</h2><hr/>
+<h2>Libtool Files (8)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/lib/gstreamer-0.10/libgstcoreelements.la</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/usr/lib/gstreamer-0.10/libgstcoreelements.la-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/lib/gstreamer-0.10/libgstcoreindexers.la</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/usr/lib/gstreamer-0.10/libgstcoreindexers.la-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/lib/libgstbase-0.10.la</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/usr/lib/libgstbase-0.10.la-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
@@ -916,32 +933,43 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/lib/libgstcontroller-0.10.la</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/usr/lib/libgstcontroller-0.10.la-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/lib/libgstdataprotocol-0.10.la</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/usr/lib/libgstdataprotocol-0.10.la-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/lib/libgstnet-0.10.la</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/usr/lib/libgstnet-0.10.la-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/lib/libgstreamer-0.10.la</td>
 <td class='warning'>changed</td>
-<td><a href='diffs/usr/lib/libgstreamer-0.10.la-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='M4'></a>
+<h2>M4 Macro Files (1)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>usr/share/aclocal/gst-element-check-0.10.m4</td>
+<td class='warning'>changed</td>
+<td><a href='diffs/usr/share/aclocal/gst-element-check-0.10.m4-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 </table>
 <a name='ManPages'></a>
 <h2>Man Pages (6)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/man/man1/gst-feedback-0.10.1.gz</td>
 <td class='passed'>unchanged</td>
@@ -982,7 +1010,7 @@ div.p_list {
 <a name='PkgConfigFiles'></a>
 <h2>Pkg-config Files (6)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/lib/pkgconfig/gstreamer-0.10.pc</td>
 <td class='warning'>changed</td>
@@ -1023,7 +1051,7 @@ div.p_list {
 <a name='SGMLDocuments'></a>
 <h2>SGML Documents (3)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/index.sgml</td>
 <td class='warning'>changed</td>
@@ -1046,7 +1074,7 @@ div.p_list {
 <a name='XMLDocuments'></a>
 <h2>XML Documents (6)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/gstreamer-0.10.devhelp</td>
 <td class='warning'>changed</td>
@@ -1084,10 +1112,33 @@ div.p_list {
 <td></td>
 </tr>
 </table>
+<a name='CSS'></a>
+<h2>CSS Style Sheets (3)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/style.css</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/style.css</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/style.css</td>
+<td class='warning'>changed</td>
+<td></td>
+<td></td>
+</tr>
+</table>
 <a name='GettextFiles'></a>
 <h2>Gettext Files (37)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/share/locale/af/LC_MESSAGES/gstreamer-0.10.mo</td>
 <td class='warning'>changed</td>
@@ -1311,50 +1362,10 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='ShellPrograms'></a>
-<h2>Shell Programs (2)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path'>install/doinst.sh</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/install/doinst.sh-diff.html' style='color:Blue;'>diff</a></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/bin/gst-feedback-0.10</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-</table>
-<a name='CSS'></a>
-<h2>CSS Style Sheets (3)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/style.css</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/style.css</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/style.css</td>
-<td class='warning'>changed</td>
-<td></td>
-<td></td>
-</tr>
-</table>
 <a name='HTML'></a>
 <h2>HTML Pages (116)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path new'>usr/share/gtk-doc/html/gstreamer-0.10/annotation-glossary.html</td>
 <td class='new'>added</td>
@@ -2052,21 +2063,10 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='M4'></a>
-<h2>M4 Macro Files (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path'>usr/share/aclocal/gst-element-check-0.10.m4</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/usr/share/aclocal/gst-element-check-0.10.m4-diff.html' style='color:Blue;'>diff</a></td>
-<td></td>
-</tr>
-</table>
 <a name='ImageFiles'></a>
 <h2>Image Files (13)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/home.png</td>
 <td class='passed'>unchanged</td>
@@ -2146,28 +2146,10 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='ChangeLogs'></a>
-<h2>Change Logs (3)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/NEWS</td>
-<td class='moved' rowspan='2'>moved</td>
-<td rowspan='2'><a href='diffs/usr/doc/gstreamer-0.10.23/NEWS-diff.html' style='color:Blue;'>diff</a></td>
-<td rowspan='2'></td>
-</tr>
-<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/NEWS</td></tr>
-<tr>
-<td class='left f_path new'>usr/doc/gstreamer-0.10.32/ChangeLog</td>
-<td class='new'>added</td>
-<td></td>
-<td></td>
-</tr>
-</table>
 <a name='Directories'></a>
 <h2>Directories (106)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>install</td>
 <td class='passed'>unchanged</td>
@@ -2800,10 +2782,28 @@ div.p_list {
 <td></td>
 </tr>
 </table>
-<a name='InfoFiles'></a>
-<h2>Info Files (6)</h2><hr/>
+<a name='ChangeLogs'></a>
+<h2>Change Logs (3)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>usr/doc/gstreamer-0.10.23/NEWS</td>
+<td class='moved' rowspan='2'>moved</td>
+<td rowspan='2'><a href='diffs/usr/doc/gstreamer-0.10.23/NEWS-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>usr/doc/gstreamer-0.10.32/NEWS</td></tr>
+<tr>
+<td class='left f_path new'>usr/doc/gstreamer-0.10.32/ChangeLog</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='InformationFiles'></a>
+<h2>Information Files (6)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>usr/doc/gstreamer-0.10.23/AUTHORS</td>
 <td class='moved' rowspan='2'>moved</td>
@@ -2829,7 +2829,7 @@ div.p_list {
 <a name='Licenses'></a>
 <h2>Licenses (2)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>usr/doc/gstreamer-0.10.23/COPYING</td>
 <td class='moved' rowspan='2'>moved</td>
@@ -2841,7 +2841,7 @@ div.p_list {
 <a name='ReadmeFiles'></a>
 <h2>Readme Files (2)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>usr/doc/gstreamer-0.10.23/README</td>
 <td class='moved' rowspan='2'>moved</td>
@@ -2853,7 +2853,7 @@ div.p_list {
 <a name='TextFiles'></a>
 <h2>Text Files (7)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>HTML<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>install/slack-desc</td>
 <td class='passed'>unchanged</td>
@@ -2891,6 +2891,6 @@ gstreamer-0.10.32-i486-1.txz<br/>
 <br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
 </div>
 <br/><br/><br/><hr/>
-<div style='width:100%;font-size:11px;' align='right'><i>Generated on Thu Feb  9 16:21:51 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.1 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Fri Feb 17 11:56:54 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.2 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
 <div style='height:999px;'></div>
 </body></html>
