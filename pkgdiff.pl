@@ -381,13 +381,6 @@ sub readStyles($)
     return "<style type=\"text/css\">\n".$Styles."\n</style>";
 }
 
-sub getDate($)
-{
-    my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
-    $atime,$mtime,$ctime,$blksize,$blocks) = stat($_[0]);
-    return $mtime;
-}
-
 sub compareFiles($$$$)
 {
     my ($P1, $P2, $N1, $N2) = @_;
@@ -405,10 +398,6 @@ sub compareFiles($$$$)
     }
     if(getSize($P1) == getSize($P2))
     { # equal size
-        #if(getDate($P1)==getDate($P2))
-        #{ # equal date
-        #    return (-1, "", "", 0);
-        #}
         if(compare($P1, $P2)==0)
         { # equal content
             return (-1, "", "", 0);
