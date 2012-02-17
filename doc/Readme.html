@@ -29,6 +29,21 @@
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
   </style>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-19501755-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
 </head>
 
 <body>
@@ -72,7 +87,9 @@ The tool is intended for Linux maintainers who are interested in ensuring compat
 
 <a name="Downloads"></a>
 <h2>Downloads</h2>
-The latest release can be downloaded from <a href="https://github.com/pkgdiff/pkgdiff/downloads" rel="nofollow">this page</a>.
+<p>All releases can be downloaded from <a href="https://github.com/pkgdiff/pkgdiff/downloads" rel="nofollow">this page</a>.</p>
+
+<p>Latest release: <a href="https://github.com/downloads/pkgdiff/pkgdiff/pkgdiff-1.2.tar.gz">pkgdiff-1.2.tar.gz</a></p>
 
 <p>Read-only access to the latest development version:</p>
 
@@ -97,7 +114,7 @@ Requires:
   <a href="http://www.gnu.org/software/wdiff/" rel="nofollow">GNU Wdiff</a>
 </li>
 <li>
-  <a href="http://www.gnu.org/software/gawk/" rel="nofollow">GNU awk</a>
+  <a href="http://www.gnu.org/software/gawk/" rel="nofollow">GNU Awk</a>
 </li>
 <li>
   <a href="http://www.gnu.org/software/binutils/" rel="nofollow">GNU Binutils</a> (readelf)
@@ -113,12 +130,15 @@ Requires:
 Suggests:
 <ul>
 <li>
-  <a href="http://forge.ispras.ru/projects/abi-compliance-checker">ABI Compliance Checker</a> (&gt;=1.96)
+  <a href="http://forge.ispras.ru/projects/abi-compliance-checker">ABI Compliance Checker</a> (&gt;=1.96.7)
 </li>
 </ul>
     
 <a name="Installation"></a>
 <h2>Installation</h2>
+<p>The tool is <b>ready-to-use</b> after extracting the archive.</p>
+
+<p>You can also use a <b>Makefile</b> to install the tool into the system:</p>
 <code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;sudo perl Makefile.pl --install --prefix=PREFIX [/usr, /usr/local]&nbsp;</code>
 <p>This command will install a  <code>pkgdiff</code>  program to the <code>PREFIX/bin</code> system directory and private modules into the <code>PREFIX/share</code>.</p>
 
@@ -225,15 +245,5 @@ The tool is developed by the <a href="http://www.rosalinux.org/">ROSA Laboratory
     </div>
 
   </div>
-
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-19501755-2");
-pageTracker._trackPageview();
-} catch(err) {}</script>"
 </body>
 </html>

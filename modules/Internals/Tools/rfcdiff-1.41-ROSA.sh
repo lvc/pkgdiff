@@ -58,6 +58,8 @@
 #	
 #	--stdout	Send output to stdout instead to a file
 #	
+#       --tmpdiff       Path to intermediate diff file
+#       
 #
 # Copyright:
 #	-----------------------------------------------------------------
@@ -775,6 +777,7 @@ optkeep=0; optinfo=0; optwidth=0;  optnums=0;  optbody=0; optabdiff=0;
 optstrip=1; opthwdiff=0; optlinks=0;
 optoldcolour="red"; optnewcolour="green"; optlarger=""
 optstdout=0;
+opttmpdiff=0; tmpdiff=$workdir/diff;
 
 while [ $# -gt 0 ]; do
    case "$1" in
@@ -807,6 +810,7 @@ while [ $# -gt 0 ]; do
       --no-space-changes) optnospacechange=1;;
       --ignore-whitespace) optignorewhite=1;;
       --wdiff-args) optwdiffargs=$2; shift;;
+      --tmpdiff) opttmpdiff=1; tmpdiff=$2; shift;;
       --)	shift; break;;
 
       -v) echo "$basename $version"; exit 0;;
@@ -994,16 +998,16 @@ if cmp 1/"$base1" 2/"$base2" >/dev/null; then
 fi
 
 if [ $opthtml -gt 0 ]; then
-   diff -Bd ${optnospacechange:+-b} ${optignorewhite:+-w} -U $prelines 1/"$base1" 2/"$base2" | tee $workdir/diff | htmldiff > "$tempout"
+   diff -Bd ${optnospacechange:+-b} ${optignorewhite:+-w} -U $prelines 1/"$base1" 2/"$base2" | tee $tmpdiff | htmldiff > "$tempout"
 fi
 if [ $optchbars -gt 0 ]; then
-   diff -Bwd -U 10000 1/"$base1" 2/"$base2" | tee $workdir/diff | grep -v "^-" | tail -n +3 | sed 's/^+/|/' > "$tempout"
+   diff -Bwd -U 10000 1/"$base1" 2/"$base2" | tee $tmpdiff | grep -v "^-" | tail -n +3 | sed 's/^+/|/' > "$tempout"
 fi
 if [ $optdiff -gt 0 ]; then
-   diff -Bwd -U $prelines 1/"$base1" 2/"$base2" | tee $workdir/diff > "$tempout"
+   diff -Bwd -U $prelines 1/"$base1" 2/"$base2" | tee $tmpdiff > "$tempout"
 fi
 if [ $optabdiff -gt 0 ]; then
-   diff -wd -U 1000 1/"$base1" 2/"$base2" | tee $workdir/diff | abdiff
+   diff -wd -U 1000 1/"$base1" 2/"$base2" | tee $tmpdiff | abdiff
 fi
 if [ $optwdiff -gt 0 ]; then
    wdiff -a $optwdiffargs 1/"$base1" 2/"$base2"
@@ -1034,8 +1038,10 @@ if [ $optkeep -eq 0 ]; then
    if [ -f $pagecache2 ]; then rm $pagecache2; fi
    rm -fr $workdir/1
    rm -fr $workdir/2
-   if [ -f $workdir/diff ]; then
-      rm $workdir/diff
+   if [ -f $tmpdiff ]; then
+      if [ $opttmpdiff -eq 0 ]; then
+          rm $tmpdiff
+      fi
    fi
    rmdir $workdir
 else

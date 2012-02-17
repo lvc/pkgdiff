@@ -7,20 +7,29 @@
     <summary>
         Header file
     </summary>
+    <extensions>
+        h, hh, H, hp, hxx, hpp, HPP, h++, tcc
+    </extensions>
     <weight>
-        10
+        100
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
     <id>
-        SHLIB
+        SHARED_OBJECT
     </id>
     <summary>
         Shared library
     </summary>
+    <extensions>
+        so
+    </extensions>
     <weight>
-        9
+        90
     </weight>
 </type>
 
@@ -31,21 +40,33 @@
     <summary>
         Spec file
     </summary>
+    <extensions>
+        spec
+    </extensions>
     <weight>
-        9
+        90
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
     <id>
-        C_SRC
+        C_SOURCE
     </id>
     <summary>
         C program
     </summary>
+    <extensions>
+        c, i
+    </extensions>
     <weight>
-        9
+        90
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -55,36 +76,48 @@
     <summary>
         Patch
     </summary>
-    <title>
-        Patches
-    </title>
+    <extensions>
+        patch, diff
+    </extensions>
     <weight>
-        8
+        80
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
     <id>
-        STLIB
+        STATIC_LIBRARY
     </id>
     <summary>
         Static library
     </summary>
+    <extensions>
+        a
+    </extensions>
     <weight>
-        8
+        80
     </weight>
 </type>
 
 <type>
     <id>
-        CPP_SRC
+        CPP_SOURCE
     </id>
     <summary>
         C++ program
     </summary>
+    <extensions>
+        cc, cp, cxx, cpp, CPP, c++, C, ii
+    </extensions>
     <weight>
-        9
+        90
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -94,9 +127,15 @@
     <summary>
         Ada program
     </summary>
+    <extensions>
+        ads, adb
+    </extensions>
     <weight>
-        7
+        70
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -106,9 +145,36 @@
     <summary>
         Fortran program
     </summary>
+    <extensions>
+        f, for, ftn
+        F, FOR, fpp, FPP, FTN
+        f90, f95. f03, f08,
+        F90, F95, F03, F08
+    </extensions>
     <weight>
-        7
+        70
     </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        SYMBOL
+    </id>
+    <summary>
+        Symbols file
+    </summary>
+    <extensions>
+        sym
+    </extensions>
+    <weight>
+        60
+    </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -116,14 +182,14 @@
         LIBTOOL
     </id>
     <summary>
-        Libtool library file
+        Libtool file
     </summary>
+    <extensions>
+        la, lo, plo
+    </extensions>
     <weight>
-        5
+        50
     </weight>
-    <anchor>
-        LibtoolFiles
-    </anchor>
 </type>
 
 <type>
@@ -134,7 +200,7 @@
         Man page
     </summary>
     <weight>
-        5
+        50
     </weight>
 </type>
 
@@ -145,9 +211,15 @@
     <summary>
         Qt UI file
     </summary>
+    <extensions>
+        ui
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -157,9 +229,15 @@
     <summary>
         Qt style sheet
     </summary>
+    <extensions>
+        qss
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -169,8 +247,11 @@
     <summary>
         Qt Message file
     </summary>
+    <extensions>
+        qm
+    </extensions>
     <weight>
-        5
+        40
     </weight>
 </type>
 
@@ -181,21 +262,48 @@
     <summary>
         Qt Help file
     </summary>
+    <extensions>
+        qhp, qch, qhc, qhcp
+    </extensions>
     <weight>
-        5
+        40
     </weight>
 </type>
 
 <type>
     <id>
-        OBJECTIVEC
+        OBJECTIVE_C
     </id>
     <summary>
         Objective-C program
     </summary>
+    <extensions>
+        m, mi
+    </extensions>
     <weight>
-        5
+        70
     </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        OBJECTIVE_CPP
+    </id>
+    <summary>
+        Objective-C++ program
+    </summary>
+    <extensions>
+        mm, mii, M
+    </extensions>
+    <weight>
+        70
+    </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -205,9 +313,15 @@
     <summary>
         SGML document
     </summary>
+    <extensions>
+        sgml
+    </extensions>
     <weight>
-        5
+        50
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -217,9 +331,15 @@
     <summary>
         Qt Project file
     </summary>
+    <extensions>
+        pro, pri, prf
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -229,9 +349,15 @@
     <summary>
         OpenGL FSH file
     </summary>
+    <extensions>
+        fsh
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -241,9 +367,15 @@
     <summary>
         GLSL Shader file
     </summary>
+    <extensions>
+        glsl, glslf, glslv, vert, frag
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -253,21 +385,171 @@
     <summary>
         Xcode file
     </summary>
+    <extensions>
+        xcconfig, pbxproj, xcodeproj, nib
+    </extensions>
     <weight>
-        5
+        40
     </weight>
 </type>
 
 <type>
     <id>
-        PLIST
+        PROPERTY_LIST
     </id>
     <summary>
-        Mac Property list
+        Property list
     </summary>
+    <extensions>
+        plist
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+</type>
+
+<type>
+    <id>
+        JAVA_PROPERTY
+    </id>
+    <summary>
+        Java properties file
+    </summary>
+    <extensions>
+        properties
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        JAVA_POLICY
+    </id>
+    <summary>
+        Java policy file
+    </summary>
+    <extensions>
+        policy, Policy
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        JAVA_ASSEMBLER
+    </id>
+    <summary>
+        Java assembler program
+    </summary>
+    <extensions>
+        jasm
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        PROPERTY_FILE
+    </id>
+    <summary>
+        Properties file
+    </summary>
+    <extensions>
+        prp, pty, props
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        INITIALIZATION
+    </id>
+    <summary>
+        Initialization file
+    </summary>
+    <extensions>
+        ini
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        MANIFEST
+    </id>
+    <summary>
+        Manifest file
+    </summary>
+    <extensions>
+        manifest, mf, MF
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        RESOURCE
+    </id>
+    <summary>
+        Resource file
+    </summary>
+    <extensions>
+        res, rc, resource, mc
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        MOLECULE_SPEC
+    </id>
+    <summary>
+        Molecule spec file
+    </summary>
+    <extensions>
+        xyz
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -277,9 +559,15 @@
     <summary>
         Qt Resource file
     </summary>
+    <extensions>
+        qrc
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -289,9 +577,15 @@
     <summary>
         Qt Doc file
     </summary>
+    <extensions>
+        qdoc, qdocconf, qdocinc
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -301,9 +595,15 @@
     <summary>
         XBEL bookmark
     </summary>
+    <extensions>
+        xbel
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -313,9 +613,15 @@
     <summary>
         IDL file
     </summary>
+    <extensions>
+        idl
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -325,9 +631,15 @@
     <summary>
         QML file
     </summary>
+    <extensions>
+        qml, qs
+    </extensions>
     <weight>
-        5
+        50
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -337,9 +649,15 @@
     <summary>
         XML document
     </summary>
+    <extensions>
+        xml
+    </extensions>
     <weight>
-        5
+        50
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -349,8 +667,11 @@
     <summary>
         WML document
     </summary>
+    <extensions>
+        wml
+    </extensions>
     <weight>
-        5
+        50
     </weight>
 </type>
 
@@ -361,9 +682,33 @@
     <summary>
         Makefile
     </summary>
+    <extensions>
+        mk, make
+    </extensions>
     <weight>
-        5
+        50
     </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        JAVA_MAKEFILE
+    </id>
+    <summary>
+        Java Makefile
+    </summary>
+    <extensions>
+        jmk, gmk
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -373,9 +718,18 @@
     <summary>
         UCM file
     </summary>
+    <description>
+        Unicode Character Mapping
+    </description>
+    <extensions>
+        ucm
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -385,9 +739,15 @@
     <summary>
         GYP file
     </summary>
+    <extensions>
+        gyp, gypi
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -397,12 +757,18 @@
     <summary>
         Pkg-config file
     </summary>
+    <extensions>
+        pc
+    </extensions>
     <weight>
-        5
+        50
     </weight>
     <anchor>
         PkgConfigFiles
     </anchor>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -410,10 +776,14 @@
         OOO
     </id>
     <summary>
-        OpenOffice file
+        OpenOffice document
     </summary>
+    <extensions>
+        sxd, sxi, sxm, smf, sds, odf, odp, otp, odg
+        odb, otg, odt, ott, sda, sdc, ods, ots
+    </extensions>
     <weight>
-        5
+        40
     </weight>
 </type>
 
@@ -424,9 +794,15 @@
     <summary>
         Qt Translation file
     </summary>
+    <extensions>
+        ts, qph
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -436,9 +812,15 @@
     <summary>
         DOT Graph file
     </summary>
+    <extensions>
+        dot
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -448,9 +830,15 @@
     <summary>
         Desktop entry
     </summary>
+    <extensions>
+        desktop
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -460,8 +848,27 @@
     <summary>
         MSVC file
     </summary>
+    <extensions>
+        vcxproj, vcproj, vcprojin, vcxproj.filters, vcxproj.filtersin, sln, vc9, resx
+        msc, win32, vc6, vcwin32, vbs, cmd, dsw, dsp, csproj, vbproj
+    </extensions>
     <weight>
-        5
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        DOS_BATCH
+    </id>
+    <summary>
+        DOS Batch file
+    </summary>
+    <extensions>
+        bat
+    </extensions>
+    <weight>
+        40
     </weight>
 </type>
 
@@ -472,8 +879,11 @@
     <summary>
         PostScript file
     </summary>
+    <extensions>
+        ps, eps, pfa
+    </extensions>
     <weight>
-        5
+        40
     </weight>
 </type>
 
@@ -484,9 +894,33 @@
     <summary>
         JavaScript file
     </summary>
+    <extensions>
+        js, sjs, jsm
+    </extensions>
     <weight>
-        5
+        50
     </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        NSIS
+    </id>
+    <summary>
+        NSIS script
+    </summary>
+    <extensions>
+        nsi, nsh
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -496,9 +930,15 @@
     <summary>
         Parameter file
     </summary>
+    <extensions>
+        prm, par, ff
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -508,9 +948,15 @@
     <summary>
         Doxygen file
     </summary>
+    <extensions>
+        dox, doxyfile
+    </extensions>
     <weight>
-        5
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -520,21 +966,15 @@
     <summary>
         QML Project file
     </summary>
+    <extensions>
+        qmlproject
+    </extensions>
     <weight>
-        5
+        50
     </weight>
-</type>
-
-<type>
-    <id>
-        OBJECTIVECPP
-    </id>
-    <summary>
-        Objective-C++ program
-    </summary>
-    <weight>
-        5
-    </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -544,9 +984,15 @@
     <summary>
         CMake file
     </summary>
+    <extensions>
+        cmake, cmakein
+    </extensions>
     <weight>
-        5
+        50
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -557,7 +1003,7 @@
         Executable file
     </summary>
     <weight>
-        5
+        50
     </weight>
 </type>
 
@@ -569,7 +1015,301 @@
         Automake file
     </summary>
     <weight>
-        5
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        JAR_MANIFEST
+    </id>
+    <summary>
+        JAR manifest file
+    </summary>
+    <extensions>
+        mn
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        IPDL
+    </id>
+    <summary>
+        IPDL file
+    </summary>
+    <extensions>
+        ipdl
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        XPI
+    </id>
+    <summary>
+        XPI file
+    </summary>
+    <extensions>
+        xpi
+    </extensions>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        CERTIFICATE
+    </id>
+    <summary>
+        Certificate file
+    </summary>
+    <extensions>
+        ca, crt, cert, crl, cer
+    </extensions>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        ICC
+    </id>
+    <summary>
+        ICC profile
+    </summary>
+    <extensions>
+        icc, icm, pf
+    </extensions>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        CGI
+    </id>
+    <summary>
+        CGI script
+    </summary>
+    <extensions>
+        cgi
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        XUL
+    </id>
+    <summary>
+        XML UI file
+    </summary>
+    <extensions>
+        xul
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        XBL
+    </id>
+    <summary>
+        XBL file
+    </summary>
+    <extensions>
+        xbl
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        XSL
+    </id>
+    <summary>
+        XML style sheet
+    </summary>
+    <extensions>
+        xsl
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        XSD
+    </id>
+    <summary>
+        XML schema definition
+    </summary>
+    <extensions>
+        xsd
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        XSLT
+    </id>
+    <summary>
+        XSL transformation file
+    </summary>
+    <extensions>
+        xslt
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        DTD
+    </id>
+    <summary>
+        DTD file
+    </summary>
+    <extensions>
+        dtd
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        EXTERNAL_ENTITY
+    </id>
+    <summary>
+        External entity file
+    </summary>
+    <extensions>
+        ent
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        XML_RNG
+    </id>
+    <summary>
+        RNG file
+    </summary>
+    <extensions>
+        rng
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        RDF
+    </id>
+    <summary>
+        RDF file
+    </summary>
+    <extensions>
+        rdf
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        SQLITE
+    </id>
+    <summary>
+        QSLite database
+    </summary>
+    <extensions>
+        sqlite
+    </extensions>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        BERKELEY_DB
+    </id>
+    <summary>
+        Berkeley database
+    </summary>
+    <extensions>
+        db
+    </extensions>
+    <weight>
+        40
     </weight>
 </type>
 
@@ -580,9 +1320,15 @@
     <summary>
         GNU Gperf file
     </summary>
+    <extensions>
+        gperf
+    </extensions>
     <weight>
-        4
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -592,9 +1338,15 @@
     <summary>
         YAML file
     </summary>
+    <extensions>
+        yml, yaml
+    </extensions>
     <weight>
-        4
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -604,21 +1356,48 @@
     <summary>
         Python program
     </summary>
+    <extensions>
+        py
+    </extensions>
     <weight>
-        4
+        70
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        PYTHON_COMPILED
+    </id>
+    <summary>
+        Python compiled program
+    </summary>
+    <extensions>
+        pyc
+    </extensions>
+    <weight>
+        60
     </weight>
 </type>
 
 <type>
     <id>
-        PYTHON_PYC
+        SED
     </id>
     <summary>
-        Python compiled program
+        Sed program
     </summary>
+    <extensions>
+        sed
+    </extensions>
     <weight>
-        4
+        70
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -628,8 +1407,26 @@
     <summary>
         Font file
     </summary>
+    <extensions>
+        bdf, ttf, ttc, pfb, qpf, qpf2, otf, woff, fnt, bfc
+    </extensions>
     <weight>
-        4
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        BINARY_DTD
+    </id>
+    <summary>
+        Binary DTD file
+    </summary>
+    <extensions>
+        bdtd
+    </extensions>
+    <weight>
+        40
     </weight>
 </type>
 
@@ -640,8 +1437,11 @@
     <summary>
         Encoding file
     </summary>
+    <extensions>
+        enc, utf
+    </extensions>
     <weight>
-        4
+        40
     </weight>
 </type>
 
@@ -652,9 +1452,15 @@
     <summary>
         Go program
     </summary>
+    <extensions>
+        go
+    </extensions>
     <weight>
-        4
+        70
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -664,9 +1470,15 @@
     <summary>
         ROM Image file
     </summary>
+    <extensions>
+        iby
+    </extensions>
     <weight>
-        4
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -676,9 +1488,15 @@
     <summary>
         Java program
     </summary>
+    <extensions>
+        java, jsp, jj, sjava, java.template
+    </extensions>
     <weight>
-        4
+        70
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -688,9 +1506,15 @@
     <summary>
         C# program
     </summary>
+    <extensions>
+        cs
+    </extensions>
     <weight>
-        4
+        60
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -700,9 +1524,15 @@
     <summary>
         Scala program
     </summary>
+    <extensions>
+        scl
+    </extensions>
     <weight>
-        4
+        70
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -712,9 +1542,15 @@
     <summary>
         Shell program
     </summary>
+    <extensions>
+        sh, SH, csh, ksh, bash
+    </extensions>
     <weight>
-        4
+        70
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -724,9 +1560,15 @@
     <summary>
         Assembler program
     </summary>
+    <extensions>
+        asm, s, S, sx, il
+    </extensions>
     <weight>
-        4
+        70
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -736,9 +1578,15 @@
     <summary>
         Perl test program
     </summary>
+    <extensions>
+        t
+    </extensions>
     <weight>
-        4
+        50
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -748,9 +1596,15 @@
     <summary>
         Perl program
     </summary>
+    <extensions>
+        pl, PL, plx, e2x
+    </extensions>
     <weight>
-        4
+        70
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -760,9 +1614,15 @@
     <summary>
         Lua program
     </summary>
+    <extensions>
+        lua
+    </extensions>
     <weight>
-        4
+        60
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -772,9 +1632,15 @@
     <summary>
         Awk program
     </summary>
+    <extensions>
+        awk
+    </extensions>
     <weight>
-        4
+        60
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -784,11 +1650,14 @@
     <summary>
         Python egg
     </summary>
+    <extensions>
+        egg
+    </extensions>
     <title>
         Python Eggs
     </title>
     <weight>
-        4
+        60
     </weight>
 </type>
 
@@ -799,9 +1668,15 @@
     <summary>
         Ruby program
     </summary>
+    <extensions>
+        rb
+    </extensions>
     <weight>
-        4
+        60
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -811,9 +1686,15 @@
     <summary>
         PHP program
     </summary>
+    <extensions>
+        php, phpt
+    </extensions>
     <weight>
-        4
+        60
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -823,8 +1704,11 @@
     <summary>
         SQL file
     </summary>
+    <extensions>
+        sql
+    </extensions>
     <weight>
-        4
+        40
     </weight>
 </type>
 
@@ -835,8 +1719,11 @@
     <summary>
         Gettext file
     </summary>
+    <extensions>
+        gmo, po, mo, pot
+    </extensions>
     <weight>
-        4
+        40
     </weight>
 </type>
 
@@ -847,8 +1734,11 @@
     <summary>
         GNU GPG file
     </summary>
+    <extensions>
+        gpg
+    </extensions>
     <weight>
-        4
+        40
     </weight>
 </type>
 
@@ -859,8 +1749,11 @@
     <summary>
         RTF file
     </summary>
+    <extensions>
+        rtf
+    </extensions>
     <weight>
-        4
+        40
     </weight>
 </type>
 
@@ -871,9 +1764,15 @@
     <summary>
         RST file
     </summary>
+    <extensions>
+        rst
+    </extensions>
     <weight>
-        4
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -883,9 +1782,15 @@
     <summary>
         VRML file
     </summary>
+    <extensions>
+        wrl, vrml
+    </extensions>
     <weight>
-        4
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -895,8 +1800,11 @@
     <summary>
         Scene graph file
     </summary>
+    <extensions>
+        iv
+    </extensions>
     <weight>
-        4
+        40
     </weight>
 </type>
 
@@ -907,8 +1815,11 @@
     <summary>
         MATLAB file
     </summary>
+    <extensions>
+        mat
+    </extensions>
     <weight>
-        4
+        40
     </weight>
 </type>
 
@@ -919,8 +1830,11 @@
     <summary>
         LaTeX document
     </summary>
+    <extensions>
+        latex, tex
+    </extensions>
     <weight>
-        4
+        40
     </weight>
 </type>
 
@@ -931,23 +1845,29 @@
     <summary>
         XQuery file
     </summary>
+    <extensions>
+        xq
+    </extensions>
     <weight>
-        4
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
     <id>
-        JAVACLASS
+        JAVA_CLASS
     </id>
     <summary>
         Java class
     </summary>
-    <title>
-        Java Classes
-    </title>
+    <extensions>
+        class
+    </extensions>
     <weight>
-        4
+        60
     </weight>
 </type>
 
@@ -958,9 +1878,15 @@
     <summary>
         Perl module
     </summary>
+    <extensions>
+        pm
+    </extensions>
     <weight>
-        4
+        70
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -970,9 +1896,15 @@
     <summary>
         Perl XS file
     </summary>
+    <extensions>
+        xs
+    </extensions>
     <weight>
-        4
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -982,9 +1914,15 @@
     <summary>
         JSON file
     </summary>
+    <extensions>
+        json
+    </extensions>
     <weight>
-        4
+        50
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -994,9 +1932,15 @@
     <summary>
         POD document
     </summary>
+    <extensions>
+        pod
+    </extensions>
     <weight>
-        4
+        40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -1006,8 +1950,167 @@
     <summary>
         Skin file
     </summary>
+    <extensions>
+        skin
+    </extensions>
     <weight>
-        4
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        COMPILED_OBJECT
+    </id>
+    <summary>
+        Compiled object
+    </summary>
+    <extensions>
+        o
+    </extensions>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        INFODOC
+    </id>
+    <summary>
+        Info document
+    </summary>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        GNU_LD_SCRIPT
+    </id>
+    <summary>
+        GNU ld script
+    </summary>
+    <extensions>
+        ld
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        DEF
+    </id>
+    <summary>
+        Module-Definition file
+    </summary>
+    <extensions>
+        def
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        GIT
+    </id>
+    <summary>
+        Git file
+    </summary>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        CVS
+    </id>
+    <summary>
+        CVS file
+    </summary>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        SVN
+    </id>
+    <summary>
+        Subversion file
+    </summary>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        HG
+    </id>
+    <summary>
+        Mercurial file
+    </summary>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        BZR
+    </id>
+    <summary>
+        Bazaar file
+    </summary>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        TEXINFO
+    </id>
+    <summary>
+        Texinfo file
+    </summary>
+    <extensions>
+        texi, texinfo
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        MS_OFFICE
+    </id>
+    <summary>
+        MS office document
+    </summary>
+    <extensions>
+        doc, docx, xl, xls, xlsb, xlsx, csv, tsv, dex
+    </extensions>
+    <weight>
+        40
     </weight>
 </type>
 
@@ -1018,8 +2121,11 @@
     <summary>
         CSS style sheet
     </summary>
+    <extensions>
+        css
+    </extensions>
     <weight>
-        3
+        40
     </weight>
     <anchor>
         CSS
@@ -1033,9 +2139,15 @@
     <summary>
         Data file
     </summary>
+    <extensions>
+        data, dat, out
+    </extensions>
     <weight>
-        3
+        30
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -1045,12 +2157,18 @@
     <summary>
         M4 macro file
     </summary>
+    <extensions>
+        m4
+    </extensions>
     <weight>
-        3
+        50
     </weight>
     <anchor>
         M4
     </anchor>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -1061,7 +2179,7 @@
         Symbolic link
     </summary>
     <weight>
-        3
+        50
     </weight>
 </type>
 
@@ -1072,8 +2190,11 @@
     <summary>
         HTML page
     </summary>
+    <extensions>
+        html, htm, xhtml, dhtml, shtml, shtm
+    </extensions>
     <weight>
-        3
+        40
     </weight>
     <anchor>
         HTML
@@ -1087,21 +2208,30 @@
     <summary>
         Precompiled header
     </summary>
+    <extensions>
+        gch, pch
+    </extensions>
     <weight>
-        3
+        40
     </weight>
 </type>
 
 <type>
     <id>
-        CONFIG
+        CONFIGURATION
     </id>
     <summary>
         Configuration file
     </summary>
+    <extensions>
+        conf, config, cfg
+    </extensions>
     <weight>
-        3
+        50
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -1111,8 +2241,11 @@
     <summary>
         PDF file
     </summary>
+    <extensions>
+        pdf
+    </extensions>
     <weight>
-        2
+        30
     </weight>
 </type>
 
@@ -1123,8 +2256,12 @@
     <summary>
         Image file
     </summary>
+    <extensions>
+        png, jpg, jpeg, exif, raw, bmp, pbm, webp, spp
+        img, gif, svg, tiff, xcf, icns, xpm, dia, cur
+    </extensions>
     <weight>
-        2
+        30
     </weight>
 </type>
 
@@ -1135,8 +2272,14 @@
     <summary>
         Audio file
     </summary>
+    <extensions>
+        wav, aiff, flac, aac, mpc, ogg, wma, sf2, aa, ac3
+        m3u, midi, wave, wax, wow, mp1, mp2, mp3, mpa, mpga
+        mpu, oga, omg, omx, omf, pcast, pls, acm, afc, mid
+        dls, flw
+    </extensions>
     <weight>
-        2
+        30
     </weight>
 </type>
 
@@ -1147,8 +2290,12 @@
     <summary>
         Video file
     </summary>
+    <extensions>
+        swf, flv, mng, avi, 3gp, divx, ogv, movie, mov, swf, wmv, xvid
+        mp4, mpeg, mjpeg, mjp, mpeg4, mpg, mpg2, mpv, mpv2, webm
+    </extensions>
     <weight>
-        2
+        30
     </weight>
 </type>
 
@@ -1159,8 +2306,11 @@
     <summary>
         Icon
     </summary>
+    <extensions>
+        ico, icon
+    </extensions>
     <weight>
-        2
+        30
     </weight>
 </type>
 
@@ -1171,8 +2321,11 @@
     <summary>
         RPM package
     </summary>
+    <extensions>
+        rpm
+    </extensions>
     <weight>
-        2
+        20
     </weight>
 </type>
 
@@ -1183,8 +2336,11 @@
     <summary>
         SRPM package
     </summary>
+    <extensions>
+        src.rpm, srpm
+    </extensions>
     <weight>
-        2
+        20
     </weight>
 </type>
 
@@ -1195,8 +2351,11 @@
     <summary>
         Deb package
     </summary>
+    <extensions>
+        deb
+    </extensions>
     <weight>
-        2
+        20
     </weight>
 </type>
 
@@ -1205,10 +2364,10 @@
         INFORM
     </id>
     <summary>
-        Info file
+        Information file
     </summary>
     <weight>
-        1
+        10
     </weight>
 </type>
 
@@ -1220,7 +2379,7 @@
         Directory
     </summary>
     <weight>
-        1
+        20
     </weight>
 </type>
 
@@ -1232,7 +2391,7 @@
         Change log
     </summary>
     <weight>
-        1
+        10
     </weight>
 </type>
 
@@ -1243,9 +2402,15 @@
     <summary>
         Text file
     </summary>
+    <extensions>
+        txt, TXT
+    </extensions>
     <weight>
-        1
+        10
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -1255,11 +2420,17 @@
     <summary>
         Archive
     </summary>
+    <extensions>
+        tar.gz, tgz, tar.Z, taz, tar.xz, txz
+        tar.bz2, tbz2, tbz, tb2, tar.lzma, tlzma
+        tar.lz, tlz, zip, zae, tar, lzma, gz
+        jar, war, ear
+    </extensions>
     <title>
         Archives
     </title>
     <weight>
-        1
+        10
     </weight>
 </type>
 
@@ -1271,7 +2442,7 @@
         Readme file
     </summary>
     <weight>
-        1
+        10
     </weight>
 </type>
 
@@ -1283,7 +2454,7 @@
         License
     </summary>
     <weight>
-        1
+        10
     </weight>
 </type>
 
