@@ -405,10 +405,10 @@ sub compareFiles($$$$)
     }
     if(getSize($P1) == getSize($P2))
     { # equal size
-        if(getDate($P1)==getDate($P2))
-        { # equal date
-            return (-1, "", "", 0);
-        }
+        #if(getDate($P1)==getDate($P2))
+        #{ # equal date
+        #    return (-1, "", "", 0);
+        #}
         if(compare($P1, $P2)==0)
         { # equal content
             return (-1, "", "", 0);
