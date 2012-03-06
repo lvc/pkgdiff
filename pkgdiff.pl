@@ -1311,7 +1311,7 @@ sub get_Report_Deps()
             if($PackageDeps{1}{$Kind}{$Name})
             {
                 my %Info1 = %{$PackageDeps{1}{$Kind}{$Name}};
-                $Report .= "<td class='value'>".showOp($Info1{"Op"}).htmlSpecChars($Info1{"V"})."</td>\n";
+                $Report .= "<td class='value'>".htmlSpecChars(showOp($Info1{"Op"}).$Info1{"V"})."</td>\n";
             }
             else {
                 $Report .= "<td></td>\n";
@@ -1319,7 +1319,7 @@ sub get_Report_Deps()
             if($PackageDeps{2}{$Kind}{$Name})
             {
                 my %Info2 = %{$PackageDeps{2}{$Kind}{$Name}};
-                $Report .= "<td class='value'>".showOp($Info2{"Op"}).htmlSpecChars($Info2{"V"})."</td>\n";
+                $Report .= "<td class='value'>".htmlSpecChars(showOp($Info2{"Op"}).$Info2{"V"})."</td>\n";
             }
             else {
                 $Report .= "<td></td>\n";
