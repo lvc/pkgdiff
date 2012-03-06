@@ -51,6 +51,9 @@ table.summary td.f_path {
     font-size:14px;
     font-family:Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
 }
+table.summary td.value {
+    padding-left:10px;
+}
 td.passed, tr.passed {
     background-color:#CCFFCC;
 }
