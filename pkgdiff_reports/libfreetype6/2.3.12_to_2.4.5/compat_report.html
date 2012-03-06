@@ -61,6 +61,9 @@ table.summary td.f_path {
     font-size:14px;
     font-family:Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
 }
+table.summary td.value {
+    padding-left:10px;
+}
 td.passed, tr.passed {
     background-color:#CCFFCC;
 }
@@ -107,192 +110,194 @@ div.p_list {
 <tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>4</a></td></tr>
 <tr><th class='left'>Total Dependencies</th><td><a href='#Deps' style='color:Blue;'>27</a></td></tr>
 <tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>193</a></td></tr>
-<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(12.33%)</b></span></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(24.9%)</b></span></td></tr>
 </table>
 <a name='Info'></a>
 <h2>Changes In Package Info</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>Package</th><th>Status</th><th>Visual Diff</th></tr>
+<tr><th>Package</th><th>Status</th><th>Delta</th><th>Visual Diff</th></tr>
 <tr>
 <td class='left f_path'>libfreetype6</td>
 <td class='warning'>changed</td>
+<td class='value'>37.4%</td>
 <td><a href='info-diffs/libfreetype6-info-diff.html' style='color:Blue;'>diff</a></td>
 </tr>
 <tr>
 <td class='left f_path'>libfreetype6-devel</td>
 <td class='warning'>changed</td>
+<td class='value'>41.6%</td>
 <td><a href='info-diffs/libfreetype6-devel-info-diff.html' style='color:Blue;'>diff</a></td>
 </tr>
 </table>
 <a name='Deps'></a>
 <h2>Changes In "Provides" Dependencies</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>Name</th><th>Status</th><th>Version #1</th><th>Version #2</th></tr>
+<tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>
 <tr>
 <td class='left f_path'>devel(libfreetype)  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path'>freetype2</td>
 <td class='warning'>changed</td>
-<td>= 2.3.12-1mdv2010.1</td>
-<td>= 2.4.5-2</td>
+<td class='value'>2.3.12-1mdv2010.1</td>
+<td class='value'>2.4.5-2</td>
 </tr>
 <tr>
 <td class='left f_path'>freetype2-devel</td>
 <td class='warning'>changed</td>
-<td>= 2.3.12-1mdv2010.1</td>
-<td>= 2.4.5-2</td>
+<td class='value'>2.3.12-1mdv2010.1</td>
+<td class='value'>2.4.5-2</td>
 </tr>
 <tr>
 <td class='left f_path'>libfreetype.so.6  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path'>libfreetype6</td>
 <td class='warning'>changed</td>
-<td>= 2.3.12-1mdv2010.1</td>
-<td>= 2.4.5-2:2011.0</td>
+<td class='value'>2.3.12-1mdv2010.1</td>
+<td class='value'>2.4.5-2:2011.0</td>
 </tr>
 <tr>
 <td class='left f_path failed'>libfreetype6(x86-32)</td>
 <td class='failed'>removed</td>
-<td>= 2.3.12-1mdv2010.1</td>
-<td> </td>
+<td class='value'>2.3.12-1mdv2010.1</td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>libfreetype6-devel</td>
 <td class='warning'>changed</td>
-<td>= 2.3.12-1mdv2010.1</td>
-<td>= 2.4.5-2:2011.0</td>
+<td class='value'>2.3.12-1mdv2010.1</td>
+<td class='value'>2.4.5-2:2011.0</td>
 </tr>
 <tr>
 <td class='left f_path failed'>libfreetype6-devel(x86-32)</td>
 <td class='failed'>removed</td>
-<td>= 2.3.12-1mdv2010.1</td>
-<td> </td>
+<td class='value'>2.3.12-1mdv2010.1</td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>pkgconfig(freetype2)</td>
 <td class='warning'>changed</td>
-<td>= 10.0.4</td>
-<td>= 13.0.7</td>
+<td class='value'>10.0.4</td>
+<td class='value'>13.0.7</td>
 </tr>
 </table>
 <h2>Changes In "Requires" Dependencies</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>Name</th><th>Status</th><th>Version #1</th><th>Version #2</th></tr>
+<tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>
 <tr>
 <td class='left f_path'>bash  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path'>devel(libz)  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path'>libc.so.6  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path'>libc.so.6(GLIBC_2.0)  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path'>libc.so.6(GLIBC_2.1.3)  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path'>libc.so.6(GLIBC_2.11)  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path'>libc.so.6(GLIBC_2.3.4)  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path'>libc.so.6(GLIBC_2.4)  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path'>libfreetype6</td>
 <td class='warning'>changed</td>
-<td>= 2.3.12</td>
-<td>= 2.4.5</td>
+<td class='value'>2.3.12</td>
+<td class='value'>2.4.5</td>
 </tr>
 <tr>
 <td class='left f_path'>libz.so.1  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path failed'>multiarch-utils  </td>
 <td class='failed'>removed</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>pkgconfig  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 <tr>
 <td class='left f_path failed'>rpmlib(CompressedFileNames)</td>
 <td class='failed'>removed</td>
-<td>&lt;= 3.0.4-1</td>
-<td> </td>
+<td class='value'><= 3.0.4-1</td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path failed'>rpmlib(PayloadFilesHavePrefix)</td>
 <td class='failed'>removed</td>
-<td>&lt;= 4.0-1</td>
-<td> </td>
+<td class='value'><= 4.0-1</td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>rpmlib(PayloadIsLzma)</td>
 <td class='passed'>unchanged</td>
-<td>&lt;= 4.4.6-1</td>
-<td>&lt;= 4.4.6-1</td>
+<td class='value'><= 4.4.6-1</td>
+<td class='value'><= 4.4.6-1</td>
 </tr>
 <tr>
 <td class='left f_path failed'>rpmlib(VersionedDependencies)</td>
 <td class='failed'>removed</td>
-<td>&lt;= 3.0.3-1</td>
-<td> </td>
+<td class='value'><= 3.0.3-1</td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path failed'>rtld(GNU_HASH)  </td>
 <td class='failed'>removed</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>zlib-devel  </td>
 <td class='passed'>unchanged</td>
-<td> </td>
-<td> </td>
+<td class='value'></td>
+<td class='value'></td>
 </tr>
 </table>
 <a name='Files'></a><h2>Changes In Files</h2><hr/>
@@ -405,15 +410,15 @@ div.p_list {
 </tr>
 <tr>
 <td class='left'>Information file</td>
-<td><a href='#InformationFiles' style='color:Blue;'>8</a></td>
+<td><a href='#InformationFiles' style='color:Blue;'>17</a></td>
 <td>0</td>
-<td>0</td>
-<td><a href='#InformationFiles' style='color:Blue;'>3</a></td>
+<td><a href='#InformationFiles' style='color:Blue;'>2</a></td>
+<td><a href='#InformationFiles' style='color:Blue;'>5</a></td>
 </tr>
 <tr>
 <td class='left'>License</td>
-<td><a href='#Licenses' style='color:Blue;'>2</a></td>
-<td>0</td>
+<td><a href='#Licenses' style='color:Blue;'>3</a></td>
+<td><a href='#Licenses' style='color:Blue;'>1</a></td>
 <td><a href='#Licenses' style='color:Blue;'>1</a></td>
 <td><a href='#Licenses' style='color:Blue;'>1</a></td>
 </tr>
@@ -426,25 +431,27 @@ div.p_list {
 </tr>
 <tr>
 <td class='left'>Text file</td>
-<td><a href='#TextFiles' style='color:Blue;'>13</a></td>
-<td><a href='#TextFiles' style='color:Blue;'>1</a></td>
-<td><a href='#TextFiles' style='color:Blue;'>2</a></td>
 <td><a href='#TextFiles' style='color:Blue;'>3</a></td>
+<td>0</td>
+<td>0</td>
+<td><a href='#TextFiles' style='color:Blue;'>1</a></td>
 </tr>
 </table>
 <a name='HeaderFiles'></a>
 <h2>Header Files (49)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/config/ftconfig.h</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/config/ftheader.h</td>
 <td class='warning'>changed</td>
+<td class='value'>1.7%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/config/ftheader.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -453,10 +460,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/config/ftoption.h</td>
 <td class='warning'>changed</td>
+<td class='value'>13.8%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/config/ftoption.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -465,10 +474,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/freetype.h</td>
 <td class='warning'>changed</td>
+<td class='value'>1.5%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/freetype.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -477,10 +488,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftbbox.h</td>
 <td class='warning'>changed</td>
+<td class='value'>15.2%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftbbox.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -489,10 +502,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftbitmap.h</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -501,16 +516,19 @@ div.p_list {
 <td class='new'>added</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftcache.h</td>
 <td class='warning'>changed</td>
+<td class='value'>1.8%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftcache.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftchapters.h</td>
 <td class='warning'>changed</td>
+<td class='value'>1.1%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftchapters.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -519,10 +537,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/fterrdef.h</td>
 <td class='warning'>changed</td>
+<td class='value'>6.8%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/fterrdef.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -531,16 +551,19 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftgasp.h</td>
 <td class='warning'>changed</td>
+<td class='value'>16.8%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftgasp.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftglyph.h</td>
 <td class='warning'>changed</td>
+<td class='value'>1.6%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftglyph.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -549,16 +572,19 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftgzip.h</td>
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftimage.h</td>
 <td class='warning'>changed</td>
+<td class='value'>1.1%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftimage.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -567,16 +593,19 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftlcdfil.h</td>
 <td class='warning'>changed</td>
+<td class='value'>23.5%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftlcdfil.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftlist.h</td>
 <td class='warning'>changed</td>
+<td class='value'>2.4%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftlist.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -585,10 +614,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftmac.h</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -597,16 +628,19 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftmodapi.h</td>
 <td class='warning'>changed</td>
+<td class='value'>12.3%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftmodapi.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftmoderr.h</td>
 <td class='warning'>changed</td>
+<td class='value'>14.9%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftmoderr.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -615,10 +649,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftoutln.h</td>
 <td class='warning'>changed</td>
+<td class='value'>1.2%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftoutln.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -627,10 +663,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftrender.h</td>
 <td class='warning'>changed</td>
+<td class='value'>6.2%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftrender.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -639,10 +677,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftsnames.h</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -651,16 +691,19 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftsynth.h</td>
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftsystem.h</td>
 <td class='warning'>changed</td>
+<td class='value'>2%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ftsystem.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -669,10 +712,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/fttypes.h</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -681,10 +726,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ftxf86.h</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -693,16 +740,19 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ttnameid.h</td>
 <td class='warning'>changed</td>
+<td class='value'>0.1%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/ttnameid.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/tttables.h</td>
 <td class='warning'>changed</td>
+<td class='value'>2.3%</td>
 <td><a href='diffs/usr/include/freetype2/freetype/tttables.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -711,10 +761,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/ttunpat.h</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -723,10 +775,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/multiarch-i386-linux/freetype2/freetype/config/ftconfig.h</td>
 <td class='warning'>changed</td>
+<td class='value'>12%</td>
 <td><a href='diffs/usr/include/multiarch-i386-linux/freetype2/freetype/config/ftconfig.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -734,10 +788,11 @@ div.p_list {
 <a name='CPrograms'></a>
 <h2>C Programs (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/tutorial/example1.c</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -745,10 +800,11 @@ div.p_list {
 <a name='CPPPrograms'></a>
 <h2>C++ Programs (3)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/tutorial/example2.cpp</td>
 <td class='warning'>changed</td>
+<td class='value'>0.8%</td>
 <td><a href='diffs/usr/share/doc/libfreetype6-devel/tutorial/example2.cpp-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -757,10 +813,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path new'>/usr/share/doc/libfreetype6-devel/tutorial/example4.cpp</td>
 <td class='new'>added</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -768,10 +826,11 @@ div.p_list {
 <a name='SharedLibraries'></a>
 <h2>Shared Libraries (2)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>/usr/lib/libfreetype.so.6.4.0</td>
 <td class='renamed' rowspan='2'>renamed</td>
+<td class='value' rowspan='2'>80.4%</td>
 <td rowspan='2'><a href='diffs/usr/lib/libfreetype.so.6.4.0-diff.html' style='color:Blue;'>diff</a></td>
 <td rowspan='2'></td>
 </tr>
@@ -780,10 +839,11 @@ div.p_list {
 <a name='ShellPrograms'></a>
 <h2>Shell Programs (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/bin/multiarch-i386-linux/freetype-config</td>
 <td class='warning'>changed</td>
+<td class='value'>1.2%</td>
 <td><a href='diffs/usr/bin/multiarch-i386-linux/freetype-config-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -791,10 +851,11 @@ div.p_list {
 <a name='LibtoolFiles'></a>
 <h2>Libtool Files (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/lib/libfreetype.la</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
@@ -802,10 +863,11 @@ div.p_list {
 <a name='M4'></a>
 <h2>M4 Macro Files (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/aclocal/freetype2.m4</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -813,10 +875,11 @@ div.p_list {
 <a name='PkgConfigFiles'></a>
 <h2>Pkg-config Files (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/lib/pkgconfig/freetype2.pc</td>
 <td class='warning'>changed</td>
+<td class='value'>7%</td>
 <td><a href='diffs/usr/lib/pkgconfig/freetype2.pc-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -824,22 +887,25 @@ div.p_list {
 <a name='SymbolicLinks'></a>
 <h2>Symbolic Links (3)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/bin/freetype-config</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/lib/libfreetype.so</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td><a href='diffs/usr/lib/libfreetype.so-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/lib/libfreetype.so.6</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td><a href='diffs/usr/lib/libfreetype.so.6-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -847,10 +913,11 @@ div.p_list {
 <a name='GitFiles'></a>
 <h2>Git Files (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/.gitignore</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -858,10 +925,11 @@ div.p_list {
 <a name='HTML'></a>
 <h2>HTML Pages (58)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/design/design-1.html</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -870,10 +938,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/design/design-3.html</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -882,10 +952,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/design/design-5.html</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -894,16 +966,19 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/design/index.html</td>
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/ft2faq.html</td>
 <td class='warning'>changed</td>
+<td class='value'>16.2%</td>
 <td></td>
 <td></td>
 </tr>
@@ -912,10 +987,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/glyphs-2.html</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -924,10 +1001,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/glyphs-4.html</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -936,10 +1015,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/glyphs-6.html</td>
 <td class='warning'>changed</td>
+<td class='value'>6.5%</td>
 <td></td>
 <td></td>
 </tr>
@@ -948,34 +1029,40 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/index.html</td>
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-base_interface.html</td>
 <td class='warning'>changed</td>
+<td class='value'>1.1%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-basic_types.html</td>
 <td class='warning'>changed</td>
+<td class='value'>0.9%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-bdf_fonts.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-bitmap_handling.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
@@ -984,214 +1071,250 @@ div.p_list {
 <td class='new'>added</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-cache_subsystem.html</td>
 <td class='warning'>changed</td>
+<td class='value'>0.5%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-cid_fonts.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-computations.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-font_formats.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-gasp_table.html</td>
 <td class='warning'>changed</td>
+<td class='value'>7.7%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-glyph_management.html</td>
 <td class='warning'>changed</td>
+<td class='value'>1.2%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-glyph_stroker.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-glyph_variants.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-gx_validation.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-gzip.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-header_file_macros.html</td>
 <td class='warning'>changed</td>
+<td class='value'>1.9%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-incremental.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-index.html</td>
 <td class='warning'>changed</td>
+<td class='value'>0.7%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-lcd_filtering.html</td>
 <td class='warning'>changed</td>
+<td class='value'>31.5%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-list_processing.html</td>
 <td class='warning'>changed</td>
+<td class='value'>1.7%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-lzw.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-mac_specific.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-module_management.html</td>
 <td class='warning'>changed</td>
+<td class='value'>10.2%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-multiple_masters.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-ot_validation.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-outline_processing.html</td>
 <td class='warning'>changed</td>
+<td class='value'>1.3%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-pfr_fonts.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-quick_advance.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-raster.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-sfnt_names.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-sizes_management.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-system_interface.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-toc.html</td>
 <td class='warning'>changed</td>
+<td class='value'>1.7%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-truetype_engine.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-truetype_tables.html</td>
 <td class='warning'>changed</td>
+<td class='value'>1.6%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-type1_tables.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-user_allocation.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-version.html</td>
 <td class='warning'>changed</td>
+<td class='value'>3.9%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-winfnt_fonts.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/tutorial/step1.html</td>
 <td class='warning'>changed</td>
+<td class='value'>100%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1200,10 +1323,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/tutorial/step3.html</td>
 <td class='warning'>changed</td>
+<td class='value'>12.8%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1211,10 +1336,11 @@ div.p_list {
 <a name='QtProjectFiles'></a>
 <h2>Qt Project Files (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path new'>/usr/share/doc/libfreetype6-devel/tutorial/example4.pro</td>
 <td class='new'>added</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1222,10 +1348,11 @@ div.p_list {
 <a name='ImageFiles'></a>
 <h2>Image Files (25)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/design/basic-design.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1234,10 +1361,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/design/library-model.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1246,10 +1375,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/bbox1.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1258,10 +1389,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/body_comparison.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1270,10 +1403,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/bravo_unkerned.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1282,10 +1417,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/down_flow.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1294,10 +1431,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/Image1.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1306,10 +1445,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/Image3.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1318,10 +1459,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/points_conic.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1330,10 +1473,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/points_cubic.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1342,10 +1487,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/twlewis1.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1354,10 +1501,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/up_flow.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1366,10 +1515,12 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/tutorial/metrics2.png</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1377,233 +1528,112 @@ div.p_list {
 <a name='Directories'></a>
 <h2>Directories (21)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th></tr>
 <tr>
 <td class='left f_path'>/usr</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/bin</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/bin/multiarch-i386-linux</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/config</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/multiarch-i386-linux</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/multiarch-i386-linux/freetype2</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/multiarch-i386-linux/freetype2/freetype</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/include/multiarch-i386-linux/freetype2/freetype/config</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/lib</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/lib/pkgconfig</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/aclocal</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/design</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/tutorial</td>
 <td class='passed'>unchanged</td>
-<td></td>
-<td></td>
 </tr>
 </table>
 <a name='ChangeLogs'></a>
 <h2>Change Logs (1)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/CHANGES</td>
 <td class='warning'>changed</td>
+<td class='value'>3.6%</td>
 <td><a href='diffs/usr/share/doc/libfreetype6-devel/CHANGES-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 </table>
 <a name='InformationFiles'></a>
-<h2>Information Files (8)</h2><hr/>
+<h2>Information Files (17)</h2><hr/>
 <table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/usr/share/doc/libfreetype6-devel/INSTALL-diff.html' style='color:Blue;'>diff</a></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.ANY</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/usr/share/doc/libfreetype6-devel/INSTALL.ANY-diff.html' style='color:Blue;'>diff</a></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.CROSS</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.GNU</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.MAC</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.UNIX</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/usr/share/doc/libfreetype6-devel/INSTALL.UNIX-diff.html' style='color:Blue;'>diff</a></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.VMS</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/TODO</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-</table>
-<a name='Licenses'></a>
-<h2>Licenses (2)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path failed'>/usr/share/doc/libfreetype6-devel/GPL.TXT</td>
-<td class='failed'>removed</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/LICENSE.TXT</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/usr/share/doc/libfreetype6-devel/LICENSE.TXT-diff.html' style='color:Blue;'>diff</a></td>
-<td></td>
-</tr>
-</table>
-<a name='ReadmeFiles'></a>
-<h2>Readme Files (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/README</td>
-<td class='passed'>unchanged</td>
-<td></td>
-<td></td>
-</tr>
-</table>
-<a name='TextFiles'></a>
-<h2>Text Files (13)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
-<tr><th>File</th><th>Status</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/CUSTOMIZE</td>
 <td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1612,11 +1642,6 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
-</tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/formats.txt</td>
-<td class='warning'>changed</td>
-<td><a href='diffs/usr/share/doc/libfreetype6-devel/formats.txt-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
@@ -1624,10 +1649,54 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
-<td class='left f_path new'>/usr/share/doc/libfreetype6-devel/GPLv2.TXT</td>
-<td class='new'>added</td>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL</td>
+<td class='warning'>changed</td>
+<td class='value'>23.8%</td>
+<td><a href='diffs/usr/share/doc/libfreetype6-devel/INSTALL-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.ANY</td>
+<td class='warning'>changed</td>
+<td class='value'>4.4%</td>
+<td><a href='diffs/usr/share/doc/libfreetype6-devel/INSTALL.ANY-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.CROSS</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.GNU</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.MAC</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.UNIX</td>
+<td class='warning'>changed</td>
+<td class='value'>4.5%</td>
+<td><a href='diffs/usr/share/doc/libfreetype6-devel/INSTALL.UNIX-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/INSTALL.VMS</td>
+<td class='passed'>unchanged</td>
+<td></td>
 <td></td>
 <td></td>
 </tr>
@@ -1636,28 +1705,26 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path failed'>/usr/share/doc/libfreetype6-devel/PATENTS</td>
 <td class='failed'>removed</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/PROBLEMS</td>
 <td class='warning'>changed</td>
+<td class='value'>20%</td>
 <td><a href='diffs/usr/share/doc/libfreetype6-devel/PROBLEMS-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/raster.txt</td>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/TODO</td>
 <td class='passed'>unchanged</td>
 <td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>/usr/share/doc/libfreetype6-devel/release</td>
-<td class='passed'>unchanged</td>
 <td></td>
 <td></td>
 </tr>
@@ -1666,17 +1733,84 @@ div.p_list {
 <td class='failed'>removed</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/UPGRADE.UNIX</td>
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
+<td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/VERSION.DLL</td>
 <td class='warning'>changed</td>
+<td class='value'>4.6%</td>
 <td><a href='diffs/usr/share/doc/libfreetype6-devel/VERSION.DLL-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='Licenses'></a>
+<h2>Licenses (3)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>/usr/share/doc/libfreetype6-devel/GPL.TXT</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/doc/libfreetype6-devel/GPLv2.TXT</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/LICENSE.TXT</td>
+<td class='warning'>changed</td>
+<td class='value'>19%</td>
+<td><a href='diffs/usr/share/doc/libfreetype6-devel/LICENSE.TXT-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='ReadmeFiles'></a>
+<h2>Readme Files (1)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/README</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='TextFiles'></a>
+<h2>Text Files (3)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/formats.txt</td>
+<td class='warning'>changed</td>
+<td class='value'>9.7%</td>
+<td><a href='diffs/usr/share/doc/libfreetype6-devel/formats.txt-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/raster.txt</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libfreetype6-devel/release</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
 <td></td>
 </tr>
 </table>
@@ -1691,6 +1825,6 @@ libfreetype6-devel-2.4.5-2-mdv2011.0.i586.rpm<br/>
 <br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
 </div>
 <br/><br/><br/><hr/>
-<div style='width:100%;font-size:11px;' align='right'><i>Generated on Fri Feb 17 11:57:09 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.2 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Tue Mar  6 17:07:16 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.3 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
 <div style='height:999px;'></div>
 </body></html>
