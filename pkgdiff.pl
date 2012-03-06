@@ -277,6 +277,7 @@ my $DescriptorTemplate = "
 my $RENAME_FILE_MATCH = 0.55;
 my $RENAME_CONTENT_MATCH = 0.85;
 my $MOVE_CONTENT_MATCH = 0.90;
+my $COMPARE_BYTE_BY_BYTE = 16;
 my $DEFAULT_WIDTH = 75;
 
 my %Group = (
@@ -474,7 +475,7 @@ sub compareFiles($$$$)
         if(my $Size1 = getSize($P1))
         {
             my $Size2 = getSize($P2);
-            if(abs($Size1-$Size2)<64
+            if(abs($Size1-$Size2)<$COMPARE_BYTE_BY_BYTE
             and checkCmd("cmp"))
             { # compare byte-by-byte
                 my $BinDiff = $TMP_DIR."/bindiff";
