@@ -1,0 +1,1682 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="udev, changes, report" />
+    <meta name="description" content="Changes report for the udev package between 175-4 and 181-2 versions" />
+    <title>
+        udev: 175-4 to 181-2 changes report
+    </title>
+<style type="text/css">
+body {
+    font-family:Arial;
+    color:Black;
+    font-size:14px;
+}
+hr {
+    color:Black;
+    background-color:Black;
+    height:1px;
+    border:0;
+}
+h1 {
+    margin-bottom:0px;
+    padding-bottom:0px;
+    font-size:26px;
+}
+h2 {
+    margin-bottom:0px;
+    padding-bottom:0px;
+    font-size:20px;
+    white-space:nowrap;
+}
+table.summary {
+    border-collapse:collapse;
+    border:1px outset black;
+}
+table.summary th {
+    background-color:#eeeeee;
+    font-weight:bold;
+    text-align:left;
+    font-size:15px;
+    white-space:nowrap;
+    border:1px inset gray;
+}
+table.summary td {
+    padding-left:5px;
+    padding-right:5px;
+    text-align:right;
+    font-size:16px;
+    white-space:nowrap;
+    border:1px inset gray;
+}
+table.summary td.left {
+    text-align:left;
+}
+table.summary th.left {
+    text-align:left;
+    font-weight:100;
+}
+table.summary td.f_path {
+    font-size:14px;
+    font-family:Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
+}
+table.summary td.value {
+    padding-left:10px;
+}
+td.passed, tr.passed {
+    background-color:#CCFFCC;
+}
+td.warning, tr.warning {
+    background-color:#F4F4AF;
+}
+td.renamed, tr.renamed {
+    background-color:#FFDAA3;
+}
+td.moved, tr.moved {
+    background-color:#FFDAA3;
+}
+td.failed, tr.failed {
+    background-color:#FFC3CE;
+}
+td.new, tr.new {
+    background-color:#C6DEFF;
+}
+a.default {
+    color:#336699;
+}
+div.p_list {
+    padding-left:10px;
+    color:#333333;
+    font-size:15px;
+}
+</style>
+</head>
+<body>
+<div><a name='Top'></a>
+<h1>Changes report for the <span style='color:Blue;'>udev</span> package between <span style='color:Red;'>175-4</span> and <span style='color:Red;'>181-2</span> versions</h1>
+<br/><table class='summary'>
+    <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
+    <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>
+<h2>Test Info</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th class='left'>Package Name</th><td>udev</td></tr>
+<tr><th class='left'>Package Format</th><td>RPM</td></tr>
+<tr><th class='left'>Package Arch</th><td>i586</td></tr>
+<tr><th class='left'>Version #1</th><td>175-4</td></tr>
+<tr><th class='left'>Version #2</th><td>181-2</td></tr>
+</table>
+<h2>Test Results</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>2</a></td></tr>
+<tr><th class='left'>Total Dependencies</th><td><a href='#Deps' style='color:Blue;'>32</a></td></tr>
+<tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>187</a></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(11.5%)</b></span></td></tr>
+</table>
+<a name='Info'></a>
+<h2>Changes In Package Info</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Package</th><th>Status</th><th>Delta</th><th>Visual Diff</th></tr>
+<tr>
+<td class='left f_path'>udev</td>
+<td class='warning'>changed</td>
+<td class='value'>30.7%</td>
+<td><a href='info-diffs/udev-info-diff.html' style='color:Blue;'>diff</a></td>
+</tr>
+</table>
+<a name='Deps'></a>
+<h2>Changes In "Provides" Dependencies</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>
+<tr>
+<td class='left f_path'>udev</td>
+<td class='warning'>changed</td>
+<td class='value'>175-4:2012.0</td>
+<td class='value'>181-2:2012.0</td>
+</tr>
+</table>
+<h2>Changes In "Requires" Dependencies</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>
+<tr>
+<td class='left f_path new'>acl  </td>
+<td class='new'>added</td>
+<td></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>coreutils  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>ldetect-lst</td>
+<td class='passed'>unchanged</td>
+<td class='value'>&gt;= 0.1.283</td>
+<td class='value'>&gt;= 0.1.283</td>
+</tr>
+<tr>
+<td class='left f_path new'>libblkid.so.1  </td>
+<td class='new'>added</td>
+<td></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.1)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.1.1)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.1.2)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.10)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.2)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.2.3)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.3)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.3.2)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.3.4)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.4)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.6)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.7)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.8)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.9)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path new'>libkmod.so.2  </td>
+<td class='new'>added</td>
+<td></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libm.so.6  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libm.so.6(GLIBC_2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libm.so.6(GLIBC_2.1)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>librt.so.1  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>librt.so.1(GLIBC_2.2)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>librt.so.1(GLIBC_2.3.4)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>rpm-helper  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>rpmlib(PayloadIsXz)</td>
+<td class='passed'>unchanged</td>
+<td class='value'>&lt;= 5.2-1</td>
+<td class='value'>&lt;= 5.2-1</td>
+</tr>
+<tr>
+<td class='left f_path'>setup</td>
+<td class='passed'>unchanged</td>
+<td class='value'>&gt;= 2.7.16</td>
+<td class='value'>&gt;= 2.7.16</td>
+</tr>
+<tr>
+<td class='left f_path'>util-linux-ng</td>
+<td class='passed'>unchanged</td>
+<td class='value'>&gt;= 2.15</td>
+<td class='value'>&gt;= 2.15</td>
+</tr>
+</table>
+<a name='Files'></a><h2>Changes In Files</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File Type</th><th>Total</th><th>Added</th><th>Removed</th><th>Changed</th></tr>
+<tr>
+<td class='left'>Java program</td>
+<td><a href='#JavaPrograms' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td><a href='#JavaPrograms' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
+<td class='left'>Perl program</td>
+<td><a href='#PerlPrograms' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Shell program</td>
+<td><a href='#ShellPrograms' style='color:Blue;'>6</a></td>
+<td><a href='#ShellPrograms' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td><a href='#ShellPrograms' style='color:Blue;'>2</a></td>
+</tr>
+<tr>
+<td class='left'>Configuration file</td>
+<td><a href='#ConfigurationFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Executable file</td>
+<td><a href='#ExecutableFiles' style='color:Blue;'>14</a></td>
+<td><a href='#ExecutableFiles' style='color:Blue;'>1</a></td>
+<td><a href='#ExecutableFiles' style='color:Blue;'>3</a></td>
+<td><a href='#ExecutableFiles' style='color:Blue;'>10</a></td>
+</tr>
+<tr>
+<td class='left'>Man page</td>
+<td><a href='#ManPages' style='color:Blue;'>4</a></td>
+<td>0</td>
+<td>0</td>
+<td><a href='#ManPages' style='color:Blue;'>4</a></td>
+</tr>
+<tr>
+<td class='left'>Symbolic link</td>
+<td><a href='#SymbolicLinks' style='color:Blue;'>6</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Directory</td>
+<td><a href='#Directories' style='color:Blue;'>30</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Text file</td>
+<td><a href='#TextFiles' style='color:Blue;'>95</a></td>
+<td><a href='#TextFiles' style='color:Blue;'>5</a></td>
+<td><a href='#TextFiles' style='color:Blue;'>1</a></td>
+<td><a href='#TextFiles' style='color:Blue;'>15</a></td>
+</tr>
+<tr>
+<td class='left'>Other</td>
+<td><a href='#OtherFiles' style='color:Blue;'>29</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</table>
+<a name='JavaPrograms'></a>
+<h2>Java Programs (1)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/60-cdrom_id.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>34.9%</td>
+<td><a href='diffs/lib/udev/rules.d/60-cdrom_id.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='PerlPrograms'></a>
+<h2>Perl Programs (1)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/sbin/udev_import_usermap</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ShellPrograms'></a>
+<h2>Shell Programs (6)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/lib/udev/findkeyboards</td>
+<td class='warning'>changed</td>
+<td class='value'>76.3%</td>
+<td><a href='diffs/lib/udev/findkeyboards-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keyboard-force-release.sh</td>
+<td class='warning'>changed</td>
+<td class='value'>64.3%</td>
+<td><a href='diffs/lib/udev/keyboard-force-release.sh-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/net_action</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/net_create_ifcfg</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/lib/udev/write_cd_rules</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/lib/udev/write_net_rules</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ConfigurationFiles'></a>
+<h2>Configuration Files (1)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/etc/udev/udev.conf</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ExecutableFiles'></a>
+<h2>Executable Files (14)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/lib/udev/accelerometer</td>
+<td class='warning'>changed</td>
+<td class='value'>26.5%</td>
+<td><a href='diffs/lib/udev/accelerometer-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/ata_id</td>
+<td class='warning'>changed</td>
+<td class='value'>34.1%</td>
+<td><a href='diffs/lib/udev/ata_id-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/cdrom_id</td>
+<td class='warning'>changed</td>
+<td class='value'>37.3%</td>
+<td><a href='diffs/lib/udev/cdrom_id-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/collect</td>
+<td class='warning'>changed</td>
+<td class='value'>29.5%</td>
+<td><a href='diffs/lib/udev/collect-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/lib/udev/create_floppy_devices</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>/lib/udev/firmware</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymap</td>
+<td class='warning'>changed</td>
+<td class='value'>0.5%</td>
+<td><a href='diffs/lib/udev/keymap-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/mtd_probe</td>
+<td class='warning'>changed</td>
+<td class='value'>0.6%</td>
+<td><a href='diffs/lib/udev/mtd_probe-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>/lib/udev/pci-db</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/scsi_id</td>
+<td class='warning'>changed</td>
+<td class='value'>28.8%</td>
+<td><a href='diffs/lib/udev/scsi_id-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/udevd</td>
+<td class='warning'>changed</td>
+<td class='value'>60.5%</td>
+<td><a href='diffs/lib/udev/udevd-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>/lib/udev/usb-db</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/v4l_id</td>
+<td class='warning'>changed</td>
+<td class='value'>0.6%</td>
+<td><a href='diffs/lib/udev/v4l_id-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/sbin/udevadm</td>
+<td class='warning'>changed</td>
+<td class='value'>62.4%</td>
+<td><a href='diffs/sbin/udevadm-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='ManPages'></a>
+<h2>Man Pages (4)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/share/man/man7/udev.7.xz</td>
+<td class='warning'>changed</td>
+<td class='value'>19.7%</td>
+<td><a href='diffs/usr/share/man/man7/udev.7.xz-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/man/man8/scsi_id.8.xz</td>
+<td class='warning'>changed</td>
+<td class='value'>3.6%</td>
+<td><a href='diffs/usr/share/man/man8/scsi_id.8.xz-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/man/man8/udevadm.8.xz</td>
+<td class='warning'>changed</td>
+<td class='value'>7%</td>
+<td><a href='diffs/usr/share/man/man8/udevadm.8.xz-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/man/man8/udevd.8.xz</td>
+<td class='warning'>changed</td>
+<td class='value'>22.3%</td>
+<td><a href='diffs/usr/share/man/man8/udevd.8.xz-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='SymbolicLinks'></a>
+<h2>Symbolic Links (6)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system/basic.target.wants/udev-trigger.service</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system/basic.target.wants/udev.service</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system/sockets.target.wants/udev-control.socket</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system/sockets.target.wants/udev-kernel.socket</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/sbin/udevd</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/sbin/usb_id</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='Directories'></a>
+<h2>Directories (30)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th></tr>
+<tr>
+<td class='left f_path'>/etc</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/etc/sysconfig</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/etc/udev</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/etc/udev/agents.d</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/etc/udev/agents.d/usb</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/etc/udev/rules.d</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/firmware</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system/basic.target.wants</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system/sockets.target.wants</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/cpu</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/cpu/0</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/hugepages</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/net</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/pts</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/shm</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/force-release</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/sbin</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/sbin</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/man</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/man/man7</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/man/man8</td>
+<td class='passed'>unchanged</td>
+</tr>
+</table>
+<a name='TextFiles'></a>
+<h2>Text Files (95)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/etc/sysconfig/udev</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/etc/sysconfig/udev_net</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system/udev-control.socket</td>
+<td class='warning'>changed</td>
+<td class='value'>22.6%</td>
+<td><a href='diffs/lib/systemd/system/udev-control.socket-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system/udev-kernel.socket</td>
+<td class='warning'>changed</td>
+<td class='value'>11.9%</td>
+<td><a href='diffs/lib/systemd/system/udev-kernel.socket-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system/udev-settle.service</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system/udev-trigger.service</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/systemd/system/udev.service</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/acer</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/acer-aspire_5720</td>
+<td class='warning'>changed</td>
+<td class='value'>19.5%</td>
+<td><a href='diffs/lib/udev/keymaps/acer-aspire_5720-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/acer-aspire_5920g</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/acer-aspire_6920</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/acer-aspire_8930</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/acer-travelmate_c300</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/asus</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/compaq-e_evo</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/dell</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/dell-latitude-xt2</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/everex-xt5000</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/force-release/common-volume-keys</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/force-release/dell-touchpad</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/force-release/hp-other</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/force-release/samsung-other</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/lib/udev/keymaps/fujitsu-amilo_li_2732</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/fujitsu-amilo_pa_2548</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/fujitsu-amilo_pro_edition_v3505</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/fujitsu-amilo_pro_v3205</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/fujitsu-amilo_si_1520</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/fujitsu-esprimo_mobile_v5</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/fujitsu-esprimo_mobile_v6</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/genius-slimstar-320</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/hewlett-packard</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/hewlett-packard-2510p_2530p</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/hewlett-packard-compaq_elitebook</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/hewlett-packard-pavilion</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/hewlett-packard-presario-2100</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/hewlett-packard-tablet</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/hewlett-packard-tx2</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/ibm-thinkpad-usb-keyboard-trackpoint</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/inventec-symphony_6.0_7.0</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/lenovo-3000</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/lenovo-ideapad</td>
+<td class='warning'>changed</td>
+<td class='value'>98%</td>
+<td><a href='diffs/lib/udev/keymaps/lenovo-ideapad-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/lenovo-thinkpad-usb-keyboard-trackpoint</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/lenovo-thinkpad_x200_tablet</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/lenovo-thinkpad_x6_tablet</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/lg-x110</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/logitech-wave</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/logitech-wave-cordless</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/logitech-wave-pro-cordless</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/maxdata-pro_7000</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/medion-fid2060</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/medionnb-a555</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/micro-star</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/module-asus-w3j</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/module-ibm</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/module-lenovo</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/module-sony</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/module-sony-old</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/module-sony-vgn</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/olpc-xo</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/onkyo</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/oqo-model2</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/samsung-other</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/samsung-sq1us</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/samsung-sx20s</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/toshiba-satellite_a100</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/toshiba-satellite_a110</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/toshiba-satellite_m30x</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/keymaps/zepto-znote</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/lib/udev/rule_generator.functions</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/42-qemu-usb.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>/lib/udev/rules.d/50-firmware.rules</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/50-udev-default.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>37.4%</td>
+<td><a href='diffs/lib/udev/rules.d/50-udev-default.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/50-udev-mandriva.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/lib/udev/rules.d/60-floppy.rules</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/60-persistent-alsa.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/60-persistent-input.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/60-persistent-serial.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/60-persistent-storage-tape.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>10.3%</td>
+<td><a href='diffs/lib/udev/rules.d/60-persistent-storage-tape.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/60-persistent-storage.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>25.2%</td>
+<td><a href='diffs/lib/udev/rules.d/60-persistent-storage.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/60-persistent-v4l.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>4.8%</td>
+<td><a href='diffs/lib/udev/rules.d/60-persistent-v4l.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/61-accelerometer.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/61-mobile-zte-drakx-net.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/69-printeracl.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/70-hotplug_map.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/lib/udev/rules.d/75-cd-aliases-generator.rules</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/75-net-description.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>25.4%</td>
+<td><a href='diffs/lib/udev/rules.d/75-net-description.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/lib/udev/rules.d/75-persistent-net-generator.rules</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/75-probe_mtd.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>54.7%</td>
+<td><a href='diffs/lib/udev/rules.d/75-probe_mtd.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/75-tty-description.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>25.4%</td>
+<td><a href='diffs/lib/udev/rules.d/75-tty-description.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/76-net.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/78-sound-card.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>3.9%</td>
+<td><a href='diffs/lib/udev/rules.d/78-sound-card.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/80-drivers.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>45.5%</td>
+<td><a href='diffs/lib/udev/rules.d/80-drivers.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/95-keyboard-force-release.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>2.9%</td>
+<td><a href='diffs/lib/udev/rules.d/95-keyboard-force-release.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/95-keymap.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>6.9%</td>
+<td><a href='diffs/lib/udev/rules.d/95-keymap.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/rules.d/95-udev-late.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='OtherFiles'></a>
+<h2>Other Files (29)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/cpu/0/cpuid</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/cpu/0/microcode</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/cpu/0/msr</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/fd0</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/fd1</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/fuse</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/loop0</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/loop1</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/loop2</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/loop3</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/loop4</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/loop5</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/loop6</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/loop7</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/lp0</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/lp1</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/lp2</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/lp3</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/net/tun</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/null</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/nvidia0</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/nvidiactl</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/parport0</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/ppp</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/rawctl</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/sg0</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/sg1</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/st0</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/lib/udev/devices/st1</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='Packages'></a>
+<h2>Packages (2)</h2><hr/>
+<div class='p_list'>
+udev-175-4-mdv2012.0.i586.rpm<br/>
+udev-181-2-mdv2012.0.i586.rpm<br/>
+</div>
+<br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
+</div>
+<br/><br/><br/><hr/>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Wed Mar  7 16:50:31 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.3 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='height:999px;'></div>
+</body></html>
