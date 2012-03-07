@@ -1,0 +1,3567 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="udev, changes, report" />
+    <meta name="description" content="Changes report for the udev package between 175-4 and 181-2 versions" />
+    <title>
+        udev: 175-4 to 181-2 changes report
+    </title>
+<style type="text/css">
+body {
+    font-family:Arial;
+    color:Black;
+    font-size:14px;
+}
+hr {
+    color:Black;
+    background-color:Black;
+    height:1px;
+    border:0;
+}
+h1 {
+    margin-bottom:0px;
+    padding-bottom:0px;
+    font-size:26px;
+}
+h2 {
+    margin-bottom:0px;
+    padding-bottom:0px;
+    font-size:20px;
+    white-space:nowrap;
+}
+table.summary {
+    border-collapse:collapse;
+    border:1px outset black;
+}
+table.summary th {
+    background-color:#eeeeee;
+    font-weight:bold;
+    text-align:left;
+    font-size:15px;
+    white-space:nowrap;
+    border:1px inset gray;
+}
+table.summary td {
+    padding-left:5px;
+    padding-right:5px;
+    text-align:right;
+    font-size:16px;
+    white-space:nowrap;
+    border:1px inset gray;
+}
+table.summary td.left {
+    text-align:left;
+}
+table.summary th.left {
+    text-align:left;
+    font-weight:100;
+}
+table.summary td.f_path {
+    font-size:14px;
+    font-family:Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
+}
+table.summary td.value {
+    padding-left:10px;
+}
+td.passed, tr.passed {
+    background-color:#CCFFCC;
+}
+td.warning, tr.warning {
+    background-color:#F4F4AF;
+}
+td.renamed, tr.renamed {
+    background-color:#FFDAA3;
+}
+td.moved, tr.moved {
+    background-color:#FFDAA3;
+}
+td.failed, tr.failed {
+    background-color:#FFC3CE;
+}
+td.new, tr.new {
+    background-color:#C6DEFF;
+}
+a.default {
+    color:#336699;
+}
+div.p_list {
+    padding-left:10px;
+    color:#333333;
+    font-size:15px;
+}
+</style>
+</head>
+<body>
+<div><a name='Top'></a>
+<h1>Changes report for the <span style='color:Blue;'>udev</span> package between <span style='color:Red;'>175-4</span> and <span style='color:Red;'>181-2</span> versions</h1>
+<br/><table class='summary'>
+    <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
+    <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>
+<h2>Test Info</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th class='left'>Package Name</th><td>udev</td></tr>
+<tr><th class='left'>Package Format</th><td>SRPM</td></tr>
+<tr><th class='left'>Package Arch</th><td>i586</td></tr>
+<tr><th class='left'>Version #1</th><td>175-4</td></tr>
+<tr><th class='left'>Version #2</th><td>181-2</td></tr>
+</table>
+<h2>Test Results</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>2</a></td></tr>
+<tr><th class='left'>Total Dependencies</th><td><a href='#Deps' style='color:Blue;'>13</a></td></tr>
+<tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>603</a></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(88.9%)</b></span></td></tr>
+</table>
+<a name='Info'></a>
+<h2>Changes In Package Info</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Package</th><th>Status</th><th>Delta</th><th>Visual Diff</th></tr>
+<tr>
+<td class='left f_path'>udev</td>
+<td class='warning'>changed</td>
+<td class='value'>31.9%</td>
+<td><a href='info-diffs/udev-info-diff.html' style='color:Blue;'>diff</a></td>
+</tr>
+</table>
+<a name='Deps'></a>
+<h2>Changes In "Requires" Dependencies</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>
+<tr>
+<td class='left f_path'>glib2-devel  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>glibc-static-devel  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>gobject-introspection-devel</td>
+<td class='passed'>unchanged</td>
+<td class='value'>&gt;= 0.6.2</td>
+<td class='value'>&gt;= 0.6.2</td>
+</tr>
+<tr>
+<td class='left f_path'>gperf  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>gtk-doc  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>ldetect-lst</td>
+<td class='passed'>unchanged</td>
+<td class='value'>&gt;= 0.1.283</td>
+<td class='value'>&gt;= 0.1.283</td>
+</tr>
+<tr>
+<td class='left f_path'>libacl-devel  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libblkid-devel  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libtool  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libusb-devel  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path new'>pkgconfig(libkmod)  </td>
+<td class='new'>added</td>
+<td></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>systemd-units  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>usbutils  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+</table>
+<a name='Files'></a><h2>Changes In Files</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>File Type</th><th>Total</th><th>Added</th><th>Removed</th><th>Changed</th></tr>
+<tr>
+<td class='left'>Header file</td>
+<td><a href='#HeaderFiles' style='color:Blue;'>32</a></td>
+<td><a href='#HeaderFiles' style='color:Blue;'>15</a></td>
+<td><a href='#HeaderFiles' style='color:Blue;'>16</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>C program</td>
+<td><a href='#CPrograms' style='color:Blue;'>104</a></td>
+<td><a href='#CPrograms' style='color:Blue;'>52</a></td>
+<td><a href='#CPrograms' style='color:Blue;'>52</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Spec file</td>
+<td><a href='#SpecFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td><a href='#SpecFiles' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
+<td class='left'>Patch</td>
+<td><a href='#Patches' style='color:Blue;'>6</a></td>
+<td>0</td>
+<td><a href='#Patches' style='color:Blue;'>1</a></td>
+<td><a href='#Patches' style='color:Blue;'>2</a></td>
+</tr>
+<tr>
+<td class='left'>Java program</td>
+<td><a href='#JavaPrograms' style='color:Blue;'>2</a></td>
+<td><a href='#JavaPrograms' style='color:Blue;'>1</a></td>
+<td><a href='#JavaPrograms' style='color:Blue;'>1</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Perl program</td>
+<td><a href='#PerlPrograms' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td>0</td>
+<td><a href='#PerlPrograms' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
+<td class='left'>Python program</td>
+<td><a href='#PythonPrograms' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Shell program</td>
+<td><a href='#ShellPrograms' style='color:Blue;'>23</a></td>
+<td><a href='#ShellPrograms' style='color:Blue;'>5</a></td>
+<td><a href='#ShellPrograms' style='color:Blue;'>7</a></td>
+<td><a href='#ShellPrograms' style='color:Blue;'>8</a></td>
+</tr>
+<tr>
+<td class='left'>Automake file</td>
+<td><a href='#AutomakeFiles' style='color:Blue;'>11</a></td>
+<td><a href='#AutomakeFiles' style='color:Blue;'>4</a></td>
+<td><a href='#AutomakeFiles' style='color:Blue;'>4</a></td>
+<td><a href='#AutomakeFiles' style='color:Blue;'>3</a></td>
+</tr>
+<tr>
+<td class='left'>Configuration file</td>
+<td><a href='#ConfigurationFiles' style='color:Blue;'>2</a></td>
+<td><a href='#ConfigurationFiles' style='color:Blue;'>1</a></td>
+<td><a href='#ConfigurationFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>JavaScript file</td>
+<td><a href='#JavaScriptFiles' style='color:Blue;'>6</a></td>
+<td><a href='#JavaScriptFiles' style='color:Blue;'>3</a></td>
+<td><a href='#JavaScriptFiles' style='color:Blue;'>3</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>M4 macro file</td>
+<td><a href='#M4' style='color:Blue;'>7</a></td>
+<td>0</td>
+<td>0</td>
+<td><a href='#M4' style='color:Blue;'>4</a></td>
+</tr>
+<tr>
+<td class='left'>Makefile</td>
+<td><a href='#Makefiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Man page</td>
+<td><a href='#ManPages' style='color:Blue;'>8</a></td>
+<td><a href='#ManPages' style='color:Blue;'>5</a></td>
+<td><a href='#ManPages' style='color:Blue;'>3</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Pkg-config file</td>
+<td><a href='#PkgConfigFiles' style='color:Blue;'>6</a></td>
+<td><a href='#PkgConfigFiles' style='color:Blue;'>3</a></td>
+<td><a href='#PkgConfigFiles' style='color:Blue;'>3</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>SGML document</td>
+<td><a href='#SGMLDocuments' style='color:Blue;'>32</a></td>
+<td><a href='#SGMLDocuments' style='color:Blue;'>16</a></td>
+<td><a href='#SGMLDocuments' style='color:Blue;'>16</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>XML document</td>
+<td><a href='#XMLDocuments' style='color:Blue;'>22</a></td>
+<td><a href='#XMLDocuments' style='color:Blue;'>11</a></td>
+<td><a href='#XMLDocuments' style='color:Blue;'>11</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>CSS style sheet</td>
+<td><a href='#CSS' style='color:Blue;'>4</a></td>
+<td><a href='#CSS' style='color:Blue;'>2</a></td>
+<td><a href='#CSS' style='color:Blue;'>2</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Data List</td>
+<td><a href='#DataLists' style='color:Blue;'>2</a></td>
+<td><a href='#DataLists' style='color:Blue;'>1</a></td>
+<td><a href='#DataLists' style='color:Blue;'>1</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>HTML page</td>
+<td><a href='#HTML' style='color:Blue;'>42</a></td>
+<td><a href='#HTML' style='color:Blue;'>21</a></td>
+<td><a href='#HTML' style='color:Blue;'>21</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Signature file</td>
+<td><a href='#SignatureFiles' style='color:Blue;'>2</a></td>
+<td><a href='#SignatureFiles' style='color:Blue;'>1</a></td>
+<td><a href='#SignatureFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Image file</td>
+<td><a href='#ImageFiles' style='color:Blue;'>16</a></td>
+<td><a href='#ImageFiles' style='color:Blue;'>8</a></td>
+<td><a href='#ImageFiles' style='color:Blue;'>8</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Directory</td>
+<td><a href='#Directories' style='color:Blue;'>59</a></td>
+<td><a href='#Directories' style='color:Blue;'>24</a></td>
+<td><a href='#Directories' style='color:Blue;'>28</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Archive</td>
+<td><a href='#Archives' style='color:Blue;'>3</a></td>
+<td><a href='#Archives' style='color:Blue;'>2</a></td>
+<td><a href='#Archives' style='color:Blue;'>1</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Change log</td>
+<td><a href='#ChangeLogs' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td>0</td>
+<td><a href='#ChangeLogs' style='color:Blue;'>2</a></td>
+</tr>
+<tr>
+<td class='left'>Information file</td>
+<td><a href='#InformationFiles' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td>0</td>
+<td><a href='#InformationFiles' style='color:Blue;'>2</a></td>
+</tr>
+<tr>
+<td class='left'>License</td>
+<td><a href='#Licenses' style='color:Blue;'>5</a></td>
+<td><a href='#Licenses' style='color:Blue;'>2</a></td>
+<td><a href='#Licenses' style='color:Blue;'>2</a></td>
+<td><a href='#Licenses' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
+<td class='left'>Readme file</td>
+<td><a href='#ReadmeFiles' style='color:Blue;'>5</a></td>
+<td><a href='#ReadmeFiles' style='color:Blue;'>2</a></td>
+<td><a href='#ReadmeFiles' style='color:Blue;'>2</a></td>
+<td><a href='#ReadmeFiles' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
+<td class='left'>Text file</td>
+<td><a href='#TextFiles' style='color:Blue;'>193</a></td>
+<td><a href='#TextFiles' style='color:Blue;'>84</a></td>
+<td><a href='#TextFiles' style='color:Blue;'>88</a></td>
+<td><a href='#TextFiles' style='color:Blue;'>9</a></td>
+</tr>
+<tr>
+<td class='left'>Other</td>
+<td><a href='#OtherFiles' style='color:Blue;'>2</a></td>
+<td><a href='#OtherFiles' style='color:Blue;'>1</a></td>
+<td><a href='#OtherFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+</tr>
+</table>
+<a name='HeaderFiles'></a>
+<h2>Header Files (32)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>config.h.in</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudev.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudev.h</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevclient.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevclient.h</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevdevice.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevdevice.h</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevenumerator.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevenumerator.h</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevenums.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevenums.h</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevenumtypes.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>14.5%</td>
+<td rowspan='2'><a href='diffs/extras/gudev/gudevenumtypes.h-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevenumtypes.h</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevmarshal.h</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevprivate.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevprivate.h</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevtypes.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevtypes.h</td></tr>
+<tr>
+<td class='left f_path failed'>extras/mtd_probe/mtd_probe.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>27%</td>
+<td rowspan='2'><a href='diffs/extras/mtd_probe/mtd_probe.h-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/mtd_probe/mtd_probe.h</td></tr>
+<tr>
+<td class='left f_path failed'>extras/scsi_id/scsi.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>54.4%</td>
+<td rowspan='2'><a href='diffs/extras/scsi_id/scsi.h-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/scsi_id/scsi.h</td></tr>
+<tr>
+<td class='left f_path failed'>extras/scsi_id/scsi_id.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>33.1%</td>
+<td rowspan='2'><a href='diffs/extras/scsi_id/scsi_id.h-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/scsi_id/scsi_id.h</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev-private.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>14.7%</td>
+<td rowspan='2'><a href='diffs/libudev/libudev-private.h-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/libudev-private.h</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>7.8%</td>
+<td rowspan='2'><a href='diffs/libudev/libudev.h-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/libudev.h</td></tr>
+<tr>
+<td class='left f_path failed'>udev/sd-daemon.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/sd-daemon.h</td></tr>
+<tr>
+<td class='left f_path failed'>udev/udev.h</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>52.2%</td>
+<td rowspan='2'><a href='diffs/udev/udev.h-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev.h</td></tr>
+</table>
+<a name='CPrograms'></a>
+<h2>C Programs (104)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>extras/accelerometer/accelerometer.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/ata_id/ata_id.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/cdrom_id/cdrom_id.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/collect/collect.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/edd_id/edd_id.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/firmware/firmware.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/floppy/create_floppy_devices.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevclient.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0.4%</td>
+<td rowspan='2'><a href='diffs/extras/gudev/gudevclient.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevclient.c</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevdevice.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0.9%</td>
+<td rowspan='2'><a href='diffs/extras/gudev/gudevdevice.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevdevice.c</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevenumerator.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevenumerator.c</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevenumtypes.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevmarshal.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymap.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/mtd_probe/mtd_probe.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>39.3%</td>
+<td rowspan='2'><a href='diffs/extras/mtd_probe/mtd_probe.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/mtd_probe/mtd_probe.c</td></tr>
+<tr>
+<td class='left f_path failed'>extras/mtd_probe/probe_smartmedia.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>74.1%</td>
+<td rowspan='2'><a href='diffs/extras/mtd_probe/probe_smartmedia.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/mtd_probe/probe_smartmedia.c</td></tr>
+<tr>
+<td class='left f_path failed'>extras/scsi_id/scsi_id.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/scsi_id/scsi_serial.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/udev-acl/udev-acl.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/usb-db/usb-db.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/v4l_id/v4l_id.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>83.6%</td>
+<td rowspan='2'><a href='diffs/extras/v4l_id/v4l_id.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/v4l_id/v4l_id.c</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev-device-private.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev-device.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>87.7%</td>
+<td rowspan='2'><a href='diffs/libudev/libudev-device.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/libudev-device.c</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev-enumerate.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev-list.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>88.6%</td>
+<td rowspan='2'><a href='diffs/libudev/libudev-list.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/libudev-list.c</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev-monitor.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev-queue-private.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev-queue.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>83.9%</td>
+<td rowspan='2'><a href='diffs/libudev/libudev-queue.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/libudev-queue.c</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev-selinux-private.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>83.4%</td>
+<td rowspan='2'><a href='diffs/libudev/libudev-selinux-private.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/libudev-selinux-private.c</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev-util-private.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev-util.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/test-libudev.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/accelerometer/accelerometer.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/ata_id/ata_id.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/cdrom_id/cdrom_id.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/collect/collect.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/edd_id/edd_id.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/floppy/create_floppy_devices.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/keymap/keymap.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/scsi_id/scsi_id.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/scsi_id/scsi_serial.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/udev-acl/udev-acl.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/libudev-device-private.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/libudev-enumerate.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/libudev-monitor.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/libudev-queue-private.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/libudev-util-private.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/libudev-util.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/libudev.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/test-libudev.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/test-udev.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-builtin-blkid.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-builtin-firmware.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-builtin-hwdb.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-builtin-input_id.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-builtin-kmod.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-builtin-path_id.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-builtin-usb_id.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-builtin.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-ctrl.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-event.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-node.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udev-rules.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udevadm-control.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udevadm-info.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udevadm-monitor.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udevadm-settle.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udevadm-test.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udevadm-trigger.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udevadm.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udevd.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/sd-daemon.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/sd-daemon.c</td></tr>
+<tr>
+<td class='left f_path failed'>udev/test-udev.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev-builtin-input_id.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev-builtin-path_id.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev-builtin-usb_id.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev-builtin.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev-ctrl.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev-event.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev-node.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev-rules.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev-watch.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>89.7%</td>
+<td rowspan='2'><a href='diffs/udev/udev-watch.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev-watch.c</td></tr>
+<tr>
+<td class='left f_path failed'>udev/udevadm-control.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udevadm-info.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udevadm-monitor.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udevadm-settle.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udevadm-test-builtin.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>87.2%</td>
+<td rowspan='2'><a href='diffs/udev/udevadm-test-builtin.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udevadm-test-builtin.c</td></tr>
+<tr>
+<td class='left f_path failed'>udev/udevadm-test.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udevadm-trigger.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udevadm.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udevd.c</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='SpecFiles'></a>
+<h2>Spec Files (1)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>udev.spec</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/udev.spec-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='Patches'></a>
+<h2>Patches (6)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>udev-137-speedboot.patch</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>udev-152-coldplug.patch</td>
+<td class='warning'>changed</td>
+<td class='value'>22.8%</td>
+<td><a href='diffs/udev-152-coldplug.patch-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>udev-161-env_STARTUP.patch</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>udev-161-use-add-for-retry.patch</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev-162-udev-post_needs_dbus.patch</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>udev-162-VirtualBox-boot-fix.patch</td>
+<td class='warning'>changed</td>
+<td class='value'>31.7%</td>
+<td><a href='diffs/udev-162-VirtualBox-boot-fix.patch-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='JavaPrograms'></a>
+<h2>Java Programs (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>extras/cdrom_id/60-cdrom_id.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>34.9%</td>
+<td rowspan='2'><a href='diffs/extras/cdrom_id/60-cdrom_id.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/cdrom_id/60-cdrom_id.rules</td></tr>
+</table>
+<a name='PerlPrograms'></a>
+<h2>Perl Programs (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>test/udev-test.pl</td>
+<td class='warning'>changed</td>
+<td class='value'>87.7%</td>
+<td><a href='diffs/test/udev-test.pl-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>udev_import_usermap</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='PythonPrograms'></a>
+<h2>Python Programs (1)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>test/rule-syntax-check.py</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ShellPrograms'></a>
+<h2>Shell Programs (23)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>autogen.sh</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>build-aux/config.guess</td>
+<td class='warning'>changed</td>
+<td class='value'>10.7%</td>
+<td><a href='diffs/build-aux/config.guess-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>build-aux/config.sub</td>
+<td class='warning'>changed</td>
+<td class='value'>8.9%</td>
+<td><a href='diffs/build-aux/config.sub-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>build-aux/depcomp</td>
+<td class='warning'>changed</td>
+<td class='value'>11.2%</td>
+<td><a href='diffs/build-aux/depcomp-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>build-aux/install-sh</td>
+<td class='warning'>changed</td>
+<td class='value'>4.5%</td>
+<td><a href='diffs/build-aux/install-sh-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>build-aux/ltmain.sh</td>
+<td class='warning'>changed</td>
+<td class='value'>0.7%</td>
+<td><a href='diffs/build-aux/ltmain.sh-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>build-aux/missing</td>
+<td class='warning'>changed</td>
+<td class='value'>11.2%</td>
+<td><a href='diffs/build-aux/missing-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>configure</td>
+<td class='warning'>changed</td>
+<td class='value'>6.2%</td>
+<td><a href='diffs/configure-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/check-keymaps.sh</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>62.7%</td>
+<td rowspan='2'><a href='diffs/extras/keymap/check-keymaps.sh-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/check-keymaps.sh</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/findkeyboards</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>76.3%</td>
+<td rowspan='2'><a href='diffs/extras/keymap/findkeyboards-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/findkeyboards</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keyboard-force-release.sh</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/rule_generator/write_cd_rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>61.9%</td>
+<td rowspan='2'><a href='diffs/extras/rule_generator/write_cd_rules-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/rule_generator/write_cd_rules</td></tr>
+<tr>
+<td class='left f_path failed'>extras/rule_generator/write_net_rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>53.6%</td>
+<td rowspan='2'><a href='diffs/extras/rule_generator/write_net_rules-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/rule_generator/write_net_rules</td></tr>
+<tr>
+<td class='left f_path new'>src/extras/keymap/keyboard-force-release.sh.in</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>start_udev</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>test/rules-test.sh</td>
+<td class='warning'>changed</td>
+<td class='value'>40.1%</td>
+<td><a href='diffs/test/rules-test.sh-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev-post.init</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>udev_net_action</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>udev_net_create_ifcfg</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='AutomakeFiles'></a>
+<h2>Automake Files (11)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>configure.ac</td>
+<td class='warning'>changed</td>
+<td class='value'>75.1%</td>
+<td><a href='diffs/configure.ac-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/Makefile.am</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/Makefile.in</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/Makefile.am</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/Makefile.in</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>Makefile.am</td>
+<td class='warning'>changed</td>
+<td class='value'>65.5%</td>
+<td><a href='diffs/Makefile.am-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>Makefile.in</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/Makefile.in-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/Makefile.am</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/Makefile.in</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/Makefile.am</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/Makefile.in</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ConfigurationFiles'></a>
+<h2>Configuration Files (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>udev.conf</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev.conf</td></tr>
+</table>
+<a name='JavaScriptFiles'></a>
+<h2>JavaScript Files (6)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gjs-example.js</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gjs-example.js</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/seed-example-enum.js</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/seed-example-enum.js</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/seed-example.js</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/seed-example.js</td></tr>
+</table>
+<a name='M4'></a>
+<h2>M4 Macro Files (7)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>aclocal.m4</td>
+<td class='warning'>changed</td>
+<td class='value'>6%</td>
+<td><a href='diffs/aclocal.m4-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>m4/gtk-doc.m4</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>m4/libtool.m4</td>
+<td class='warning'>changed</td>
+<td class='value'>2.6%</td>
+<td><a href='diffs/m4/libtool.m4-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>m4/ltoptions.m4</td>
+<td class='warning'>changed</td>
+<td class='value'>3.9%</td>
+<td><a href='diffs/m4/ltoptions.m4-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>m4/ltsugar.m4</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>m4/ltversion.m4</td>
+<td class='warning'>changed</td>
+<td class='value'>23.9%</td>
+<td><a href='diffs/m4/ltversion.m4-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>m4/lt~obsolete.m4</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='Makefiles'></a>
+<h2>Makefiles (1)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>gtk-doc.make</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ManPages'></a>
+<h2>Man Pages (8)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path new'>src/extras/keymap/keymaps/inventec-symphony_6.0_7.0</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/scsi_id/scsi_id.8</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev.7</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>19.7%</td>
+<td rowspan='2'><a href='diffs/udev/udev.7-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev.7</td></tr>
+<tr>
+<td class='left f_path failed'>udev/udevadm.8</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>7%</td>
+<td rowspan='2'><a href='diffs/udev/udevadm.8-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udevadm.8</td></tr>
+<tr>
+<td class='left f_path failed'>udev/udevd.8</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>22.3%</td>
+<td rowspan='2'><a href='diffs/udev/udevd.8-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udevd.8</td></tr>
+</table>
+<a name='PkgConfigFiles'></a>
+<h2>Pkg-config Files (6)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudev-1.0.pc.in</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudev-1.0.pc.in</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/libudev.pc.in</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/libudev.pc.in</td></tr>
+<tr>
+<td class='left f_path failed'>udev/udev.pc.in</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>37.1%</td>
+<td rowspan='2'><a href='diffs/udev/udev.pc.in-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev.pc.in</td></tr>
+</table>
+<a name='SGMLDocuments'></a>
+<h2>SGML Documents (32)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/index.sgml</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/tmpl/gudev-unused.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/tmpl/gudev-unused.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/tmpl/gudevclient.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/tmpl/gudevclient.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/tmpl/gudevdevice.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/tmpl/gudevdevice.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/tmpl/gudevenumerator.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/tmpl/gudevenumerator.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/tmpl/gudevenumtypes.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/tmpl/gudevenumtypes.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/tmpl/gudevmarshal.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/tmpl/gudevmarshal.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/index.sgml</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/tmpl/libudev-device.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/tmpl/libudev-device.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/tmpl/libudev-enumerate.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/tmpl/libudev-enumerate.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/tmpl/libudev-list.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/tmpl/libudev-list.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/tmpl/libudev-monitor.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/tmpl/libudev-monitor.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/tmpl/libudev-queue.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/tmpl/libudev-queue.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/tmpl/libudev-unused.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/tmpl/libudev-unused.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/tmpl/libudev-util.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/tmpl/libudev-util.sgml</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/tmpl/libudev.sgml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/tmpl/libudev.sgml</td></tr>
+<tr>
+<td class='left f_path new'>src/docs/html/index.sgml</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/html/index.sgml</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='XMLDocuments'></a>
+<h2>XML Documents (22)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/gudev-docs.xml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>64.1%</td>
+<td rowspan='2'><a href='diffs/extras/gudev/docs/gudev-docs.xml-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/gudev-docs.xml</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/gudev.devhelp2</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/html/gudev.devhelp2</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/version.xml</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/version.xml.in</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/libudev.devhelp2</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/html/libudev.devhelp2</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/libudev-docs.xml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/libudev-docs.xml</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/version.xml</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/version.xml.in</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/version.xml</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/version.xml.in</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/version.xml</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/version.xml.in</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev.xml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>10%</td>
+<td rowspan='2'><a href='diffs/udev/udev.xml-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev.xml</td></tr>
+<tr>
+<td class='left f_path failed'>udev/udevadm.xml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>2.2%</td>
+<td rowspan='2'><a href='diffs/udev/udevadm.xml-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udevadm.xml</td></tr>
+<tr>
+<td class='left f_path failed'>udev/udevd.xml</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>1.8%</td>
+<td rowspan='2'><a href='diffs/udev/udevd.xml-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udevd.xml</td></tr>
+</table>
+<a name='CSS'></a>
+<h2>CSS Style Sheets (4)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/style.css</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/style.css</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/html/style.css</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/html/style.css</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='DataLists'></a>
+<h2>Data Lists (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevmarshal.list</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevmarshal.list</td></tr>
+</table>
+<a name='HTML'></a>
+<h2>HTML Pages (42)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/gudev-hierarchy.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/html/gudev-hierarchy.html</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/GUdevClient.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/html/GUdevClient.html</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/GUdevDevice.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0.3%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/html/GUdevDevice.html</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/GUdevEnumerator.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/html/GUdevEnumerator.html</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/index.html</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/ix01.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0.5%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/html/ix01.html</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/ix02.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>1%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/html/ix02.html</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/ref-API.html</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/api-index-full.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/html/api-index-full.html</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/ch01.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>3%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/html/ch01.html</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/index.html</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/libudev-udev-device.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/html/libudev-udev-device.html</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/libudev-udev-enumerate.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/html/libudev-udev-enumerate.html</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/libudev-udev-list.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/html/libudev-udev-list.html</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/libudev-udev-monitor.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/html/libudev-udev-monitor.html</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/libudev-udev-queue.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/html/libudev-udev-queue.html</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/libudev-udev-util.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/html/libudev-udev-util.html</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/libudev-udev.html</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/html/index.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/html/libudev-udev.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/html/index.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/html/ref-API.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/udevd.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev/udev.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>2.5%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev.html</td></tr>
+<tr>
+<td class='left f_path failed'>udev/udevadm.html</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0.1%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udevadm.html</td></tr>
+<tr>
+<td class='left f_path failed'>udev/udevd.html</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='SignatureFiles'></a>
+<h2>Signature Files (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>udev-175.tar.bz2.asc</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>udev-181.tar.sign</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ImageFiles'></a>
+<h2>Image Files (16)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/home.png</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/left.png</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/right.png</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html/up.png</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/home.png</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/left.png</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/right.png</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html/up.png</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/html/home.png</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/html/left.png</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/html/right.png</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/html/up.png</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/html/home.png</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/html/left.png</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/html/right.png</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/html/up.png</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='Directories'></a>
+<h2>Directories (59)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th></tr>
+<tr>
+<td class='left f_path'>build-aux</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras</td></tr>
+<tr>
+<td class='left f_path failed'>extras/accelerometer</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/accelerometer</td></tr>
+<tr>
+<td class='left f_path failed'>extras/ata_id</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/ata_id</td></tr>
+<tr>
+<td class='left f_path failed'>extras/cdrom_id</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/cdrom_id</td></tr>
+<tr>
+<td class='left f_path failed'>extras/collect</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/collect</td></tr>
+<tr>
+<td class='left f_path failed'>extras/edd_id</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/edd_id</td></tr>
+<tr>
+<td class='left f_path failed'>extras/firmware</td>
+<td class='failed'>removed</td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/floppy</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/floppy</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/html</td>
+<td class='failed'>removed</td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/tmpl</td>
+<td class='failed'>removed</td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/keymap</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/force-release-maps</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/force-release-maps</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps</td></tr>
+<tr>
+<td class='left f_path failed'>extras/mtd_probe</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/mtd_probe</td></tr>
+<tr>
+<td class='left f_path failed'>extras/qemu</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/qemu</td></tr>
+<tr>
+<td class='left f_path failed'>extras/rule_generator</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/rule_generator</td></tr>
+<tr>
+<td class='left f_path failed'>extras/scsi_id</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/scsi_id</td></tr>
+<tr>
+<td class='left f_path failed'>extras/udev-acl</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/udev-acl</td></tr>
+<tr>
+<td class='left f_path failed'>extras/usb-db</td>
+<td class='failed'>removed</td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/v4l_id</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/v4l_id</td></tr>
+<tr>
+<td class='left f_path failed'>init</td>
+<td class='failed'>removed</td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev</td>
+<td class='failed'>removed</td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs</td>
+<td class='failed'>removed</td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/html</td>
+<td class='failed'>removed</td>
+</tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/tmpl</td>
+<td class='failed'>removed</td>
+</tr>
+<tr>
+<td class='left f_path'>m4</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>rules</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>rules/arch</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>rules/misc</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path new'>src</td>
+<td class='new'>added</td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs</td>
+<td class='new'>added</td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/html</td>
+<td class='new'>added</td>
+</tr>
+<tr>
+<td class='left f_path new'>src/docs/tmpl</td>
+<td class='new'>added</td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/html</td>
+<td class='new'>added</td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/gudev/docs/tmpl</td>
+<td class='new'>added</td>
+</tr>
+<tr>
+<td class='left f_path'>test</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev</td>
+<td class='failed'>removed</td>
+</tr>
+</table>
+<a name='Archives'></a>
+<h2>Archives (3)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path new'>test/sys.tar.xz</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>udev-175.tar.bz2</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td class='value' rowspan='2'>29.8%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>udev-181.tar.bz2</td></tr>
+</table>
+<a name='ChangeLogs'></a>
+<h2>Change Logs (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>ChangeLog</td>
+<td class='warning'>changed</td>
+<td class='value'>2.7%</td>
+<td><a href='diffs/ChangeLog-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>NEWS</td>
+<td class='warning'>changed</td>
+<td class='value'>5%</td>
+<td><a href='diffs/NEWS-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='InformationFiles'></a>
+<h2>Information Files (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>INSTALL</td>
+<td class='warning'>changed</td>
+<td class='value'>76.7%</td>
+<td><a href='diffs/INSTALL-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>TODO</td>
+<td class='warning'>changed</td>
+<td class='value'>56.7%</td>
+<td><a href='diffs/TODO-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='Licenses'></a>
+<h2>Licenses (5)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>COPYING</td>
+<td class='warning'>changed</td>
+<td class='value'>1.7%</td>
+<td><a href='diffs/COPYING-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/COPYING</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>1.1%</td>
+<td rowspan='2'><a href='diffs/extras/gudev/COPYING-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/COPYING</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/COPYING</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/COPYING</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ReadmeFiles'></a>
+<h2>Readme Files (5)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/README.keymap.txt</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>10%</td>
+<td rowspan='2'><a href='diffs/extras/keymap/README.keymap.txt-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/README.keymap.txt</td></tr>
+<tr>
+<td class='left f_path failed'>extras/scsi_id/README</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/scsi_id/README</td></tr>
+<tr>
+<td class='left f_path'>README</td>
+<td class='warning'>changed</td>
+<td class='value'>32.5%</td>
+<td><a href='diffs/README-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='TextFiles'></a>
+<h2>Text Files (193)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>50-udev-mandriva.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>61-mobile-zte-drakx-net.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>69-printeracl.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>76-net.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/accelerometer/61-accelerometer.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/accelerometer/61-accelerometer.rules</td></tr>
+<tr>
+<td class='left f_path failed'>extras/edd_id/61-persistent-storage-edd.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>12.9%</td>
+<td rowspan='2'><a href='diffs/extras/edd_id/61-persistent-storage-edd.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/edd_id/61-persistent-storage-edd.rules</td></tr>
+<tr>
+<td class='left f_path failed'>extras/firmware/50-firmware.rules</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/floppy/60-floppy.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/floppy/60-floppy.rules</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/gudev-overrides.txt</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/gudev-overrides.txt</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/gudev-sections.txt</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/gudev-sections.txt</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/docs/gudev.types</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/docs/gudev.types</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevenumtypes.c.template</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevenumtypes.c.template</td></tr>
+<tr>
+<td class='left f_path failed'>extras/gudev/gudevenumtypes.h.template</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/gudev/gudevenumtypes.h.template</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/95-keyboard-force-release.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>2.9%</td>
+<td rowspan='2'><a href='diffs/extras/keymap/95-keyboard-force-release.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/95-keyboard-force-release.rules</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/95-keymap.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>6.9%</td>
+<td rowspan='2'><a href='diffs/extras/keymap/95-keymap.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/95-keymap.rules</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/force-release-maps/common-volume-keys</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/force-release-maps/common-volume-keys</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/force-release-maps/dell-touchpad</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/force-release-maps/dell-touchpad</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/force-release-maps/hp-other</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/force-release-maps/hp-other</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/force-release-maps/samsung-other</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/force-release-maps/samsung-other</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/acer</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/acer</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/acer-aspire_5720</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>19.5%</td>
+<td rowspan='2'><a href='diffs/extras/keymap/keymaps/acer-aspire_5720-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/acer-aspire_5720</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/acer-aspire_5920g</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/acer-aspire_5920g</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/acer-aspire_6920</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/acer-aspire_6920</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/acer-aspire_8930</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/acer-aspire_8930</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/acer-travelmate_c300</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/acer-travelmate_c300</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/asus</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/asus</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/compaq-e_evo</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/compaq-e_evo</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/dell</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/dell</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/dell-latitude-xt2</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/dell-latitude-xt2</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/everex-xt5000</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/everex-xt5000</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/fujitsu-amilo_pa_2548</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/fujitsu-amilo_pa_2548</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/fujitsu-amilo_pro_edition_v3505</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/fujitsu-amilo_pro_edition_v3505</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/fujitsu-amilo_pro_v3205</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/fujitsu-amilo_pro_v3205</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/fujitsu-amilo_si_1520</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/fujitsu-amilo_si_1520</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/fujitsu-esprimo_mobile_v5</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/fujitsu-esprimo_mobile_v5</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/fujitsu-esprimo_mobile_v6</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/fujitsu-esprimo_mobile_v6</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/genius-slimstar-320</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/genius-slimstar-320</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/hewlett-packard</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/hewlett-packard</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/hewlett-packard-2510p_2530p</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/hewlett-packard-2510p_2530p</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/hewlett-packard-compaq_elitebook</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/hewlett-packard-compaq_elitebook</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/hewlett-packard-pavilion</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/hewlett-packard-pavilion</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/hewlett-packard-presario-2100</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/hewlett-packard-presario-2100</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/hewlett-packard-tablet</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/hewlett-packard-tablet</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/hewlett-packard-tx2</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/hewlett-packard-tx2</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/ibm-thinkpad-usb-keyboard-trackpoint</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/ibm-thinkpad-usb-keyboard-trackpoint</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/inventec-symphony_6.0_7.0</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/lenovo-3000</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/lenovo-3000</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/lenovo-ideapad</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/lenovo-thinkpad-usb-keyboard-trackpoint</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/lenovo-thinkpad-usb-keyboard-trackpoint</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/lenovo-thinkpad_x200_tablet</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/lenovo-thinkpad_x200_tablet</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/lenovo-thinkpad_x6_tablet</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/lenovo-thinkpad_x6_tablet</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/lg-x110</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/lg-x110</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/logitech-wave</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/logitech-wave</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/logitech-wave-cordless</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/logitech-wave-cordless</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/logitech-wave-pro-cordless</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/logitech-wave-pro-cordless</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/maxdata-pro_7000</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/maxdata-pro_7000</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/medion-fid2060</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/medion-fid2060</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/medionnb-a555</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/medionnb-a555</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/micro-star</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/micro-star</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/module-asus-w3j</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/module-asus-w3j</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/module-ibm</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/module-ibm</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/module-lenovo</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/module-lenovo</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/module-sony</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/module-sony</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/module-sony-old</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/module-sony-old</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/module-sony-vgn</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/module-sony-vgn</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/olpc-xo</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/olpc-xo</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/onkyo</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/onkyo</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/oqo-model2</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/oqo-model2</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/samsung-other</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/samsung-other</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/samsung-sq1us</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/samsung-sq1us</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/samsung-sx20s</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/samsung-sx20s</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/toshiba-satellite_a100</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/toshiba-satellite_a100</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/toshiba-satellite_a110</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/toshiba-satellite_a110</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/toshiba-satellite_m30x</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/toshiba-satellite_m30x</td></tr>
+<tr>
+<td class='left f_path failed'>extras/keymap/keymaps/zepto-znote</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/keymap/keymaps/zepto-znote</td></tr>
+<tr>
+<td class='left f_path failed'>extras/mtd_probe/75-probe_mtd.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>54.7%</td>
+<td rowspan='2'><a href='diffs/extras/mtd_probe/75-probe_mtd.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/mtd_probe/75-probe_mtd.rules</td></tr>
+<tr>
+<td class='left f_path failed'>extras/qemu/42-qemu-usb.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/qemu/42-qemu-usb.rules</td></tr>
+<tr>
+<td class='left f_path failed'>extras/rule_generator/75-cd-aliases-generator.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/rule_generator/75-cd-aliases-generator.rules</td></tr>
+<tr>
+<td class='left f_path failed'>extras/rule_generator/75-persistent-net-generator.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>2%</td>
+<td rowspan='2'><a href='diffs/extras/rule_generator/75-persistent-net-generator.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/rule_generator/75-persistent-net-generator.rules</td></tr>
+<tr>
+<td class='left f_path failed'>extras/rule_generator/rule_generator.functions</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>73.2%</td>
+<td rowspan='2'><a href='diffs/extras/rule_generator/rule_generator.functions-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/rule_generator/rule_generator.functions</td></tr>
+<tr>
+<td class='left f_path failed'>extras/scsi_id/scsi_id.8</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>extras/udev-acl/70-udev-acl.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/udev-acl/70-udev-acl.rules</td></tr>
+<tr>
+<td class='left f_path failed'>extras/v4l_id/60-persistent-v4l.rules</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>4.8%</td>
+<td rowspan='2'><a href='diffs/extras/v4l_id/60-persistent-v4l.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/extras/v4l_id/60-persistent-v4l.rules</td></tr>
+<tr>
+<td class='left f_path'>hotplug-usb.distmap</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>hotplug-usb.handmap</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>init/udev-control.socket</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>22.6%</td>
+<td rowspan='2'><a href='diffs/init/udev-control.socket-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev-control.socket</td></tr>
+<tr>
+<td class='left f_path failed'>init/udev-kernel.socket</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>11.9%</td>
+<td rowspan='2'><a href='diffs/init/udev-kernel.socket-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev-kernel.socket</td></tr>
+<tr>
+<td class='left f_path failed'>init/udev-settle.service.in</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>4.9%</td>
+<td rowspan='2'><a href='diffs/init/udev-settle.service.in-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev-settle.service.in</td></tr>
+<tr>
+<td class='left f_path failed'>init/udev-trigger.service.in</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>41.8%</td>
+<td rowspan='2'><a href='diffs/init/udev-trigger.service.in-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev-trigger.service.in</td></tr>
+<tr>
+<td class='left f_path failed'>init/udev.service.in</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>9.8%</td>
+<td rowspan='2'><a href='diffs/init/udev.service.in-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/udev.service.in</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/libudev-overrides.txt</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/libudev-overrides.txt</td></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/libudev-sections.txt</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/libudev-sections.txt</td></tr>
+<tr>
+<td class='left f_path failed'>rules/arch/40-ia64.rules</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>rules/arch/40-ppc.rules</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/arch/40-s390.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>37.6%</td>
+<td><a href='diffs/rules/arch/40-s390.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/misc/30-kernel-compat.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>9.6%</td>
+<td><a href='diffs/rules/misc/30-kernel-compat.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d/50-udev-default.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>37.4%</td>
+<td><a href='diffs/rules/rules.d/50-udev-default.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d/60-persistent-alsa.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d/60-persistent-input.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d/60-persistent-serial.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d/60-persistent-storage-tape.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>10.3%</td>
+<td><a href='diffs/rules/rules.d/60-persistent-storage-tape.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d/60-persistent-storage.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>25.3%</td>
+<td><a href='diffs/rules/rules.d/60-persistent-storage.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d/75-net-description.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>25.4%</td>
+<td><a href='diffs/rules/rules.d/75-net-description.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d/75-tty-description.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>25.4%</td>
+<td><a href='diffs/rules/rules.d/75-tty-description.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d/78-sound-card.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>3.9%</td>
+<td><a href='diffs/rules/rules.d/78-sound-card.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d/80-drivers.rules</td>
+<td class='warning'>changed</td>
+<td class='value'>81.2%</td>
+<td><a href='diffs/rules/rules.d/80-drivers.rules-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rules/rules.d/95-udev-late.rules</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/keymap/keymaps/fujitsu-amilo_li_2732</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>src/extras/keymap/keymaps/lenovo-ideapad</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>udev.sysconfig</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>udev_net.sysconfig</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='OtherFiles'></a>
+<h2>Other Files (2)</h2><hr/>
+<table cellpadding='3' cellspacing='0' class='summary'>
+<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>libudev/docs/libudev.types</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>0%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>src/docs/libudev.types</td></tr>
+</table>
+<a name='Packages'></a>
+<h2>Packages (2)</h2><hr/>
+<div class='p_list'>
+udev-175-4.src.rpm<br/>
+udev-181-2.src.rpm<br/>
+</div>
+<br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
+</div>
+<br/><br/><br/><hr/>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Wed Mar  7 16:14:02 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.3 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='height:999px;'></div>
+</body></html>
