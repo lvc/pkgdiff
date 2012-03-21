@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# pkgdiff - Package Changes Analyzer 1.3
+# pkgdiff - Package Changes Analyzer 1.3.1
 # A tool for analyzing changes in Linux software packages
 #
 # Copyright (C) 2011-2012 ROSA Laboratory.
@@ -47,7 +47,7 @@ use File::Temp qw(tempdir);
 use File::Compare;
 use Cwd qw(abs_path cwd);
 
-my $TOOL_VERSION = "1.3";
+my $TOOL_VERSION = "1.3.1";
 my $ORIG_DIR = cwd();
 my $TMP_DIR = tempdir(CLEANUP=>1);
 
@@ -60,7 +60,7 @@ my $ABICC = "abi-compliance-checker";
 
 my ($Help, $ShowVersion, $DumpVersion, $GenerateTemplate, %Descriptor,
 $CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug,
-$SizeLimit, $QuickMode, $DiffWidth);
+$SizeLimit, $QuickMode, $DiffWidth, $Browse);
 
 my $CmdName = get_filename($0);
 
@@ -131,6 +131,7 @@ GetOptions("h|help!" => \$Help,
   "size-limit=s" => \$SizeLimit,
   "diff-width=s" => \$DiffWidth,
   "quick!" => \$QuickMode,
+  "b|browse=s" => \$Browse,
   "debug!" => \$Debug
 ) or ERR_MESSAGE();
 
@@ -225,6 +226,9 @@ OTHER OPTIONS:
 
   -quick
       Quick mode without creating of visual diffs for files.
+
+  -b|-browse <program>
+      Open report(s) in the browser (firefox, opera, etc.).
 
   -debug
       Show debug info.
@@ -935,9 +939,15 @@ sub detectChanges()
     
     foreach my $Name (sort keys(%RemovedFiles))
     { # checking removed files
-        my $Format = getFormat($PackageFiles{1}{$Name});
+        my $Path = $PackageFiles{1}{$Name};
+        my $Format = getFormat($Path);
         $FileChanges{$Format}{"Total"} += 1;
         $FileChanges{$Format}{"Removed"} += 1;
+        if(my $Size = getSize($Path))
+        {
+            $FileChanges{$Format}{"SizeDelta"} += $Size;
+            $FileChanges{$Format}{"Size"} += $Size;
+        }
         $FileChanges{$Format}{"Details"}{$Name}{"Status"} = "removed";
     }
     foreach my $Name (sort keys(%RemovedFiles))
@@ -1014,6 +1024,7 @@ sub detectChanges()
     foreach my $Name (sort (keys(%StableFiles), keys(%RenamedFiles), keys(%MovedFiles)))
     { # checking files
         my $Path = $PackageFiles{1}{$Name};
+        my $Size = getSize($Path);
         if($Debug) {
             printMsg("INFO", $Name);
         }
@@ -1022,6 +1033,7 @@ sub detectChanges()
         if($StableFiles{$Name})
         { # stable files
             $FileChanges{$Format}{"Total"} += 1;
+            $FileChanges{$Format}{"Size"} += $Size;
         }
         elsif($NewName = $RenamedFiles{$Name})
         { # renamed files
@@ -1040,6 +1052,7 @@ sub detectChanges()
               # not be shown in the summary
                 $FileChanges{$Format}{"Changed"} += 1;
                 $FileChanges{$Format}{"Rate"} += $Rate;
+                $FileChanges{$Format}{"SizeDelta"} += $Size*$Rate;
             }
             $Details{"Status"} = "changed";
             if($Changed==1)
@@ -1098,9 +1111,15 @@ sub detectChanges()
     }
     foreach my $Name (keys(%AddedFiles))
     { # checking added files
-        my $Format = getFormat($PackageFiles{2}{$Name});
+        my $Path = $PackageFiles{2}{$Name};
+        my $Format = getFormat($Path);
         $FileChanges{$Format}{"Total"} += 1;
         $FileChanges{$Format}{"Added"} += 1;
+        if(my $Size = getSize($Path))
+        {
+            $FileChanges{$Format}{"SizeDelta"} += $Size;
+            $FileChanges{$Format}{"Size"} += $Size;
+        }
         $FileChanges{$Format}{"Details"}{$Name}{"Status"} = "added";
     }
 
@@ -1109,12 +1128,15 @@ sub detectChanges()
     { # removed/changed deps
         foreach my $Name (keys(%{$PackageDeps{1}{$Kind}}))
         {
+            my $Size = length($Name);
             $DepChanges{$Kind}{"Total"} += 1;
+            $DepChanges{$Kind}{"Size"} += $Size;
             if(not defined($PackageDeps{2}{$Kind})
             or not defined($PackageDeps{2}{$Kind}{$Name}))
-            {
+            { # removed deps
                 $DepChanges{$Kind}{"Details"}{$Name}{"Status"} = "removed";
                 $DepChanges{$Kind}{"Removed"} += 1;
+                $DepChanges{$Kind}{"SizeDelta"} += $Size;
                 next;
             }
             my %Info1 = %{$PackageDeps{1}{$Kind}{$Name}};
@@ -1124,6 +1146,7 @@ sub detectChanges()
             {
                 $DepChanges{$Kind}{"Details"}{$Name}{"Status"} = "changed";
                 $DepChanges{$Kind}{"Changed"} += 1;
+                $DepChanges{$Kind}{"SizeDelta"} += $Size;
             }
             else {
                 $DepChanges{$Kind}{"Details"}{$Name}{"Status"} = "unchanged";
@@ -1137,9 +1160,14 @@ sub detectChanges()
             if(not defined($PackageDeps{1}{$Kind})
             or not defined($PackageDeps{1}{$Kind}{$Name}))
             {
+                $DepChanges{$Kind}{"Total"} += 1;
                 $DepChanges{$Kind}{"Details"}{$Name}{"Status"} = "added";
                 $DepChanges{$Kind}{"Added"} += 1;
-                $DepChanges{$Kind}{"Total"} += 1;
+                if(my $Size = length($Name))
+                {
+                    $DepChanges{$Kind}{"Size"} += $Size;
+                    $DepChanges{$Kind}{"SizeDelta"} += $Size;
+                }
             }
         }
     }
@@ -1149,16 +1177,22 @@ sub detectChanges()
     {
         my $Old = $PackageInfo{$Package}{"V1"};
         my $New = $PackageInfo{$Package}{"V2"};
+        my $OldSize = length($Old);
+        my $NewSize = length($New);
         $InfoChanges{"Total"} += 1;
         if($Old and not $New)
         {
             $InfoChanges{"Details"}{$Package}{"Status"} = "removed";
             $InfoChanges{"Removed"} += 1;
+            $InfoChanges{"Size"} += $OldSize;
+            $InfoChanges{"SizeDelta"} += $OldSize;
         }
         elsif(not $Old and $New)
         {
             $InfoChanges{"Details"}{$Package}{"Status"} = "added";
             $InfoChanges{"Added"} += 1;
+            $InfoChanges{"Size"} += $NewSize;
+            $InfoChanges{"SizeDelta"} += $NewSize;
         }
         elsif($Old ne $New)
         {
@@ -1175,9 +1209,14 @@ sub detectChanges()
             %{$InfoChanges{"Details"}{$Package}} = %Details;
             $InfoChanges{"Changed"} += 1;
             $InfoChanges{"Rate"} += $Rate;
+            $InfoChanges{"Size"} += $OldSize;
+            $InfoChanges{"SizeDelta"} += $OldSize*$Rate;
         }
-        else {
+        else
+        {
             $InfoChanges{"Details"}{$Package}{"Status"} = "unchanged";
+            $InfoChanges{"Size"} += $OldSize;
+            $InfoChanges{"SizeDelta"} += $OldSize;
         }
     }
 }
@@ -1199,7 +1238,7 @@ sub get_Report_Usage()
     }
     my $Report = "<a name='Usage'></a>\n";
     $Report .= "<h2>Usage Analysis</h2><hr/>\n";
-    $Report .= "<table cellpadding='3' cellspacing='0' class='summary'>\n";
+    $Report .= "<table class='summary'>\n";
     $Report .= "<tr><th>Package</th><th>Status</th><th>Used By</th></tr>\n";
     foreach my $Package (sort keys(%PackageUsage))
     {
@@ -1235,7 +1274,7 @@ sub get_Report_Headers()
     }
     my $Report = "<a name='Info'></a>\n";
     $Report .= "<h2>Changes In Package Info</h2><hr/>\n";
-    $Report .= "<table cellpadding='3' cellspacing='0' class='summary'>\n";
+    $Report .= "<table class='summary'>\n";
     $Report .= "<tr><th>Package</th><th>Status</th><th>Delta</th><th>Visual Diff</th></tr>\n";
     my %Details = %{$InfoChanges{"Details"}};
     foreach my $Package (sort keys(%Details))
@@ -1283,7 +1322,7 @@ sub get_Report_Deps()
             next;
         }
         $Report .= "<h2>Changes In \"".ucfirst($Kind)."\" Dependencies</h2><hr/>\n";
-        $Report .= "<table cellpadding='3' cellspacing='0' class='summary'>\n";
+        $Report .= "<table class='summary'>\n";
         $Report .= "<tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>\n";
         foreach my $Name (sort {lc($a) cmp lc($b)} @Names)
         {
@@ -1373,7 +1412,7 @@ sub get_Report_Files()
         }
         $Report .= "<a name='".$FormatInfo{$Format}{"Anchor"}."'></a>\n";
         $Report .= "<h2>".$FormatInfo{$Format}{"Title"}." (".$FileChanges{$Format}{"Total"}.")</h2><hr/>\n";
-        $Report .= "<table cellpadding='3' cellspacing='0' class='summary'>\n";
+        $Report .= "<table class='summary'>\n";
         $Report .= "<tr>";
         $Report .= "<th>Name</th>";
         $Report .= "<th>Status</th>";
@@ -2350,7 +2389,7 @@ sub cut_off_number($$$)
 sub get_Summary()
 {
     my $TestInfo = "<h2>Test Info</h2><hr/>\n";
-    $TestInfo .= "<table cellpadding='3' cellspacing='0' class='summary'>\n";
+    $TestInfo .= "<table class='summary'>\n";
     if($CheckMode eq "Group") {
         $TestInfo .= "<tr><th class='left'>Group Name</th><td>".$Group{"Name"}."</td></tr>\n";
     }
@@ -2370,7 +2409,7 @@ sub get_Summary()
     $TestInfo .= "</table>\n";
 
     my $TestResults = "<h2>Test Results</h2><hr/>\n";
-    $TestResults .= "<table cellpadding='3' cellspacing='0' class='summary'>\n";
+    $TestResults .= "<table class='summary'>\n";
     
     my $Packages_Link = "0";
     my %TotalPackages = map {$_=>1} (keys(%{$TargetPackages{1}}), keys(%{$TargetPackages{2}}));
@@ -2399,24 +2438,21 @@ sub get_Summary()
     }
     
     my ($TotalChanged, $Total) = (0, 0);
+    # Files
     foreach my $Format (keys(%FileChanges))
     {
-        $TotalChanged += $FileChanges{$Format}{"Removed"};
-        $TotalChanged += $FileChanges{$Format}{"Rate"};
-        $TotalChanged += $FileChanges{$Format}{"Added"};
-        $Total += $FileChanges{$Format}{"Total"};
+        $TotalChanged += $FileChanges{$Format}{"SizeDelta"};
+        $Total += $FileChanges{$Format}{"Size"};
     }
+    # Deps
     foreach my $Kind (keys(%DepChanges))
     {
-        $TotalChanged += $DepChanges{$Kind}{"Removed"};
-        $TotalChanged += $DepChanges{$Kind}{"Changed"};
-        $TotalChanged += $DepChanges{$Kind}{"Added"};
-        $Total += $DepChanges{$Kind}{"Total"};
+        $TotalChanged += $DepChanges{$Kind}{"SizeDelta"};
+        $Total += $DepChanges{$Kind}{"Size"};
     }
-    $TotalChanged += $InfoChanges{"Removed"};
-    $TotalChanged += $InfoChanges{"Rate"};
-    $TotalChanged += $InfoChanges{"Added"};
-    $Total += $InfoChanges{"Total"};
+    # Info
+    $TotalChanged += $InfoChanges{"SizeDelta"};
+    $Total += $InfoChanges{"Size"};
     
     my $Affected = 0;
     if($Total) {
@@ -2442,7 +2478,7 @@ sub get_Summary()
     $TestResults .= "</table>\n";
     
     my $FileChanges = "<a name='Files'></a><h2>Changes In Files</h2><hr/>\n";
-    $FileChanges .= "<table cellpadding='3' cellspacing='0' class='summary'>\n";
+    $FileChanges .= "<table class='summary'>\n";
     $FileChanges .= "<tr><th>File Type</th><th>Total</th><th>Added</th><th>Removed</th><th>Changed</th></tr>\n";
     foreach my $Format (sort {$FormatInfo{$b}{"Weight"}<=>$FormatInfo{$a}{"Weight"}}
     sort {lc($FormatInfo{$a}{"Summary"}) cmp lc($FormatInfo{$b}{"Summary"})} keys(%FormatInfo))
@@ -2454,11 +2490,25 @@ sub get_Summary()
         $FileChanges .= "<td class='left'>".$FormatInfo{$Format}{"Summary"}."</td>\n";
         foreach ("Total", "Added", "Removed", "Changed")
         {
-            my $Link = "0";
-            if($FileChanges{$Format}{$_}>0) {
-                $Link = "<a href='#".$FormatInfo{$Format}{"Anchor"}."' style='color:Blue;'>".$FileChanges{$Format}{$_}."</a>";
+            if($FileChanges{$Format}{$_}>0)
+            {
+                my $Link = "<a href='#".$FormatInfo{$Format}{"Anchor"}."' style='color:Blue;'>".$FileChanges{$Format}{$_}."</a>";
+                if($_ eq "Added") {
+                    $FileChanges .= "<td class='new'>".$Link."</td>\n";
+                }
+                elsif($_ eq "Removed") {
+                    $FileChanges .= "<td class='failed'>".$Link."</td>\n";
+                }
+                elsif($_ eq "Changed") {
+                    $FileChanges .= "<td class='warning'>".$Link."</td>\n";
+                }
+                else {
+                    $FileChanges .= "<td>".$Link."</td>\n";
+                }
             }
-            $FileChanges .= "<td>".$Link."</td>\n";
+            else {
+                $FileChanges .= "<td>0</td>\n";
+            }
         }
         $FileChanges .= "</tr>\n";
     }
@@ -2483,7 +2533,7 @@ sub get_Source()
     return $Packages;
 }
 
-sub createHtmlReport($)
+sub createReport($)
 {
     my $Path = $_[0];
     my $CssStyles = readStyles("Index.css");
@@ -2506,6 +2556,9 @@ sub createHtmlReport($)
     $Report .= "\n<div style='height:999px;'></div>\n</body></html>";
     writeFile($Path, $Report);
     printMsg("INFO", "see detailed report:\n  $Path");
+    if($Browse) {
+        system($Browse." \"".$Path."\" >/dev/null 2>&1 &");
+    }
 }
 
 sub readFileTypes()
@@ -2767,7 +2820,7 @@ sub scenario()
     }
     printMsg("INFO", "comparing packages ...");
     detectChanges();
-    createHtmlReport($REPORT_PATH);
+    createReport($REPORT_PATH);
     exit($ERROR_CODE{$RESULT{"compat"}});
 }
 

@@ -242,6 +242,96 @@
 
 <type>
     <id>
+        NVDL
+    </id>
+    <summary>
+        NVDL script
+    </summary>
+    <extensions>
+        nvdl
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        RSS
+    </id>
+    <summary>
+        RSS file
+    </summary>
+    <extensions>
+        rss
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        MMP
+    </id>
+    <summary>
+        Symbian Project file
+    </summary>
+    <extensions>
+        mmp
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        BINARY_TERRAIN
+    </id>
+    <summary>
+        Binary Terrain file
+    </summary>
+    <extensions>
+        bt
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        X3D
+    </id>
+    <summary>
+        X3D Image
+    </summary>
+    <extensions>
+        x3d, x3dv
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
         S_EXPRESSION_FILE
     </id>
     <summary>
@@ -1836,7 +1926,7 @@
         Doxygen file
     </summary>
     <extensions>
-        dox, doxy, doxyfile
+        dox, doxy, doxyfile, doxygen
     </extensions>
     <names>
         Doxyfile, Doxyfile.in
@@ -3357,7 +3447,7 @@
     <extensions>
         png, jpg, jpeg, exif, raw, bmp, pbm, webp, spp, tga
         img, gif, tiff, xcf, cur, svgz, cct, jp2, jpx
-        ppm, tif, yuv, jps, mng
+        ppm, tif, yuv, jps, mng, pcx, blend
     </extensions>
     <weight>
         30
@@ -3543,6 +3633,9 @@
         CONTRIBUTORS.txt, BUILDING.txt, Install.txt, BLACKLIST.txt
         WISHLIST.TXT, HOWTO.txt
     </inames>
+    <extensions>
+        install, INSTALL
+    </extensions>
     <weight>
         10
     </weight>
