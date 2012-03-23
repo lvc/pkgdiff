@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# pkgdiff - Package Changes Analyzer 1.3.1
+# pkgdiff - Package Changes Analyzer 1.3.2
 # A tool for analyzing changes in Linux software packages
 #
 # Copyright (C) 2011-2012 ROSA Laboratory.
@@ -19,7 +19,7 @@
 # ============
 #  Perl 5 (5.8-5.14)
 #  GNU Binutils (readelf)
-#  GNU Wdiff
+#  GNU Diff, Wdiff
 #  GNU Awk
 #  RPM (rpm, rpmbuild, rpm2cpio) for analysis of RPM-packages
 #  DPKG (dpkg, dpkg-deb) for analysis of DEB-packages
@@ -47,7 +47,7 @@ use File::Temp qw(tempdir);
 use File::Compare;
 use Cwd qw(abs_path cwd);
 
-my $TOOL_VERSION = "1.3.1";
+my $TOOL_VERSION = "1.3.2";
 my $ORIG_DIR = cwd();
 my $TMP_DIR = tempdir(CLEANUP=>1);
 
@@ -60,7 +60,8 @@ my $ABICC = "abi-compliance-checker";
 
 my ($Help, $ShowVersion, $DumpVersion, $GenerateTemplate, %Descriptor,
 $CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug,
-$SizeLimit, $QuickMode, $DiffWidth, $Browse);
+$SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Browse, $Minimal,
+$IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines);
 
 my $CmdName = get_filename($0);
 
@@ -125,13 +126,18 @@ GetOptions("h|help!" => \$Help,
 # other options
   "check-usage!" => \$CheckUsage,
   "pkg-manager=s" => \$PackageManager,
-  "t|template!" => \$GenerateTemplate,
+  "template!" => \$GenerateTemplate,
   "report-path=s" => \$OutputReportPath,
   "details!" => \$ShowDetails,
   "size-limit=s" => \$SizeLimit,
-  "diff-width=s" => \$DiffWidth,
+  "width=s" => \$DiffWidth,
+  "prelines=s" => \$DiffLines,
+  "ignore-space-change" => \$IgnoreSpaceChange,
+  "ignore-all-space" => \$IgnoreAllSpace,
+  "ignore-blank-lines" => \$IgnoreBlankLines,
   "quick!" => \$QuickMode,
-  "b|browse=s" => \$Browse,
+  "minimal!" => \$Minimal,
+  "browse=s" => \$Browse,
   "debug!" => \$Debug
 ) or ERR_MESSAGE();
 
@@ -173,7 +179,7 @@ INFORMATION OPTIONS:
       Print the tool version ($TOOL_VERSION) and don't do anything else.
 
 GENERAL OPTIONS:
-  -old <path>
+  -old PATH
       Path to the old version of a package (RPM, DEB, TAR.GZ, etc).
       
       If you need to analyze a group of packages then you can
@@ -193,7 +199,7 @@ GENERAL OPTIONS:
             ...
           </packages>
 
-  -new <path>
+  -new PATH
       Path to the new version of a package (RPM, DEB, TAR.GZ, etc).
 
 OTHER OPTIONS:
@@ -201,15 +207,15 @@ OTHER OPTIONS:
       Check if package content is used by other
       packages in the repository.
 
-  -pkg-manager <name>
+  -pkg-manager NAME
       Specify package management tool.
       Supported:
         urpm - Mandriva URPM
 
-  -t|-template
+  -template
       Create XML-descriptor template ./VERSION.xml
 
-  -report-path <path>
+  -report-path PATH
       Path to the report.
       Default:
         pkgdiff_reports/<pkg>/<v1>_to_<v2>/compat_report.html
@@ -217,17 +223,33 @@ OTHER OPTIONS:
   -details
       Try to create detailed reports.
 
-  -size-limit <size>
+  -size-limit SIZE
       Don't analyze files larger than <size> in kilobytes.
 
-  -diff-width <size>
+  -width <size>
       Width of Visual Diff.
       Default: 75
 
-  -quick
-      Quick mode without creating of visual diffs for files.
+  -prelines NUM
+      Size of the context in Visual Diff.
+      Default: 10
 
-  -b|-browse <program>
+  -ignore-space-change
+      Ignore changes in the amount of white space.
+
+  -ignore-all-space
+      Ignore all white space.
+
+  -ignore-blank-lines
+      Ignore changes whose lines are all blank.
+
+  -quick
+      Quick mode without creating of Visual Diff for files.
+
+  -minimal
+      Try to find a smaller set of changes.
+
+  -browse PROGRAM
       Open report(s) in the browser (firefox, opera, etc.).
 
   -debug
@@ -281,8 +303,8 @@ my $DescriptorTemplate = "
 my $RENAME_FILE_MATCH = 0.55;
 my $RENAME_CONTENT_MATCH = 0.85;
 my $MOVE_CONTENT_MATCH = 0.90;
-my $COMPARE_BYTE_BY_BYTE = 16;
 my $DEFAULT_WIDTH = 75;
+my $DIFF_PRE_LINES = 10;
 
 my %Group = (
     "Count1"=>0,
@@ -476,33 +498,7 @@ sub compareFiles($$$$)
     else
     {
         $Changed = 1;
-        if(my $Size1 = getSize($P1))
-        {
-            my $Size2 = getSize($P2);
-            if(abs($Size1-$Size2)<$COMPARE_BYTE_BY_BYTE
-            and checkCmd("cmp"))
-            { # compare byte-by-byte
-                my $BinDiff = $TMP_DIR."/bindiff";
-                system("cmp -l \"$P1\" \"$P2\" >$BinDiff 2>$TMP_DIR/null");
-                $Rate = (-s $BinDiff); # "cmp" program counts changed/removed bytes only
-                if($Size2>$Size1)
-                { # count added bytes
-                    $Rate += $Size2-$Size1;
-                }
-                $Rate /= $Size1;
-            }
-            else
-            { # size delta
-                $Rate = abs($Size1 - $Size2)/$Size1;
-            }
-            if($Rate>1) {
-                $Rate = 1;
-            }
-        }
-        else
-        { # empty
-            $Rate = 1;
-        }
+        $Rate = checkDiff($P1, $P2);
     }
     if($DLink or $Changed)
     {
@@ -524,6 +520,60 @@ sub compareFiles($$$$)
     else {
         return ();
     }
+}
+
+sub getHex($)
+{
+    my $Path = $_[0];
+    my ($Hex, $Byte) = ();
+    open(FILE, "<", $Path);
+    while(my $Size = read(FILE, $Byte, 16*1024))
+    {
+        foreach my $Pos (0 .. $Size-1) {
+            $Hex .= sprintf('%02x', ord(substr($Byte, $Pos, 1)))."\n";
+        }
+    }
+    close(FILE);
+    return $Hex;
+}
+
+sub checkDiff($$)
+{
+    my ($P1, $P2) = @_;
+    my $Size1 = getSize($P1);
+    if(not $Size1)
+    { # empty
+        return 1;
+    }
+    my $Size2 = getSize($P2);
+    my $Rate = abs($Size1 - $Size2)/$Size1;
+    if($Rate*($Size1 + $Size2)/2<1024)
+    {
+        if(-T $P1)
+        { # Text
+            my $TDiff = $TMP_DIR."/txtdiff";
+            system("diff -Bw \"$P1\" \"$P2\" >$TDiff 2>$TMP_DIR/null");
+            $Rate = getRate($P1, $P2, $TDiff);
+            unlink($TDiff);
+        }
+        else
+        { # Binary
+            my $TDiff = $TMP_DIR."/txtdiff";
+            my $T1 = $TMP_DIR."/tmp1.txt";
+            my $T2 = $TMP_DIR."/tmp2.txt";
+            writeFile($T1, getHex($P1));
+            writeFile($T2, getHex($P2));
+            system("diff -Bw \"$T1\" \"$T2\" >$TDiff 2>$TMP_DIR/null");
+            unlink($T1);
+            unlink($T2);
+            $Rate = getRate($P1, $P2, $TDiff);
+            unlink($TDiff);
+        }
+    }
+    if($Rate>1) {
+        $Rate=1;
+    }
+    return $Rate;
 }
 
 sub showFile($$$)
@@ -737,7 +787,22 @@ sub diffFiles($$$)
     mkpath(get_dirname($Path));
     my $TmpPath = $TMP_DIR."/diff";
     unlink($TmpPath);
-    my $Cmd = "sh $DIFF --width $DEFAULT_WIDTH --stdout --tmpdiff \"$TmpPath\" \"".$P1."\" \"".$P2."\" >\"".$Path."\" 2>$TMP_DIR/null";
+    my $Cmd = "sh $DIFF --width $DiffWidth --stdout";
+    $Cmd .= " --tmpdiff \"$TmpPath\" --prelines $DiffLines";
+    if($IgnoreSpaceChange) {
+        $Cmd .= " --ignore-space-change";
+    }
+    if($IgnoreAllSpace) {
+        $Cmd .= " --ignore-all-space";
+    }
+    if($IgnoreBlankLines) {
+        $Cmd .= " --ignore-blank-lines";
+    }
+    if($Minimal)
+    { # diff --minimal
+        $Cmd .= " --minimal";
+    }
+    $Cmd .= " \"".$P1."\" \"".$P2."\" >\"".$Path."\" 2>$TMP_DIR/null";
     $Cmd=~s/\$/\\\$/g;
     system($Cmd);
     if(getSize($Path)<3500)
@@ -756,23 +821,32 @@ sub diffFiles($$$)
             return "";
         }
     }
-    my $Rate = 1;
-    if(my $Size1 = getSize($P1))
-    {
-        my $Size2 = getSize($P2);
-        my $Patch = readFile($TmpPath);
-        $Patch=~s/(\A|\n)([^\-]|[\+]{3}|[\-]{3}).*//g;
-        $Rate = length($Patch); # count removed/changed bytes
-        if($Size2>$Size1)
-        { # count added bytes
-            $Rate += $Size2-$Size1;
-        }
-        $Rate /= $Size1;
-        if($Rate>1) {
-            $Rate = 1;
-        }
-    }
+    my $Rate = getRate($P1, $P2, $TmpPath);
     return ($Path, $Rate);
+}
+
+sub getRate($$$)
+{
+    my ($P1, $P2, $PatchPath) = @_;
+    my $Size1 = getSize($P1);
+    if(not $Size1) {
+        return 1;
+    }
+    my $Size2 = getSize($P2);
+    my $Rate = 1;
+    # count removed/changed bytes
+    my $Patch = readFile($PatchPath);
+    $Patch=~s/(\A|\n)([^\-]|[\+]{3}|[\-]{3}).*//g;
+    $Rate = length($Patch);
+    # count added bytes
+    if($Size2>$Size1) {
+        $Rate += $Size2-$Size1;
+    }
+    $Rate /= $Size1;
+    if($Rate>1) {
+        $Rate=1;
+    }
+    return $Rate;
 }
 
 sub readFilePart($$)
@@ -1467,7 +1541,8 @@ sub get_Report_Files()
             }
             if($Format ne "DIR")
             {
-                if($Info{"Status"}=~/\A(changed|moved|renamed)\Z/) {
+                if(not $QuickMode and not $Info{"Skipped"}
+                and $Info{"Status"}=~/\A(changed|moved|renamed)\Z/) {
                     $Report .= "<td class='value'$Join>".show_number($Info{"Rate"}*100)."%</td>\n";
                 }
                 else {
@@ -1512,7 +1587,7 @@ sub appendFile($$)
     if(my $Dir = get_dirname($Path)) {
         mkpath($Dir);
     }
-    open(FILE, ">>".$Path) || die ("can't open file \'$Path\': $!\n");
+    open(FILE, ">>", $Path) || die ("can't open file \'$Path\': $!\n");
     print FILE $Content;
     close(FILE);
 }
@@ -1524,7 +1599,7 @@ sub writeFile($$)
     if(my $Dir = get_dirname($Path)) {
         mkpath($Dir);
     }
-    open (FILE, ">".$Path) || die ("can't open file \'$Path\': $!\n");
+    open(FILE, ">", $Path) || die ("can't open file \'$Path\': $!\n");
     print FILE $Content;
     close(FILE);
 }
@@ -1533,7 +1608,7 @@ sub readFile($)
 {
     my $Path = $_[0];
     return "" if(not $Path or not -f $Path);
-    open (FILE, $Path);
+    open(FILE, "<", $Path);
     local $/ = undef;
     my $Content = <FILE>;
     close(FILE);
@@ -1574,6 +1649,12 @@ sub checkCmd($)
     return "" if(not $Cmd);
     if(defined $Cache{"checkCmd"}{$Cmd}) {
         return $Cache{"checkCmd"}{$Cmd};
+    }
+    if($Cmd eq "hexdump")
+    {
+        writeFile($TMP_DIR."/test", "Test");
+        my $Info = `$Cmd $TMP_DIR/test 2>$TMP_DIR/null`;
+        return ($Cache{"checkCmd"}{$Cmd} = ($Info ne ""));
     }
     my @Options = (
         "--version",
@@ -2706,8 +2787,11 @@ sub scenario()
         generateTemplate();
         exit(0);
     }
-    if($DiffWidth) {
-        $DEFAULT_WIDTH = $DiffWidth;
+    if(not $DiffWidth) {
+        $DiffWidth = $DEFAULT_WIDTH;
+    }
+    if(not $DiffLines) {
+        $DiffLines = $DIFF_PRE_LINES;
     }
     if($CheckUsage)
     {

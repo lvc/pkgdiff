@@ -59,6 +59,19 @@
 #	--stdout	Send output to stdout instead to a file
 #	
 #       --tmpdiff       Path to intermediate diff file
+#
+#       --prelines N    Set value for diff -U option
+#
+#       --minimal       Set value for diff -d option
+#
+#       --ignore-space-change
+#                       Ignore changes in the amount of white space.
+#
+#       --ignore-all-space
+#                       Ignore all white space.
+#
+#       --ignore-blank-lines
+#                       Ignore changes whose lines are all blank.
 #       
 #
 # Copyright:
@@ -105,7 +118,6 @@
 #
 
 export version="1.41"
-export progdate=""
 export prelines="10"
 export basename=$(basename $0)
 export workdir=`mktemp -d -t rfcdiff.XXXXXXXX`
@@ -790,7 +802,7 @@ while [ $# -gt 0 ]; do
       --abdiff)	opthtml=0; optdiff=0; optchbars=0; optwdiff=0; opthwdiff=0; optabdiff=1;;
       --ab-diff)opthtml=0; optdiff=0; optchbars=0; optwdiff=0; opthwdiff=0; optabdiff=1;;
       --rfc-editor-diff)opthtml=0; optdiff=0; optchbars=0; optwdiff=0; opthwdiff=0; optabdiff=1;;
-      --version)echo -e "$basename\t$version\t$progdate"; exit 0;;
+      --version)echo -e "$basename\t$version"; exit 0;;
       --browse) optshow=1;;
       --nowdiff)optnowdiff=1;;
       --keep)	optkeep=1;;
@@ -807,10 +819,13 @@ while [ $# -gt 0 ]; do
       --nostrip)optstrip=0; optbody=0;;
       --stdout) optstdout=1;;
       --links)  optlinks=1;;
-      --no-space-changes) optnospacechange=1;;
-      --ignore-whitespace) optignorewhite=1;;
+      --ignore-space-change) optnospacechange=1;;
+      --ignore-all-space) optignorewhite=1;;
+      --ignore-blank-lines) optignoreblank=1;;
       --wdiff-args) optwdiffargs=$2; shift;;
       --tmpdiff) opttmpdiff=1; tmpdiff=$2; shift;;
+      --prelines)  export prelines=$2; shift;;
+      --minimal) optminimal=1;;
       --)	shift; break;;
 
       -v) echo "$basename $version"; exit 0;;
@@ -998,7 +1013,7 @@ if cmp 1/"$base1" 2/"$base2" >/dev/null; then
 fi
 
 if [ $opthtml -gt 0 ]; then
-   diff -Bd ${optnospacechange:+-b} ${optignorewhite:+-w} -U $prelines 1/"$base1" 2/"$base2" | tee $tmpdiff | htmldiff > "$tempout"
+   diff ${optignoreblank:+-B} ${optminimal:+-d} ${optnospacechange:+-b} ${optignorewhite:+-w} -U $prelines 1/"$base1" 2/"$base2" | tee $tmpdiff | htmldiff > "$tempout"
 fi
 if [ $optchbars -gt 0 ]; then
    diff -Bwd -U 10000 1/"$base1" 2/"$base2" | tee $tmpdiff | grep -v "^-" | tail -n +3 | sed 's/^+/|/' > "$tempout"

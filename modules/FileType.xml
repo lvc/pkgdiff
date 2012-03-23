@@ -185,7 +185,7 @@
         Symbols file
     </summary>
     <extensions>
-        sym, syms
+        sym, syms, fncs
     </extensions>
     <weight>
         60
