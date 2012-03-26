@@ -522,7 +522,7 @@ sub compareFiles($$$$)
     }
 }
 
-sub getHex($)
+sub hexDump($)
 {
     my $Path = $_[0];
     my ($Hex, $Byte) = ();
@@ -561,8 +561,8 @@ sub checkDiff($$)
             my $TDiff = $TMP_DIR."/txtdiff";
             my $T1 = $TMP_DIR."/tmp1.txt";
             my $T2 = $TMP_DIR."/tmp2.txt";
-            writeFile($T1, getHex($P1));
-            writeFile($T2, getHex($P2));
+            writeFile($T1, hexDump($P1));
+            writeFile($T2, hexDump($P2));
             system("diff -Bw \"$T1\" \"$T2\" >$TDiff 2>$TMP_DIR/null");
             unlink($T1);
             unlink($T2);
@@ -1649,12 +1649,6 @@ sub checkCmd($)
     return "" if(not $Cmd);
     if(defined $Cache{"checkCmd"}{$Cmd}) {
         return $Cache{"checkCmd"}{$Cmd};
-    }
-    if($Cmd eq "hexdump")
-    {
-        writeFile($TMP_DIR."/test", "Test");
-        my $Info = `$Cmd $TMP_DIR/test 2>$TMP_DIR/null`;
-        return ($Cache{"checkCmd"}{$Cmd} = ($Info ne ""));
     }
     my @Options = (
         "--version",
