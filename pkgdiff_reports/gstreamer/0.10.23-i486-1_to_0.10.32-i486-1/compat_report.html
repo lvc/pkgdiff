@@ -9,7 +9,7 @@
     </title>
 <style type="text/css">
 body {
-    font-family:Arial;
+    font-family:Arial, sans-serif;
     color:Black;
     font-size:14px;
 }
@@ -41,14 +41,14 @@ table.summary th {
     font-size:15px;
     white-space:nowrap;
     border:1px inset gray;
+    padding: 3px;
 }
 table.summary td {
-    padding-left:5px;
-    padding-right:5px;
     text-align:right;
     font-size:16px;
     white-space:nowrap;
     border:1px inset gray;
+    padding: 3px 5px 3px 5px;
 }
 table.summary td.left {
     text-align:left;
@@ -99,112 +99,112 @@ div.p_list {
     <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
     <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>
 <h2>Test Info</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th class='left'>Package Name</th><td>gstreamer</td></tr>
 <tr><th class='left'>Package Format</th><td>TXZ</td></tr>
 <tr><th class='left'>Version #1</th><td>0.10.23-i486-1</td></tr>
 <tr><th class='left'>Version #2</th><td>0.10.32-i486-1</td></tr>
 </table>
 <h2>Test Results</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>2</a></td></tr>
 <tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>434</a></td></tr>
-<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(34.9%)</b></span></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(56%)</b></span></td></tr>
 </table>
 <a name='Deps'></a>
 <a name='Files'></a><h2>Changes In Files</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>File Type</th><th>Total</th><th>Added</th><th>Removed</th><th>Changed</th></tr>
 <tr>
 <td class='left'>Header file</td>
 <td><a href='#HeaderFiles' style='color:Blue;'>82</a></td>
-<td><a href='#HeaderFiles' style='color:Blue;'>9</a></td>
+<td class='new'><a href='#HeaderFiles' style='color:Blue;'>9</a></td>
 <td>0</td>
-<td><a href='#HeaderFiles' style='color:Blue;'>59</a></td>
+<td class='warning'><a href='#HeaderFiles' style='color:Blue;'>59</a></td>
 </tr>
 <tr>
 <td class='left'>Shared library</td>
 <td><a href='#SharedLibraries' style='color:Blue;'>13</a></td>
-<td><a href='#SharedLibraries' style='color:Blue;'>6</a></td>
-<td><a href='#SharedLibraries' style='color:Blue;'>5</a></td>
-<td><a href='#SharedLibraries' style='color:Blue;'>2</a></td>
+<td class='new'><a href='#SharedLibraries' style='color:Blue;'>6</a></td>
+<td class='failed'><a href='#SharedLibraries' style='color:Blue;'>5</a></td>
+<td class='warning'><a href='#SharedLibraries' style='color:Blue;'>2</a></td>
 </tr>
 <tr>
 <td class='left'>Shell program</td>
 <td><a href='#ShellPrograms' style='color:Blue;'>2</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
+<td class='warning'><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
 <td class='left'>Executable file</td>
 <td><a href='#ExecutableFiles' style='color:Blue;'>12</a></td>
-<td><a href='#ExecutableFiles' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#ExecutableFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
-<td><a href='#ExecutableFiles' style='color:Blue;'>11</a></td>
+<td class='warning'><a href='#ExecutableFiles' style='color:Blue;'>11</a></td>
 </tr>
 <tr>
 <td class='left'>Libtool file</td>
 <td><a href='#LibtoolFiles' style='color:Blue;'>8</a></td>
-<td><a href='#LibtoolFiles' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#LibtoolFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
-<td><a href='#LibtoolFiles' style='color:Blue;'>7</a></td>
+<td class='warning'><a href='#LibtoolFiles' style='color:Blue;'>7</a></td>
 </tr>
 <tr>
 <td class='left'>M4 macro file</td>
 <td><a href='#M4' style='color:Blue;'>1</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#M4' style='color:Blue;'>1</a></td>
+<td class='warning'><a href='#M4' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
 <td class='left'>Man page</td>
 <td><a href='#ManPages' style='color:Blue;'>6</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#ManPages' style='color:Blue;'>3</a></td>
+<td class='warning'><a href='#ManPages' style='color:Blue;'>3</a></td>
 </tr>
 <tr>
 <td class='left'>Pkg-config file</td>
 <td><a href='#PkgConfigFiles' style='color:Blue;'>6</a></td>
-<td><a href='#PkgConfigFiles' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#PkgConfigFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
-<td><a href='#PkgConfigFiles' style='color:Blue;'>5</a></td>
+<td class='warning'><a href='#PkgConfigFiles' style='color:Blue;'>5</a></td>
 </tr>
 <tr>
 <td class='left'>SGML document</td>
 <td><a href='#SGMLDocuments' style='color:Blue;'>3</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#SGMLDocuments' style='color:Blue;'>3</a></td>
+<td class='warning'><a href='#SGMLDocuments' style='color:Blue;'>3</a></td>
 </tr>
 <tr>
 <td class='left'>XML document</td>
 <td><a href='#XMLDocuments' style='color:Blue;'>6</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#XMLDocuments' style='color:Blue;'>6</a></td>
+<td class='warning'><a href='#XMLDocuments' style='color:Blue;'>6</a></td>
 </tr>
 <tr>
 <td class='left'>CSS style sheet</td>
 <td><a href='#CSS' style='color:Blue;'>3</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#CSS' style='color:Blue;'>3</a></td>
+<td class='warning'><a href='#CSS' style='color:Blue;'>3</a></td>
 </tr>
 <tr>
 <td class='left'>Gettext file</td>
 <td><a href='#GettextFiles' style='color:Blue;'>37</a></td>
-<td><a href='#GettextFiles' style='color:Blue;'>6</a></td>
+<td class='new'><a href='#GettextFiles' style='color:Blue;'>6</a></td>
 <td>0</td>
-<td><a href='#GettextFiles' style='color:Blue;'>31</a></td>
+<td class='warning'><a href='#GettextFiles' style='color:Blue;'>31</a></td>
 </tr>
 <tr>
 <td class='left'>HTML page</td>
 <td><a href='#HTML' style='color:Blue;'>116</a></td>
-<td><a href='#HTML' style='color:Blue;'>11</a></td>
+<td class='new'><a href='#HTML' style='color:Blue;'>11</a></td>
 <td>0</td>
-<td><a href='#HTML' style='color:Blue;'>105</a></td>
+<td class='warning'><a href='#HTML' style='color:Blue;'>105</a></td>
 </tr>
 <tr>
 <td class='left'>Image file</td>
@@ -216,36 +216,36 @@ div.p_list {
 <tr>
 <td class='left'>Directory</td>
 <td><a href='#Directories' style='color:Blue;'>106</a></td>
-<td><a href='#Directories' style='color:Blue;'>16</a></td>
-<td><a href='#Directories' style='color:Blue;'>4</a></td>
+<td class='new'><a href='#Directories' style='color:Blue;'>16</a></td>
+<td class='failed'><a href='#Directories' style='color:Blue;'>4</a></td>
 <td>0</td>
 </tr>
 <tr>
 <td class='left'>Change log</td>
 <td><a href='#ChangeLogs' style='color:Blue;'>3</a></td>
-<td><a href='#ChangeLogs' style='color:Blue;'>2</a></td>
-<td><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#ChangeLogs' style='color:Blue;'>2</a></td>
+<td class='failed'><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
 <td>0</td>
 </tr>
 <tr>
 <td class='left'>Information file</td>
 <td><a href='#InformationFiles' style='color:Blue;'>12</a></td>
-<td><a href='#InformationFiles' style='color:Blue;'>6</a></td>
-<td><a href='#InformationFiles' style='color:Blue;'>6</a></td>
+<td class='new'><a href='#InformationFiles' style='color:Blue;'>6</a></td>
+<td class='failed'><a href='#InformationFiles' style='color:Blue;'>6</a></td>
 <td>0</td>
 </tr>
 <tr>
 <td class='left'>License</td>
 <td><a href='#Licenses' style='color:Blue;'>2</a></td>
-<td><a href='#Licenses' style='color:Blue;'>1</a></td>
-<td><a href='#Licenses' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#Licenses' style='color:Blue;'>1</a></td>
+<td class='failed'><a href='#Licenses' style='color:Blue;'>1</a></td>
 <td>0</td>
 </tr>
 <tr>
 <td class='left'>Readme file</td>
 <td><a href='#ReadmeFiles' style='color:Blue;'>2</a></td>
-<td><a href='#ReadmeFiles' style='color:Blue;'>1</a></td>
-<td><a href='#ReadmeFiles' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#ReadmeFiles' style='color:Blue;'>1</a></td>
+<td class='failed'><a href='#ReadmeFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
 </tr>
 <tr>
@@ -258,7 +258,7 @@ div.p_list {
 </table>
 <a name='HeaderFiles'></a>
 <h2>Header Files (82)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/include/gstreamer-0.10/gst/base/gstadapter.h</td>
@@ -494,7 +494,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/include/gstreamer-0.10/gst/gstelement.h</td>
 <td class='warning'>changed</td>
-<td class='value'>81.9%</td>
+<td class='value'>82%</td>
 <td><a href='diffs/usr/include/gstreamer-0.10/gst/gstelement.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -732,7 +732,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/include/gstreamer-0.10/gst/gsttask.h</td>
 <td class='warning'>changed</td>
-<td class='value'>66%</td>
+<td class='value'>66.1%</td>
 <td><a href='diffs/usr/include/gstreamer-0.10/gst/gsttask.h-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
@@ -837,7 +837,7 @@ div.p_list {
 </table>
 <a name='SharedLibraries'></a>
 <h2>Shared Libraries (13)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/lib/gstreamer-0.10/libgstcoreelements.so</td>
@@ -903,7 +903,7 @@ div.p_list {
 </table>
 <a name='ShellPrograms'></a>
 <h2>Shell Programs (2)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>install/doinst.sh</td>
@@ -922,7 +922,7 @@ div.p_list {
 </table>
 <a name='ExecutableFiles'></a>
 <h2>Executable Files (12)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/bin/gst-feedback</td>
@@ -1011,26 +1011,26 @@ div.p_list {
 </table>
 <a name='LibtoolFiles'></a>
 <h2>Libtool Files (8)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/lib/gstreamer-0.10/libgstcoreelements.la</td>
 <td class='warning'>changed</td>
-<td class='value'>6.4%</td>
+<td class='value'>6.5%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/lib/gstreamer-0.10/libgstcoreindexers.la</td>
 <td class='warning'>changed</td>
-<td class='value'>6.6%</td>
+<td class='value'>6.7%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/lib/libgstbase-0.10.la</td>
 <td class='warning'>changed</td>
-<td class='value'>6.7%</td>
+<td class='value'>6.8%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1044,35 +1044,35 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/lib/libgstcontroller-0.10.la</td>
 <td class='warning'>changed</td>
-<td class='value'>6.5%</td>
+<td class='value'>6.6%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/lib/libgstdataprotocol-0.10.la</td>
 <td class='warning'>changed</td>
-<td class='value'>6.4%</td>
+<td class='value'>6.5%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/lib/libgstnet-0.10.la</td>
 <td class='warning'>changed</td>
-<td class='value'>6.7%</td>
+<td class='value'>6.8%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/lib/libgstreamer-0.10.la</td>
 <td class='warning'>changed</td>
-<td class='value'>6.8%</td>
+<td class='value'>6.9%</td>
 <td></td>
 <td></td>
 </tr>
 </table>
 <a name='M4'></a>
 <h2>M4 Macro Files (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/share/aclocal/gst-element-check-0.10.m4</td>
@@ -1084,7 +1084,7 @@ div.p_list {
 </table>
 <a name='ManPages'></a>
 <h2>Man Pages (6)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/man/man1/gst-feedback-0.10.1.gz</td>
@@ -1131,7 +1131,7 @@ div.p_list {
 </table>
 <a name='PkgConfigFiles'></a>
 <h2>Pkg-config Files (6)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/lib/pkgconfig/gstreamer-0.10.pc</td>
@@ -1178,7 +1178,7 @@ div.p_list {
 </table>
 <a name='SGMLDocuments'></a>
 <h2>SGML Documents (3)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/index.sgml</td>
@@ -1204,7 +1204,7 @@ div.p_list {
 </table>
 <a name='XMLDocuments'></a>
 <h2>XML Documents (6)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/gstreamer-0.10.devhelp</td>
@@ -1251,7 +1251,7 @@ div.p_list {
 </table>
 <a name='CSS'></a>
 <h2>CSS Style Sheets (3)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/style.css</td>
@@ -1277,26 +1277,26 @@ div.p_list {
 </table>
 <a name='GettextFiles'></a>
 <h2>Gettext Files (37)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/share/locale/af/LC_MESSAGES/gstreamer-0.10.mo</td>
 <td class='warning'>changed</td>
-<td class='value'>0.5%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/locale/az/LC_MESSAGES/gstreamer-0.10.mo</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.8%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/locale/be/LC_MESSAGES/gstreamer-0.10.mo</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.3%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1345,7 +1345,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/locale/en_GB/LC_MESSAGES/gstreamer-0.10.mo</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.1%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1408,7 +1408,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/locale/ja/LC_MESSAGES/gstreamer-0.10.mo</td>
 <td class='warning'>changed</td>
-<td class='value'>5.7%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1464,7 +1464,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/locale/rw/LC_MESSAGES/gstreamer-0.10.mo</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>2%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1485,14 +1485,14 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/locale/sq/LC_MESSAGES/gstreamer-0.10.mo</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.1%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/locale/sr/LC_MESSAGES/gstreamer-0.10.mo</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.1%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1506,7 +1506,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/locale/tr/LC_MESSAGES/gstreamer-0.10.mo</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.1%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1534,14 +1534,14 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/locale/zh_TW/LC_MESSAGES/gstreamer-0.10.mo</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.2%</td>
 <td></td>
 <td></td>
 </tr>
 </table>
 <a name='HTML'></a>
 <h2>HTML Pages (116)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path new'>usr/share/gtk-doc/html/gstreamer-0.10/annotation-glossary.html</td>
@@ -1567,7 +1567,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/gst-building.html</td>
 <td class='warning'>changed</td>
-<td class='value'>5.6%</td>
+<td class='value'>0.02%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1728,7 +1728,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/gstreamer-gstconfig.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.7%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1882,28 +1882,28 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/gstreamer-GstVersion.html</td>
 <td class='warning'>changed</td>
-<td class='value'>4.4%</td>
+<td class='value'>0.02%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/gstreamer-hierarchy.html</td>
 <td class='warning'>changed</td>
-<td class='value'>8.1%</td>
+<td class='value'>0.02%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/gstreamer-support.html</td>
 <td class='warning'>changed</td>
-<td class='value'>17.3%</td>
+<td class='value'>0.04%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/gstreamer.html</td>
 <td class='warning'>changed</td>
-<td class='value'>9%</td>
+<td class='value'>0.03%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1917,7 +1917,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/GstSystemClock.html</td>
 <td class='warning'>changed</td>
-<td class='value'>2.2%</td>
+<td class='value'>2.3%</td>
 <td></td>
 <td></td>
 </tr>
@@ -2050,7 +2050,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/GstLFOControlSource.html</td>
 <td class='warning'>changed</td>
-<td class='value'>1.1%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
@@ -2071,42 +2071,42 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/GstPushSrc.html</td>
 <td class='warning'>changed</td>
-<td class='value'>12.6%</td>
+<td class='value'>0.02%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/gstreamer-base.html</td>
 <td class='warning'>changed</td>
-<td class='value'>10.3%</td>
+<td class='value'>0.02%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/gstreamer-check.html</td>
 <td class='warning'>changed</td>
-<td class='value'>16.9%</td>
+<td class='value'>0.03%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/gstreamer-control.html</td>
 <td class='warning'>changed</td>
-<td class='value'>19.5%</td>
+<td class='value'>0.03%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/gstreamer-dataprotocol.html</td>
 <td class='warning'>changed</td>
-<td class='value'>26.3%</td>
+<td class='value'>0.04%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/gstreamer-hierarchy.html</td>
 <td class='warning'>changed</td>
-<td class='value'>11.6%</td>
+<td class='value'>0.03%</td>
 <td></td>
 <td></td>
 </tr>
@@ -2190,42 +2190,42 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/gstreamer-libs.html</td>
 <td class='warning'>changed</td>
-<td class='value'>3.5%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/gstreamer-net.html</td>
 <td class='warning'>changed</td>
-<td class='value'>22.1%</td>
+<td class='value'>0.03%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-libs-0.10/index.html</td>
 <td class='warning'>changed</td>
-<td class='value'>2.1%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/ch01.html</td>
 <td class='warning'>changed</td>
-<td class='value'>15%</td>
+<td class='value'>15.1%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/ch02.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.05%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/gstreamer-plugins-capsfilter.html</td>
 <td class='warning'>changed</td>
-<td class='value'>6.1%</td>
+<td class='value'>0.02%</td>
 <td></td>
 <td></td>
 </tr>
@@ -2246,14 +2246,14 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/gstreamer-plugins-fdsink.html</td>
 <td class='warning'>changed</td>
-<td class='value'>9.3%</td>
+<td class='value'>0.02%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/gstreamer-plugins-fdsrc.html</td>
 <td class='warning'>changed</td>
-<td class='value'>0.8%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
@@ -2274,7 +2274,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/gstreamer-plugins-identity.html</td>
 <td class='warning'>changed</td>
-<td class='value'>0.9%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
@@ -2309,14 +2309,14 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/gstreamer-plugins-plugin-coreindexers.html</td>
 <td class='warning'>changed</td>
-<td class='value'>3.6%</td>
+<td class='value'>0.04%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/gstreamer-plugins-queue.html</td>
 <td class='warning'>changed</td>
-<td class='value'>2.8%</td>
+<td class='value'>0.005%</td>
 <td></td>
 <td></td>
 </tr>
@@ -2337,7 +2337,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-plugins-0.10/gstreamer-plugins-typefind.html</td>
 <td class='warning'>changed</td>
-<td class='value'>4.7%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
@@ -2358,7 +2358,7 @@ div.p_list {
 </table>
 <a name='ImageFiles'></a>
 <h2>Image Files (13)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>usr/share/gtk-doc/html/gstreamer-0.10/home.png</td>
@@ -2454,7 +2454,7 @@ div.p_list {
 </table>
 <a name='Directories'></a>
 <h2>Directories (106)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th></tr>
 <tr>
 <td class='left f_path'>install</td>
@@ -2880,7 +2880,7 @@ div.p_list {
 </table>
 <a name='ChangeLogs'></a>
 <h2>Change Logs (3)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>usr/doc/gstreamer-0.10.23/NEWS</td>
@@ -2900,7 +2900,7 @@ div.p_list {
 </table>
 <a name='InformationFiles'></a>
 <h2>Information Files (12)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>usr/doc/gstreamer-0.10.23/ABOUT-NLS</td>
@@ -2953,7 +2953,7 @@ div.p_list {
 </table>
 <a name='Licenses'></a>
 <h2>Licenses (2)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>usr/doc/gstreamer-0.10.23/COPYING</td>
@@ -2966,7 +2966,7 @@ div.p_list {
 </table>
 <a name='ReadmeFiles'></a>
 <h2>Readme Files (2)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>usr/doc/gstreamer-0.10.23/README</td>
@@ -2979,7 +2979,7 @@ div.p_list {
 </table>
 <a name='TextFiles'></a>
 <h2>Text Files (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>install/slack-desc</td>
@@ -2998,6 +2998,6 @@ gstreamer-0.10.32-i486-1.txz<br/>
 <br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
 </div>
 <br/><br/><br/><hr/>
-<div style='width:100%;font-size:11px;' align='right'><i>Generated on Tue Mar  6 16:55:48 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.3 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Tue Mar 27 12:02:35 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.3.2 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
 <div style='height:999px;'></div>
 </body></html>

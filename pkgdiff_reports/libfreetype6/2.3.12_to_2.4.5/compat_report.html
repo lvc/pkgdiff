@@ -9,7 +9,7 @@
     </title>
 <style type="text/css">
 body {
-    font-family:Arial;
+    font-family:Arial, sans-serif;
     color:Black;
     font-size:14px;
 }
@@ -41,14 +41,14 @@ table.summary th {
     font-size:15px;
     white-space:nowrap;
     border:1px inset gray;
+    padding: 3px;
 }
 table.summary td {
-    padding-left:5px;
-    padding-right:5px;
     text-align:right;
     font-size:16px;
     white-space:nowrap;
     border:1px inset gray;
+    padding: 3px 5px 3px 5px;
 }
 table.summary td.left {
     text-align:left;
@@ -99,22 +99,22 @@ div.p_list {
     <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
     <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>
 <h2>Test Info</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th class='left'>Group Name</th><td>libfreetype6</td></tr>
 <tr><th class='left'>Package Format</th><td>RPM</td></tr>
 <tr><th class='left'>Version #1</th><td>2.3.12</td></tr>
 <tr><th class='left'>Version #2</th><td>2.4.5</td></tr>
 </table>
 <h2>Test Results</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>4</a></td></tr>
 <tr><th class='left'>Total Dependencies</th><td><a href='#Deps' style='color:Blue;'>27</a></td></tr>
 <tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>193</a></td></tr>
-<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(24.9%)</b></span></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(39.4%)</b></span></td></tr>
 </table>
 <a name='Info'></a>
 <h2>Changes In Package Info</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Package</th><th>Status</th><th>Delta</th><th>Visual Diff</th></tr>
 <tr>
 <td class='left f_path'>libfreetype6</td>
@@ -131,7 +131,7 @@ div.p_list {
 </table>
 <a name='Deps'></a>
 <h2>Changes In "Provides" Dependencies</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>
 <tr>
 <td class='left f_path'>devel(libfreetype)  </td>
@@ -189,7 +189,7 @@ div.p_list {
 </tr>
 </table>
 <h2>Changes In "Requires" Dependencies</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>
 <tr>
 <td class='left f_path'>bash  </td>
@@ -266,25 +266,25 @@ div.p_list {
 <tr>
 <td class='left f_path failed'>rpmlib(CompressedFileNames)</td>
 <td class='failed'>removed</td>
-<td class='value'><= 3.0.4-1</td>
+<td class='value'>&lt;= 3.0.4-1</td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path failed'>rpmlib(PayloadFilesHavePrefix)</td>
 <td class='failed'>removed</td>
-<td class='value'><= 4.0-1</td>
+<td class='value'>&lt;= 4.0-1</td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>rpmlib(PayloadIsLzma)</td>
 <td class='passed'>unchanged</td>
-<td class='value'><= 4.4.6-1</td>
-<td class='value'><= 4.4.6-1</td>
+<td class='value'>&lt;= 4.4.6-1</td>
+<td class='value'>&lt;= 4.4.6-1</td>
 </tr>
 <tr>
 <td class='left f_path failed'>rpmlib(VersionedDependencies)</td>
 <td class='failed'>removed</td>
-<td class='value'><= 3.0.3-1</td>
+<td class='value'>&lt;= 3.0.3-1</td>
 <td></td>
 </tr>
 <tr>
@@ -301,14 +301,14 @@ div.p_list {
 </tr>
 </table>
 <a name='Files'></a><h2>Changes In Files</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>File Type</th><th>Total</th><th>Added</th><th>Removed</th><th>Changed</th></tr>
 <tr>
 <td class='left'>Header file</td>
 <td><a href='#HeaderFiles' style='color:Blue;'>49</a></td>
-<td><a href='#HeaderFiles' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#HeaderFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
-<td><a href='#HeaderFiles' style='color:Blue;'>20</a></td>
+<td class='warning'><a href='#HeaderFiles' style='color:Blue;'>20</a></td>
 </tr>
 <tr>
 <td class='left'>C program</td>
@@ -320,15 +320,15 @@ div.p_list {
 <tr>
 <td class='left'>C++ program</td>
 <td><a href='#CPPPrograms' style='color:Blue;'>3</a></td>
-<td><a href='#CPPPrograms' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#CPPPrograms' style='color:Blue;'>1</a></td>
 <td>0</td>
-<td><a href='#CPPPrograms' style='color:Blue;'>1</a></td>
+<td class='warning'><a href='#CPPPrograms' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
 <td class='left'>Shared library</td>
 <td><a href='#SharedLibraries' style='color:Blue;'>2</a></td>
-<td><a href='#SharedLibraries' style='color:Blue;'>1</a></td>
-<td><a href='#SharedLibraries' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#SharedLibraries' style='color:Blue;'>1</a></td>
+<td class='failed'><a href='#SharedLibraries' style='color:Blue;'>1</a></td>
 <td>0</td>
 </tr>
 <tr>
@@ -336,14 +336,14 @@ div.p_list {
 <td><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
+<td class='warning'><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
 <td class='left'>Libtool file</td>
 <td><a href='#LibtoolFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#LibtoolFiles' style='color:Blue;'>1</a></td>
+<td class='warning'><a href='#LibtoolFiles' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
 <td class='left'>M4 macro file</td>
@@ -357,14 +357,14 @@ div.p_list {
 <td><a href='#PkgConfigFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#PkgConfigFiles' style='color:Blue;'>1</a></td>
+<td class='warning'><a href='#PkgConfigFiles' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
 <td class='left'>Symbolic link</td>
 <td><a href='#SymbolicLinks' style='color:Blue;'>3</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#SymbolicLinks' style='color:Blue;'>2</a></td>
+<td class='warning'><a href='#SymbolicLinks' style='color:Blue;'>2</a></td>
 </tr>
 <tr>
 <td class='left'>Git file</td>
@@ -376,14 +376,14 @@ div.p_list {
 <tr>
 <td class='left'>HTML page</td>
 <td><a href='#HTML' style='color:Blue;'>58</a></td>
-<td><a href='#HTML' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#HTML' style='color:Blue;'>1</a></td>
 <td>0</td>
-<td><a href='#HTML' style='color:Blue;'>42</a></td>
+<td class='warning'><a href='#HTML' style='color:Blue;'>42</a></td>
 </tr>
 <tr>
 <td class='left'>Qt Project file</td>
 <td><a href='#QtProjectFiles' style='color:Blue;'>1</a></td>
-<td><a href='#QtProjectFiles' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#QtProjectFiles' style='color:Blue;'>1</a></td>
 <td>0</td>
 <td>0</td>
 </tr>
@@ -406,21 +406,21 @@ div.p_list {
 <td><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
+<td class='warning'><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
 <td class='left'>Information file</td>
 <td><a href='#InformationFiles' style='color:Blue;'>17</a></td>
 <td>0</td>
-<td><a href='#InformationFiles' style='color:Blue;'>2</a></td>
-<td><a href='#InformationFiles' style='color:Blue;'>5</a></td>
+<td class='failed'><a href='#InformationFiles' style='color:Blue;'>2</a></td>
+<td class='warning'><a href='#InformationFiles' style='color:Blue;'>5</a></td>
 </tr>
 <tr>
 <td class='left'>License</td>
 <td><a href='#Licenses' style='color:Blue;'>3</a></td>
-<td><a href='#Licenses' style='color:Blue;'>1</a></td>
-<td><a href='#Licenses' style='color:Blue;'>1</a></td>
-<td><a href='#Licenses' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#Licenses' style='color:Blue;'>1</a></td>
+<td class='failed'><a href='#Licenses' style='color:Blue;'>1</a></td>
+<td class='warning'><a href='#Licenses' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
 <td class='left'>Readme file</td>
@@ -434,12 +434,12 @@ div.p_list {
 <td><a href='#TextFiles' style='color:Blue;'>3</a></td>
 <td>0</td>
 <td>0</td>
-<td><a href='#TextFiles' style='color:Blue;'>1</a></td>
+<td class='warning'><a href='#TextFiles' style='color:Blue;'>1</a></td>
 </tr>
 </table>
 <a name='HeaderFiles'></a>
 <h2>Header Files (49)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/config/ftconfig.h</td>
@@ -787,7 +787,7 @@ div.p_list {
 </table>
 <a name='CPrograms'></a>
 <h2>C Programs (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/tutorial/example1.c</td>
@@ -799,7 +799,7 @@ div.p_list {
 </table>
 <a name='CPPPrograms'></a>
 <h2>C++ Programs (3)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/tutorial/example2.cpp</td>
@@ -825,7 +825,7 @@ div.p_list {
 </table>
 <a name='SharedLibraries'></a>
 <h2>Shared Libraries (2)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>/usr/lib/libfreetype.so.6.4.0</td>
@@ -838,7 +838,7 @@ div.p_list {
 </table>
 <a name='ShellPrograms'></a>
 <h2>Shell Programs (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/bin/multiarch-i386-linux/freetype-config</td>
@@ -850,19 +850,19 @@ div.p_list {
 </table>
 <a name='LibtoolFiles'></a>
 <h2>Libtool Files (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/lib/libfreetype.la</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.1%</td>
 <td></td>
 <td></td>
 </tr>
 </table>
 <a name='M4'></a>
 <h2>M4 Macro Files (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/aclocal/freetype2.m4</td>
@@ -874,7 +874,7 @@ div.p_list {
 </table>
 <a name='PkgConfigFiles'></a>
 <h2>Pkg-config Files (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/lib/pkgconfig/freetype2.pc</td>
@@ -886,7 +886,7 @@ div.p_list {
 </table>
 <a name='SymbolicLinks'></a>
 <h2>Symbolic Links (3)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/bin/freetype-config</td>
@@ -912,7 +912,7 @@ div.p_list {
 </table>
 <a name='GitFiles'></a>
 <h2>Git Files (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/.gitignore</td>
@@ -924,7 +924,7 @@ div.p_list {
 </table>
 <a name='HTML'></a>
 <h2>HTML Pages (58)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/design/design-1.html</td>
@@ -1020,7 +1020,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/glyphs/glyphs-6.html</td>
 <td class='warning'>changed</td>
-<td class='value'>6.5%</td>
+<td class='value'>6.6%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1055,14 +1055,14 @@ div.p_list {
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-bdf_fonts.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-bitmap_handling.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1083,21 +1083,21 @@ div.p_list {
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-cid_fonts.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-computations.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.003%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-font_formats.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.03%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1118,28 +1118,28 @@ div.p_list {
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-glyph_stroker.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.002%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-glyph_variants.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-gx_validation.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-gzip.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.02%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1153,7 +1153,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-incremental.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.005%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1181,14 +1181,14 @@ div.p_list {
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-lzw.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.02%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-mac_specific.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1202,14 +1202,14 @@ div.p_list {
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-multiple_masters.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.004%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-ot_validation.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1223,42 +1223,42 @@ div.p_list {
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-pfr_fonts.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-quick_advance.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-raster.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.003%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-sfnt_names.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-sizes_management.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-system_interface.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.3%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1272,7 +1272,7 @@ div.p_list {
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-truetype_engine.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.03%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1286,14 +1286,14 @@ div.p_list {
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-type1_tables.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.004%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-user_allocation.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.1%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1307,14 +1307,14 @@ div.p_list {
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/ft2-winfnt_fonts.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.01%</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/tutorial/step1.html</td>
 <td class='warning'>changed</td>
-<td class='value'>100%</td>
+<td class='value'>0.1%</td>
 <td></td>
 <td></td>
 </tr>
@@ -1335,7 +1335,7 @@ div.p_list {
 </table>
 <a name='QtProjectFiles'></a>
 <h2>Qt Project Files (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path new'>/usr/share/doc/libfreetype6-devel/tutorial/example4.pro</td>
@@ -1347,7 +1347,7 @@ div.p_list {
 </table>
 <a name='ImageFiles'></a>
 <h2>Image Files (25)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/design/basic-design.png</td>
@@ -1527,7 +1527,7 @@ div.p_list {
 </table>
 <a name='Directories'></a>
 <h2>Directories (21)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th></tr>
 <tr>
 <td class='left f_path'>/usr</td>
@@ -1616,7 +1616,7 @@ div.p_list {
 </table>
 <a name='ChangeLogs'></a>
 <h2>Change Logs (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/CHANGES</td>
@@ -1628,7 +1628,7 @@ div.p_list {
 </table>
 <a name='InformationFiles'></a>
 <h2>Information Files (17)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/CUSTOMIZE</td>
@@ -1752,7 +1752,7 @@ div.p_list {
 </table>
 <a name='Licenses'></a>
 <h2>Licenses (3)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>/usr/share/doc/libfreetype6-devel/GPL.TXT</td>
@@ -1778,7 +1778,7 @@ div.p_list {
 </table>
 <a name='ReadmeFiles'></a>
 <h2>Readme Files (1)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/README</td>
@@ -1790,7 +1790,7 @@ div.p_list {
 </table>
 <a name='TextFiles'></a>
 <h2>Text Files (3)</h2><hr/>
-<table cellpadding='3' cellspacing='0' class='summary'>
+<table class='summary'>
 <tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/formats.txt</td>
@@ -1825,6 +1825,6 @@ libfreetype6-devel-2.4.5-2-mdv2011.0.i586.rpm<br/>
 <br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
 </div>
 <br/><br/><br/><hr/>
-<div style='width:100%;font-size:11px;' align='right'><i>Generated on Tue Mar  6 17:07:16 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.3 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Tue Mar 27 11:58:28 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.3.2 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
 <div style='height:999px;'></div>
 </body></html>
