@@ -305,6 +305,8 @@ my $RENAME_CONTENT_MATCH = 0.85;
 my $MOVE_CONTENT_MATCH = 0.90;
 my $DEFAULT_WIDTH = 75;
 my $DIFF_PRE_LINES = 10;
+my $EXACT_DIFF_SIZE = 256*1024;
+my $EXACT_DIFF_RATE = 0.1;
 
 my %Group = (
     "Count1"=>0,
@@ -547,7 +549,9 @@ sub checkDiff($$)
     }
     my $Size2 = getSize($P2);
     my $Rate = abs($Size1 - $Size2)/$Size1;
-    if($Rate*($Size1 + $Size2)/2<1024)
+    my $AvgSize = ($Size1 + $Size2)/2;
+    if($AvgSize<$EXACT_DIFF_SIZE
+    and $Rate<$EXACT_DIFF_RATE)
     {
         if(-T $P1)
         { # Text
