@@ -181,7 +181,7 @@ sub scenario()
         print "-- Installing $EXE_PATH/$TOOL_SNAME\n";
         mkpath($EXE_PATH);
         writeFile($EXE_PATH."/".$TOOL_SNAME, $Content);
-        chmod(0755, $EXE_PATH."/".$TOOL_SNAME);
+        chmod(0775, $EXE_PATH."/".$TOOL_SNAME);
         
         # copy modules
         if(-d $ARCHIVE_DIR."/modules")
@@ -192,7 +192,7 @@ sub scenario()
                 my $TOOLS_PATH = $MODULES_PATH."/modules/Internals/Tools";
                 my @Tools = listDir($TOOLS_PATH);
                 foreach my $Tool (@Tools) {
-                    chmod(0755, $TOOLS_PATH."/".$Tool);
+                    chmod(0775, $TOOLS_PATH."/".$Tool);
                 }
         }
         

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# pkgdiff - Package Changes Analyzer 1.3.2
+# PkgDiff - Package Changes Analyzer 1.3.3
 # A tool for analyzing changes in Linux software packages
 #
 # Copyright (C) 2011-2012 ROSA Laboratory.
@@ -19,7 +19,8 @@
 # ============
 #  Perl 5 (5.8-5.14)
 #  GNU Binutils (readelf)
-#  GNU Diff, Wdiff
+#  GNU Diff
+#  GNU Wdiff
 #  GNU Awk
 #  RPM (rpm, rpmbuild, rpm2cpio) for analysis of RPM-packages
 #  DPKG (dpkg, dpkg-deb) for analysis of DEB-packages
@@ -47,7 +48,7 @@ use File::Temp qw(tempdir);
 use File::Compare;
 use Cwd qw(abs_path cwd);
 
-my $TOOL_VERSION = "1.3.2";
+my $TOOL_VERSION = "1.3.3";
 my $ORIG_DIR = cwd();
 my $TMP_DIR = tempdir(CLEANUP=>1);
 
@@ -85,7 +86,7 @@ my %HomePage = (
     "Dev"=>"http://pkgdiff.github.com/pkgdiff/"
 );
 
-my $ShortUsage = "Package Changes Analyzer (pkgdiff) $TOOL_VERSION
+my $ShortUsage = "Package Changes Analyzer (PkgDiff) $TOOL_VERSION
 A tool for analyzing changes in Linux software packages
 Copyright (C) 2012 ROSA Laboratory
 License: GNU GPL
@@ -137,7 +138,7 @@ GetOptions("h|help!" => \$Help,
   "ignore-blank-lines" => \$IgnoreBlankLines,
   "quick!" => \$QuickMode,
   "minimal!" => \$Minimal,
-  "browse=s" => \$Browse,
+  "browse|b=s" => \$Browse,
   "debug!" => \$Debug
 ) or ERR_MESSAGE();
 
@@ -149,11 +150,11 @@ sub ERR_MESSAGE()
 
 my $HelpMessage="
 NAME:
-  Package Changes Analyzer ($CmdName)
+  Package Changes Analyzer
   A tool for analyzing changes in Linux software packages
 
 DESCRIPTION:
-  Package Changes Analyzer (pkgdiff) is a tool for analyzing
+  Package Changes Analyzer (PkgDiff) is a tool for analyzing
   changes in Linux software packages (RPM, DEB, TAR.GZ, etc).
 
   The tool is intended for Linux maintainers who are interested
@@ -218,7 +219,7 @@ OTHER OPTIONS:
   -report-path PATH
       Path to the report.
       Default:
-        pkgdiff_reports/<pkg>/<v1>_to_<v2>/compat_report.html
+        pkgdiff_reports/<pkg>/<v1>_to_<v2>/changes_report.html
 
   -details
       Try to create detailed reports.
@@ -249,7 +250,7 @@ OTHER OPTIONS:
   -minimal
       Try to find a smaller set of changes.
 
-  -browse PROGRAM
+  -browse|-b PROGRAM
       Open report(s) in the browser (firefox, opera, etc.).
 
   -debug
@@ -257,7 +258,7 @@ OTHER OPTIONS:
 
 REPORT:
     Report will be generated to:
-        pkgdiff_reports/<pkg>/<v1>_to_<v2>/compat_report.html
+        pkgdiff_reports/<pkg>/<v1>_to_<v2>/changes_report.html
 
 EXIT CODES:
     0 - Compatible. The tool has run without any errors.
@@ -427,12 +428,12 @@ sub compareFiles($$$$)
     {
         if(not -l $P1)
         { # broken symlinks
-            return ();
+            return (0, "", "", 0);
         }
     }
     my $Format = getFormat($P1);
     if($Format ne getFormat($P2)) {
-        return ();
+        return (0, "", "", 0);
     }
     if(getSize($P1) == getSize($P2))
     { # equal size
@@ -457,9 +458,10 @@ sub compareFiles($$$$)
             return (2, "", "", 1);
         }
     }
-    my ($Changed, $DLink, $Rate, $RLink) = ();
+    my ($Changed, $DLink, $RLink, $Rate) = (0, "", "", 0);
     
-    if($FormatInfo{$Format}{"Format"} eq "Text") {
+    if(defined $FormatInfo{$Format}{"Format"}
+    and $FormatInfo{$Format}{"Format"} eq "Text") {
         ($DLink, $Rate) = diffFiles($P1, $P2, getRPath("diffs", $N1));
     }
     elsif($Format eq "LICENSE"
@@ -492,7 +494,7 @@ sub compareFiles($$$$)
         if($Format eq "SYMLINK")
         {
             if(readFile($Page1) eq readFile($Page2)) {
-                return ();
+                return (0, "", "", 0);
             }
         }
         ($DLink, $Rate) = diffFiles($Page1, $Page2, getRPath("diffs", $N1));
@@ -515,13 +517,11 @@ sub compareFiles($$$$)
                 }
             }
         }
-        $DLink =~s/\A\Q$REPORT_DIR\E\///;
-        $RLink =~s/\A\Q$REPORT_DIR\E\///;
+        $DLink=~s/\A\Q$REPORT_DIR\E\///;
+        $RLink=~s/\A\Q$REPORT_DIR\E\///;
         return (1, $DLink, $RLink, $Rate);
     }
-    else {
-        return ();
-    }
+    return (0, "", "", 0);
 }
 
 sub hexDump($)
@@ -614,11 +614,11 @@ sub showFile($$$)
     or $Format eq "COMPILED_OBJECT"
     or $Format eq "STATIC_LIBRARY")
     {
-        $Cmd = "readelf -Wa $Path";
+        $Cmd = "readelf -Wa \"$Path\"";
     }
     elsif($Format eq "SYMLINK")
     {
-        $Cmd = "file -b $Path";
+        $Cmd = "file -b \"$Path\"";
     }
     elsif($Format eq "JAVA_CLASS")
     {
@@ -628,12 +628,12 @@ sub showFile($$$)
         $Name=~s/\.class\Z//;
         $Name=~s/\$/./;
         $Path = $Name;
-        $Cmd = "javap $Path"; # -s -c -private -verbose
+        $Cmd = "javap \"$Path\""; # -s -c -private -verbose
         chdir($Dir);
     }
     my $SPath = $TMP_DIR."/".$Format."/".$Version."/".$Name;
     mkpath(get_dirname($SPath));
-    system($Cmd." >".$SPath." 2>$TMP_DIR/null");
+    system($Cmd." >\"".$SPath."\" 2>$TMP_DIR/null");
     if($Format eq "JAVA_CLASS") {
         chdir($ORIG_DIR);
     }
@@ -776,10 +776,18 @@ sub getLibName($)
 
 sub getSize($)
 {
-    if($Cache{"getSize"}{$_[0]}) {
-        return $Cache{"getSize"}{$_[0]};
+    my $Path = $_[0];
+    if(not $Path) {
+        return 0;
     }
-    return ($Cache{"getSize"}{$_[0]} = -s $_[0]);
+    if($Cache{"getSize"}{$Path}) {
+        return $Cache{"getSize"}{$Path};
+    }
+    if(-l $Path)
+    { # symlinks
+        return ($Cache{"getSize"}{$Path} = length(`file -b \"$Path\"`));
+    }
+    return ($Cache{"getSize"}{$Path} = -s $Path);
 }
 
 sub diffFiles($$$)
@@ -978,7 +986,9 @@ sub detectChanges()
             "Total"=>0,
             "Added"=>0,
             "Removed"=>0,
-            "Changed"=>0
+            "Changed"=>0,
+            "Size"=>0,
+            "SizeDelta"=>0
         );
     }
     my (%AddedByDir, %RemovedByDir, %AddedByName,
@@ -1149,10 +1159,12 @@ sub detectChanges()
         {
             $Details{"Status"} = "unchanged";
             $Details{"Empty"} = 1;
+            $Details{"Rate"} = 0;
         }
         else
         {
             $Details{"Status"} = "unchanged";
+            $Details{"Rate"} = 0;
         }
         if($NewName = $RenamedFiles{$Name})
         { # renamed files
@@ -1171,7 +1183,6 @@ sub detectChanges()
         }
         elsif($NewName = $MovedFiles{$Name})
         { # moved files
-            
             if($Rate<$MOVE_CONTENT_MATCH) {
                 $Details{"Status"} = "moved";
             }
@@ -1204,6 +1215,14 @@ sub detectChanges()
     # Deps
     foreach my $Kind (keys(%{$PackageDeps{1}}))
     { # removed/changed deps
+        %{$DepChanges{$Kind}} = (
+            "Added"=>0,
+            "Removed"=>0,
+            "Changed"=>0,
+            "Total"=>0,
+            "Size"=>0,
+            "SizeDelta"=>0
+        );
         foreach my $Name (keys(%{$PackageDeps{1}{$Kind}}))
         {
             my $Size = length($Name);
@@ -1251,6 +1270,14 @@ sub detectChanges()
     }
     
     # Info
+    %InfoChanges = (
+        "Added"=>0,
+        "Removed"=>0,
+        "Changed"=>0,
+        "Total"=>0,
+        "Size"=>0,
+        "SizeDelta"=>0
+    );
     foreach my $Package (sort keys(%PackageInfo))
     {
         my $Old = $PackageInfo{$Package}{"V1"};
@@ -1506,7 +1533,7 @@ sub get_Report_Files()
                 next;
             }
             my %Info = %{$Details{$File}};
-            my ($Join, $Color1, $Color2) = ();
+            my ($Join, $Color1, $Color2) = ("", "", "");
             if($Info{"Status"} eq "renamed"
             or $Info{"Status"} eq "moved")
             {
@@ -1783,15 +1810,17 @@ sub identifyFile($$)
     if($Type eq "Ext"
     or $Type eq "iExt")
     {
-        if($Name=~/\.(\w+\.\w+)(\.in|)\Z/i
-        and my $ID = $FileFormat{$Type}{$1})
+        if($Name=~/\.(\w+\.\w+)(\.in|)\Z/i)
         { # Double extension
-            return $ID;
+            if(my $ID = $FileFormat{$Type}{$1}) {
+                return $ID;
+            }
         }
-        elsif($Name=~/\.(\w+)(\.in|)\Z/i
-        and my $ID = $FileFormat{$Type}{$1})
+        if($Name=~/\.(\w+)(\.in|)\Z/i)
         { # Single extension
-            return $ID;
+            if(my $ID = $FileFormat{$Type}{$1}) {
+                return $ID;
+            }
         }
     }
     return "";
@@ -1843,9 +1872,9 @@ sub getFormat_($)
     { # check by exact name (case sensitive)
         return $ID;
     }
-    elsif(my $ID = identifyFile(get_filename($Path), "iName"))
-    { # check by exact name
-        return $ID;
+    elsif(my $ID2 = identifyFile(get_filename($Path), "iName"))
+    { # check by exact name (case insensitive)
+        return $ID2;
     }
     elsif(my $Kind = isSCM_File($Path)) {
         return $Kind;
@@ -1909,13 +1938,13 @@ sub getFormat_($)
     elsif($Name=~/\A(CMakeLists.*\.txt)\Z/i) {
         return "CMAKE";
     }
-    elsif(my $ID = identifyFile(get_filename($Path), "Ext"))
+    elsif(my $ID3 = identifyFile(get_filename($Path), "Ext"))
     { # check by extension (case sensitive)
-        return $ID;
+        return $ID3;
     }
-    elsif(my $ID = identifyFile(get_filename($Path), "iExt"))
-    { # check by extension
-        return $ID;
+    elsif(my $ID4 = identifyFile(get_filename($Path), "iExt"))
+    { # check by extension (case insensitive)
+        return $ID4;
     }
     elsif(-f $Path)
     {
@@ -1931,8 +1960,8 @@ sub getFormat_($)
             and my $ID = $FormatInfo{$Term}{"ID"}) {
                 return $ID;
             }
-            elsif(my $ID = $TermFormat{$Term}) {
-                return $ID;
+            elsif(my $ID2 = $TermFormat{$Term}) {
+                return $ID2;
             }
         }
         if($Info=~/compressed/i) {
@@ -2259,7 +2288,7 @@ sub readPackage($$)
             exitStatus("Not_Found", "can't find \"dpkg-deb\"");
         }
         mkpath($CPath);
-        system("dpkg-deb --extract $Path $CPath");
+        system("dpkg-deb --extract \"$Path\" \"$CPath\"");
         if($?) {
             exitStatus("Error", "can't extract package v$Version");
         }
@@ -2301,7 +2330,7 @@ sub readPackage($$)
             exitStatus("Not_Found", "can't find \"cpio\"");
         }
         mkpath($CPath);
-        system("cd $CPath && rpm2cpio \"".abs_path($Path)."\" | cpio -id --quiet");
+        system("cd \"$CPath\" && rpm2cpio \"".abs_path($Path)."\" | cpio -id --quiet");
         if($?) {
             exitStatus("Error", "can't extract package v$Version");
         }
@@ -2656,9 +2685,7 @@ sub readFileTypes()
         if(my $Title = parseTag(\$FileType, "title")) {
             $FormatInfo{$ID}{"Title"} = $Title;
         }
-        if(my $Weight = parseTag(\$FileType, "weight")) {
-            $FormatInfo{$ID}{"Weight"} = $Weight;
-        }
+        $FormatInfo{$ID}{"Weight"} = parseTag(\$FileType, "weight");
         if(my $Anchor = parseTag(\$FileType, "anchor")) {
             $FormatInfo{$ID}{"Anchor"} = $Anchor;
         }
@@ -2774,7 +2801,7 @@ sub scenario()
         exit(0);
     }
     if($ShowVersion) {
-        printMsg("INFO", "Package Changes Analyzer (pkgdiff) $TOOL_VERSION\nCopyright (C) 2012 ROSA Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
+        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2012 ROSA Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
         exit(0);
     }
     if($DumpVersion) {
@@ -2873,9 +2900,12 @@ sub scenario()
     if($Group{"Count1"} ne $Group{"Count2"}) {
         printMsg("WARNING", "different number of packages in descriptors");
     }
-    $Group{"Arch"} = $Group{"Arch1"};
-    if($Group{"Arch1"} ne $Group{"Arch2"}) {
-        printMsg("WARNING", "different architectures of packages (\"".$Group{"Arch1"}."\" and \"".$Group{"Arch2"}."\")");
+    if(defined $Group{"Arch1"} and defined $Group{"Arch2"})
+    {
+        $Group{"Arch"} = $Group{"Arch1"};
+        if($Group{"Arch1"} ne $Group{"Arch2"}) {
+            printMsg("WARNING", "different architectures of packages (\"".$Group{"Arch1"}."\" and \"".$Group{"Arch2"}."\")");
+        }
     }
     if(defined $Group{"Format"}{"DEB"}
     and defined $Group{"Format"}{"RPM"}) {
@@ -2892,7 +2922,7 @@ sub scenario()
     else
     {
         $REPORT_DIR = "pkgdiff_reports/".$Group{"Name"}."/".$Group{"V1"}."_to_".$Group{"V2"};
-        $REPORT_PATH = $REPORT_DIR."/compat_report.html";
+        $REPORT_PATH = $REPORT_DIR."/changes_report.html";
         if(-d $REPORT_DIR)
         {
             rmtree($REPORT_DIR."/info-diffs");
