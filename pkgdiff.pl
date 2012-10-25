@@ -1,15 +1,15 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.3.3
+# PkgDiff - Package Changes Analyzer 1.4
 # A tool for analyzing changes in Linux software packages
 #
-# Copyright (C) 2011-2012 ROSA Laboratory.
+# Copyright (C) 2011-2012 ROSA Laboratory
 #
 # Written by Andrey Ponomarenko
 #
 # PLATFORMS
 # =========
-#  GNU/Linux, FreeBSD
+#  GNU/Linux, FreeBSD, Mac OS X
 #
 # PACKAGE FORMATS
 # ===============
@@ -17,17 +17,17 @@
 #
 # REQUIREMENTS
 # ============
-#  Perl 5 (5.8-5.14)
-#  GNU Binutils (readelf)
+#  Perl 5 (5.8 or newer)
 #  GNU Diff
 #  GNU Wdiff
 #  GNU Awk
+#  GNU Binutils (readelf)
 #  RPM (rpm, rpmbuild, rpm2cpio) for analysis of RPM-packages
 #  DPKG (dpkg, dpkg-deb) for analysis of DEB-packages
 #
 # SUGGESTIONS
 # ===========
-#  ABI Compliance Checker (>=1.96.7)
+#  ABI Compliance Checker (1.96.7 or newer)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,13 +42,16 @@
 # with this program. If not, see <http://www.gnu.org/licenses/>.
 ###########################################################################
 use Getopt::Long;
-Getopt::Long::Configure ("posix_default", "no_ignore_case");
+Getopt::Long::Configure ("posix_default", "no_ignore_case", "permute");
 use File::Path qw(mkpath rmtree);
 use File::Temp qw(tempdir);
 use File::Compare;
 use Cwd qw(abs_path cwd);
+use Config;
+use Fcntl;
 
-my $TOOL_VERSION = "1.3.3";
+my $TOOL_VERSION = "1.4";
+my $OSgroup = get_OSgroup();
 my $ORIG_DIR = cwd();
 my $TMP_DIR = tempdir(CLEANUP=>1);
 
@@ -62,16 +65,15 @@ my $ABICC = "abi-compliance-checker";
 my ($Help, $ShowVersion, $DumpVersion, $GenerateTemplate, %Descriptor,
 $CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug,
 $SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Browse, $Minimal,
-$IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines);
+$IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $OpenReport);
 
 my $CmdName = get_filename($0);
 
 my %ERROR_CODE = (
-    # Compatible verdict
-    "Compatible"=>0,
-    "Success"=>0,
-    # Incompatible verdict
-    "Incompatible"=>1,
+    # Unchanged verdict
+    "Unchanged"=>0,
+    # Changed verdict
+    "Changed"=>1,
     # Undifferentiated error code
     "Error"=>2,
     # System command is not found
@@ -86,13 +88,17 @@ my %HomePage = (
     "Dev"=>"http://pkgdiff.github.com/pkgdiff/"
 );
 
+my %Contacts = (
+    "Main"=>"aponomarenko\@rosalab.ru"
+);
+
 my $ShortUsage = "Package Changes Analyzer (PkgDiff) $TOOL_VERSION
 A tool for analyzing changes in Linux software packages
 Copyright (C) 2012 ROSA Laboratory
 License: GNU GPL
 
-Usage: $CmdName [options]
-Example: $CmdName -old OLD.rpm -new NEW.rpm
+Usage: $CmdName PKG1 PKG2 [options]
+Example: $CmdName OLD.rpm NEW.rpm
 
 More info: $CmdName --help\n";
 
@@ -121,10 +127,10 @@ foreach (2 .. $#ARGV)
 GetOptions("h|help!" => \$Help,
   "v|version!" => \$ShowVersion,
   "dumpversion!" => \$DumpVersion,
-# general options
+# arguments
   "old=s" => \$Descriptor{1},
   "new=s" => \$Descriptor{2},
-# other options
+# options
   "check-usage!" => \$CheckUsage,
   "pkg-manager=s" => \$PackageManager,
   "template!" => \$GenerateTemplate,
@@ -139,8 +145,22 @@ GetOptions("h|help!" => \$Help,
   "quick!" => \$QuickMode,
   "minimal!" => \$Minimal,
   "browse|b=s" => \$Browse,
+  "open!" => \$OpenReport,
   "debug!" => \$Debug
 ) or ERR_MESSAGE();
+
+if(@ARGV)
+{ 
+    if($#ARGV==1)
+    { # pkgdiff OLD.pkg NEW.pkg
+        $Descriptor{1} = $ARGV[0];
+        $Descriptor{2} = $ARGV[1];
+    }
+    else {
+        ERR_MESSAGE();
+    }
+}
+
 
 sub ERR_MESSAGE()
 {
@@ -164,23 +184,13 @@ DESCRIPTION:
   modify it under the terms of the GNU GPL.
 
 USAGE:
-  $CmdName [options]
+  $CmdName PKG1 PKG2 [options]
 
 EXAMPLE:
-  $CmdName -old OLD.rpm -new NEW.rpm
+  $CmdName OLD.rpm NEW.rpm
 
-INFORMATION OPTIONS:
-  -h|-help
-      Print this help.
-
-  -v|-version
-      Print version information.
-
-  -dumpversion
-      Print the tool version ($TOOL_VERSION) and don't do anything else.
-
-GENERAL OPTIONS:
-  -old PATH
+ARGUMENTS:
+   PKG1
       Path to the old version of a package (RPM, DEB, TAR.GZ, etc).
       
       If you need to analyze a group of packages then you can
@@ -200,22 +210,20 @@ GENERAL OPTIONS:
             ...
           </packages>
 
-  -new PATH
+   PKG2
       Path to the new version of a package (RPM, DEB, TAR.GZ, etc).
 
-OTHER OPTIONS:
-  -check-usage
-      Check if package content is used by other
-      packages in the repository.
+INFORMATION OPTIONS:
+  -h|-help
+      Print this help.
 
-  -pkg-manager NAME
-      Specify package management tool.
-      Supported:
-        urpm - Mandriva URPM
+  -v|-version
+      Print version information.
 
-  -template
-      Create XML-descriptor template ./VERSION.xml
+  -dumpversion
+      Print the tool version ($TOOL_VERSION) and don't do anything else.
 
+GENERAL OPTIONS:
   -report-path PATH
       Path to the report.
       Default:
@@ -250,8 +258,24 @@ OTHER OPTIONS:
   -minimal
       Try to find a smaller set of changes.
 
-  -browse|-b PROGRAM
+OTHER OPTIONS:
+  -check-usage
+      Check if package content is used by other
+      packages in the repository.
+
+  -pkg-manager NAME
+      Specify package management tool.
+      Supported:
+        urpm - Mandriva URPM
+
+  -template
+      Create XML-descriptor template ./VERSION.xml
+
+  -b|-browse PROGRAM
       Open report(s) in the browser (firefox, opera, etc.).
+      
+  -open
+      Open report(s) in the default browser.
 
   -debug
       Show debug info.
@@ -261,11 +285,11 @@ REPORT:
         pkgdiff_reports/<pkg>/<v1>_to_<v2>/changes_report.html
 
 EXIT CODES:
-    0 - Compatible. The tool has run without any errors.
-    non-zero - Incompatible or the tool has run with errors.
+    0 - Unchanged. The tool has run without any errors.
+    non-zero - Changed or the tool has run with errors.
 
 REPORT BUGS TO:
-    Andrey Ponomarenko <aponomarenko\@mandriva.org>
+    Andrey Ponomarenko <".$Contacts{"Main"}.">
 
 MORE INFORMATION:
     ".$HomePage{"Dev"}."\n";
@@ -317,6 +341,7 @@ my %Group = (
 my %FormatInfo = ();
 my %FileFormat = ();
 my %TermFormat = ();
+my %DirFormat = ();
 
 # Cache
 my %Cache;
@@ -327,6 +352,7 @@ my $CheckMode = "Single";
 # Packages
 my %TargetPackages;
 my %PackageFiles;
+my %PathName;
 my %FileChanges;
 my %PackageInfo;
 my %InfoChanges;
@@ -409,15 +435,23 @@ sub get_Modules()
     exitStatus("Module_Error", "can't find modules");
 }
 
-sub readStyles($)
+sub readModule($$)
 {
-    my $Name = $_[0];
-    my $Path = $MODULES_DIR."/Internals/Styles/".$Name;
+    my ($Module, $Name) = @_;
+    my $Path = $MODULES_DIR."/Internals/$Module/".$Name;
     if(not -f $Path) {
         exitStatus("Module_Error", "can't access \'$Path\'");
     }
-    my $Styles = readFile($Path);
-    return "<style type=\"text/css\">\n".$Styles."\n</style>";
+    return readFile($Path);
+}
+
+sub readBytes($)
+{ # ELF: 7f454c46
+    sysopen(FILE, $_[0], O_RDONLY);
+    sysread(FILE, my $Header, 4);
+    close(FILE);
+    my @Bytes = map { sprintf('%02x', ord($_)) } split (//, $Header);
+    return join("", @Bytes);
 }
 
 sub compareFiles($$$$)
@@ -483,6 +517,7 @@ sub compareFiles($$$$)
     elsif($Format eq "SHARED_OBJECT"
     or $Format eq "STATIC_LIBRARY"
     or $Format eq "COMPILED_OBJECT"
+    or $Format eq "SHARED_LIBRARY"
     or $Format eq "EXE"
     or $Format eq "MANPAGE"
     or $Format eq "INFODOC"
@@ -615,6 +650,10 @@ sub showFile($$$)
     or $Format eq "STATIC_LIBRARY")
     {
         $Cmd = "readelf -Wa \"$Path\"";
+    }
+    elsif($Format eq "SHARED_LIBRARY")
+    {
+        $Cmd = "otool -TVL \"$Path\"";
     }
     elsif($Format eq "SYMLINK")
     {
@@ -827,7 +866,7 @@ sub diffFiles($$$)
     }
     if(getSize($Path)<3100)
     { # may be identical or non-text
-        if(readFile($Path)=~/No changes/)
+        if(index(readFile($Path), "No changes")!=-1)
         {
             unlink($Path);
             return "";
@@ -1509,6 +1548,7 @@ sub divideStr($)
 sub get_Report_Files()
 {
     my $Report = "";
+    my $JSort = "title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'";
     foreach my $Format (sort {$FormatInfo{$b}{"Weight"}<=>$FormatInfo{$a}{"Weight"}}
     sort {lc($FormatInfo{$a}{"Summary"}) cmp lc($FormatInfo{$b}{"Summary"})} keys(%FileChanges))
     {
@@ -1519,10 +1559,10 @@ sub get_Report_Files()
         $Report .= "<h2>".$FormatInfo{$Format}{"Title"}." (".$FileChanges{$Format}{"Total"}.")</h2><hr/>\n";
         $Report .= "<table class='summary'>\n";
         $Report .= "<tr>";
-        $Report .= "<th>Name</th>";
-        $Report .= "<th>Status</th>";
+        $Report .= "<th $JSort>Name</th>";
+        $Report .= "<th $JSort>Status</th>";
         if($Format ne "DIR") {
-            $Report .= "<th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th>";
+            $Report .= "<th $JSort>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th>";
         }
         $Report .= "</tr>\n";
         my %Details = %{$FileChanges{$Format}{"Details"}};
@@ -1835,8 +1875,90 @@ sub getFormat($)
     }
     my $Format = getFormat_($Path);
     
+    if($Format=~/\A(OTHER|INFORM|DATA|TEXT)\Z/)
+    { # by directory
+        if(my $Dir = get_dirname($PathName{$Path}))
+        {
+            my $ID = undef;
+            # by dir
+            foreach (reverse(split(/\//, $Dir)))
+            {
+                if($ID = $DirFormat{$_})
+                {
+                    $Format = $ID;
+                    last;
+                }
+            }
+            if(not defined $ID)
+            {
+                # by subdir
+                foreach (keys(%DirFormat))
+                {
+                    next if(index($_, "/")==-1);
+                    if(index($Dir, $_)!=-1)
+                    {
+                        if($Dir=~/(\A|\/)\Q$_\E(\/|\Z)/)
+                        {
+                            $Format = $DirFormat{$_};
+                            last;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    if($Format eq "OTHER")
+    { # semi-automatic
+        if(my $Info = getType($Path))
+        {
+            # by terms
+            my @Terms = getTerms($Info);
+            foreach my $Term (@Terms)
+            {
+                if($Term eq "TEXT"
+                or $Term eq "DATA") {
+                    next;
+                }
+                if(defined $FormatInfo{$Term}
+                and my $ID = $FormatInfo{$Term}{"ID"})
+                {
+                    $Format = $ID;
+                    last;
+                }
+                elsif(my $ID2 = $TermFormat{$Term})
+                {
+                    $Format = $ID2;
+                    last;
+                }
+            }
+        }
+    }
+    
+    if($Format eq "OTHER")
+    { # automatic
+        if(my $Info = getType($Path))
+        {
+            if($Info=~/compressed/i) {
+                $Format = "ARCHIVE";
+            }
+            elsif($Info=~/data/i) {
+                $Format = "DATA";
+            }
+            elsif($Info=~/text/i) {
+                $Format = "TEXT";
+            }
+            elsif($Info=~/executable/i) {
+                $Format = "EXE";
+            }
+            elsif($Info=~/\AELF\s/) {
+                $Format = "ELF_BINARY";
+            }
+        }
+    }
+    
     if($Format eq "SHARED_OBJECT")
-    { # Shared library
+    {
         if(getType($Path)=~/ASCII/i)
         {
             if(readFilePart($Path, 1)=~/GNU ld script/i) {
@@ -1854,6 +1976,7 @@ sub getFormat($)
     { # Unknown
         $Format = "OTHER";
     }
+    
     return ($Cache{"getFormat"}{$Path}=$Format);
 }
 
@@ -1907,7 +2030,7 @@ sub getFormat_($)
       # freetype/ChangeLog
         return "CHANGELOG";
     }
-    elsif($Name=~/\A(INSTALL)(\.|\Z)/
+    elsif($Name=~/\A(INSTALL|TODO)(\.|\-|\Z)/
     or $Name=~/\A[A-Z\-\_]+(\.txt|\.TXT|\Z)/
     or $Name=~/\A[A-Z\_]+\.[A-Z\_]+\Z/)
     { # HOWTO.DEBUG, BUGS, WISHLIST.TXT
@@ -1945,40 +2068,6 @@ sub getFormat_($)
     elsif(my $ID4 = identifyFile(get_filename($Path), "iExt"))
     { # check by extension (case insensitive)
         return $ID4;
-    }
-    elsif(-f $Path)
-    {
-        my $Info = getType($Path);
-        my @Terms = getTerms($Info);
-        foreach my $Term (@Terms)
-        {
-            if($Term eq "TEXT"
-            or $Term eq "DATA") {
-                next;
-            }
-            if(defined $FormatInfo{$Term}
-            and my $ID = $FormatInfo{$Term}{"ID"}) {
-                return $ID;
-            }
-            elsif(my $ID2 = $TermFormat{$Term}) {
-                return $ID2;
-            }
-        }
-        if($Info=~/compressed/i) {
-            return "ARCHIVE";
-        }
-        elsif($Info=~/data/i) {
-            return "DATA";
-        }
-        elsif($Info=~/text/i) {
-            return "TEXT";
-        }
-        elsif($Info=~/executable/i) {
-            return "EXE";
-        }
-        elsif($Info=~/\AELF\s/) {
-            return "ELF_BINARY";
-        }
     }
     return "OTHER";
 }
@@ -2165,6 +2254,7 @@ sub registerPackage($$)
         }
         my $SubDir = "$TMP_DIR/xcontent$Version/$FName";
         $PackageFiles{$Version}{$FName} = $File;
+        $PathName{$File} = $FName;
         if(not get_dirname($FName)
         and getFormat($File) eq "ARCHIVE")
         { # go into archives (for SRPM)
@@ -2376,17 +2466,19 @@ sub getPkgVersion($)
     my $Name = $_[0];
     my $Extension = getExt($Name);
     $Name=~s/\.(\Q$Extension\E)\Z//;
-    if($Name=~/\A(.+[a-z])[\-\_](\d.+?)\Z/i)
+    if($Name=~/\A(.+[a-z])[\-\_](v|)(\d.+?)\Z/i)
     { # libsample-N
-        return ($1, $2);
-    }
-    elsif($Name=~/\A(.+)[\-\_](.+?)\Z/i)
-    { # libsample-N
-        return ($1, $2);
+      # libsample-vN
+        return ($1, $3);
     }
     elsif($Name=~/\A(.+?)(\d[\d\.]*)\Z/i)
     { # libsampleN
         return ($1, $2);
+    }
+    elsif($Name=~/\A(.+)[\-\_](v|)(.+?)\Z/i)
+    { # libsample-N
+      # libsample-vN
+        return ($1, $3);
     }
     elsif($Name=~/\A([a-z_\-]+)(\d.+?)\Z/i)
     { # libsampleNb
@@ -2422,14 +2514,27 @@ sub get_Footer($)
     return $Footer;
 }
 
-sub composeHTML_Head($$$$)
+sub composeHTML_Head($$$$$)
 {
-    my ($Title, $Keywords, $Description, $OtherInHead) = @_;
-    return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n<head>
+    my ($Title, $Keywords, $Description, $Styles, $Scripts) = @_;
+    return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
+    <html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">
+    <head>
     <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
     <meta name=\"keywords\" content=\"$Keywords\" />
     <meta name=\"description\" content=\"$Description\" />
-    <title>\n        $Title\n    </title>\n$OtherInHead\n</head>";
+    <title>
+        $Title
+    </title>
+    <style type=\"text/css\">
+    $Styles
+    </style>
+    <script type=\"text/javascript\" language=\"JavaScript\">
+    <!--
+    $Scripts
+    -->
+    </script>
+    </head>";
 }
 
 sub get_Header()
@@ -2570,24 +2675,31 @@ sub get_Summary()
     if($Affected>=100) {
         $Affected = 100;
     }
+    $RESULT{"affected"} = $Affected;
     
     my $Verdict = "";
     if($TotalChanged)
     {
         $Verdict = "<span style='color:Red;'><b>Changed<br/>(".$Affected."%)</b></span>";
-        $RESULT{"compat"} = "Incompatible";
+        $RESULT{"status"} = "Changed";
     }
     else
     {
         $Verdict = "<span style='color:Green;'><b>Unchanged</b></span>";
-        $RESULT{"compat"} = "Compatible";
+        $RESULT{"status"} = "Unchanged";
     }
     $TestResults .= "<tr><th class='left'>Verdict</th><td>$Verdict</td></tr>\n";
     $TestResults .= "</table>\n";
     
     my $FileChanges = "<a name='Files'></a><h2>Changes In Files</h2><hr/>\n";
     $FileChanges .= "<table class='summary'>\n";
-    $FileChanges .= "<tr><th>File Type</th><th>Total</th><th>Added</th><th>Removed</th><th>Changed</th></tr>\n";
+    $FileChanges .= "<tr>";
+    $FileChanges .= "<th>File Type</th>";
+    $FileChanges .= "<th>Total</th>";
+    $FileChanges .= "<th>Added</th>";
+    $FileChanges .= "<th>Removed</th>";
+    $FileChanges .= "<th>Changed</th>";
+    $FileChanges .= "</tr>\n";
     foreach my $Format (sort {$FormatInfo{$b}{"Weight"}<=>$FormatInfo{$a}{"Weight"}}
     sort {lc($FormatInfo{$a}{"Summary"}) cmp lc($FormatInfo{$b}{"Summary"})} keys(%FormatInfo))
     {
@@ -2644,7 +2756,8 @@ sub get_Source()
 sub createReport($)
 {
     my $Path = $_[0];
-    my $CssStyles = readStyles("Index.css");
+    my $CssStyles = readModule("Styles", "Index.css");
+    my $JScripts = readModule("Scripts", "Sort.js");
     printMsg("INFO", "creating changes report ...");
     
     my $Title = $Group{"Name"}.": ".$Group{"V1"}." to ".$Group{"V2"}." changes report";
@@ -2652,7 +2765,7 @@ sub createReport($)
     my $Header = get_Header();
     my $Description = $Header;
     $Description=~s/<[^<>]+>//g;
-    my $Report = composeHTML_Head($Title, $Keywords, $Description, $CssStyles)."\n<body>\n<div><a name='Top'></a>\n";
+    my $Report = composeHTML_Head($Title, $Keywords, $Description, $CssStyles, $JScripts)."\n<body>\n<div><a name='Top'></a>\n";
     $Report .= $Header."\n";
     my $MainReport = get_Report_Files();
     $Report .= get_Summary();
@@ -2663,9 +2776,106 @@ sub createReport($)
     $Report .= get_Footer($Group{"Name"});
     $Report .= "\n<div style='height:999px;'></div>\n</body></html>";
     writeFile($Path, $Report);
+    
+    if($RESULT{"status"} eq "Changed") {
+        printMsg("INFO", "result: CHANGED (".$RESULT{"affected"}."%)");
+    }
+    else {
+        printMsg("INFO", "result: UNCHANGED");
+    }
+    
     printMsg("INFO", "see detailed report:\n  $Path");
-    if($Browse) {
-        system($Browse." \"".$Path."\" >/dev/null 2>&1 &");
+    
+    if($Browse or $OpenReport)
+    { # open in browser
+        openReport($Path);
+    }
+}
+
+sub check_Cmd($)
+{
+    my $Cmd = $_[0];
+    foreach my $Path (sort {length($a)<=>length($b)} split(/:/, $ENV{"PATH"}))
+    {
+        if(-x $Path."/".$Cmd) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+sub get_OSgroup()
+{
+    my $N = $Config{"osname"};
+    if($N=~/macos|darwin|rhapsody/i) {
+        return "macos";
+    }
+    elsif($N=~/freebsd|openbsd|netbsd/i) {
+        return "bsd";
+    }
+    elsif($N=~/haiku|beos/i) {
+        return "beos";
+    }
+    elsif($N=~/symbian|epoc/i) {
+        return "symbian";
+    }
+    elsif($N=~/win/i) {
+        return "windows";
+    }
+    else {
+        return $N;
+    }
+}
+
+sub openReport($)
+{
+    my $Path = $_[0];
+    my $Cmd = "";
+    if($Browse)
+    { # user-defined browser
+        $Cmd = $Browse." \"$Path\"";
+    }
+    if(not $Cmd)
+    { # default browser
+        if($OSgroup eq "macos") {
+            $Cmd = "open \"$Path\"";
+        }
+        else
+        { # linux, freebsd, solaris
+            my @Browsers = (
+                "x-www-browser",
+                "sensible-browser",
+                "firefox",
+                "opera",
+                "xdg-open",
+                "lynx",
+                "links"
+            );
+            foreach my $Br (@Browsers)
+            {
+                if(check_Cmd($Br))
+                {
+                    $Cmd = $Br." \"$Path\"";
+                    last;
+                }
+            }
+        }
+    }
+    if($Cmd)
+    {
+        if($Debug) {
+            printMsg("INFO", "running $Cmd");
+        }
+        if($OSgroup ne "macos")
+        {
+            if($Cmd!~/lynx|links/) {
+                $Cmd .= "  >\"$TMP_DIR/null\" 2>&1 &";
+            }
+        }
+        system($Cmd);
+    }
+    else {
+        printMsg("ERROR", "cannot open report in browser");
     }
 }
 
@@ -2717,6 +2927,10 @@ sub readFileTypes()
             $Term=~s/\s+/_/g;
             $TermFormat{uc($Term)} = $ID;
         }
+        foreach my $Dir (split(/\s*(\n|,)\s*/, parseTag(\$FileType, "dirs")))
+        {
+            $DirFormat{$Dir} = $ID;
+        }
     }
     foreach my $Format (keys(%FormatInfo))
     {
@@ -2738,11 +2952,17 @@ sub autoTitle($)
         my ($W, $UW) = ($1, ucfirst($1));
         $Title=~s/ $W/ $UW/g;
     }
-    if(not $Title=~s/y\Z/ies/)
-    { # scripts, files, libraries
-        if(not $Title=~s/ch\Z/ches/)
-        { # patches
-            $Title .= "s";
+    if($Title!~/data\Z/i)
+    {
+        if(not $Title=~s/y\Z/ies/)
+        { # scripts, files, libraries
+            if(not $Title=~s/ss\Z/sses/)
+            { # classes
+                if(not $Title=~s/ch\Z/ches/)
+                { # patches
+                    $Title .= "s";
+                }
+            }
         }
     }
     return $Title;
@@ -2827,12 +3047,15 @@ sub scenario()
     if(not -f $DIFF) {
         exitStatus("Not_Found", "can't access \"$DIFF\"");
     }
-    if(my $V = get_dumpversion($ABICC))
+    if($ShowDetails)
     {
-        if(cmpVersions($V, "1.96")==-1)
+        if(my $V = get_dumpversion($ABICC))
         {
-            printMsg("WARNING", "unsupported version of ABI Compliance Checker detected");
-            $ABICC = "";
+            if(cmpVersions($V, "1.96")==-1)
+            {
+                printMsg("WARNING", "unsupported version of ABI Compliance Checker detected");
+                $ABICC = "";
+            }
         }
     }
     if(not $Descriptor{1}) {
@@ -2933,7 +3156,7 @@ sub scenario()
     printMsg("INFO", "comparing packages ...");
     detectChanges();
     createReport($REPORT_PATH);
-    exit($ERROR_CODE{$RESULT{"compat"}});
+    exit($ERROR_CODE{$RESULT{"status"}});
 }
 
 scenario();

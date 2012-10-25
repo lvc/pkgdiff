@@ -50,6 +50,21 @@
 
 <type>
     <id>
+        SHARED_LIBRARY
+    </id>
+    <summary>
+        Dynamic library
+    </summary>
+    <extensions>
+        dylib
+    </extensions>
+    <weight>
+        85
+    </weight>
+</type>
+
+<type>
+    <id>
         SPEC
     </id>
     <summary>
@@ -767,7 +782,7 @@
         RPC file
     </summary>
     <extensions>
-        srpc, rpc
+        srpc, rpc, x
     </extensions>
     <weight>
         40
@@ -1416,7 +1431,7 @@
         mk, make, makefile, Makefile, nmake, kmk, mak
     </extensions>
     <names>
-        Makefile, GNUmakefile, Imakefile
+        Makefile, GNUmakefile, Imakefile, Makeconfig, Makerules
     </names>
     <weight>
         50
@@ -1457,6 +1472,117 @@
     <extensions>
         ucm
     </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        CHARMAP
+    </id>
+    <summary>
+        Charmap file
+    </summary>
+    <extensions>
+        cm
+    </extensions>
+    <dirs>
+        charmaps
+    </dirs>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        ABI_LIST
+    </id>
+    <summary>
+        ABI list
+    </summary>
+    <extensions>
+        abilist
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        LOCALE_DATA
+    </id>
+    <summary>
+        Localization data
+    </summary>
+    <dirs>
+        iconvdata, localedata, locales
+    </dirs>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        TIMEZONE_DATA
+    </id>
+    <summary>
+        Timezone data
+    </summary>
+    <dirs>
+        timezone
+    </dirs>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        CONFIGURE_SCRIPT
+    </id>
+    <summary>
+        Configure script
+    </summary>
+    <names>
+        configure, preconfigure
+    </names>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        VERSIONING
+    </id>
+    <summary>
+        Version file
+    </summary>
+    <names>
+        Version, Versions
+    </names>
     <weight>
         40
     </weight>
@@ -3123,6 +3249,9 @@
     <weight>
         40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
@@ -3219,6 +3348,9 @@
     <weight>
         40
     </weight>
+    <format>
+        Text
+    </format>
     <anchor>
         CSS
     </anchor>
@@ -3232,7 +3364,7 @@
         Data file
     </summary>
     <extensions>
-        data, dat, out, stdout, stdin
+        data, dat, out, stdout, stdin, tbl
     </extensions>
     <weight>
         30

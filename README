@@ -5,7 +5,7 @@ INSTALL:
   sudo perl Makefile.pl -install --prefix=/usr
 
 USAGE:
-  pkgdiff -old OLD.rpm -new NEW.rpm
+  pkgdiff PKG1 PKG2
 
 ADV. USAGE:
   For advanced usage, see output of --help option
