@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="libqb, changes, report" />
     <meta name="description" content="Changes report for the libqb package between 0.4.1-2.fc15 and 0.8.1-2.fc16 versions" />
     <title>
         libqb: 0.4.1-2.fc15 to 0.8.1-2.fc16 changes report
     </title>
-<style type="text/css">
-body {
+    <style type="text/css">
+    body {
     font-family:Arial, sans-serif;
     color:Black;
     font-size:14px;
@@ -90,8 +90,100 @@ div.p_list {
     color:#333333;
     font-size:15px;
 }
-</style>
-</head>
+    </style>
+    <script type="text/javascript" language="JavaScript">
+    <!--
+    function sort(el, status)
+{ 
+    var col_sort = el.innerHTML;
+    var tr = el.parentNode;
+    var table = tr.parentNode;
+    var td, col_sort_num;
+    for (var i=0; (td = tr.getElementsByTagName('th').item(i)); i++)
+    {
+        if(td.innerHTML == col_sort)
+        {
+            col_sort_num = i;
+            if(td.prevsort == 'y') {
+                el.up = Number(!el.up);
+            }
+            else if(td.prevsort == 'n') {
+                td.prevsort = 'y';
+                el.up = 0;
+            }
+            else
+            {
+                if(col_sort_num==0)
+                { // already sorted
+                    td.prevsort = 'n';
+                    el.up = 1;
+                }
+                else if(col_sort_num==2)
+                { // delta
+                    td.prevsort = 'n';
+                    el.up = 1;
+                }
+                else
+                {
+                    td.prevsort = 'y';
+                    el.up = 0;
+                }
+            }
+        }
+        else
+        {
+            if(td.prevsort == 'y') {
+                td.prevsort = 'n';
+            }
+        }
+    }
+    
+    var a = new Array();
+    for(var i=1; i < table.rows.length; i++)
+    {
+        var cols = table.rows[i].getElementsByTagName('td');
+        if(cols.item(status)==null)
+        { // double status
+            a[i-2][2] = table.rows[i];
+        }
+        else
+        {
+            a[i-1] = new Array();
+            var indent = cols.item(col_sort_num).innerHTML;
+            if(indent=='') indent='0';
+            if(indent.substr(indent.length-1, 1)=="%")
+            { // delta
+                indent = indent.substr(0, indent.length-1)*100;
+            }
+            a[i-1][0] = indent;
+            a[i-1][1] = table.rows[i];
+            a[i-1][2] = null;
+        }
+    }
+    
+    // sort table
+    a.sort(sort_array);
+    if(el.up) a.reverse();
+    
+    // draw table
+    for(var i in a)
+    {
+        table.appendChild(a[i][1]);
+        if(a[i][2]!=null) {
+            table.appendChild(a[i][2]);
+        }
+    }
+}
+
+function sort_array(a,b)
+{
+    if(a[0] == b[0]) return 0;
+    if(a[0] > b[0]) return 1;
+    return -1;
+}
+    -->
+    </script>
+    </head>
 <body>
 <div><a name='Top'></a>
 <h1>Changes report for the <span style='color:Blue;'>libqb</span> package between <span style='color:Red;'>0.4.1-2.fc15</span> and <span style='color:Red;'>0.8.1-2.fc16</span> versions</h1>
@@ -205,10 +297,10 @@ div.p_list {
 </tr>
 <tr>
 <td class='left'>Shell program</td>
-<td><a href='#ShellPrograms' style='color:Blue;'>12</a></td>
+<td><a href='#ShellPrograms' style='color:Blue;'>11</a></td>
 <td class='new'><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
 <td class='failed'><a href='#ShellPrograms' style='color:Blue;'>1</a></td>
-<td class='warning'><a href='#ShellPrograms' style='color:Blue;'>3</a></td>
+<td class='warning'><a href='#ShellPrograms' style='color:Blue;'>2</a></td>
 </tr>
 <tr>
 <td class='left'>Automake file</td>
@@ -244,6 +336,13 @@ div.p_list {
 <td>0</td>
 <td>0</td>
 <td class='warning'><a href='#PkgConfigFiles' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
+<td class='left'>Configure script</td>
+<td><a href='#ConfigureScripts' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#ConfigureScripts' style='color:Blue;'>1</a></td>
 </tr>
 <tr>
 <td class='left'>Doxygen file</td>
@@ -305,7 +404,7 @@ div.p_list {
 <a name='HeaderFiles'></a>
 <h2>Header Files (25)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>docs/mainpage.h</td>
 <td class='warning'>changed</td>
@@ -485,7 +584,7 @@ div.p_list {
 <a name='CPrograms'></a>
 <h2>C Programs (48)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path new'>examples/ipcclient.c</td>
 <td class='new'>added</td>
@@ -826,7 +925,7 @@ div.p_list {
 <a name='SpecFiles'></a>
 <h2>Spec Files (2)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>libqb.spec</td>
 <td class='warning'>changed</td>
@@ -845,7 +944,7 @@ div.p_list {
 <a name='Patches'></a>
 <h2>Patches (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path new'>0001-UTIL-fix-qb_timespec_add_ms.patch</td>
 <td class='new'>added</td>
@@ -857,7 +956,7 @@ div.p_list {
 <a name='PerlPrograms'></a>
 <h2>Perl Programs (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>build-aux/gitlog-to-changelog</td>
 <td class='passed'>unchanged</td>
@@ -867,9 +966,9 @@ div.p_list {
 </tr>
 </table>
 <a name='ShellPrograms'></a>
-<h2>Shell Programs (12)</h2><hr/>
+<h2>Shell Programs (11)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>autogen.sh</td>
 <td class='passed'>unchanged</td>
@@ -903,13 +1002,6 @@ div.p_list {
 <td class='passed'>unchanged</td>
 <td></td>
 <td></td>
-<td></td>
-</tr>
-<tr>
-<td class='left f_path'>configure</td>
-<td class='warning'>changed</td>
-<td class='value'>21.1%</td>
-<td><a href='diffs/configure-diff.html' style='color:Blue;'>diff</a></td>
 <td></td>
 </tr>
 <tr>
@@ -958,7 +1050,7 @@ div.p_list {
 <a name='AutomakeFiles'></a>
 <h2>Automake Files (15)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>configure.ac</td>
 <td class='warning'>changed</td>
@@ -1068,7 +1160,7 @@ div.p_list {
 <a name='M4'></a>
 <h2>M4 Macro Files (6)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>aclocal.m4</td>
 <td class='warning'>changed</td>
@@ -1115,7 +1207,7 @@ div.p_list {
 <a name='Makefiles'></a>
 <h2>Makefiles (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>build-aux/release.mk</td>
 <td class='passed'>unchanged</td>
@@ -1127,7 +1219,7 @@ div.p_list {
 <a name='ManPages'></a>
 <h2>Man Pages (11)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>docs/man3/qbarray.h.3</td>
 <td class='warning'>changed</td>
@@ -1209,7 +1301,7 @@ div.p_list {
 <a name='PkgConfigFiles'></a>
 <h2>Pkg-config Files (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>lib/libqb.pc.in</td>
 <td class='warning'>changed</td>
@@ -1218,10 +1310,22 @@ div.p_list {
 <td></td>
 </tr>
 </table>
+<a name='ConfigureScripts'></a>
+<h2>Configure Scripts (1)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>configure</td>
+<td class='warning'>changed</td>
+<td class='value'>21.1%</td>
+<td><a href='diffs/configure-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
 <a name='DoxygenFiles'></a>
 <h2>Doxygen Files (4)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>docs/html.dox</td>
 <td class='warning'>changed</td>
@@ -1254,7 +1358,7 @@ div.p_list {
 <a name='Directories'></a>
 <h2>Directories (9)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th></tr>
 <tr>
 <td class='left f_path'>build-aux</td>
 <td class='passed'>unchanged</td>
@@ -1295,7 +1399,7 @@ div.p_list {
 <a name='Archives'></a>
 <h2>Archives (2)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>libqb-0.4.1.tar.gz</td>
 <td class='failed'>removed</td>
@@ -1314,7 +1418,7 @@ div.p_list {
 <a name='ChangeLogs'></a>
 <h2>Change Logs (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>ChangeLog</td>
 <td class='warning'>changed</td>
@@ -1326,7 +1430,7 @@ div.p_list {
 <a name='InformationFiles'></a>
 <h2>Information Files (2)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>INSTALL</td>
 <td class='passed'>unchanged</td>
@@ -1345,7 +1449,7 @@ div.p_list {
 <a name='Licenses'></a>
 <h2>Licenses (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>COPYING</td>
 <td class='passed'>unchanged</td>
@@ -1357,7 +1461,7 @@ div.p_list {
 <a name='ReadmeFiles'></a>
 <h2>Readme Files (2)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>README</td>
 <td class='failed'>removed</td>
@@ -1376,7 +1480,7 @@ div.p_list {
 <a name='TextFiles'></a>
 <h2>Text Files (2)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>.tarball-version</td>
 <td class='warning'>changed</td>
@@ -1401,6 +1505,6 @@ libqb-0.8.1-2.fc16.src.rpm<br/>
 <br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
 </div>
 <br/><br/><br/><hr/>
-<div style='width:100%;font-size:11px;' align='right'><i>Generated on Tue Mar 27 12:04:07 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.3.2 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Thu Oct 25 13:04:16 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.4 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
 <div style='height:999px;'></div>
 </body></html>

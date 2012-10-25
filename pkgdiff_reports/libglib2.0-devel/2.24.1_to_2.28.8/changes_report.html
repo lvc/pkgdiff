@@ -1,0 +1,5255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="libglib2.0-devel, changes, report" />
+    <meta name="description" content="Changes report for the libglib2.0-devel package between 2.24.1-1mdv2010.1 and 2.28.8-1 versions" />
+    <title>
+        libglib2.0-devel: 2.24.1-1mdv2010.1 to 2.28.8-1 changes report
+    </title>
+    <style type="text/css">
+    body {
+    font-family:Arial, sans-serif;
+    color:Black;
+    font-size:14px;
+}
+hr {
+    color:Black;
+    background-color:Black;
+    height:1px;
+    border:0;
+}
+h1 {
+    margin-bottom:0px;
+    padding-bottom:0px;
+    font-size:26px;
+}
+h2 {
+    margin-bottom:0px;
+    padding-bottom:0px;
+    font-size:20px;
+    white-space:nowrap;
+}
+table.summary {
+    border-collapse:collapse;
+    border:1px outset black;
+}
+table.summary th {
+    background-color:#eeeeee;
+    font-weight:bold;
+    text-align:left;
+    font-size:15px;
+    white-space:nowrap;
+    border:1px inset gray;
+    padding: 3px;
+}
+table.summary td {
+    text-align:right;
+    font-size:16px;
+    white-space:nowrap;
+    border:1px inset gray;
+    padding: 3px 5px 3px 5px;
+}
+table.summary td.left {
+    text-align:left;
+}
+table.summary th.left {
+    text-align:left;
+    font-weight:100;
+}
+table.summary td.f_path {
+    font-size:14px;
+    font-family:Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
+}
+table.summary td.value {
+    padding-left:10px;
+}
+td.passed, tr.passed {
+    background-color:#CCFFCC;
+}
+td.warning, tr.warning {
+    background-color:#F4F4AF;
+}
+td.renamed, tr.renamed {
+    background-color:#FFDAA3;
+}
+td.moved, tr.moved {
+    background-color:#FFDAA3;
+}
+td.failed, tr.failed {
+    background-color:#FFC3CE;
+}
+td.new, tr.new {
+    background-color:#C6DEFF;
+}
+a.default {
+    color:#336699;
+}
+div.p_list {
+    padding-left:10px;
+    color:#333333;
+    font-size:15px;
+}
+    </style>
+    <script type="text/javascript" language="JavaScript">
+    <!--
+    function sort(el, status)
+{ 
+    var col_sort = el.innerHTML;
+    var tr = el.parentNode;
+    var table = tr.parentNode;
+    var td, col_sort_num;
+    for (var i=0; (td = tr.getElementsByTagName('th').item(i)); i++)
+    {
+        if(td.innerHTML == col_sort)
+        {
+            col_sort_num = i;
+            if(td.prevsort == 'y') {
+                el.up = Number(!el.up);
+            }
+            else if(td.prevsort == 'n') {
+                td.prevsort = 'y';
+                el.up = 0;
+            }
+            else
+            {
+                if(col_sort_num==0)
+                { // already sorted
+                    td.prevsort = 'n';
+                    el.up = 1;
+                }
+                else if(col_sort_num==2)
+                { // delta
+                    td.prevsort = 'n';
+                    el.up = 1;
+                }
+                else
+                {
+                    td.prevsort = 'y';
+                    el.up = 0;
+                }
+            }
+        }
+        else
+        {
+            if(td.prevsort == 'y') {
+                td.prevsort = 'n';
+            }
+        }
+    }
+    
+    var a = new Array();
+    for(var i=1; i < table.rows.length; i++)
+    {
+        var cols = table.rows[i].getElementsByTagName('td');
+        if(cols.item(status)==null)
+        { // double status
+            a[i-2][2] = table.rows[i];
+        }
+        else
+        {
+            a[i-1] = new Array();
+            var indent = cols.item(col_sort_num).innerHTML;
+            if(indent=='') indent='0';
+            if(indent.substr(indent.length-1, 1)=="%")
+            { // delta
+                indent = indent.substr(0, indent.length-1)*100;
+            }
+            a[i-1][0] = indent;
+            a[i-1][1] = table.rows[i];
+            a[i-1][2] = null;
+        }
+    }
+    
+    // sort table
+    a.sort(sort_array);
+    if(el.up) a.reverse();
+    
+    // draw table
+    for(var i in a)
+    {
+        table.appendChild(a[i][1]);
+        if(a[i][2]!=null) {
+            table.appendChild(a[i][2]);
+        }
+    }
+}
+
+function sort_array(a,b)
+{
+    if(a[0] == b[0]) return 0;
+    if(a[0] > b[0]) return 1;
+    return -1;
+}
+    -->
+    </script>
+    </head>
+<body>
+<div><a name='Top'></a>
+<h1>Changes report for the <span style='color:Blue;'>libglib2.0-devel</span> package between <span style='color:Red;'>2.24.1-1mdv2010.1</span> and <span style='color:Red;'>2.28.8-1</span> versions</h1>
+<br/><table class='summary'>
+    <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
+    <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>
+<h2>Test Info</h2><hr/>
+<table class='summary'>
+<tr><th class='left'>Package Name</th><td>libglib2.0-devel</td></tr>
+<tr><th class='left'>Package Format</th><td>RPM</td></tr>
+<tr><th class='left'>Package Arch</th><td>i586</td></tr>
+<tr><th class='left'>Version #1</th><td>2.24.1-1mdv2010.1</td></tr>
+<tr><th class='left'>Version #2</th><td>2.28.8-1</td></tr>
+</table>
+<h2>Test Results</h2><hr/>
+<table class='summary'>
+<tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>2</a></td></tr>
+<tr><th class='left'>Total Dependencies</th><td><a href='#Deps' style='color:Blue;'>50</a></td></tr>
+<tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>662</a></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(44.4%)</b></span></td></tr>
+</table>
+<a name='Info'></a>
+<h2>Changes In Package Info</h2><hr/>
+<table class='summary'>
+<tr><th>Package</th><th>Status</th><th>Delta</th><th>Visual Diff</th></tr>
+<tr>
+<td class='left f_path'>libglib2.0-devel</td>
+<td class='warning'>changed</td>
+<td class='value'>44.2%</td>
+<td><a href='info-diffs/libglib2.0-devel-info-diff.html' style='color:Blue;'>diff</a></td>
+</tr>
+</table>
+<a name='Deps'></a>
+<h2>Changes In "Provides" Dependencies</h2><hr/>
+<table class='summary'>
+<tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>
+<tr>
+<td class='left f_path'>devel(libgio-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>devel(libglib-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>devel(libgmodule-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>devel(libgobject-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>devel(libgthread-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>glib2-devel</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1-1mdv2010.1</td>
+<td class='value'>2.28.8-1</td>
+</tr>
+<tr>
+<td class='left f_path'>libglib2-devel</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1-1mdv2010.1</td>
+<td class='value'>2.28.8-1</td>
+</tr>
+<tr>
+<td class='left f_path'>libglib2.0-devel</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1-1mdv2010.1</td>
+<td class='value'>2.28.8-1:2011.0</td>
+</tr>
+<tr>
+<td class='left f_path failed'>libglib2.0-devel(x86-32)</td>
+<td class='failed'>removed</td>
+<td class='value'>2.24.1-1mdv2010.1</td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(gio-2.0)</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1</td>
+<td class='value'>2.28.8</td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(gio-unix-2.0)</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1</td>
+<td class='value'>2.28.8</td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(glib-2.0)</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1</td>
+<td class='value'>2.28.8</td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(gmodule-2.0)</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1</td>
+<td class='value'>2.28.8</td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(gmodule-export-2.0)</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1</td>
+<td class='value'>2.28.8</td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(gmodule-no-export-2.0)</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1</td>
+<td class='value'>2.28.8</td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(gobject-2.0)</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1</td>
+<td class='value'>2.28.8</td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(gthread-2.0)</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1</td>
+<td class='value'>2.28.8</td>
+</tr>
+</table>
+<h2>Changes In "Requires" Dependencies</h2><hr/>
+<table class='summary'>
+<tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>
+<tr>
+<td class='left f_path'>devel(libdl)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>devel(libglib-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>devel(libgmodule-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>devel(libgobject-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>devel(libgthread-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>devel(libpcre)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>devel(libresolv)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>devel(libz)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>glib-gettextize</td>
+<td class='warning'>changed</td>
+<td class='value'>&gt;= 2.24.1</td>
+<td class='value'>&gt;= 2.28.8</td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libc.so.6(GLIBC_2.4)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libgio2.0_0</td>
+<td class='failed'>removed</td>
+<td class='value'>2.24.1</td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libglib-2.0.so.0  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libglib2.0_0</td>
+<td class='warning'>changed</td>
+<td class='value'>2.24.1</td>
+<td class='value'>2.28.8</td>
+</tr>
+<tr>
+<td class='left f_path'>libgobject-2.0.so.0  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libpthread.so.0  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libpthread.so.0(GLIBC_2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>libpthread.so.0(GLIBC_2.2)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>perl-base  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(gio-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(glib-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(gmodule-no-export-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(gobject-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path'>pkgconfig(gthread-2.0)  </td>
+<td class='passed'>unchanged</td>
+<td class='value'></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path new'>python  </td>
+<td class='new'>added</td>
+<td></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path new'>python(abi)  </td>
+<td class='new'>added</td>
+<td></td>
+<td class='value'></td>
+</tr>
+<tr>
+<td class='left f_path failed'>rpmlib(CompressedFileNames)</td>
+<td class='failed'>removed</td>
+<td class='value'>&lt;= 3.0.4-1</td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>rpmlib(PayloadFilesHavePrefix)</td>
+<td class='failed'>removed</td>
+<td class='value'>&lt;= 4.0-1</td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>rpmlib(PayloadIsLzma)</td>
+<td class='passed'>unchanged</td>
+<td class='value'>&lt;= 4.4.6-1</td>
+<td class='value'>&lt;= 4.4.6-1</td>
+</tr>
+<tr>
+<td class='left f_path failed'>rpmlib(VersionedDependencies)</td>
+<td class='failed'>removed</td>
+<td class='value'>&lt;= 3.0.3-1</td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>rtld(GNU_HASH)  </td>
+<td class='failed'>removed</td>
+<td class='value'></td>
+<td></td>
+</tr>
+</table>
+<a name='Files'></a><h2>Changes In Files</h2><hr/>
+<table class='summary'>
+<tr><th>File Type</th><th>Total</th><th>Added</th><th>Removed</th><th>Changed</th></tr>
+<tr>
+<td class='left'>Header file</td>
+<td><a href='#HeaderFiles' style='color:Blue;'>203</a></td>
+<td class='new'><a href='#HeaderFiles' style='color:Blue;'>39</a></td>
+<td>0</td>
+<td class='warning'><a href='#HeaderFiles' style='color:Blue;'>89</a></td>
+</tr>
+<tr>
+<td class='left'>C program</td>
+<td><a href='#CPrograms' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#CPrograms' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
+<td class='left'>Static library</td>
+<td><a href='#StaticLibraries' style='color:Blue;'>5</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#StaticLibraries' style='color:Blue;'>5</a></td>
+</tr>
+<tr>
+<td class='left'>Python program</td>
+<td><a href='#PythonPrograms' style='color:Blue;'>6</a></td>
+<td class='new'><a href='#PythonPrograms' style='color:Blue;'>4</a></td>
+<td class='failed'><a href='#PythonPrograms' style='color:Blue;'>2</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Executable file</td>
+<td><a href='#ExecutableFiles' style='color:Blue;'>3</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#ExecutableFiles' style='color:Blue;'>3</a></td>
+</tr>
+<tr>
+<td class='left'>Libtool file</td>
+<td><a href='#LibtoolFiles' style='color:Blue;'>5</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#LibtoolFiles' style='color:Blue;'>5</a></td>
+</tr>
+<tr>
+<td class='left'>M4 macro file</td>
+<td><a href='#M4' style='color:Blue;'>2</a></td>
+<td class='new'><a href='#M4' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td class='warning'><a href='#M4' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
+<td class='left'>Man page</td>
+<td><a href='#ManPages' style='color:Blue;'>11</a></td>
+<td class='new'><a href='#ManPages' style='color:Blue;'>5</a></td>
+<td class='failed'><a href='#ManPages' style='color:Blue;'>6</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Pkg-config file</td>
+<td><a href='#PkgConfigFiles' style='color:Blue;'>8</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#PkgConfigFiles' style='color:Blue;'>8</a></td>
+</tr>
+<tr>
+<td class='left'>SGML document</td>
+<td><a href='#SGMLDocuments' style='color:Blue;'>3</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#SGMLDocuments' style='color:Blue;'>3</a></td>
+</tr>
+<tr>
+<td class='left'>Symbolic link</td>
+<td><a href='#SymbolicLinks' style='color:Blue;'>5</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#SymbolicLinks' style='color:Blue;'>5</a></td>
+</tr>
+<tr>
+<td class='left'>XML document</td>
+<td><a href='#XMLDocuments' style='color:Blue;'>6</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#XMLDocuments' style='color:Blue;'>6</a></td>
+</tr>
+<tr>
+<td class='left'>CSS style sheet</td>
+<td><a href='#CSS' style='color:Blue;'>3</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#CSS' style='color:Blue;'>3</a></td>
+</tr>
+<tr>
+<td class='left'>HTML page</td>
+<td><a href='#HTML' style='color:Blue;'>349</a></td>
+<td class='new'><a href='#HTML' style='color:Blue;'>80</a></td>
+<td class='failed'><a href='#HTML' style='color:Blue;'>5</a></td>
+<td class='warning'><a href='#HTML' style='color:Blue;'>264</a></td>
+</tr>
+<tr>
+<td class='left'>Image file</td>
+<td><a href='#ImageFiles' style='color:Blue;'>16</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Directory</td>
+<td><a href='#Directories' style='color:Blue;'>31</a></td>
+<td class='new'><a href='#Directories' style='color:Blue;'>3</a></td>
+<td class='failed'><a href='#Directories' style='color:Blue;'>2</a></td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Change log</td>
+<td><a href='#ChangeLogs' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#ChangeLogs' style='color:Blue;'>2</a></td>
+</tr>
+<tr>
+<td class='left'>Information file</td>
+<td><a href='#InformationFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Text file</td>
+<td><a href='#TextFiles' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#TextFiles' style='color:Blue;'>1</a></td>
+</tr>
+</table>
+<a name='HeaderFiles'></a>
+<h2>Header Files (203)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/include/gio-unix-2.0/gio/gdesktopappinfo.h</td>
+<td class='warning'>changed</td>
+<td class='value'>26.2%</td>
+<td><a href='diffs/usr/include/gio-unix-2.0/gio/gdesktopappinfo.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/gio-unix-2.0/gio/gfiledescriptorbased.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/gio-unix-2.0/gio/gunixconnection.h</td>
+<td class='warning'>changed</td>
+<td class='value'>18%</td>
+<td><a href='diffs/usr/include/gio-unix-2.0/gio/gunixconnection.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/gio-unix-2.0/gio/gunixcredentialsmessage.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/gio-unix-2.0/gio/gunixfdlist.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2.4%</td>
+<td><a href='diffs/usr/include/gio-unix-2.0/gio/gunixfdlist.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/gio-unix-2.0/gio/gunixfdmessage.h</td>
+<td class='warning'>changed</td>
+<td class='value'>0.9%</td>
+<td><a href='diffs/usr/include/gio-unix-2.0/gio/gunixfdmessage.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/gio-unix-2.0/gio/gunixinputstream.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/gio-unix-2.0/gio/gunixmounts.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/gio-unix-2.0/gio/gunixoutputstream.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/gio-unix-2.0/gio/gunixsocketaddress.h</td>
+<td class='warning'>changed</td>
+<td class='value'>13.8%</td>
+<td><a href='diffs/usr/include/gio-unix-2.0/gio/gunixsocketaddress.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gaction.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gactiongroup.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gappinfo.h</td>
+<td class='warning'>changed</td>
+<td class='value'>5.2%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gappinfo.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gapplication.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gapplicationcommandline.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gasyncinitable.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gasyncresult.h</td>
+<td class='warning'>changed</td>
+<td class='value'>5.4%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gasyncresult.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gbufferedinputstream.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gbufferedoutputstream.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.2%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gbufferedoutputstream.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gcancellable.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2.2%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gcancellable.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gcharsetconverter.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gcontenttype.h</td>
+<td class='warning'>changed</td>
+<td class='value'>49.6%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gcontenttype.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gconverter.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gconverterinputstream.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.5%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gconverterinputstream.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gconverteroutputstream.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.5%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gconverteroutputstream.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gcredentials.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gdatainputstream.h</td>
+<td class='warning'>changed</td>
+<td class='value'>58.5%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gdatainputstream.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gdataoutputstream.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gdataoutputstream.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbusaddress.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbusauthobserver.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbusconnection.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbuserror.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbusintrospection.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbusmessage.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbusmethodinvocation.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbusnameowning.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbusnamewatching.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbusproxy.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbusserver.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gdbusutils.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gdrive.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gemblem.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gemblemedicon.h</td>
+<td class='warning'>changed</td>
+<td class='value'>12%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gemblemedicon.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfile.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfileattribute.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfileenumerator.h</td>
+<td class='warning'>changed</td>
+<td class='value'>3%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gfileenumerator.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfileicon.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfileinfo.h</td>
+<td class='warning'>changed</td>
+<td class='value'>0.2%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gfileinfo.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfileinputstream.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.5%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gfileinputstream.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfileiostream.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.4%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gfileiostream.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfilemonitor.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2.3%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gfilemonitor.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfilenamecompleter.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfileoutputstream.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.3%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gfileoutputstream.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfilterinputstream.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gfilteroutputstream.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gicon.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/ginetaddress.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/ginetsocketaddress.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/ginitable.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/ginputstream.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gio.h</td>
+<td class='warning'>changed</td>
+<td class='value'>43.8%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gio.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gioenums.h</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gioenums.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gioenumtypes.h</td>
+<td class='warning'>changed</td>
+<td class='value'>81.2%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gioenumtypes.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gioerror.h</td>
+<td class='warning'>changed</td>
+<td class='value'>5.9%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gioerror.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/giomodule.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.7%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/giomodule.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gioscheduler.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/giostream.h</td>
+<td class='warning'>changed</td>
+<td class='value'>12%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/giostream.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/giotypes.h</td>
+<td class='warning'>changed</td>
+<td class='value'>34.2%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/giotypes.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gloadableicon.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gmemoryinputstream.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gmemoryoutputstream.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2.4%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gmemoryoutputstream.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gmount.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gmountoperation.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gnativevolumemonitor.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gnetworkaddress.h</td>
+<td class='warning'>changed</td>
+<td class='value'>9.3%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gnetworkaddress.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gnetworkservice.h</td>
+<td class='warning'>changed</td>
+<td class='value'>7.1%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gnetworkservice.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/goutputstream.h</td>
+<td class='warning'>changed</td>
+<td class='value'>0.8%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/goutputstream.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gpermission.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gpollableinputstream.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gpollableoutputstream.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gproxy.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gproxyaddress.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gproxyaddressenumerator.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gproxyresolver.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gresolver.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gseekable.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gsettings.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gsettingsbackend.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gsimpleaction.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gsimpleactiongroup.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gsimpleasyncresult.h</td>
+<td class='warning'>changed</td>
+<td class='value'>11.7%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gsimpleasyncresult.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gsimplepermission.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gsocket.h</td>
+<td class='warning'>changed</td>
+<td class='value'>11.5%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gsocket.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gsocketaddress.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gsocketaddressenumerator.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gsocketclient.h</td>
+<td class='warning'>changed</td>
+<td class='value'>29.8%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gsocketclient.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gsocketconnectable.h</td>
+<td class='warning'>changed</td>
+<td class='value'>15.6%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gsocketconnectable.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gsocketconnection.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gsocketcontrolmessage.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gsocketlistener.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gsocketservice.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gsrvtarget.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gtcpconnection.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gtcpwrapperconnection.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gthemedicon.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gthreadedsocketservice.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gtlsbackend.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gtlscertificate.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gtlsclientconnection.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gtlsconnection.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gio/gtlsserverconnection.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gvfs.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gvolume.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gvolumemonitor.h</td>
+<td class='warning'>changed</td>
+<td class='value'>0.7%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gvolumemonitor.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gzlibcompressor.h</td>
+<td class='warning'>changed</td>
+<td class='value'>12.9%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gzlibcompressor.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio/gzlibdecompressor.h</td>
+<td class='warning'>changed</td>
+<td class='value'>5.6%</td>
+<td><a href='diffs/usr/include/glib-2.0/gio/gzlibdecompressor.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib-object.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2.6%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib-object.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/galloca.h</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/galloca.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/garray.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gasyncqueue.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gatomic.h</td>
+<td class='warning'>changed</td>
+<td class='value'>21.9%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gatomic.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gbacktrace.h</td>
+<td class='warning'>changed</td>
+<td class='value'>16.8%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gbacktrace.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gbase64.h</td>
+<td class='warning'>changed</td>
+<td class='value'>63.7%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gbase64.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gbitlock.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gbookmarkfile.h</td>
+<td class='warning'>changed</td>
+<td class='value'>13.1%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gbookmarkfile.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gcache.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2.5%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gcache.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gchecksum.h</td>
+<td class='warning'>changed</td>
+<td class='value'>46.2%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gchecksum.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gcompletion.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.4%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gcompletion.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gconvert.h</td>
+<td class='warning'>changed</td>
+<td class='value'>20.8%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gconvert.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gdataset.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gdate.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/glib/gdatetime.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gdir.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.9%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gdir.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gerror.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gfileutils.h</td>
+<td class='warning'>changed</td>
+<td class='value'>0.9%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gfileutils.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/ghash.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/ghook.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/ghostutils.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gi18n-lib.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gi18n.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/giochannel.h</td>
+<td class='warning'>changed</td>
+<td class='value'>0.2%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/giochannel.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gkeyfile.h</td>
+<td class='warning'>changed</td>
+<td class='value'>6.6%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gkeyfile.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/glist.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/glist.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gmacros.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2.8%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gmacros.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gmain.h</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gmain.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gmappedfile.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gmarkup.h</td>
+<td class='warning'>changed</td>
+<td class='value'>51.7%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gmarkup.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gmem.h</td>
+<td class='warning'>changed</td>
+<td class='value'>57.8%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gmem.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gmessages.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gnode.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2.3%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gnode.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/goption.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gpattern.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gpoll.h</td>
+<td class='warning'>changed</td>
+<td class='value'>39.4%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gpoll.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gprimes.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gprintf.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gqsort.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gquark.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gqueue.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/grand.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2.8%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/grand.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gregex.h</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gregex.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/grel.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.1%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/grel.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gscanner.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gsequence.h</td>
+<td class='warning'>changed</td>
+<td class='value'>8.7%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gsequence.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gshell.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gslice.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gslist.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2.1%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gslist.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gspawn.h</td>
+<td class='warning'>changed</td>
+<td class='value'>0.6%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gspawn.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gstdio.h</td>
+<td class='warning'>changed</td>
+<td class='value'>24.5%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gstdio.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gstrfuncs.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.6%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gstrfuncs.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gstring.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gtestutils.h</td>
+<td class='warning'>changed</td>
+<td class='value'>6.9%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gtestutils.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gthread.h</td>
+<td class='warning'>changed</td>
+<td class='value'>0.2%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gthread.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gthreadpool.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gtimer.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/glib/gtimezone.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gtree.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gtypes.h</td>
+<td class='warning'>changed</td>
+<td class='value'>0.1%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gtypes.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gunicode.h</td>
+<td class='warning'>changed</td>
+<td class='value'>7.6%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gunicode.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gurifuncs.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gutils.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gutils.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gvariant.h</td>
+<td class='warning'>changed</td>
+<td class='value'>26.8%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gvariant.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gvarianttype.h</td>
+<td class='warning'>changed</td>
+<td class='value'>13.6%</td>
+<td><a href='diffs/usr/include/glib-2.0/glib/gvarianttype.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib/gwin32.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gmodule.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/include/glib-2.0/gobject/gbinding.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gboxed.h</td>
+<td class='warning'>changed</td>
+<td class='value'>7.4%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gboxed.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gclosure.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/genums.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gmarshal.h</td>
+<td class='warning'>changed</td>
+<td class='value'>19.5%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gmarshal.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gobject.h</td>
+<td class='warning'>changed</td>
+<td class='value'>5.9%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gobject.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gparam.h</td>
+<td class='warning'>changed</td>
+<td class='value'>3.1%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gparam.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gparamspecs.h</td>
+<td class='warning'>changed</td>
+<td class='value'>4.4%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gparamspecs.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gsignal.h</td>
+<td class='warning'>changed</td>
+<td class='value'>1.5%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gsignal.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gsourceclosure.h</td>
+<td class='warning'>changed</td>
+<td class='value'>8.8%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gsourceclosure.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gtype.h</td>
+<td class='warning'>changed</td>
+<td class='value'>8.2%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gtype.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gtypemodule.h</td>
+<td class='warning'>changed</td>
+<td class='value'>0.4%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gtypemodule.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gtypeplugin.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gvalue.h</td>
+<td class='warning'>changed</td>
+<td class='value'>5.9%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gvalue.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gvaluearray.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gvaluecollector.h</td>
+<td class='warning'>changed</td>
+<td class='value'>3.8%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gvaluecollector.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gvaluetypes.h</td>
+<td class='warning'>changed</td>
+<td class='value'>7.4%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gvaluetypes.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/glib-2.0/include/glibconfig.h</td>
+<td class='warning'>changed</td>
+<td class='value'>2.2%</td>
+<td><a href='diffs/usr/lib/glib-2.0/include/glibconfig.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='CPrograms'></a>
+<h2>C Programs (1)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject/gobjectnotifyqueue.c</td>
+<td class='warning'>changed</td>
+<td class='value'>32.7%</td>
+<td><a href='diffs/usr/include/glib-2.0/gobject/gobjectnotifyqueue.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='StaticLibraries'></a>
+<h2>Static Libraries (5)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgio-2.0.a</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/usr/lib/libgio-2.0.a-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libglib-2.0.a</td>
+<td class='warning'>changed</td>
+<td class='value'>63.5%</td>
+<td><a href='diffs/usr/lib/libglib-2.0.a-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgmodule-2.0.a</td>
+<td class='warning'>changed</td>
+<td class='value'>50.1%</td>
+<td><a href='diffs/usr/lib/libgmodule-2.0.a-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgobject-2.0.a</td>
+<td class='warning'>changed</td>
+<td class='value'>77%</td>
+<td><a href='diffs/usr/lib/libgobject-2.0.a-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgthread-2.0.a</td>
+<td class='warning'>changed</td>
+<td class='value'>20.2%</td>
+<td><a href='diffs/usr/lib/libgthread-2.0.a-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='PythonPrograms'></a>
+<h2>Python Programs (6)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path new'>/usr/share/gdb/auto-load/lib/libglib-2.0.so.0.2800.8-gdb.py</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gdb/auto-load/lib/libgobject-2.0.so.0.2800.8-gdb.py</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>/usr/share/gdb/auto-load/usr/lib/libglib-2.0.so.0.2400.1-gdb.py</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>/usr/share/gdb/auto-load/usr/lib/libgobject-2.0.so.0.2400.1-gdb.py</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/glib-2.0/gdb/glib.py</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/glib-2.0/gdb/gobject.py</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ExecutableFiles'></a>
+<h2>Executable Files (3)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/bin/glib-genmarshal</td>
+<td class='warning'>changed</td>
+<td class='value'>39.7%</td>
+<td><a href='diffs/usr/bin/glib-genmarshal-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/bin/gobject-query</td>
+<td class='warning'>changed</td>
+<td class='value'>32.9%</td>
+<td><a href='diffs/usr/bin/gobject-query-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/bin/gtester</td>
+<td class='warning'>changed</td>
+<td class='value'>29%</td>
+<td><a href='diffs/usr/bin/gtester-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='LibtoolFiles'></a>
+<h2>Libtool Files (5)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgio-2.0.la</td>
+<td class='warning'>changed</td>
+<td class='value'>0.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libglib-2.0.la</td>
+<td class='warning'>changed</td>
+<td class='value'>0.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgmodule-2.0.la</td>
+<td class='warning'>changed</td>
+<td class='value'>0.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgobject-2.0.la</td>
+<td class='warning'>changed</td>
+<td class='value'>0.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgthread-2.0.la</td>
+<td class='warning'>changed</td>
+<td class='value'>0.1%</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='M4'></a>
+<h2>M4 Macro Files (2)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/share/aclocal/glib-2.0.m4</td>
+<td class='warning'>changed</td>
+<td class='value'>3.4%</td>
+<td><a href='diffs/usr/share/aclocal/glib-2.0.m4-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/aclocal/gsettings.m4</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ManPages'></a>
+<h2>Man Pages (11)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path failed'>/usr/share/man/man1/glib-genmarshal.1.lzma</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td class='value' rowspan='2'>14.1%</td>
+<td rowspan='2'><a href='diffs/usr/share/man/man1/glib-genmarshal.1.lzma-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>/usr/share/man/man1/glib-genmarshal.1.xz</td></tr>
+<tr>
+<td class='left f_path failed'>/usr/share/man/man1/glib-gettextize.1.lzma</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>/usr/share/man/man1/glib-mkenums.1.lzma</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td class='value' rowspan='2'>14.6%</td>
+<td rowspan='2'><a href='diffs/usr/share/man/man1/glib-mkenums.1.lzma-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>/usr/share/man/man1/glib-mkenums.1.xz</td></tr>
+<tr>
+<td class='left f_path failed'>/usr/share/man/man1/gobject-query.1.lzma</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td class='value' rowspan='2'>37.9%</td>
+<td rowspan='2'><a href='diffs/usr/share/man/man1/gobject-query.1.lzma-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>/usr/share/man/man1/gobject-query.1.xz</td></tr>
+<tr>
+<td class='left f_path failed'>/usr/share/man/man1/gtester-report.1.lzma</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td class='value' rowspan='2'>54.6%</td>
+<td rowspan='2'><a href='diffs/usr/share/man/man1/gtester-report.1.lzma-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>/usr/share/man/man1/gtester-report.1.xz</td></tr>
+<tr>
+<td class='left f_path failed'>/usr/share/man/man1/gtester.1.lzma</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td class='value' rowspan='2'>28.3%</td>
+<td rowspan='2'><a href='diffs/usr/share/man/man1/gtester.1.lzma-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>/usr/share/man/man1/gtester.1.xz</td></tr>
+</table>
+<a name='PkgConfigFiles'></a>
+<h2>Pkg-config Files (8)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/lib/pkgconfig/gio-2.0.pc</td>
+<td class='warning'>changed</td>
+<td class='value'>35.5%</td>
+<td><a href='diffs/usr/lib/pkgconfig/gio-2.0.pc-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/pkgconfig/gio-unix-2.0.pc</td>
+<td class='warning'>changed</td>
+<td class='value'>6.2%</td>
+<td><a href='diffs/usr/lib/pkgconfig/gio-unix-2.0.pc-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/pkgconfig/glib-2.0.pc</td>
+<td class='warning'>changed</td>
+<td class='value'>5.6%</td>
+<td><a href='diffs/usr/lib/pkgconfig/glib-2.0.pc-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/pkgconfig/gmodule-2.0.pc</td>
+<td class='warning'>changed</td>
+<td class='value'>6.2%</td>
+<td><a href='diffs/usr/lib/pkgconfig/gmodule-2.0.pc-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/pkgconfig/gmodule-export-2.0.pc</td>
+<td class='warning'>changed</td>
+<td class='value'>6.2%</td>
+<td><a href='diffs/usr/lib/pkgconfig/gmodule-export-2.0.pc-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/pkgconfig/gmodule-no-export-2.0.pc</td>
+<td class='warning'>changed</td>
+<td class='value'>6.7%</td>
+<td><a href='diffs/usr/lib/pkgconfig/gmodule-no-export-2.0.pc-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/pkgconfig/gobject-2.0.pc</td>
+<td class='warning'>changed</td>
+<td class='value'>7.8%</td>
+<td><a href='diffs/usr/lib/pkgconfig/gobject-2.0.pc-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/pkgconfig/gthread-2.0.pc</td>
+<td class='warning'>changed</td>
+<td class='value'>8.2%</td>
+<td><a href='diffs/usr/lib/pkgconfig/gthread-2.0.pc-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='SGMLDocuments'></a>
+<h2>SGML Documents (3)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/index.sgml</td>
+<td class='warning'>changed</td>
+<td class='value'>71.9%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/gio/index.sgml-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/index.sgml</td>
+<td class='warning'>changed</td>
+<td class='value'>7.4%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/glib/index.sgml-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/index.sgml</td>
+<td class='warning'>changed</td>
+<td class='value'>8.5%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/gobject/index.sgml-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='SymbolicLinks'></a>
+<h2>Symbolic Links (5)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgio-2.0.so</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/usr/lib/libgio-2.0.so-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libglib-2.0.so</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/usr/lib/libglib-2.0.so-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgmodule-2.0.so</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/usr/lib/libgmodule-2.0.so-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgobject-2.0.so</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/usr/lib/libgobject-2.0.so-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/libgthread-2.0.so</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/usr/lib/libgthread-2.0.so-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='XMLDocuments'></a>
+<h2>XML Documents (6)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio.devhelp</td>
+<td class='warning'>changed</td>
+<td class='value'>68.9%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/gio/gio.devhelp-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio.devhelp2</td>
+<td class='warning'>changed</td>
+<td class='value'>75.7%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/gio/gio.devhelp2-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib.devhelp</td>
+<td class='warning'>changed</td>
+<td class='value'>10%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/glib/glib.devhelp-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib.devhelp2</td>
+<td class='warning'>changed</td>
+<td class='value'>11.4%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/glib/glib.devhelp2-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject.devhelp</td>
+<td class='warning'>changed</td>
+<td class='value'>14%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/gobject/gobject.devhelp-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject.devhelp2</td>
+<td class='warning'>changed</td>
+<td class='value'>14.4%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/gobject/gobject.devhelp2-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='CSS'></a>
+<h2>CSS Style Sheets (3)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/style.css</td>
+<td class='warning'>changed</td>
+<td class='value'>2.9%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/gio/style.css-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/style.css</td>
+<td class='warning'>changed</td>
+<td class='value'>2.9%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/glib/style.css-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/style.css</td>
+<td class='warning'>changed</td>
+<td class='value'>2.9%</td>
+<td><a href='diffs/usr/share/gtk-doc/html/gobject/style.css-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='HTML'></a>
+<h2>HTML Pages (349)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/annotation-glossary.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/api-index-2-18.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/api-index-2-20.html</td>
+<td class='warning'>changed</td>
+<td class='value'>4.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/api-index-2-22.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/api-index-2-24.html</td>
+<td class='warning'>changed</td>
+<td class='value'>9.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/api-index-2-26.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/api-index-2-28.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/api-index-deprecated.html</td>
+<td class='warning'>changed</td>
+<td class='value'>19.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/api-index-full.html</td>
+<td class='warning'>changed</td>
+<td class='value'>59.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/application.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/async.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/ch01.html</td>
+<td class='warning'>changed</td>
+<td class='value'>16.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/ch02.html</td>
+<td class='warning'>changed</td>
+<td class='value'>11.6%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/ch03.html</td>
+<td class='warning'>changed</td>
+<td class='value'>92.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>/usr/share/gtk-doc/html/gio/ch19.html</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td class='value' rowspan='2'>52.4%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>/usr/share/gtk-doc/html/gio/ch29.html</td></tr>
+<tr>
+<td class='left f_path failed'>/usr/share/gtk-doc/html/gio/ch20.html</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td class='value' rowspan='2'>1.5%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>/usr/share/gtk-doc/html/gio/ch27.html</td></tr>
+<tr>
+<td class='left f_path failed'>/usr/share/gtk-doc/html/gio/ch20s02.html</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td class='value' rowspan='2'>0.04%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>/usr/share/gtk-doc/html/gio/ch27s02.html</td></tr>
+<tr>
+<td class='left f_path failed'>/usr/share/gtk-doc/html/gio/ch20s03.html</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch26.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch27s03.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch28.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch28s02.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch28s03.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch28s04.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch28s05.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch28s06.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch28s07.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch29s02.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch29s03.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch29s04.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch29s05.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/ch29s06.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/conversion.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/extending-gio.html</td>
+<td class='warning'>changed</td>
+<td class='value'>18.5%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/extending.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.05%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/failable_initialization.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.05%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/file_mon.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/file_ops.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GAction.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GActionGroup.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GAppInfo.html</td>
+<td class='warning'>changed</td>
+<td class='value'>13.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GApplication.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GApplicationCommandLine.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GAsyncInitable.html</td>
+<td class='warning'>changed</td>
+<td class='value'>44.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GAsyncResult.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.3%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GBufferedInputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GBufferedOutputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GCancellable.html</td>
+<td class='warning'>changed</td>
+<td class='value'>14.3%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GCharsetConverter.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GConverter.html</td>
+<td class='warning'>changed</td>
+<td class='value'>10.6%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GCredentials.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GDataInputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>34.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GDataOutputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/gdbus-convenience.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/gdbus-lowlevel.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/gdbus.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GDBusAuthObserver.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GDBusConnection.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GDBusError.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GDBusMessage.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GDBusMethodInvocation.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GDBusProxy.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GDBusServer.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GDrive.html</td>
+<td class='warning'>changed</td>
+<td class='value'>4.3%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GEmblem.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GEmblemedIcon.html</td>
+<td class='warning'>changed</td>
+<td class='value'>22.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFile.html</td>
+<td class='warning'>changed</td>
+<td class='value'>5.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFileDescriptorBased.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFileEnumerator.html</td>
+<td class='warning'>changed</td>
+<td class='value'>4.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFileIcon.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFileInfo.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.0005%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFileInputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>4.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFileIOStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFileMonitor.html</td>
+<td class='warning'>changed</td>
+<td class='value'>5.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFilenameCompleter.html</td>
+<td class='warning'>changed</td>
+<td class='value'>2.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFileOutputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFilterInputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GFilterOutputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GIcon.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.3%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GInetAddress.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GInetSocketAddress.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GInitable.html</td>
+<td class='warning'>changed</td>
+<td class='value'>5.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GInputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>5.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/gio-D-Bus-Addresses.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/gio-D-Bus-Introspection-Data.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/gio-D-Bus-Utilities.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio-Desktop-file-based-GAppInfo.html</td>
+<td class='warning'>changed</td>
+<td class='value'>24.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio-Extension-Points.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio-GContentType.html</td>
+<td class='warning'>changed</td>
+<td class='value'>25.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio-GConverterInputstream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio-GConverterOutputstream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio-GFileAttribute.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio-GIOError.html</td>
+<td class='warning'>changed</td>
+<td class='value'>31.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio-GIOScheduler.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.6%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>/usr/share/gtk-doc/html/gio/gio-GSrvTarget.html</td>
+<td class='renamed' rowspan='2'>renamed</td>
+<td class='value' rowspan='2'>0.01%</td>
+<td rowspan='2'></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>/usr/share/gtk-doc/html/gio/GSrvTarget.html</td></tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio-hierarchy.html</td>
+<td class='warning'>changed</td>
+<td class='value'>79.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/gio-Owning-Bus-Names.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/gio-querymodules.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/gio-TLS-Overview.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gio-Unix-Mounts.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/gio-Watching-Bus-Names.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GIOModule.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GIOStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>36.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/glib-compile-schemas.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GLoadableIcon.html</td>
+<td class='warning'>changed</td>
+<td class='value'>5.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GMemoryInputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>6.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GMemoryOutputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>9.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GMount.html</td>
+<td class='warning'>changed</td>
+<td class='value'>4.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GMountOperation.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GNetworkAddress.html</td>
+<td class='warning'>changed</td>
+<td class='value'>41.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GNetworkService.html</td>
+<td class='warning'>changed</td>
+<td class='value'>26.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GOutputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GPermission.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GPollableInputStream.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GPollableOutputStream.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GProxy.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GProxyAddress.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GProxyResolver.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GResolver.html</td>
+<td class='warning'>changed</td>
+<td class='value'>6.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GSeekable.html</td>
+<td class='warning'>changed</td>
+<td class='value'>2.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/gsettings-tool.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GSettings.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GSettingsBackend.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GSimpleAction.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GSimpleActionGroup.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GSimpleAsyncResult.html</td>
+<td class='warning'>changed</td>
+<td class='value'>41.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GSimplePermission.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GSocket.html</td>
+<td class='warning'>changed</td>
+<td class='value'>18.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GSocketAddress.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GSocketClient.html</td>
+<td class='warning'>changed</td>
+<td class='value'>61.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GSocketConnectable.html</td>
+<td class='warning'>changed</td>
+<td class='value'>24.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GSocketConnection.html</td>
+<td class='warning'>changed</td>
+<td class='value'>38.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GSocketControlMessage.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GSocketListener.html</td>
+<td class='warning'>changed</td>
+<td class='value'>8.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GSocketService.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GTcpConnection.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GTcpWrapperConnection.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GThemedIcon.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GThreadedSocketService.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.3%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GTlsBackend.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GTlsCertificate.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GTlsClientConnection.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GTlsConnection.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GTlsServerConnection.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GUnixConnection.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/GUnixCredentialsMessage.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GUnixFDList.html</td>
+<td class='warning'>changed</td>
+<td class='value'>7.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GUnixFDMessage.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GUnixInputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GUnixOutputStream.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GUnixSocketAddress.html</td>
+<td class='warning'>changed</td>
+<td class='value'>71.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GVfs.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GVolume.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GVolumeMonitor.html</td>
+<td class='warning'>changed</td>
+<td class='value'>9.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GZlibCompressor.html</td>
+<td class='warning'>changed</td>
+<td class='value'>61.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/GZlibDecompressor.html</td>
+<td class='warning'>changed</td>
+<td class='value'>51.6%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/highlevel-socket.html</td>
+<td class='warning'>changed</td>
+<td class='value'>19%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/icons.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/index.html</td>
+<td class='warning'>changed</td>
+<td class='value'>55.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/migrating.html</td>
+<td class='warning'>changed</td>
+<td class='value'>66.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/networking.html</td>
+<td class='warning'>changed</td>
+<td class='value'>15.5%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/permissions.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/pt01.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/pt02.html</td>
+<td class='warning'>changed</td>
+<td class='value'>50.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/resolver.html</td>
+<td class='warning'>changed</td>
+<td class='value'>5.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/settings.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/streaming.html</td>
+<td class='warning'>changed</td>
+<td class='value'>6.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/tls.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gio/tools.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/types.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/utils.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/volume_mon.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/glib/annotation-glossary.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-10.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-12.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.005%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-14.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.003%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-16.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.005%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-18.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-2.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-20.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-22.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-24.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/glib/api-index-2-26.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/glib/api-index-2-28.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-4.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-6.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-2-8.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-deprecated.html</td>
+<td class='warning'>changed</td>
+<td class='value'>28.5%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/api-index-full.html</td>
+<td class='warning'>changed</td>
+<td class='value'>5.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Arrays.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Asynchronous-Queues.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Atomic-Operations.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.004%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Automatic-String-Completion.html</td>
+<td class='warning'>changed</td>
+<td class='value'>6.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Balanced-Binary-Trees.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Base64-Encoding.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.004%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Basic-Types.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.004%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Bookmark-file-parser.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-building.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Byte-Arrays.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Byte-Order-Macros.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Caches.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.003%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-changes.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Character-Set-Conversion.html</td>
+<td class='warning'>changed</td>
+<td class='value'>11.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Commandline-option-parser.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-compiling.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-core.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.03%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-cross-compiling.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Data-Checksums.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.003%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-data-types.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.6%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Datasets.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.003%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Date-and-Time-Functions.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Double-ended-Queues.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Doubly-Linked-Lists.html</td>
+<td class='warning'>changed</td>
+<td class='value'>2.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Dynamic-Loading-of-Modules.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.003%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Error-Reporting.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-File-Utilities.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-fundamentals.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.03%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/glib/glib-GDateTime.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-gettextize.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.03%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Glob-style-pattern-matching.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.005%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/glib/glib-GTimeZone.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-GVariant.html</td>
+<td class='warning'>changed</td>
+<td class='value'>22.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-GVariantType.html</td>
+<td class='warning'>changed</td>
+<td class='value'>2.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Hash-Tables.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Hook-Functions.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Hostname-Utilities.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-I18N.html</td>
+<td class='warning'>changed</td>
+<td class='value'>18.6%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-IO-Channels.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Key-value-file-parser.html</td>
+<td class='warning'>changed</td>
+<td class='value'>6.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Keyed-Data-Lists.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.003%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Lexical-Scanner.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Limits-of-Basic-Types.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Memory-Allocation.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Memory-Allocators.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Memory-Chunks.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Memory-Slices.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.003%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Message-Logging.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Miscellaneous-Macros.html</td>
+<td class='warning'>changed</td>
+<td class='value'>9.5%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Miscellaneous-Utility-Functions.html</td>
+<td class='warning'>changed</td>
+<td class='value'>6.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-N-ary-Trees.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Numerical-Definitions.html</td>
+<td class='warning'>changed</td>
+<td class='value'>12.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Perl-compatible-regular-expressions.html</td>
+<td class='warning'>changed</td>
+<td class='value'>4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Pointer-Arrays.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Quarks.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Random-Numbers.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.003%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-regex-syntax.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Relations-and-Tuples.html</td>
+<td class='warning'>changed</td>
+<td class='value'>7.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-resources.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-running.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.6%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Sequences.html</td>
+<td class='warning'>changed</td>
+<td class='value'>8.3%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Shell-related-Utilities.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Simple-XML-Subset-Parser.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Singly-Linked-Lists.html</td>
+<td class='warning'>changed</td>
+<td class='value'>2.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Spawning-Processes.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Standard-Macros.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-String-Chunks.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.005%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-String-Utility-Functions.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.001%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Strings.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Testing.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-The-Main-Event-Loop.html</td>
+<td class='warning'>changed</td>
+<td class='value'>9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Thread-Pools.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Threads.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.0005%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Timers.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Trash-Stacks.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Type-Conversion-Macros.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Unicode-Manipulation.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-URI-Functions.html</td>
+<td class='warning'>changed</td>
+<td class='value'>36%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-utilities.html</td>
+<td class='warning'>changed</td>
+<td class='value'>4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Version-Information.html</td>
+<td class='warning'>changed</td>
+<td class='value'>75.3%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Warnings-and-Assertions.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.004%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib-Windows-Compatibility-Functions.html</td>
+<td class='warning'>changed</td>
+<td class='value'>14.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/glib.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.03%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/gtester-report.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.03%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/gtester.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/gvariant-format-strings.html</td>
+<td class='warning'>changed</td>
+<td class='value'>6.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/glib/gvariant-text.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/index.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/tools.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.05%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gobject/annotation-glossary.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-2-10.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-2-12.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.03%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-2-14.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-2-18.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-2-2.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.05%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-2-22.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-2-24.html</td>
+<td class='warning'>changed</td>
+<td class='value'>5.5%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gobject/api-index-2-26.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gobject/api-index-2-28.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-2-4.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-2-6.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-2-8.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-deprecated.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.03%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/api-index-full.html</td>
+<td class='warning'>changed</td>
+<td class='value'>6.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/ch01s02.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/ch06s03.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/chapter-gobject.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/chapter-gtype.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/chapter-intro.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/chapter-signal.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/gtk-doc/html/gobject/GBinding.html</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/glib-genmarshal.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/glib-mkenums.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-Boxed-Types.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-Closures.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-Enumeration-and-Flag-Types.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-Generic-values.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-GParamSpec.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.2%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-memory.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.9%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-properties.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-query.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-Signals.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.4%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-Standard-Parameter-and-Value-Types.html</td>
+<td class='warning'>changed</td>
+<td class='value'>5.3%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-The-Base-Object-Type.html</td>
+<td class='warning'>changed</td>
+<td class='value'>13.6%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-Type-Information.html</td>
+<td class='warning'>changed</td>
+<td class='value'>4.7%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-Value-arrays.html</td>
+<td class='warning'>changed</td>
+<td class='value'>10.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gobject-Varargs-Value-Collection.html</td>
+<td class='warning'>changed</td>
+<td class='value'>10.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gtype-conventions.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gtype-instantiable-classed.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gtype-non-instantiable-classed.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/gtype-non-instantiable.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/GTypeModule.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.002%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/GTypePlugin.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.003%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/howto-gobject-chainup.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/howto-gobject-code.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.03%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/howto-gobject-construction.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/howto-gobject-destruction.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/howto-gobject-methods.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/howto-gobject.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/howto-interface-implement.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/howto-interface-properties.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/howto-interface.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.01%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/howto-signals.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/index.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.5%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/pr01.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.03%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/pt01.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.02%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/pt02.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.03%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/pt03.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/rn01.html</td>
+<td class='warning'>changed</td>
+<td class='value'>3.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/rn02.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.05%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/signal.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.005%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/tools-ginspector.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.1%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/tools-gob.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/tools-gtkdoc.html</td>
+<td class='warning'>changed</td>
+<td class='value'>1.8%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/tools-refdb.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.03%</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/tools-vala.html</td>
+<td class='warning'>changed</td>
+<td class='value'>0.04%</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ImageFiles'></a>
+<h2>Image Files (16)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/gvfs-overview.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/home.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/left.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/right.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio/up.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/file-name-encodings.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/home.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/left.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/mainloop-states.gif</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/right.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib/up.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/glue.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/home.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/left.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/right.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject/up.png</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='Directories'></a>
+<h2>Directories (31)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th></tr>
+<tr>
+<td class='left f_path'>/usr</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/bin</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/gio-unix-2.0</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/gio-unix-2.0/gio</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gio</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/glib</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/include/glib-2.0/gobject</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/glib-2.0</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/glib-2.0/include</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/lib/pkgconfig</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/aclocal</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libglib2.0-devel</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gdb</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gdb/auto-load</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path failed'>/usr/share/gdb/auto-load/usr</td>
+<td class='failed'>removed</td>
+</tr>
+<tr>
+<td class='left f_path failed'>/usr/share/gdb/auto-load/usr/lib</td>
+<td class='moved' rowspan='2'>moved</td>
+</tr>
+<tr><td class='left f_path  new'>/usr/share/gdb/auto-load/lib</td></tr>
+<tr>
+<td class='left f_path new'>/usr/share/glib-2.0</td>
+<td class='new'>added</td>
+</tr>
+<tr>
+<td class='left f_path new'>/usr/share/glib-2.0/gdb</td>
+<td class='new'>added</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gio</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/glib</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/gtk-doc/html/gobject</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/man</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/man/man1</td>
+<td class='passed'>unchanged</td>
+</tr>
+</table>
+<a name='ChangeLogs'></a>
+<h2>Change Logs (2)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libglib2.0-devel/ChangeLog</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/usr/share/doc/libglib2.0-devel/ChangeLog-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libglib2.0-devel/NEWS</td>
+<td class='warning'>changed</td>
+<td class='value'>37.1%</td>
+<td><a href='diffs/usr/share/doc/libglib2.0-devel/NEWS-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='InformationFiles'></a>
+<h2>Information Files (1)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/share/doc/libglib2.0-devel/AUTHORS</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='TextFiles'></a>
+<h2>Text Files (2)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>/usr/bin/glib-mkenums</td>
+<td class='warning'>changed</td>
+<td class='value'>9.7%</td>
+<td><a href='diffs/usr/bin/glib-mkenums-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>/usr/bin/gtester-report</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='Packages'></a>
+<h2>Packages (2)</h2><hr/>
+<div class='p_list'>
+libglib2.0-devel-2.24.1-1mdv2010.1.i586.rpm<br/>
+libglib2.0-devel-2.28.8-1-mdv2011.0.i586.rpm<br/>
+</div>
+<br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
+</div>
+<br/><br/><br/><hr/>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Thu Oct 25 13:58:10 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.4 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='height:999px;'></div>
+</body></html>

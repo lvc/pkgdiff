@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="libfreetype6, changes, report" />
     <meta name="description" content="Changes report for the libfreetype6 group of packages between 2.3.12 and 2.4.5 versions" />
     <title>
         libfreetype6: 2.3.12 to 2.4.5 changes report
     </title>
-<style type="text/css">
-body {
+    <style type="text/css">
+    body {
     font-family:Arial, sans-serif;
     color:Black;
     font-size:14px;
@@ -90,8 +90,100 @@ div.p_list {
     color:#333333;
     font-size:15px;
 }
-</style>
-</head>
+    </style>
+    <script type="text/javascript" language="JavaScript">
+    <!--
+    function sort(el, status)
+{ 
+    var col_sort = el.innerHTML;
+    var tr = el.parentNode;
+    var table = tr.parentNode;
+    var td, col_sort_num;
+    for (var i=0; (td = tr.getElementsByTagName('th').item(i)); i++)
+    {
+        if(td.innerHTML == col_sort)
+        {
+            col_sort_num = i;
+            if(td.prevsort == 'y') {
+                el.up = Number(!el.up);
+            }
+            else if(td.prevsort == 'n') {
+                td.prevsort = 'y';
+                el.up = 0;
+            }
+            else
+            {
+                if(col_sort_num==0)
+                { // already sorted
+                    td.prevsort = 'n';
+                    el.up = 1;
+                }
+                else if(col_sort_num==2)
+                { // delta
+                    td.prevsort = 'n';
+                    el.up = 1;
+                }
+                else
+                {
+                    td.prevsort = 'y';
+                    el.up = 0;
+                }
+            }
+        }
+        else
+        {
+            if(td.prevsort == 'y') {
+                td.prevsort = 'n';
+            }
+        }
+    }
+    
+    var a = new Array();
+    for(var i=1; i < table.rows.length; i++)
+    {
+        var cols = table.rows[i].getElementsByTagName('td');
+        if(cols.item(status)==null)
+        { // double status
+            a[i-2][2] = table.rows[i];
+        }
+        else
+        {
+            a[i-1] = new Array();
+            var indent = cols.item(col_sort_num).innerHTML;
+            if(indent=='') indent='0';
+            if(indent.substr(indent.length-1, 1)=="%")
+            { // delta
+                indent = indent.substr(0, indent.length-1)*100;
+            }
+            a[i-1][0] = indent;
+            a[i-1][1] = table.rows[i];
+            a[i-1][2] = null;
+        }
+    }
+    
+    // sort table
+    a.sort(sort_array);
+    if(el.up) a.reverse();
+    
+    // draw table
+    for(var i in a)
+    {
+        table.appendChild(a[i][1]);
+        if(a[i][2]!=null) {
+            table.appendChild(a[i][2]);
+        }
+    }
+}
+
+function sort_array(a,b)
+{
+    if(a[0] == b[0]) return 0;
+    if(a[0] > b[0]) return 1;
+    return -1;
+}
+    -->
+    </script>
+    </head>
 <body>
 <div><a name='Top'></a>
 <h1>Changes report for the <span style='color:Blue;'>libfreetype6</span> group of packages between <span style='color:Red;'>2.3.12</span> and <span style='color:Red;'>2.4.5</span> versions</h1>
@@ -110,7 +202,7 @@ div.p_list {
 <tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>4</a></td></tr>
 <tr><th class='left'>Total Dependencies</th><td><a href='#Deps' style='color:Blue;'>27</a></td></tr>
 <tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>193</a></td></tr>
-<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(39.4%)</b></span></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(30.9%)</b></span></td></tr>
 </table>
 <a name='Info'></a>
 <h2>Changes In Package Info</h2><hr/>
@@ -440,7 +532,7 @@ div.p_list {
 <a name='HeaderFiles'></a>
 <h2>Header Files (49)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/include/freetype2/freetype/config/ftconfig.h</td>
 <td class='passed'>unchanged</td>
@@ -788,7 +880,7 @@ div.p_list {
 <a name='CPrograms'></a>
 <h2>C Programs (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/tutorial/example1.c</td>
 <td class='passed'>unchanged</td>
@@ -800,7 +892,7 @@ div.p_list {
 <a name='CPPPrograms'></a>
 <h2>C++ Programs (3)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/tutorial/example2.cpp</td>
 <td class='warning'>changed</td>
@@ -826,7 +918,7 @@ div.p_list {
 <a name='SharedLibraries'></a>
 <h2>Shared Libraries (2)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>/usr/lib/libfreetype.so.6.4.0</td>
 <td class='renamed' rowspan='2'>renamed</td>
@@ -839,7 +931,7 @@ div.p_list {
 <a name='ShellPrograms'></a>
 <h2>Shell Programs (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/bin/multiarch-i386-linux/freetype-config</td>
 <td class='warning'>changed</td>
@@ -851,7 +943,7 @@ div.p_list {
 <a name='LibtoolFiles'></a>
 <h2>Libtool Files (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/lib/libfreetype.la</td>
 <td class='warning'>changed</td>
@@ -863,7 +955,7 @@ div.p_list {
 <a name='M4'></a>
 <h2>M4 Macro Files (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/aclocal/freetype2.m4</td>
 <td class='passed'>unchanged</td>
@@ -875,7 +967,7 @@ div.p_list {
 <a name='PkgConfigFiles'></a>
 <h2>Pkg-config Files (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/lib/pkgconfig/freetype2.pc</td>
 <td class='warning'>changed</td>
@@ -887,7 +979,7 @@ div.p_list {
 <a name='SymbolicLinks'></a>
 <h2>Symbolic Links (3)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/bin/freetype-config</td>
 <td class='passed'>unchanged</td>
@@ -913,7 +1005,7 @@ div.p_list {
 <a name='GitFiles'></a>
 <h2>Git Files (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/.gitignore</td>
 <td class='passed'>unchanged</td>
@@ -925,7 +1017,7 @@ div.p_list {
 <a name='HTML'></a>
 <h2>HTML Pages (58)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/design/design-1.html</td>
 <td class='passed'>unchanged</td>
@@ -1336,7 +1428,7 @@ div.p_list {
 <a name='QtProjectFiles'></a>
 <h2>Qt Project Files (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path new'>/usr/share/doc/libfreetype6-devel/tutorial/example4.pro</td>
 <td class='new'>added</td>
@@ -1348,7 +1440,7 @@ div.p_list {
 <a name='ImageFiles'></a>
 <h2>Image Files (25)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/design/basic-design.png</td>
 <td class='passed'>unchanged</td>
@@ -1528,7 +1620,7 @@ div.p_list {
 <a name='Directories'></a>
 <h2>Directories (21)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th></tr>
 <tr>
 <td class='left f_path'>/usr</td>
 <td class='passed'>unchanged</td>
@@ -1617,7 +1709,7 @@ div.p_list {
 <a name='ChangeLogs'></a>
 <h2>Change Logs (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/CHANGES</td>
 <td class='warning'>changed</td>
@@ -1629,7 +1721,7 @@ div.p_list {
 <a name='InformationFiles'></a>
 <h2>Information Files (17)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/CUSTOMIZE</td>
 <td class='passed'>unchanged</td>
@@ -1753,7 +1845,7 @@ div.p_list {
 <a name='Licenses'></a>
 <h2>Licenses (3)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path failed'>/usr/share/doc/libfreetype6-devel/GPL.TXT</td>
 <td class='failed'>removed</td>
@@ -1779,7 +1871,7 @@ div.p_list {
 <a name='ReadmeFiles'></a>
 <h2>Readme Files (1)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/reference/README</td>
 <td class='passed'>unchanged</td>
@@ -1791,7 +1883,7 @@ div.p_list {
 <a name='TextFiles'></a>
 <h2>Text Files (3)</h2><hr/>
 <table class='summary'>
-<tr><th>Name</th><th>Status</th><th>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
 <tr>
 <td class='left f_path'>/usr/share/doc/libfreetype6-devel/formats.txt</td>
 <td class='warning'>changed</td>
@@ -1825,6 +1917,6 @@ libfreetype6-devel-2.4.5-2-mdv2011.0.i586.rpm<br/>
 <br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
 </div>
 <br/><br/><br/><hr/>
-<div style='width:100%;font-size:11px;' align='right'><i>Generated on Tue Mar 27 11:58:28 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.3.2 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Thu Oct 25 13:05:58 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.4 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
 <div style='height:999px;'></div>
 </body></html>

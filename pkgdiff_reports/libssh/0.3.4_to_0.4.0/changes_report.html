@@ -1,0 +1,1278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="libssh, changes, report" />
+    <meta name="description" content="Changes report for the libssh package between 0.3.4 and 0.4.0 versions" />
+    <title>
+        libssh: 0.3.4 to 0.4.0 changes report
+    </title>
+    <style type="text/css">
+    body {
+    font-family:Arial, sans-serif;
+    color:Black;
+    font-size:14px;
+}
+hr {
+    color:Black;
+    background-color:Black;
+    height:1px;
+    border:0;
+}
+h1 {
+    margin-bottom:0px;
+    padding-bottom:0px;
+    font-size:26px;
+}
+h2 {
+    margin-bottom:0px;
+    padding-bottom:0px;
+    font-size:20px;
+    white-space:nowrap;
+}
+table.summary {
+    border-collapse:collapse;
+    border:1px outset black;
+}
+table.summary th {
+    background-color:#eeeeee;
+    font-weight:bold;
+    text-align:left;
+    font-size:15px;
+    white-space:nowrap;
+    border:1px inset gray;
+    padding: 3px;
+}
+table.summary td {
+    text-align:right;
+    font-size:16px;
+    white-space:nowrap;
+    border:1px inset gray;
+    padding: 3px 5px 3px 5px;
+}
+table.summary td.left {
+    text-align:left;
+}
+table.summary th.left {
+    text-align:left;
+    font-weight:100;
+}
+table.summary td.f_path {
+    font-size:14px;
+    font-family:Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
+}
+table.summary td.value {
+    padding-left:10px;
+}
+td.passed, tr.passed {
+    background-color:#CCFFCC;
+}
+td.warning, tr.warning {
+    background-color:#F4F4AF;
+}
+td.renamed, tr.renamed {
+    background-color:#FFDAA3;
+}
+td.moved, tr.moved {
+    background-color:#FFDAA3;
+}
+td.failed, tr.failed {
+    background-color:#FFC3CE;
+}
+td.new, tr.new {
+    background-color:#C6DEFF;
+}
+a.default {
+    color:#336699;
+}
+div.p_list {
+    padding-left:10px;
+    color:#333333;
+    font-size:15px;
+}
+    </style>
+    <script type="text/javascript" language="JavaScript">
+    <!--
+    function sort(el, status)
+{ 
+    var col_sort = el.innerHTML;
+    var tr = el.parentNode;
+    var table = tr.parentNode;
+    var td, col_sort_num;
+    for (var i=0; (td = tr.getElementsByTagName('th').item(i)); i++)
+    {
+        if(td.innerHTML == col_sort)
+        {
+            col_sort_num = i;
+            if(td.prevsort == 'y') {
+                el.up = Number(!el.up);
+            }
+            else if(td.prevsort == 'n') {
+                td.prevsort = 'y';
+                el.up = 0;
+            }
+            else
+            {
+                if(col_sort_num==0)
+                { // already sorted
+                    td.prevsort = 'n';
+                    el.up = 1;
+                }
+                else if(col_sort_num==2)
+                { // delta
+                    td.prevsort = 'n';
+                    el.up = 1;
+                }
+                else
+                {
+                    td.prevsort = 'y';
+                    el.up = 0;
+                }
+            }
+        }
+        else
+        {
+            if(td.prevsort == 'y') {
+                td.prevsort = 'n';
+            }
+        }
+    }
+    
+    var a = new Array();
+    for(var i=1; i < table.rows.length; i++)
+    {
+        var cols = table.rows[i].getElementsByTagName('td');
+        if(cols.item(status)==null)
+        { // double status
+            a[i-2][2] = table.rows[i];
+        }
+        else
+        {
+            a[i-1] = new Array();
+            var indent = cols.item(col_sort_num).innerHTML;
+            if(indent=='') indent='0';
+            if(indent.substr(indent.length-1, 1)=="%")
+            { // delta
+                indent = indent.substr(0, indent.length-1)*100;
+            }
+            a[i-1][0] = indent;
+            a[i-1][1] = table.rows[i];
+            a[i-1][2] = null;
+        }
+    }
+    
+    // sort table
+    a.sort(sort_array);
+    if(el.up) a.reverse();
+    
+    // draw table
+    for(var i in a)
+    {
+        table.appendChild(a[i][1]);
+        if(a[i][2]!=null) {
+            table.appendChild(a[i][2]);
+        }
+    }
+}
+
+function sort_array(a,b)
+{
+    if(a[0] == b[0]) return 0;
+    if(a[0] > b[0]) return 1;
+    return -1;
+}
+    -->
+    </script>
+    </head>
+<body>
+<div><a name='Top'></a>
+<h1>Changes report for the <span style='color:Blue;'>libssh</span> package between <span style='color:Red;'>0.3.4</span> and <span style='color:Red;'>0.4.0</span> versions</h1>
+<br/><table class='summary'>
+    <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
+    <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>
+<h2>Test Info</h2><hr/>
+<table class='summary'>
+<tr><th class='left'>Package Name</th><td>libssh</td></tr>
+<tr><th class='left'>Package Format</th><td>TAR.GZ</td></tr>
+<tr><th class='left'>Version #1</th><td>0.3.4</td></tr>
+<tr><th class='left'>Version #2</th><td>0.4.0</td></tr>
+</table>
+<h2>Test Results</h2><hr/>
+<table class='summary'>
+<tr><th class='left'>Total Packages</th><td><a href='#Packages' style='color:Blue;'>2</a></td></tr>
+<tr><th class='left'>Total Files</th><td><a href='#Files' style='color:Blue;'>129</a></td></tr>
+<tr><th class='left'>Verdict</th><td><span style='color:Red;'><b>Changed<br/>(35.6%)</b></span></td></tr>
+</table>
+<a name='Deps'></a>
+<a name='Files'></a><h2>Changes In Files</h2><hr/>
+<table class='summary'>
+<tr><th>File Type</th><th>Total</th><th>Added</th><th>Removed</th><th>Changed</th></tr>
+<tr>
+<td class='left'>Header file</td>
+<td><a href='#HeaderFiles' style='color:Blue;'>27</a></td>
+<td class='new'><a href='#HeaderFiles' style='color:Blue;'>17</a></td>
+<td class='failed'><a href='#HeaderFiles' style='color:Blue;'>1</a></td>
+<td class='warning'><a href='#HeaderFiles' style='color:Blue;'>6</a></td>
+</tr>
+<tr>
+<td class='left'>C program</td>
+<td><a href='#CPrograms' style='color:Blue;'>53</a></td>
+<td class='new'><a href='#CPrograms' style='color:Blue;'>14</a></td>
+<td class='failed'><a href='#CPrograms' style='color:Blue;'>2</a></td>
+<td class='warning'><a href='#CPrograms' style='color:Blue;'>31</a></td>
+</tr>
+<tr>
+<td class='left'>Python program</td>
+<td><a href='#PythonPrograms' style='color:Blue;'>1</a></td>
+<td class='new'><a href='#PythonPrograms' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Shell program</td>
+<td><a href='#ShellPrograms' style='color:Blue;'>2</a></td>
+<td class='new'><a href='#ShellPrograms' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Automake file</td>
+<td><a href='#AutomakeFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>CMake file</td>
+<td><a href='#CMakeFiles' style='color:Blue;'>22</a></td>
+<td class='new'><a href='#CMakeFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td class='warning'><a href='#CMakeFiles' style='color:Blue;'>10</a></td>
+</tr>
+<tr>
+<td class='left'>Makefile</td>
+<td><a href='#Makefiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#Makefiles' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
+<td class='left'>CSS style sheet</td>
+<td><a href='#CSS' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Doxygen file</td>
+<td><a href='#DoxygenFiles' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>HTML page</td>
+<td><a href='#HTML' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Directory</td>
+<td><a href='#Directories' style='color:Blue;'>9</a></td>
+<td class='new'><a href='#Directories' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Change log</td>
+<td><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#ChangeLogs' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
+<td class='left'>Information file</td>
+<td><a href='#InformationFiles' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>License</td>
+<td><a href='#Licenses' style='color:Blue;'>3</a></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td class='left'>Readme file</td>
+<td><a href='#ReadmeFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+<td>0</td>
+<td class='warning'><a href='#ReadmeFiles' style='color:Blue;'>1</a></td>
+</tr>
+<tr>
+<td class='left'>Text file</td>
+<td><a href='#TextFiles' style='color:Blue;'>2</a></td>
+<td>0</td>
+<td class='failed'><a href='#TextFiles' style='color:Blue;'>1</a></td>
+<td>0</td>
+</tr>
+</table>
+<a name='HeaderFiles'></a>
+<h2>Header Files (27)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path new'>examples/examples_common.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>include/libssh/agent.h</td>
+<td class='warning'>changed</td>
+<td class='value'>66.4%</td>
+<td><a href='diffs/include/libssh/agent.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/buffer.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/callbacks.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/channels.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>include/libssh/crypto.h</td>
+<td class='warning'>changed</td>
+<td class='value'>42.8%</td>
+<td><a href='diffs/include/libssh/crypto.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/dh.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/keyfiles.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/keys.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>include/libssh/libssh.h</td>
+<td class='warning'>changed</td>
+<td class='value'>98.4%</td>
+<td><a href='diffs/include/libssh/libssh.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/messages.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/misc.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/packet.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/pcap.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/poll.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>include/libssh/priv.h</td>
+<td class='warning'>changed</td>
+<td class='value'>86%</td>
+<td><a href='diffs/include/libssh/priv.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/scp.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>include/libssh/server.h</td>
+<td class='warning'>changed</td>
+<td class='value'>74.1%</td>
+<td><a href='diffs/include/libssh/server.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/session.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>include/libssh/sftp.h</td>
+<td class='warning'>changed</td>
+<td class='value'>39.5%</td>
+<td><a href='diffs/include/libssh/sftp.h-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/socket.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>include/libssh/ssh1.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>include/libssh/ssh2.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/string.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>include/libssh/wrapper.h</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>include/wspiapi.h</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>tests/tests.h</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='CPrograms'></a>
+<h2>C Programs (53)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path new'>examples/authentication.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>examples/connect_ssh.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>examples/knownhosts.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>examples/libssh_scp.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>examples/samplesftp.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>examples/scp_download.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/agent.c</td>
+<td class='warning'>changed</td>
+<td class='value'>18.1%</td>
+<td><a href='diffs/libssh/agent.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/auth.c</td>
+<td class='warning'>changed</td>
+<td class='value'>13.2%</td>
+<td><a href='diffs/libssh/auth.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/auth1.c</td>
+<td class='warning'>changed</td>
+<td class='value'>15.2%</td>
+<td><a href='diffs/libssh/auth1.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/base64.c</td>
+<td class='warning'>changed</td>
+<td class='value'>1.5%</td>
+<td><a href='diffs/libssh/base64.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/buffer.c</td>
+<td class='warning'>changed</td>
+<td class='value'>40.8%</td>
+<td><a href='diffs/libssh/buffer.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>libssh/callbacks.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/channels.c</td>
+<td class='warning'>changed</td>
+<td class='value'>35.1%</td>
+<td><a href='diffs/libssh/channels.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/channels1.c</td>
+<td class='warning'>changed</td>
+<td class='value'>17.3%</td>
+<td><a href='diffs/libssh/channels1.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/client.c</td>
+<td class='warning'>changed</td>
+<td class='value'>11.4%</td>
+<td><a href='diffs/libssh/client.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>libssh/config.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/connect.c</td>
+<td class='warning'>changed</td>
+<td class='value'>30.2%</td>
+<td><a href='diffs/libssh/connect.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/crc32.c</td>
+<td class='warning'>changed</td>
+<td class='value'>2.2%</td>
+<td><a href='diffs/libssh/crc32.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/crypt.c</td>
+<td class='warning'>changed</td>
+<td class='value'>10.4%</td>
+<td><a href='diffs/libssh/crypt.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/dh.c</td>
+<td class='warning'>changed</td>
+<td class='value'>9.3%</td>
+<td><a href='diffs/libssh/dh.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/error.c</td>
+<td class='warning'>changed</td>
+<td class='value'>33.5%</td>
+<td><a href='diffs/libssh/error.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/gcrypt_missing.c</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/gzip.c</td>
+<td class='warning'>changed</td>
+<td class='value'>15.6%</td>
+<td><a href='diffs/libssh/gzip.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/init.c</td>
+<td class='warning'>changed</td>
+<td class='value'>18.1%</td>
+<td><a href='diffs/libssh/init.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/kex.c</td>
+<td class='warning'>changed</td>
+<td class='value'>9%</td>
+<td><a href='diffs/libssh/kex.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/keyfiles.c</td>
+<td class='warning'>changed</td>
+<td class='value'>13.1%</td>
+<td><a href='diffs/libssh/keyfiles.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/keys.c</td>
+<td class='warning'>changed</td>
+<td class='value'>19.6%</td>
+<td><a href='diffs/libssh/keys.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/log.c</td>
+<td class='warning'>changed</td>
+<td class='value'>13.1%</td>
+<td><a href='diffs/libssh/log.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/match.c</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/messages.c</td>
+<td class='warning'>changed</td>
+<td class='value'>64.1%</td>
+<td><a href='diffs/libssh/messages.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/misc.c</td>
+<td class='warning'>changed</td>
+<td class='value'>49%</td>
+<td><a href='diffs/libssh/misc.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/options.c</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/libssh/options.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/packet.c</td>
+<td class='warning'>changed</td>
+<td class='value'>19.1%</td>
+<td><a href='diffs/libssh/packet.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>libssh/pcap.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/poll.c</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/libssh/poll.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>libssh/scp.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/server.c</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/libssh/server.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/session.c</td>
+<td class='warning'>changed</td>
+<td class='value'>26%</td>
+<td><a href='diffs/libssh/session.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/sftp.c</td>
+<td class='warning'>changed</td>
+<td class='value'>41.8%</td>
+<td><a href='diffs/libssh/sftp.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/sftpserver.c</td>
+<td class='warning'>changed</td>
+<td class='value'>12.5%</td>
+<td><a href='diffs/libssh/sftpserver.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/socket.c</td>
+<td class='warning'>changed</td>
+<td class='value'>7.8%</td>
+<td><a href='diffs/libssh/socket.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/string.c</td>
+<td class='warning'>changed</td>
+<td class='value'>17.2%</td>
+<td><a href='diffs/libssh/string.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/wrapper.c</td>
+<td class='warning'>changed</td>
+<td class='value'>14.5%</td>
+<td><a href='diffs/libssh/wrapper.c-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>sample.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>58.7%</td>
+<td rowspan='2'><a href='diffs/sample.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>examples/sample.c</td></tr>
+<tr>
+<td class='left f_path failed'>samplesshd.c</td>
+<td class='moved' rowspan='2'>moved</td>
+<td class='value' rowspan='2'>81.9%</td>
+<td rowspan='2'><a href='diffs/samplesshd.c-diff.html' style='color:Blue;'>diff</a></td>
+<td rowspan='2'></td>
+</tr>
+<tr><td class='left f_path  new'>examples/samplesshd.c</td></tr>
+<tr>
+<td class='left f_path'>tests/authentication.c</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>tests/connection.c</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>tests/sftp_stress/main.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>tests/test_exec.c</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>tests/test_pcap.c</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>tests/test_tunnel.c</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='PythonPrograms'></a>
+<h2>Python Programs (1)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path new'>tests/generate.py</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ShellPrograms'></a>
+<h2>Shell Programs (2)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path new'>tests/bench1.sh</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>tests/bench2.sh</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='AutomakeFiles'></a>
+<h2>Automake Files (1)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>doc/doxy.config.in</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='CMakeFiles'></a>
+<h2>CMake Files (22)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>cmake/Modules/DefineCMakeDefaults.cmake</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/DefineCompilerFlags.cmake</td>
+<td class='warning'>changed</td>
+<td class='value'>73.4%</td>
+<td><a href='diffs/cmake/Modules/DefineCompilerFlags.cmake-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/DefineInstallationPaths.cmake</td>
+<td class='warning'>changed</td>
+<td class='value'>1.3%</td>
+<td><a href='diffs/cmake/Modules/DefineInstallationPaths.cmake-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/FindGCrypt.cmake</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/FindOpenSSL.cmake</td>
+<td class='warning'>changed</td>
+<td class='value'>10.1%</td>
+<td><a href='diffs/cmake/Modules/FindOpenSSL.cmake-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/FindZLIB.cmake</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/MacroAddCompileFlags.cmake</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/MacroAddLinkFlags.cmake</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/MacroAddPlugin.cmake</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/MacroCopyFile.cmake</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/MacroEnsureOutOfSourceBuild.cmake</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/UseDoxygen.cmake</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>CMakeLists.txt</td>
+<td class='warning'>changed</td>
+<td class='value'>33.3%</td>
+<td><a href='diffs/CMakeLists.txt-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>config.h.cmake</td>
+<td class='warning'>changed</td>
+<td class='value'>35.3%</td>
+<td><a href='diffs/config.h.cmake-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>ConfigureChecks.cmake</td>
+<td class='warning'>changed</td>
+<td class='value'>100%</td>
+<td><a href='diffs/ConfigureChecks.cmake-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>CPackConfig.cmake</td>
+<td class='warning'>changed</td>
+<td class='value'>6.6%</td>
+<td><a href='diffs/CPackConfig.cmake-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>DefineOptions.cmake</td>
+<td class='warning'>changed</td>
+<td class='value'>77.3%</td>
+<td><a href='diffs/DefineOptions.cmake-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>doc/CMakeLists.txt</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path new'>examples/CMakeLists.txt</td>
+<td class='new'>added</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>include/CMakeLists.txt</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>include/libssh/CMakeLists.txt</td>
+<td class='warning'>changed</td>
+<td class='value'>3.4%</td>
+<td><a href='diffs/include/libssh/CMakeLists.txt-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>libssh/CMakeLists.txt</td>
+<td class='warning'>changed</td>
+<td class='value'>23.5%</td>
+<td><a href='diffs/libssh/CMakeLists.txt-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='Makefiles'></a>
+<h2>Makefiles (1)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>tests/Makefile</td>
+<td class='warning'>changed</td>
+<td class='value'>31.1%</td>
+<td><a href='diffs/tests/Makefile-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='CSS'></a>
+<h2>CSS Style Sheets (1)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>doc/style.css</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='DoxygenFiles'></a>
+<h2>Doxygen Files (2)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>Doxyfile</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>Doxyfile.internal</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='HTML'></a>
+<h2>HTML Pages (1)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>doc/API.html</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='Directories'></a>
+<h2>Directories (9)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th></tr>
+<tr>
+<td class='left f_path'>cmake</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>doc</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path new'>examples</td>
+<td class='new'>added</td>
+</tr>
+<tr>
+<td class='left f_path'>include</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>include/libssh</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>libssh</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path'>tests</td>
+<td class='passed'>unchanged</td>
+</tr>
+<tr>
+<td class='left f_path new'>tests/sftp_stress</td>
+<td class='new'>added</td>
+</tr>
+</table>
+<a name='ChangeLogs'></a>
+<h2>Change Logs (1)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>ChangeLog</td>
+<td class='warning'>changed</td>
+<td class='value'>19.5%</td>
+<td><a href='diffs/ChangeLog-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='InformationFiles'></a>
+<h2>Information Files (2)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>AUTHORS</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>INSTALL</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='Licenses'></a>
+<h2>Licenses (3)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>BSD</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>cmake/Modules/COPYING-CMAKE-SCRIPTS</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path'>COPYING</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='ReadmeFiles'></a>
+<h2>Readme Files (1)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>README</td>
+<td class='warning'>changed</td>
+<td class='value'>78.5%</td>
+<td><a href='diffs/README-diff.html' style='color:Blue;'>diff</a></td>
+<td></td>
+</tr>
+</table>
+<a name='TextFiles'></a>
+<h2>Text Files (2)</h2><hr/>
+<table class='summary'>
+<tr><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Name</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Status</th><th title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th></tr>
+<tr>
+<td class='left f_path'>doc/libssh-0.2-api-1.txt</td>
+<td class='passed'>unchanged</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class='left f_path failed'>libssh/libssh.map</td>
+<td class='failed'>removed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<a name='Packages'></a>
+<h2>Packages (2)</h2><hr/>
+<div class='p_list'>
+libssh-0.3.4.tar.gz<br/>
+libssh-0.4.0.tar.gz<br/>
+</div>
+<br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>
+</div>
+<br/><br/><br/><hr/>
+<div style='width:100%;font-size:11px;' align='right'><i>Generated on Thu Oct 25 13:27:29 2012 by <a href='http://pkgdiff.github.com/pkgdiff/'>Package Changes Analyzer</a> - PkgDiff 1.4 &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>
+<div style='height:999px;'></div>
+</body></html>
