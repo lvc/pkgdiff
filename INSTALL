@@ -6,8 +6,8 @@ All rights reserved.
 RELEASE INFORMATION
 
 Project:           Package Changes Analyzer (pkgdiff)
-Version:           1.4
-Date:              2012-10-25
+Version:           1.4.1
+Date:              2012-11-12
 
 
 This file explains how to install and setup environment
@@ -18,7 +18,7 @@ Content:
 
    1. Requirements for Linux and FreeBSD
    2. Requirements for Mac OS X
-   3. Configuring and Installing for Linux and FreeBSD
+   3. Configuring and Installing
    4. Running the Tool
 
 
@@ -60,8 +60,8 @@ Content:
 
 
 
-3. CONFIGURING AND INSTALLING FOR LINUX AND FREEBSD
-===================================================
+3. CONFIGURING AND INSTALLING
+=============================
 
    This command will install an pkgdiff program in the
    PREFIX/bin system directory and private modules into the PREFIX/share:

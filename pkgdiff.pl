@@ -2466,7 +2466,7 @@ sub getPkgVersion($)
     my $Name = $_[0];
     my $Extension = getExt($Name);
     $Name=~s/\.(\Q$Extension\E)\Z//;
-    if($Name=~/\A(.+[a-z])[\-\_](v|)(\d.+?)\Z/i)
+    if($Name=~/\A(.+[a-z])[\-\_](v|ver|)(\d.+?)\Z/i)
     { # libsample-N
       # libsample-vN
         return ($1, $3);
@@ -2475,7 +2475,7 @@ sub getPkgVersion($)
     { # libsampleN
         return ($1, $2);
     }
-    elsif($Name=~/\A(.+)[\-\_](v|)(.+?)\Z/i)
+    elsif($Name=~/\A(.+)[\-\_](v|ver|)(.+?)\Z/i)
     { # libsample-N
       # libsample-vN
         return ($1, $3);
