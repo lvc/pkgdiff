@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.4
+# PkgDiff - Package Changes Analyzer 1.4.1
 # A tool for analyzing changes in Linux software packages
 #
 # Copyright (C) 2011-2012 ROSA Laboratory
@@ -50,7 +50,7 @@ use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.4";
+my $TOOL_VERSION = "1.4.1";
 my $OSgroup = get_OSgroup();
 my $ORIG_DIR = cwd();
 my $TMP_DIR = tempdir(CLEANUP=>1);
@@ -102,23 +102,27 @@ Example: $CmdName OLD.rpm NEW.rpm
 
 More info: $CmdName --help\n";
 
-if($#ARGV==-1) {
+if($#ARGV==-1)
+{
     printMsg("INFO", $ShortUsage);
     exit(0);
 }
 
 foreach (2 .. $#ARGV)
 { # correct comma separated options
-    if($ARGV[$_-1] eq ",") {
+    if($ARGV[$_-1] eq ",")
+    {
         $ARGV[$_-2].=",".$ARGV[$_];
         splice(@ARGV, $_-1, 2);
     }
-    elsif($ARGV[$_-1]=~/,\Z/) {
+    elsif($ARGV[$_-1]=~/,\Z/)
+    {
         $ARGV[$_-1].=$ARGV[$_];
         splice(@ARGV, $_, 1);
     }
     elsif($ARGV[$_]=~/\A,/
-    and $ARGV[$_] ne ",") {
+    and $ARGV[$_] ne ",")
+    {
         $ARGV[$_-1].=$ARGV[$_];
         splice(@ARGV, $_, 1);
     }
@@ -1442,7 +1446,7 @@ sub get_Report_Headers()
             {
                 $Report .= "<td class='warning'>changed</td>\n";
                 $Report .= "<td class='value'>".show_number($Details{$Package}{"Rate"}*100)."%</td>\n";
-                $Report .= "<td><a href='".$Details{$Package}{"Diff"}."' style='color:Blue;'>diff</a></td>\n";
+                $Report .= "<td><a href='".$Details{$Package}{"Diff"}."' target='_blank'>diff</a></td>\n"; # style='color:Blue;'
             }
             else
             {
@@ -1620,7 +1624,7 @@ sub get_Report_Files()
                     $Report .= "<td$Join></td>\n";
                 }
                 if(my $Link = $Info{"Diff"}) {
-                    $Report .= "<td$Join><a href='".$Link."' style='color:Blue;'>diff</a></td>\n";
+                    $Report .= "<td$Join><a href='".$Link."' target='_blank'>diff</a></td>\n"; # style='color:Blue;'
                 }
                 elsif($Info{"Empty"}) {
                     $Report .= "<td$Join></td>\n";
@@ -1632,7 +1636,7 @@ sub get_Report_Files()
                     $Report .= "<td$Join></td>\n";
                 }
                 if(my $Link = $Info{"Report"}) {
-                    $Report .= "<td$Join><a href='".$Link."' style='color:Blue;'>report</a></td>\n";
+                    $Report .= "<td$Join><a href='".$Link."' target='_blank'>report</a></td>\n"; # style='color:Blue;'
                 }
                 else {
                     $Report .= "<td$Join></td>\n";
@@ -2508,7 +2512,7 @@ sub get_Footer($)
 {
     my $Name = $_[0];
     my $Footer = "<div style='width:100%;font-size:11px;' align='right'><i>Generated on ".(localtime time); # report date
-    $Footer .= " by <a href='".$HomePage{"Dev"}."'>Package Changes Analyzer</a> - PkgDiff"; # tool name
+    $Footer .= " by <a href='".$HomePage{"Dev"}."' target='_blank'>Package Changes Analyzer</a> - PkgDiff"; # tool name
     my $ToolSummary = "<br/>A tool for analyzing changes in Linux software packages&#160;&#160;";
     $Footer .= " $TOOL_VERSION &#160;$ToolSummary</i></div>"; # tool version
     return $Footer;
@@ -2866,7 +2870,8 @@ sub openReport($)
         if($Debug) {
             printMsg("INFO", "running $Cmd");
         }
-        if($OSgroup ne "macos")
+        if($OSgroup ne "windows"
+        and $OSgroup ne "macos")
         {
             if($Cmd!~/lynx|links/) {
                 $Cmd .= "  >\"$TMP_DIR/null\" 2>&1 &";

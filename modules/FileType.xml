@@ -602,24 +602,6 @@
 
 <type>
     <id>
-        EXPORT_FILE
-    </id>
-    <summary>
-        Export file
-    </summary>
-    <extensions>
-        exp, ex
-    </extensions>
-    <weight>
-        40
-    </weight>
-    <format>
-        Text
-    </format>
-</type>
-
-<type>
-    <id>
         MESSAGE_FILE
     </id>
     <summary>
@@ -3364,7 +3346,7 @@
         Data file
     </summary>
     <extensions>
-        data, dat, out, stdout, stdin, tbl
+        data, dat, out, stdout, stdin, tbl, input, exp, ex
     </extensions>
     <weight>
         30

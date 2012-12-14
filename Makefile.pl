@@ -26,7 +26,6 @@ use File::Copy qw(copy);
 use File::Basename qw(dirname);
 use Cwd qw(abs_path);
 use File::Find;
-use Config;
 use strict;
 
 my $TOOL_SNAME = "pkgdiff";
@@ -158,13 +157,17 @@ sub scenario()
     }
     if($Remove or $Update)
     {
-        # remove executable
-        print "-- Removing $EXE_PATH/$TOOL_SNAME\n";
-        unlink($EXE_PATH."/".$TOOL_SNAME);
+        if(-e $EXE_PATH."/".$TOOL_SNAME)
+        { # remove executable
+            print "-- Removing $EXE_PATH/$TOOL_SNAME\n";
+            unlink($EXE_PATH."/".$TOOL_SNAME);
+        }
         
-        # remove modules
-        print "-- Removing $MODULES_PATH\n";
-        rmtree($MODULES_PATH);
+        if(-d $MODULES_PATH)
+        { # remove modules
+            print "-- Removing $MODULES_PATH\n";
+            rmtree($MODULES_PATH);
+        }
     }
     if($Install or $Update)
     {
@@ -206,7 +209,7 @@ sub scenario()
         }
         
         # check PATH
-        if($ENV{"PATH"}!~/(\A|:)\Q$EXE_PATH\E(\Z|:)/) {
+        if($ENV{"PATH"}!~/(\A|:)\Q$EXE_PATH[\/]?\E(\Z|:)/) {
             print "WARNING: your PATH variable doesn't include \'$EXE_PATH\'\n";
         }
     }
