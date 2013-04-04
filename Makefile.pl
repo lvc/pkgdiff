@@ -3,7 +3,7 @@
 # Makefile for pkgdiff
 # Install/remove the tool for GNU/Linux, FreeBSD and Mac OS X
 #
-# Copyright (C) 2011-2012 ROSA Laboratory
+# Copyright (C) 2011-2013 ROSA Laboratory
 #
 # Written by Andrey Ponomarenko
 #
