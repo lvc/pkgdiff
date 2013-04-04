@@ -39,9 +39,9 @@ DESCRIPTION:
   Install $TOOL_SNAME command and private modules.
 
 USAGE:
-  sudo perl $0 -install -prefix=/usr
-  sudo perl $0 -update -prefix=/usr
-  sudo perl $0 -remove -prefix=/usr
+  sudo perl $0 -install -prefix /usr
+  sudo perl $0 -update -prefix /usr
+  sudo perl $0 -remove -prefix /usr
 
 OPTIONS:
   -h|-help
@@ -209,7 +209,7 @@ sub scenario()
         }
         
         # check PATH
-        if($ENV{"PATH"}!~/(\A|:)\Q$EXE_PATH[\/]?\E(\Z|:)/) {
+        if($ENV{"PATH"}!~/(\A|:)\Q$EXE_PATH\E[\/]?(\Z|:)/) {
             print "WARNING: your PATH variable doesn't include \'$EXE_PATH\'\n";
         }
     }

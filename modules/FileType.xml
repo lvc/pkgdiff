@@ -2486,8 +2486,11 @@
     <summary>
         Python compiled program
     </summary>
+    <bytes>
+        d1f20d0a
+    </bytes>
     <extensions>
-        pyc
+        pyc, pyo
     </extensions>
     <weight>
         60
@@ -3488,6 +3491,24 @@
     </summary>
     <extensions>
         list, lst
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        GLADE
+    </id>
+    <summary>
+        Glade interface
+    </summary>
+    <extensions>
+        glade
     </extensions>
     <weight>
         40

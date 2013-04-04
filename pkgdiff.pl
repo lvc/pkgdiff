@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.4.1
+# PkgDiff - Package Changes Analyzer 1.5
 # A tool for analyzing changes in Linux software packages
 #
-# Copyright (C) 2011-2012 ROSA Laboratory
+# Copyright (C) 2011-2013 ROSA Laboratory
 #
 # Written by Andrey Ponomarenko
 #
@@ -50,7 +50,7 @@ use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.4.1";
+my $TOOL_VERSION = "1.5";
 my $OSgroup = get_OSgroup();
 my $ORIG_DIR = cwd();
 my $TMP_DIR = tempdir(CLEANUP=>1);
@@ -65,7 +65,8 @@ my $ABICC = "abi-compliance-checker";
 my ($Help, $ShowVersion, $DumpVersion, $GenerateTemplate, %Descriptor,
 $CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug,
 $SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Browse, $Minimal,
-$IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $OpenReport);
+$IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $OpenReport,
+$ExtraInfo);
 
 my $CmdName = get_filename($0);
 
@@ -94,7 +95,7 @@ my %Contacts = (
 
 my $ShortUsage = "Package Changes Analyzer (PkgDiff) $TOOL_VERSION
 A tool for analyzing changes in Linux software packages
-Copyright (C) 2012 ROSA Laboratory
+Copyright (C) 2013 ROSA Laboratory
 License: GNU GPL
 
 Usage: $CmdName PKG1 PKG2 [options]
@@ -106,26 +107,6 @@ if($#ARGV==-1)
 {
     printMsg("INFO", $ShortUsage);
     exit(0);
-}
-
-foreach (2 .. $#ARGV)
-{ # correct comma separated options
-    if($ARGV[$_-1] eq ",")
-    {
-        $ARGV[$_-2].=",".$ARGV[$_];
-        splice(@ARGV, $_-1, 2);
-    }
-    elsif($ARGV[$_-1]=~/,\Z/)
-    {
-        $ARGV[$_-1].=$ARGV[$_];
-        splice(@ARGV, $_, 1);
-    }
-    elsif($ARGV[$_]=~/\A,/
-    and $ARGV[$_] ne ",")
-    {
-        $ARGV[$_-1].=$ARGV[$_];
-        splice(@ARGV, $_, 1);
-    }
 }
 
 GetOptions("h|help!" => \$Help,
@@ -150,11 +131,12 @@ GetOptions("h|help!" => \$Help,
   "minimal!" => \$Minimal,
   "browse|b=s" => \$Browse,
   "open!" => \$OpenReport,
+  "extra-info=s" => \$ExtraInfo,
   "debug!" => \$Debug
 ) or ERR_MESSAGE();
 
 if(@ARGV)
-{ 
+{
     if($#ARGV==1)
     { # pkgdiff OLD.pkg NEW.pkg
         $Descriptor{1} = $ARGV[0];
@@ -280,6 +262,9 @@ OTHER OPTIONS:
       
   -open
       Open report(s) in the default browser.
+      
+  -extra-info DIR
+      Dump extra info to DIR.
 
   -debug
       Show debug info.
@@ -332,6 +317,7 @@ my $DescriptorTemplate = "
 my $RENAME_FILE_MATCH = 0.55;
 my $RENAME_CONTENT_MATCH = 0.85;
 my $MOVE_CONTENT_MATCH = 0.90;
+my $MOVE_DEPTH = 4;
 my $DEFAULT_WIDTH = 75;
 my $DIFF_PRE_LINES = 10;
 my $EXACT_DIFF_SIZE = 256*1024;
@@ -344,8 +330,10 @@ my %Group = (
 
 my %FormatInfo = ();
 my %FileFormat = ();
+
 my %TermFormat = ();
 my %DirFormat = ();
+my %BytesFormat = ();
 
 # Cache
 my %Cache;
@@ -372,18 +360,25 @@ my %DepChanges;
 # Files
 my %AddedFiles;
 my %RemovedFiles;
+my %ChangedFiles;
 my %StableFiles;
 my %RenamedFiles;
 my %RenamedFiles_R;
 my %MovedFiles;
 my %MovedFiles_R;
+
 my %SkipFiles;
 my %FormatFiles;
+
+# Symbols
+my %AddedSymbols;
+my %RemovedSymbols;
 
 # Report
 my $REPORT_PATH;
 my $REPORT_DIR;
 my %RESULT;
+my $STAT_LINE;
 
 # Other
 my %ArchiveFormats = (
@@ -424,7 +419,7 @@ sub get_Modules()
         # relative path to modules
         abs_path($TOOL_DIR)."/../share/pkgdiff",
         # system directory
-        "MODULES_INSTALL_PATH"
+        'MODULES_INSTALL_PATH'
     );
     foreach my $DIR (@SEARCH_DIRS)
     {
@@ -456,6 +451,132 @@ sub readBytes($)
     close(FILE);
     my @Bytes = map { sprintf('%02x', ord($_)) } split (//, $Header);
     return join("", @Bytes);
+}
+
+sub readSymbols($)
+{
+    my $Path = $_[0];
+    my $Format = getFormat($Path);
+    
+    my %Symbols = ();
+    
+    if($Format eq "SHARED_OBJECT")
+    {
+        open(LIB, "readelf -WhlSsdA \"$Path\" 2>\"$TMP_DIR/null\" |");
+        my $symtab = undef; # indicates that we are processing 'symtab' section of 'readelf' output
+        while(<LIB>)
+        {
+            if(defined $symtab)
+            { # do nothing with symtab
+                if(index($_, "'.dynsym'")!=-1)
+                { # dynamic table
+                    $symtab = undef;
+                }
+            }
+            elsif(index($_, "'.symtab'")!=-1)
+            { # symbol table
+                $symtab = 1;
+            }
+            elsif(my @Info = readline_ELF($_))
+            {
+                my ($Bind, $Ndx, $Symbol) = ($Info[3], $Info[5], $Info[6]);
+                if($Ndx ne "UND"
+                and $Bind ne "WEAK")
+                { # only imported symbols
+                    $Symbols{$Symbol} = 1;
+                }
+            }
+        }
+        close(LIB);
+    }
+    
+    return %Symbols;
+}
+
+my %ELF_BIND = map {$_=>1} (
+    "WEAK",
+    "GLOBAL"
+);
+
+my %ELF_TYPE = map {$_=>1} (
+    "FUNC",
+    "IFUNC",
+    "OBJECT",
+    "COMMON"
+);
+
+my %ELF_VIS = map {$_=>1} (
+    "DEFAULT",
+    "PROTECTED"
+);
+
+sub readline_ELF($)
+{ # read the line of 'readelf' output corresponding to the symbol
+    my @Info = split(/\s+/, $_[0]);
+    #  Num:   Value      Size Type   Bind   Vis       Ndx  Name
+    #  3629:  000b09c0   32   FUNC   GLOBAL DEFAULT   13   _ZNSt12__basic_fileIcED1Ev@@GLIBCXX_3.4
+    shift(@Info); # spaces
+    shift(@Info); # num
+    if($#Info!=6)
+    { # other lines
+        return ();
+    }
+    return () if(not defined $ELF_TYPE{$Info[2]});
+    return () if(not defined $ELF_BIND{$Info[3]});
+    return () if(not defined $ELF_VIS{$Info[4]});
+    if($Info[5] eq "ABS" and $Info[0]=~/\A0+\Z/)
+    { # 1272: 00000000     0 OBJECT  GLOBAL DEFAULT  ABS CXXABI_1.3
+        return ();
+    }
+    if(index($Info[2], "0x") == 0)
+    { # size == 0x3d158
+        $Info[2] = hex($Info[2]);
+    }
+    return @Info;
+}
+
+sub compareSymbols($$)
+{
+    my ($P1, $P2) = @_;
+    
+    my %Symbols1 = readSymbols($P1);
+    my %Symbols2 = readSymbols($P2);
+    
+    my $Changed = 0;
+    
+    foreach my $Symbol (keys(%Symbols1))
+    {
+        if(not defined $Symbols2{$Symbol})
+        {
+            $Changed = 1;
+            if(defined $AddedSymbols{$Symbol})
+            { # moved
+                delete($AddedSymbols{$Symbol});
+            }
+            else
+            { # removed
+                $RemovedSymbols{$Symbol} = 1;
+            }
+        }
+    }
+    
+    foreach my $Symbol (keys(%Symbols2))
+    {
+        if(not defined $Symbols1{$Symbol})
+        {
+            $Changed = 1;
+            if(defined $RemovedSymbols{$Symbol})
+            { # moved
+                delete($RemovedSymbols{$Symbol})
+            }
+            else
+            { # added
+                $AddedSymbols{$Symbol} = 1;
+            }
+        }
+    }
+    
+    return $Changed;
 }
 
 sub compareFiles($$$$)
@@ -497,6 +618,17 @@ sub compareFiles($$$$)
         }
     }
     my ($Changed, $DLink, $RLink, $Rate) = (0, "", "", 0);
+    
+    if(not $ShowDetails)
+    {
+        if($Format eq "SHARED_OBJECT")
+        {
+            if(not compareSymbols($P1, $P2))
+            { # equal sets of symbols
+                return (0, "", "", 0);
+            }
+        }
+    }
     
     if(defined $FormatInfo{$Format}{"Format"}
     and $FormatInfo{$Format}{"Format"} eq "Text") {
@@ -665,7 +797,7 @@ sub showFile($$$)
     }
     elsif($Format eq "JAVA_CLASS")
     {
-        if(not checkCmd("javap")) {
+        if(not check_Cmd("javap")) {
             return "";
         }
         $Name=~s/\.class\Z//;
@@ -699,6 +831,8 @@ sub showFile($$$)
         # 17: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND sem_trywait@GLIBC_2.2.5 (2)
         $Content=~s/\n\s*\d+:(\s+[0-9a-f]{8}|\s+[0-9a-f]{16})\s+\d+\s+/\nN: XXX W /g;
         $Content=~s/\Q$Dir\E\///g;
+        # Build ID: 88a916b3973e1a27b027706385af41c553a94061
+        $Content=~s/\s+Build ID: \w+\s+//g;
         writeFile($SPath, uniqStr($Content));
     }
     return $SPath;
@@ -968,6 +1102,10 @@ sub minNum($$)
     }
 }
 
+sub get_depth($) {
+    return ($_[0]=~tr![\/]!!);
+}
+
 sub getBaseLen($$)
 {
     my ($Str1, $Str2) = @_;
@@ -1045,8 +1183,8 @@ sub detectChanges()
             $RemovedFiles{$Name}=1;
             $RemovedByDir{get_dirname($Name)}{$Name}=1;
             $RemovedByName{get_filename($Name)}{$Name}=1;
-            if(my $Prefix = get_fileprefix($Name)) {
-                $RemovedByPrefix{$Prefix}{$Name}=1;
+            foreach (get_Prefixes($Name, $MOVE_DEPTH)) {
+                $RemovedByPrefix{$_}{$Name} = 1;
             }
         }
         else {
@@ -1062,8 +1200,8 @@ sub detectChanges()
             $AddedFiles{$Name}=1;
             $AddedByDir{get_dirname($Name)}{$Name}=1;
             $AddedByName{get_filename($Name)}{$Name}=1;
-            if(my $Prefix = get_fileprefix($Name)) {
-                $AddedByPrefix{$Prefix}{$Name}=1;
+            foreach (get_Prefixes($Name, $MOVE_DEPTH)) {
+                $AddedByPrefix{$_}{$Name}=1;
             }
         }
     }
@@ -1081,7 +1219,7 @@ sub detectChanges()
         }
         $FileChanges{$Format}{"Details"}{$Name}{"Status"} = "removed";
     }
-    foreach my $Name (sort keys(%RemovedFiles))
+    foreach my $Name (sort {get_depth($b)<=>get_depth($a)} sort keys(%RemovedFiles))
     { # checking moved files
         my $Format = getFormat($PackageFiles{1}{$Name});
         
@@ -1089,16 +1227,30 @@ sub detectChanges()
         my @Removed = keys(%{$RemovedByName{$FileName}});
         my @Added = keys(%{$AddedByName{$FileName}});
         
+        my @Removed = grep {not defined $MovedFiles{$_}} @Removed;
+        my @Added = grep {not defined $MovedFiles_R{$_}} @Added;
+        
         if($#Added!=0 or $#Removed!=0)
-        { # one added
-          # one removed
-            my $Prefix = get_fileprefix($Name);
-            my @RemovedPrefix = keys(%{$RemovedByPrefix{$Prefix}});
-            my @AddedPrefix = keys(%{$AddedByPrefix{$Prefix}});
-            if($#AddedPrefix!=0 or $#RemovedPrefix!=0) {
+        {
+            my $Found = 0;
+            foreach my $Prefix (get_Prefixes($Name, $MOVE_DEPTH))
+            {
+                my @RemovedPrefix = keys(%{$RemovedByPrefix{$Prefix}});
+                my @AddedPrefix = keys(%{$AddedByPrefix{$Prefix}});
+                
+                my @RemovedPrefix = grep {not defined $MovedFiles{$_}} @RemovedPrefix;
+                my @AddedPrefix = grep {not defined $MovedFiles_R{$_}} @AddedPrefix;
+                
+                if($#AddedPrefix==0 and $#RemovedPrefix==0)
+                {
+                    @Added = @AddedPrefix;
+                    $Found = 1;
+                }
+                
+            }
+            if(not $Found) {
                 next;
             }
-            @Added = @AddedPrefix;
         }
         foreach my $File (@Added)
         {
@@ -1192,6 +1344,7 @@ sub detectChanges()
                 $Details{"Diff"} = $DLink;
                 $Details{"Report"} = $RLink;
             }
+            $ChangedFiles{$Name} = 1;
         }
         elsif($Changed==2)
         {
@@ -1366,6 +1519,57 @@ sub detectChanges()
             $InfoChanges{"Size"} += $OldSize;
             $InfoChanges{"SizeDelta"} += $OldSize;
         }
+    }
+    
+    $STAT_LINE .= "added:".keys(%AddedFiles).";";
+    $STAT_LINE .= "removed:".keys(%RemovedFiles).";";
+    $STAT_LINE .= "moved:".keys(%MovedFiles).";";
+    $STAT_LINE .= "renamed:".keys(%RenamedFiles).";";
+    $STAT_LINE .= "changed:".keys(%ChangedFiles).";";
+    
+    if($ExtraInfo)
+    {
+        my $FILES = "";
+        if(my @Added = sort {lc($a) cmp lc($b)} keys(%AddedFiles))
+        {
+            $FILES .= "<added>\n    ".join("\n    ", @Added)."\n</added>\n\n";
+        }
+        if(my @Removed = sort {lc($a) cmp lc($b)} keys(%RemovedFiles))
+        {
+            $FILES .= "<removed>\n    ".join("\n    ", @Removed)."\n</removed>\n\n";
+        }
+        if(my @Moved = sort {lc($a) cmp lc($b)} keys(%MovedFiles))
+        {
+            $FILES .= "<moved>\n";
+            foreach (@Moved) {
+                $FILES .= "    ".$_.";".$MovedFiles{$_}."\n";
+            }
+            $FILES .= "</moved>\n\n";
+        }
+        if(my @Renamed = sort {lc($a) cmp lc($b)} keys(%RenamedFiles))
+        {
+            $FILES .= "<renamed>\n";
+            foreach (@Renamed) {
+                $FILES .= "    ".$_.";".$RenamedFiles{$_}."\n";
+            }
+            $FILES .= "</renamed>\n\n";
+        }
+        if(my @Changed = sort {lc($a) cmp lc($b)} keys(%ChangedFiles))
+        {
+            $FILES .= "<changed>\n    ".join("\n    ", @Changed)."\n</changed>\n\n";
+        }
+        writeFile($ExtraInfo."/files.xml", $FILES);
+        
+        my $SYMBOLS = "";
+        if(my @AddedSymbols = sort {lc($a) cmp lc($b)} keys(%AddedSymbols))
+        {
+            $SYMBOLS .= "<added>\n    ".join("\n    ", @AddedSymbols)."\n</added>\n\n";
+        }
+        if(my @RemovedSymbols = sort {lc($a) cmp lc($b)} keys(%RemovedSymbols))
+        {
+            $SYMBOLS .= "<removed>\n    ".join("\n    ", @RemovedSymbols)."\n</removed>\n\n";
+        }
+        writeFile($ExtraInfo."/symbols.xml", $SYMBOLS);
     }
 }
 
@@ -1690,17 +1894,25 @@ sub readFile($)
     return $Content;
 }
 
-sub get_fileprefix($)
+sub get_Prefixes($$)
 {
-    if($_[0]=~/([^\/\\]+[\/\\]+[^\/\\]+)\Z/) {
-        return $1;
+    my @Parts = split(/[\/]+/, $_[0]);
+    my $Prefix = $Parts[$#Parts];
+    my @Res = ();
+    foreach (1 .. $_[1])
+    {
+        if($_<$#Parts)
+        {
+            $Prefix = $Parts[$#Parts-$_]."/".$Prefix;
+            push(@Res, $Prefix);
+        }
     }
-    return "";
+    return @Res;
 }
 
 sub get_filename($)
 { # much faster than basename() from File::Basename module
-    if($_[0]=~/([^\/\\]+)[\/\\]*\Z/) {
+    if($_[0]=~/([^\/]+)[\/]*\Z/) {
         return $1;
     }
     return "";
@@ -1708,7 +1920,7 @@ sub get_filename($)
 
 sub get_dirname($)
 { # much faster than dirname() from File::Basename module
-    if($_[0]=~/\A(.*?)[\/\\]+[^\/\\]*[\/\\]*\Z/) {
+    if($_[0]=~/\A(.*?)[\/]+[^\/]*[\/]*\Z/) {
         return $1;
     }
     return "";
@@ -1716,27 +1928,6 @@ sub get_dirname($)
 
 sub separate_path($) {
     return (get_dirname($_[0]), get_filename($_[0]));
-}
-
-sub checkCmd($)
-{
-    my $Cmd = $_[0];
-    return "" if(not $Cmd);
-    if(defined $Cache{"checkCmd"}{$Cmd}) {
-        return $Cache{"checkCmd"}{$Cmd};
-    }
-    my @Options = (
-        "--version",
-        "-help"
-    );
-    foreach my $Opt (@Options)
-    {
-        my $Info = `$Cmd $Opt 2>$TMP_DIR/null`;
-        if($Info) {
-            return ($Cache{"checkCmd"}{$Cmd} = 1);
-        }
-    }
-    return ($Cache{"checkCmd"}{$Cmd} = 0);
 }
 
 sub exitStatus($$)
@@ -1782,12 +1973,13 @@ sub get_abs_path($)
     return $Path;
 }
 
-sub cmd_find($$$$)
-{ # native "find" is much faster than File::Find (~6x)
-  # also the File::Find doesn't support --maxdepth N option
-  # so using the cross-platform wrapper for the native one
-    my ($Path, $Type, $Name, $MaxDepth) = @_;
+sub cmd_find($;$$$$)
+{
+    my ($Path, $Type, $Name, $MaxDepth, $UseRegex) = @_;
     return () if(not $Path or not -e $Path);
+    if(not check_Cmd("find")) {
+        exitStatus("Not_Found", "can't find a \"find\" command");
+    }
     $Path = get_abs_path($Path);
     if(-d $Path and -l $Path
     and $Path!~/\/\Z/)
@@ -1801,16 +1993,20 @@ sub cmd_find($$$$)
     if($Type) {
         $Cmd .= " -type $Type";
     }
-    if($Name)
-    { # file name
-        if($Name=~/\]/) {
-            $Cmd .= " -regex \"$Name\"";
-        }
-        else {
-            $Cmd .= " -name \"$Name\"";
-        }
+    if($Name and not $UseRegex)
+    { # wildcards
+        $Cmd .= " -name \"$Name\"";
     }
-    return split(/\n/, `$Cmd 2>$TMP_DIR/null`);
+    my $Res = `$Cmd 2>\"$TMP_DIR/null\"`;
+    if($?) {
+        printMsg("ERROR", "problem with \'find\' utility ($?): $!");
+    }
+    my @Files = split(/\n/, $Res);
+    if($Name and $UseRegex)
+    { # regex
+        @Files = grep { /\A$Name\Z/ } @Files;
+    }
+    return @Files;
 }
 
 sub generateTemplate()
@@ -1909,6 +2105,21 @@ sub getFormat($)
                     }
                 }
             }
+        }
+    }
+    
+    if($Format eq "OTHER")
+    {
+        my $Bytes = readBytes($Path);
+        if(my $ID = $BytesFormat{$Bytes}) {
+            $Format = $ID;
+        }
+        
+        my $Ext = getExt($Path);
+        if(not $Ext
+        and $Bytes eq "7f454c46")
+        { # ELF executable
+            $Format = "EXE";
         }
     }
     
@@ -2141,11 +2352,11 @@ sub readDescriptor($$)
             }
             if(-d $Path)
             {
-                my @Files = cmd_find($Path, "f", "*.rpm", "");
-                @Files = (@Files, cmd_find($Path, "f", "*.src.rpm", ""));
+                my @Files = cmd_find($Path, "f", "*.rpm");
+                @Files = (@Files, cmd_find($Path, "f", "*.src.rpm"));
                 if(not @Files)
                 { # search for DEBs
-                    @Files = (@Files, cmd_find($Path, "f", "*.deb", ""));
+                    @Files = (@Files, cmd_find($Path, "f", "*.deb"));
                 }
                 foreach (@Files) {
                     registerPackage($_, $Version);
@@ -2239,7 +2450,8 @@ sub registerPackage($$)
     if($#Contents==0 and -d $CPath."/".$Contents[0]) {
         $Prefix = $Contents[0];
     }
-    foreach my $File (cmd_find($CPath, "", "", ""))
+    my @Files = cmd_find($CPath);
+    foreach my $File (sort @Files)
     { # search for all files
         my $FName = cut_path_prefix($File, $CPath);
         if($PkgFormat eq "RPM"
@@ -2270,7 +2482,7 @@ sub registerPackage($$)
                 $G = get_filename($File)."/".$SubContents[0];
                 $SubDir .= "/".$SubContents[0];
             }
-            foreach my $SubFile (cmd_find($SubDir, "", "", ""))
+            foreach my $SubFile (cmd_find($SubDir))
             { # search for all files in archive
                 my $SFName = cut_path_prefix($SubFile, $SubDir);
                 if(not $SFName) {
@@ -2378,7 +2590,7 @@ sub readPackage($$)
     my $Format = getFormat($Path);
     if($Format eq "DEB")
     { # Deb package
-        if(not checkCmd("dpkg-deb")) {
+        if(not check_Cmd("dpkg-deb")) {
             exitStatus("Not_Found", "can't find \"dpkg-deb\"");
         }
         mkpath($CPath);
@@ -2386,7 +2598,7 @@ sub readPackage($$)
         if($?) {
             exitStatus("Error", "can't extract package v$Version");
         }
-        if(not checkCmd("dpkg")) {
+        if(not check_Cmd("dpkg")) {
             exitStatus("Not_Found", "can't find \"dpkg\"");
         }
         my $Info = `dpkg -f $Path`;
@@ -2416,11 +2628,11 @@ sub readPackage($$)
     }
     elsif($Format eq "RPM" or $Format eq "SRPM")
     { # RPM or SRPM package
-        if(not checkCmd("rpm"))
+        if(not check_Cmd("rpm"))
         { # rpm and rpm2cpio
             exitStatus("Not_Found", "can't find \"rpm\"");
         }
-        if(not checkCmd("cpio")) {
+        if(not check_Cmd("cpio")) {
             exitStatus("Not_Found", "can't find \"cpio\"");
         }
         mkpath($CPath);
@@ -2429,26 +2641,26 @@ sub readPackage($$)
             exitStatus("Error", "can't extract package v$Version");
         }
         ($Attributes{"Version"}, $Attributes{"Release"},
-        $Attributes{"Name"}, $Attributes{"Arch"}) = split(",", readRPM($Path, "--queryformat \%{version},\%{release},\%{name},\%{arch}"));
+        $Attributes{"Name"}, $Attributes{"Arch"}) = split(",", queryRPM($Path, "--queryformat \%{version},\%{release},\%{name},\%{arch}"));
         if($Attributes{"Release"}) {
             $Attributes{"Version"} .= "-".$Attributes{"Release"};
         }
         foreach my $Kind ("requires", "provides", "suggests")
         {
-            foreach my $D (split("\n", readRPM($Path, "--".$Kind)))
+            foreach my $D (split("\n", queryRPM($Path, "--".$Kind)))
             {
                 my ($N, $Op, $V) = sepDep($D);
                 %{$PackageDeps{$Version}{$Kind}{$N}} = ( "Op"=>$Op, "V"=>$V );
                 $TotalDeps{$Kind." ".$N} = 1;
             }
         }
-        $PackageInfo{$Attributes{"Name"}}{"V$Version"} = readRPM($Path, "--info");
+        $PackageInfo{$Attributes{"Name"}}{"V$Version"} = queryRPM($Path, "--info");
         $Group{"Format"}{$Format} = 1;
     }
     elsif($Format eq "ARCHIVE")
     { # TAR.GZ and others
         unpackArchive(abs_path($Path), $CPath);
-        if(my ($N, $V) = getPkgVersion(get_filename($Path))) {
+        if(my ($N, $V) = parseVersion(get_filename($Path))) {
             ($Attributes{"Name"}, $Attributes{"Version"}) = ($N, $V);
         }
         if(not $Attributes{"Version"})
@@ -2465,18 +2677,20 @@ sub readPackage($$)
     return ($CPath, \%Attributes);
 }
 
-sub getPkgVersion($)
+sub parseVersion($)
 {
     my $Name = $_[0];
-    my $Extension = getExt($Name);
-    $Name=~s/\.(\Q$Extension\E)\Z//;
+    if(my $Extension = getExt($Name)) {
+        $Name=~s/\.(\Q$Extension\E)\Z//;
+    }
     if($Name=~/\A(.+[a-z])[\-\_](v|ver|)(\d.+?)\Z/i)
     { # libsample-N
       # libsample-vN
         return ($1, $3);
     }
-    elsif($Name=~/\A(.+?)(\d[\d\.]*)\Z/i)
+    elsif($Name=~/\A(.+?)[\-\_]*(\d[\d\.\-]*)\Z/i)
     { # libsampleN
+      # libsampleN-X.Y
         return ($1, $2);
     }
     elsif($Name=~/\A(.+)[\-\_](v|ver|)(.+?)\Z/i)
@@ -2502,20 +2716,10 @@ sub getExt($)
     return "";
 }
 
-sub readRPM($$)
+sub queryRPM($$)
 {
     my ($Path, $Query) = @_;
-    return `rpm -qp $Query $Path 2>$TMP_DIR/null`;
-}
-
-sub get_Footer($)
-{
-    my $Name = $_[0];
-    my $Footer = "<div style='width:100%;font-size:11px;' align='right'><i>Generated on ".(localtime time); # report date
-    $Footer .= " by <a href='".$HomePage{"Dev"}."' target='_blank'>Package Changes Analyzer</a> - PkgDiff"; # tool name
-    my $ToolSummary = "<br/>A tool for analyzing changes in Linux software packages&#160;&#160;";
-    $Footer .= " $TOOL_VERSION &#160;$ToolSummary</i></div>"; # tool version
-    return $Footer;
+    return `rpm -qp $Query \"$Path\" 2>$TMP_DIR/null`;
 }
 
 sub composeHTML_Head($$$$$)
@@ -2769,15 +2973,23 @@ sub createReport($)
     my $Header = get_Header();
     my $Description = $Header;
     $Description=~s/<[^<>]+>//g;
-    my $Report = composeHTML_Head($Title, $Keywords, $Description, $CssStyles, $JScripts)."\n<body>\n<div><a name='Top'></a>\n";
-    $Report .= $Header."\n";
+    
+    my $Report = $Header."\n";
     my $MainReport = get_Report_Files();
     $Report .= get_Summary();
     $Report .= $MainReport;
     $Report .= get_Report_Usage();
     $Report .= get_Source();
+    
+    $STAT_LINE = "changed:".$RESULT{"affected"}.";".$STAT_LINE."tool_version:".$TOOL_VERSION;
+    $Report = "<!-- $STAT_LINE -->\n".composeHTML_Head($Title, $Keywords, $Description, $CssStyles, $JScripts)."\n<body>\n<div><a name='Top'></a>\n".$Report;
     $Report .= "</div>\n<br/><br/><br/><hr/>\n";
-    $Report .= get_Footer($Group{"Name"});
+    
+    # footer
+    $Report .= "<div style='width:100%;font-size:11px;' align='right'><i>Generated on ".(localtime time);
+    $Report .= " by <a href='".$HomePage{"Dev"}."' target='_blank'>Package Changes Analyzer</a> - PkgDiff";
+    $Report .= " $TOOL_VERSION &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>";
+    
     $Report .= "\n<div style='height:999px;'></div>\n</body></html>";
     writeFile($Path, $Report);
     
@@ -2799,13 +3011,17 @@ sub createReport($)
 sub check_Cmd($)
 {
     my $Cmd = $_[0];
+    return "" if(not $Cmd);
+    if(defined $Cache{"check_Cmd"}{$Cmd}) {
+        return $Cache{"check_Cmd"}{$Cmd};
+    }
     foreach my $Path (sort {length($a)<=>length($b)} split(/:/, $ENV{"PATH"}))
     {
         if(-x $Path."/".$Cmd) {
-            return 1;
+            return ($Cache{"check_Cmd"}{$Cmd} = 1);
         }
     }
-    return 0;
+    return ($Cache{"check_Cmd"}{$Cmd} = 0);
 }
 
 sub get_OSgroup()
@@ -2816,15 +3032,6 @@ sub get_OSgroup()
     }
     elsif($N=~/freebsd|openbsd|netbsd/i) {
         return "bsd";
-    }
-    elsif($N=~/haiku|beos/i) {
-        return "beos";
-    }
-    elsif($N=~/symbian|epoc/i) {
-        return "symbian";
-    }
-    elsif($N=~/win/i) {
-        return "windows";
     }
     else {
         return $N;
@@ -2874,7 +3081,7 @@ sub openReport($)
         and $OSgroup ne "macos")
         {
             if($Cmd!~/lynx|links/) {
-                $Cmd .= "  >\"$TMP_DIR/null\" 2>&1 &";
+                $Cmd .= "  >\"/dev/null\" 2>&1 &";
             }
         }
         system($Cmd);
@@ -2935,6 +3142,10 @@ sub readFileTypes()
         foreach my $Dir (split(/\s*(\n|,)\s*/, parseTag(\$FileType, "dirs")))
         {
             $DirFormat{$Dir} = $ID;
+        }
+        foreach my $Bytes (split(/\s*(\n|,)\s*/, parseTag(\$FileType, "bytes")))
+        {
+            $BytesFormat{$Bytes} = $ID;
         }
     }
     foreach my $Format (keys(%FormatInfo))
@@ -3021,19 +3232,23 @@ sub getArchivePattern()
 
 sub scenario()
 {
-    if($Help) {
+    if($Help)
+    {
         HELP_MESSAGE();
         exit(0);
     }
-    if($ShowVersion) {
-        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2012 ROSA Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
+    if($ShowVersion)
+    {
+        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2013 ROSA Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
         exit(0);
     }
-    if($DumpVersion) {
+    if($DumpVersion)
+    {
         printMsg("INFO", $TOOL_VERSION);
         exit(0);
     }
-    if($GenerateTemplate) {
+    if($GenerateTemplate)
+    {
         generateTemplate();
         exit(0);
     }
