@@ -91,7 +91,7 @@ The tool is intended for Linux maintainers who are interested in ensuring compat
 <h2>Downloads</h2>
 <p>All releases can be downloaded from <a href="https://github.com/pkgdiff/pkgdiff/">this page</a>.</p>
 
-<p>Latest release: <a href="https://github.com/pkgdiff/pkgdiff/archive/1.5.tar.gz">pkgdiff-1.5.tar.gz</a></p>
+<p>Latest release: <a href="https://github.com/pkgdiff/pkgdiff/archive/1.6.tar.gz">pkgdiff-1.6.tar.gz</a></p>
 
 <p>Read-only access to the latest development version:</p>
 
@@ -135,7 +135,10 @@ Requires:
 Suggests:
 <ul>
 <li>
-  <a href="https://github.com/lvc/abi-compliance-checker/">ABI Compliance Checker</a> (1.96.7 or newer)
+  <a href="https://github.com/lvc/abi-compliance-checker/">ABI Compliance Checker</a> (1.99.1 or newer)
+</li>
+<li>
+  <a href="https://github.com/lvc/abi-dumper/">ABI Dumper</a> (0.97 or newer)
 </li>
 </ul>
     
@@ -266,6 +269,25 @@ The tool is developed by the <a href="http://www.rosalab.com/">ROSA Laboratory</
 
 <a name="ChangeLog"></a>
 <h2>Changes</h2>
+
+<b>Version 1.6 (June 07, 2013)</b><br/>
+<b>New Features</b>
+<ul>
+    <li>
+        ABI compatibility check for shared objects and kernel modules containing DWARF debugging information (in <i>-details</i> mode)
+    </li>
+    <li>
+        ABI status section in the report for debuginfo-packages
+    </li>
+    <li>
+        Suggests ABI Compliance Checker 1.99.1
+    </li>
+    <li>
+        Suggests ABI Dumper 0.97
+    </li>
+</ul>
+
+<br/>
 
 <b>Version 1.5 (April 04, 2013)</b><br/>
 <b>New Features</b>
