@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.5
+# PkgDiff - Package Changes Analyzer 1.6
 # A tool for analyzing changes in Linux software packages
 #
 # Copyright (C) 2011-2013 ROSA Laboratory
@@ -27,7 +27,9 @@
 #
 # SUGGESTIONS
 # ===========
-#  ABI Compliance Checker (1.96.7 or newer)
+#  ABI Compliance Checker (1.99.1 or newer)
+#  ABI Dumper (0.97 or newer)
+#
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -45,12 +47,13 @@ use Getopt::Long;
 Getopt::Long::Configure ("posix_default", "no_ignore_case", "permute");
 use File::Path qw(mkpath rmtree);
 use File::Temp qw(tempdir);
+use File::Copy qw(move);
 use File::Compare;
 use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.5";
+my $TOOL_VERSION = "1.6";
 my $OSgroup = get_OSgroup();
 my $ORIG_DIR = cwd();
 my $TMP_DIR = tempdir(CLEANUP=>1);
@@ -60,7 +63,10 @@ my $MODULES_DIR = get_Modules();
 push(@INC, get_dirname($MODULES_DIR));
 
 my $DIFF = $MODULES_DIR."/Internals/Tools/rfcdiff-1.41-ROSA.sh";
-my $ABICC = "abi-compliance-checker";
+my $ACC = "abi-compliance-checker";
+my $ACC_VER = "1.99.1";
+my $ABI_DUMPER = "abi-dumper";
+my $ABI_DUMPER_VER = "0.97";
 
 my ($Help, $ShowVersion, $DumpVersion, $GenerateTemplate, %Descriptor,
 $CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug,
@@ -368,7 +374,6 @@ my %MovedFiles;
 my %MovedFiles_R;
 
 my %SkipFiles;
-my %FormatFiles;
 
 # Symbols
 my %AddedSymbols;
@@ -379,6 +384,9 @@ my $REPORT_PATH;
 my $REPORT_DIR;
 my %RESULT;
 my $STAT_LINE;
+
+# ABI
+my %ABI_Change;
 
 # Other
 my %ArchiveFormats = (
@@ -456,39 +464,35 @@ sub readBytes($)
 sub readSymbols($)
 {
     my $Path = $_[0];
-    my $Format = getFormat($Path);
     
     my %Symbols = ();
     
-    if($Format eq "SHARED_OBJECT")
+    open(LIB, "readelf -WhlSsdA \"$Path\" 2>\"$TMP_DIR/null\" |");
+    my $symtab = undef; # indicates that we are processing 'symtab' section of 'readelf' output
+    while(<LIB>)
     {
-        open(LIB, "readelf -WhlSsdA \"$Path\" 2>\"$TMP_DIR/null\" |");
-        my $symtab = undef; # indicates that we are processing 'symtab' section of 'readelf' output
-        while(<LIB>)
-        {
-            if(defined $symtab)
-            { # do nothing with symtab
-                if(index($_, "'.dynsym'")!=-1)
-                { # dynamic table
-                    $symtab = undef;
-                }
-            }
-            elsif(index($_, "'.symtab'")!=-1)
-            { # symbol table
-                $symtab = 1;
-            }
-            elsif(my @Info = readline_ELF($_))
-            {
-                my ($Bind, $Ndx, $Symbol) = ($Info[3], $Info[5], $Info[6]);
-                if($Ndx ne "UND"
-                and $Bind ne "WEAK")
-                { # only imported symbols
-                    $Symbols{$Symbol} = 1;
-                }
+        if(defined $symtab)
+        { # do nothing with symtab
+            if(index($_, "'.dynsym'")!=-1)
+            { # dynamic table
+                $symtab = undef;
             }
         }
-        close(LIB);
+        elsif(index($_, "'.symtab'")!=-1)
+        { # symbol table
+            $symtab = 1;
+        }
+        elsif(my @Info = readline_ELF($_))
+        {
+            my ($Bind, $Ndx, $Symbol) = ($Info[3], $Info[5], $Info[6]);
+            if($Ndx ne "UND"
+            and $Bind ne "WEAK")
+            { # only imported symbols
+                $Symbols{$Symbol} = 1;
+            }
+        }
     }
+    close(LIB);
     
     return %Symbols;
 }
@@ -587,45 +591,47 @@ sub compareFiles($$$$)
     {
         if(not -l $P1)
         { # broken symlinks
-            return (0, "", "", 0);
+            return (0, "", "", 0, {});
         }
     }
     my $Format = getFormat($P1);
     if($Format ne getFormat($P2)) {
-        return (0, "", "", 0);
+        return (0, "", "", 0, {});
     }
     if(getSize($P1) == getSize($P2))
     { # equal size
         if(compare($P1, $P2)==0)
         { # equal content
-            return (-1, "", "", 0);
+            return (-1, "", "", 0, {});
         }
     }
     if($QuickMode)
     { # --quick
-        return (3, "", "", 1);
+        return (3, "", "", 1, {});
     }
     if(skip_file($P1, 1))
     { # <skip_files>
-        return (2, "", "", 1);
+        return (2, "", "", 1, {});
     }
     if(defined $SizeLimit)
     {
         if(getSize($P1) > $SizeLimit*1024
         or getSize($P2) > $SizeLimit*1024)
         {
-            return (2, "", "", 1);
+            return (2, "", "", 1, {});
         }
     }
-    my ($Changed, $DLink, $RLink, $Rate) = (0, "", "", 0);
+    my ($Changed, $DLink, $RLink, $Rate, $Adv) = (0, "", "", 0, {});
     
     if(not $ShowDetails)
     {
-        if($Format eq "SHARED_OBJECT")
+        if($Format eq "SHARED_OBJECT"
+        or $Format eq "KERNEL_MODULE"
+        or $Format eq "DEBUG_INFO")
         {
             if(not compareSymbols($P1, $P2))
             { # equal sets of symbols
-                return (0, "", "", 0);
+                return (0, "", "", 0, {});
             }
         }
     }
@@ -651,6 +657,8 @@ sub compareFiles($$$$)
         }
     }
     elsif($Format eq "SHARED_OBJECT"
+    or $Format eq "KERNEL_MODULE"
+    or $Format eq "DEBUG_INFO"
     or $Format eq "STATIC_LIBRARY"
     or $Format eq "COMPILED_OBJECT"
     or $Format eq "SHARED_LIBRARY"
@@ -665,7 +673,7 @@ sub compareFiles($$$$)
         if($Format eq "SYMLINK")
         {
             if(readFile($Page1) eq readFile($Page2)) {
-                return (0, "", "", 0);
+                return (0, "", "", 0, {});
             }
         }
         ($DLink, $Rate) = diffFiles($Page1, $Page2, getRPath("diffs", $N1));
@@ -679,20 +687,21 @@ sub compareFiles($$$$)
     {
         if($ShowDetails)
         { # --details
-            if($ABICC)
+            if($ACC and $ABI_DUMPER)
             {
                 if($Format eq "SHARED_OBJECT"
-                or $Format eq "STATIC_LIBRARY"
-                or $Format eq "HEADER") {
-                    $RLink = runABICC(getRPath("details", "abi"));
+                or $Format eq "KERNEL_MODULE"
+                or $Format eq "DEBUG_INFO"
+                or $Format eq "STATIC_LIBRARY") {
+                    ($RLink, $Adv) = compareABIs($P1, $P2, $N1, $N2, getRPath("details", $N1));
                 }
             }
         }
         $DLink=~s/\A\Q$REPORT_DIR\E\///;
         $RLink=~s/\A\Q$REPORT_DIR\E\///;
-        return (1, $DLink, $RLink, $Rate);
+        return (1, $DLink, $RLink, $Rate, $Adv);
     }
-    return (0, "", "", 0);
+    return (0, "", "", 0, {});
 }
 
 sub hexDump($)
@@ -781,6 +790,8 @@ sub showFile($$$)
         }
     }
     elsif($Format eq "SHARED_OBJECT"
+    or $Format eq "KERNEL_MODULE"
+    or $Format eq "DEBUG_INFO"
     or $Format eq "EXE"
     or $Format eq "COMPILED_OBJECT"
     or $Format eq "STATIC_LIBRARY")
@@ -813,6 +824,8 @@ sub showFile($$$)
         chdir($ORIG_DIR);
     }
     if($Format eq "SHARED_OBJECT"
+    or $Format eq "KERNEL_MODULE"
+    or $Format eq "DEBUG_INFO"
     or $Format eq "EXE"
     or $Format eq "COMPILED_OBJECT"
     or $Format eq "STATIC_LIBRARY")
@@ -862,93 +875,123 @@ sub getRPath($$)
     return $Path;
 }
 
-sub runABICC($)
+sub compareABIs($$$$$)
 {
-    my $Path = $_[0];
-    if(defined $Cache{"runABICC"}) {
-        return $Cache{"runABICC"};
+    my ($P1, $P2, $N1, $N2, $Path) = @_;
+    
+    my $Sect = `readelf -S \"$P1\" 2>\"$TMP_DIR/error\"`;
+    my $Name = get_filename($P1);
+    
+    if($Sect!~/\.debug_info/)
+    { # No DWARF info
+        printMsg("WARNING", "No debug info in ".$Name);
+        return ("", {});
     }
+    
     mkpath(get_dirname($Path));
-    my $D1P = $TMP_DIR."/desc/1.xml";
-    my $D2P = $TMP_DIR."/desc/2.xml";
-    my $Cmd = $ABICC." -d1 $D1P -d2 $D2P";
-    $Cmd .= " -l ".$Group{"Name"};
-    my @L1 = keys(%{$FormatFiles{"1"}{"SHARED_OBJECT"}});
-    my @L2 = keys(%{$FormatFiles{"2"}{"SHARED_OBJECT"}});
-    my @SL1 = keys(%{$FormatFiles{"1"}{"STATIC_LIBRARY"}});
-    my @SL2 = keys(%{$FormatFiles{"2"}{"STATIC_LIBRARY"}});
-    my @H1 = keys(%{$FormatFiles{"1"}{"HEADER"}});
-    my @H2 = keys(%{$FormatFiles{"2"}{"HEADER"}});
-    if(not @L1 or not @L2)
+    my $Adv = {};
+    
+    $Name=~s/\.debug\Z//;
+    printMsg("INFO", "Compare ABIs of ".$Name." (".show_number(getSize($P1)/1048576)."M) ...");
+    
+    $N1=~s/\A\///;
+    $N2=~s/\A\///;
+    
+    my $Cmd = undef;
+    my $Ret = undef;
+    
+    my $D1 = $REPORT_DIR."/abi_dumps/".$Group{"V1"}."/".$N1."-ABI.dump.txt";
+    my $D2 = $REPORT_DIR."/abi_dumps/".$Group{"V2"}."/".$N2."-ABI.dump.txt";
+    
+    $Adv->{"ABIDump"}{1} = $D1;
+    $Adv->{"ABIDump"}{2} = $D2;
+    
+    $Adv->{"ABIDump"}{1}=~s/\A\Q$REPORT_DIR\E\///;
+    $Adv->{"ABIDump"}{2}=~s/\A\Q$REPORT_DIR\E\///;
+    
+    $Cmd = $ABI_DUMPER." \"$P1\" -lver \"".$Group{"V1"}."\" -o \"$D1\" -sort";
+    if($Debug)
     {
-        if(@SL1 and @SL2)
-        { # use static libs
-            @L1 = @SL1;
-            @L2 = @SL2;
-            $Cmd .= " -static";
+        $Cmd .= " -extra-info \"$TMP_DIR/extra-info\"";
+        printMsg("INFO", "Running $Cmd");
+    }
+    system($Cmd." >\"$TMP_DIR/output\"");
+    $Ret = $?>>8;
+    if($Ret!=0)
+    { # error
+        printMsg("ERROR", "Failed to run ABI Dumper ($Ret)");
+        return ("", {});
+    }
+    
+    if($Debug)
+    {
+        my $DP = $REPORT_DIR."/dwarf_dumps/".$Group{"V1"}."/".$N1."-DWARF.dump.txt";
+        mkpath(get_dirname($DP));
+        move("$TMP_DIR/extra-info/debug_info", $DP);
+        
+        $Adv->{"DWARFDump"}{1} = $DP;
+        $Adv->{"DWARFDump"}{1}=~s/\A\Q$REPORT_DIR\E\///;
+    }
+    
+    $Cmd = $ABI_DUMPER." \"$P2\" -lver \"".$Group{"V2"}."\" -o \"$D2\" -sort";
+    if($Debug)
+    {
+        $Cmd .= " -extra-info \"$TMP_DIR/extra-info\"";
+        printMsg("INFO", "Running $Cmd");
+    }
+    system($Cmd." >\"$TMP_DIR/output\"");
+    $Ret = $?>>8;
+    if($Ret!=0)
+    { # error
+        printMsg("ERROR", "Failed to run ABI Dumper ($Ret)");
+        return ("", {});
+    }
+    
+    if($Debug)
+    {
+        my $DP = $REPORT_DIR."/dwarf_dumps/".$Group{"V2"}."/".$N2."-DWARF.dump.txt";
+        mkpath(get_dirname($DP));
+        move("$TMP_DIR/extra-info/debug_info", $DP);
+        
+        $Adv->{"DWARFDump"}{2} = $DP;
+        $Adv->{"DWARFDump"}{2}=~s/\A\Q$REPORT_DIR\E\///;
+    }
+    
+    $Cmd = $ACC." -d1 \"$D1\" -d2 \"$D2\"";
+    
+    $Cmd .= " -l \"".$Name."\"";
+    
+    $Cmd .= " --report-path=\"$Path\"";
+    $Cmd .= " -quiet";
+    
+    if($Debug) {
+        printMsg("INFO", "Running $Cmd");
+    }
+    system($Cmd);
+    $Ret = $?>>8;
+    if($Ret!=0 and $Ret!=1)
+    { # error
+        printMsg("ERROR", "Failed to run ABI Compliance Checker ($Ret)");
+        return ("", {});
+    }
+    
+    my ($Bin, $Src) = (0, 0);
+    if(my $Meta = readFilePart($Path, 2))
+    {
+        my @Info = split(/\n/, $Meta);
+        if($Info[0]=~/affected:([\d\.]+)/) {
+            $Bin = $1;
+        }
+        if($Info[1]=~/affected:([\d\.]+)/) {
+            $Src = $1;
         }
     }
-    if(@L1 and @L2
-    and (not @H1 or not @H2))
-    {
-        $Cmd .= " -objects-only";
-    }
-    elsif(@H1 and @H2
-    and (not @L1 or not @L2))
-    {
-        $Cmd .= " -headers-only";
-    }
-    elsif(not @L1 or not @H1
-    or not @L2 or not @H2)
-    {
-        return ($Cache{"runABICC"} = "");
-    }
-    my $D1 = "
-        <version>
-            ".$Group{"V1"}."
-        </version>
-        <libs>
-            ".join("\n", @L1)."
-        </libs>
-        <headers>
-            ".join("\n", @H1)."
-        </headers>";
-    my $D2 = "
-        <version>
-            ".$Group{"V2"}."
-        </version>
-        <libs>
-            ".join("\n", @L2)."
-        </libs>
-        <headers>
-            ".join("\n", @H2)."
-        </headers>";
-    writeFile($D1P, $D1);
-    writeFile($D2P, $D2);
-    my $LogPath = "$REPORT_DIR/logs/abicc-log.txt";
-    $Cmd .= " --report-path=$Path";
-    $Cmd .= " --log-path=$LogPath";
-    $Cmd .= " -quiet";
-    printMsg("INFO", "Running ABICC ...");
-    system($Cmd);
-    my $Ret = $?>>8;
-    if($Ret==0 or $Ret==1)
-    { # the tool has run without any errors
-        return ($Cache{"runABICC"} = $Path);
-    }
-    else {
-        printMsg("WARNING", "Failed to run ABICC, see error log:\n  $LogPath");
-    }
-    return ($Cache{"runABICC"} = "");
-}
-
-sub getLibName($)
-{
-    my $Name = get_filename($_[0]);
-    if($Name=~/\A(.+\.so)/){
-        return $1;
-    }
-    return "";
+    
+    $ABI_Change{"Bin"} += $Bin;
+    $ABI_Change{"Src"} += $Src;
+    $ABI_Change{"Total"} += 1;
+    
+    return ($Path, $Adv);
 }
 
 sub getSize($)
@@ -1177,7 +1220,6 @@ sub detectChanges()
     foreach my $Name (sort keys(%{$PackageFiles{1}}))
     { # checking old files
         my $Format = getFormat($PackageFiles{1}{$Name});
-        $FormatFiles{1}{$Format}{$PackageFiles{1}{$Name}}=1;
         if(not defined $PackageFiles{2}{$Name})
         { # removed files
             $RemovedFiles{$Name}=1;
@@ -1194,7 +1236,6 @@ sub detectChanges()
     foreach my $Name (keys(%{$PackageFiles{2}}))
     { # checking new files
         my $Format = getFormat($PackageFiles{2}{$Name});
-        $FormatFiles{2}{$Format}{$PackageFiles{2}{$Name}}=1;
         if(not defined $PackageFiles{1}{$Name})
         { # added files
             $AddedFiles{$Name}=1;
@@ -1326,8 +1367,10 @@ sub detectChanges()
         { # moved files
             $NewPath = $PackageFiles{2}{$NewName};
         }
-        my %Details = ();
-        my ($Changed, $DLink, $RLink, $Rate) = compareFiles($Path, $NewPath, $Name, $NewName);
+        
+        my ($Changed, $DLink, $RLink, $Rate, $Adv) = compareFiles($Path, $NewPath, $Name, $NewName);
+        my %Details = %{$Adv};
+        
         if($Changed==1 or $Changed==3)
         {
             if($NewName eq $Name)
@@ -1374,6 +1417,7 @@ sub detectChanges()
                 );
                 delete($RenamedFiles_R{$RenamedFiles{$Name}});
                 delete($RenamedFiles{$Name});
+                delete($ChangedFiles{$Name});
                 unlink($REPORT_DIR."/".$DLink);
             }
         }
@@ -1389,6 +1433,7 @@ sub detectChanges()
                 );
                 delete($MovedFiles_R{$MovedFiles{$Name}});
                 delete($MovedFiles{$Name});
+                delete($ChangedFiles{$Name});
                 unlink($REPORT_DIR."/".$DLink);
             }
         }
@@ -1474,6 +1519,25 @@ sub detectChanges()
         "Size"=>0,
         "SizeDelta"=>0
     );
+    
+    if(keys(%PackageInfo)==2)
+    { # renamed?
+        my @Names = keys(%PackageInfo);
+        my $N1 = $Names[0];
+        my $N2 = $Names[1];
+        
+        if(defined $PackageInfo{$N1}{"V2"})
+        {
+            $PackageInfo{$N2}{"V2"} = $PackageInfo{$N1}{"V2"};
+            delete($PackageInfo{$N1});
+        }
+        elsif(defined $PackageInfo{$N2}{"V2"})
+        {
+            $PackageInfo{$N1}{"V2"} = $PackageInfo{$N2}{"V2"};
+            delete($PackageInfo{$N2});
+        }
+    }
+    
     foreach my $Package (sort keys(%PackageInfo))
     {
         my $Old = $PackageInfo{$Package}{"V1"};
@@ -1769,8 +1833,23 @@ sub get_Report_Files()
         $Report .= "<tr>";
         $Report .= "<th $JSort>Name</th>";
         $Report .= "<th $JSort>Status</th>";
-        if($Format ne "DIR") {
+        if($Format ne "DIR")
+        {
             $Report .= "<th $JSort>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th>";
+            
+            if($ShowDetails)
+            {
+                if($Format eq "SHARED_OBJECT"
+                or $Format eq "KERNEL_MODULE"
+                or $Format eq "DEBUG_INFO"
+                or $Format eq "STATIC_LIBRARY")
+                {
+                    $Report .= "<th>ABI<br/>Dumps</th>";
+                    if($Debug) {
+                        $Report .= "<th>DWARF<br/>Dumps</th>";
+                    }
+                }
+            }
         }
         $Report .= "</tr>\n";
         my %Details = %{$FileChanges{$Format}{"Details"}};
@@ -1844,7 +1923,39 @@ sub get_Report_Files()
                 }
                 else {
                     $Report .= "<td$Join></td>\n";
-                }       
+                }
+                if($ShowDetails)
+                {
+                    if($Format eq "SHARED_OBJECT"
+                    or $Format eq "KERNEL_MODULE"
+                    or $Format eq "DEBUG_INFO"
+                    or $Format eq "STATIC_LIBRARY")
+                    {
+                        if(defined $Info{"ABIDump"})
+                        {
+                            my $Link1 = $Info{"ABIDump"}{1};
+                            my $Link2 = $Info{"ABIDump"}{2};
+                            
+                            $Report .= "<td$Join><a href='".$Link1."' target='_blank'>1</a>, <a href='".$Link2."' target='_blank'>2</a></td>\n"; # style='color:Blue;'
+                        }
+                        else {
+                            $Report .= "<td$Join></td>\n";
+                        }
+                        if($Debug)
+                        {
+                            if(defined $Info{"DWARFDump"})
+                            {
+                                my $Link1 = $Info{"DWARFDump"}{1};
+                                my $Link2 = $Info{"DWARFDump"}{2};
+                                
+                                $Report .= "<td$Join><a href='".$Link1."' target='_blank'>1</a>, <a href='".$Link2."' target='_blank'>2</a></td>\n"; # style='color:Blue;'
+                            }
+                            else {
+                                $Report .= "<td$Join></td>\n";
+                            }
+                        }
+                    }
+                }
             }
             $Report .= "</tr>\n";
             if(my $RenamedTo = $RenamedFiles{$File}) {
@@ -2183,7 +2294,15 @@ sub getFormat($)
                 $Format = "TEXT";
             }
         }
-        return "SHARED_OBJECT";
+    }
+    
+    if($Format eq "SHARED_OBJECT"
+    or $Format eq "KERNEL_MODULE"
+    or $Format eq "DEBUG_INFO")
+    { # double-check
+        if(readBytes($Path) ne "7f454c46") {
+            $Format = "OTHER";
+        }
     }
     
     if(not defined $FormatInfo{$Format}
@@ -2665,7 +2784,7 @@ sub readPackage($$)
         }
         if(not $Attributes{"Version"})
         { # default version
-            $Attributes{"Version"} = $Version;
+            $Attributes{"Version"} = $Version==1?"X":"Y";
         }
         if(not $Attributes{"Name"})
         { # default name
@@ -2899,52 +3018,77 @@ sub get_Summary()
     $TestResults .= "<tr><th class='left'>Verdict</th><td>$Verdict</td></tr>\n";
     $TestResults .= "</table>\n";
     
-    my $FileChanges = "<a name='Files'></a><h2>Changes In Files</h2><hr/>\n";
-    $FileChanges .= "<table class='summary'>\n";
-    $FileChanges .= "<tr>";
-    $FileChanges .= "<th>File Type</th>";
-    $FileChanges .= "<th>Total</th>";
-    $FileChanges .= "<th>Added</th>";
-    $FileChanges .= "<th>Removed</th>";
-    $FileChanges .= "<th>Changed</th>";
-    $FileChanges .= "</tr>\n";
-    foreach my $Format (sort {$FormatInfo{$b}{"Weight"}<=>$FormatInfo{$a}{"Weight"}}
-    sort {lc($FormatInfo{$a}{"Summary"}) cmp lc($FormatInfo{$b}{"Summary"})} keys(%FormatInfo))
+    if(defined $ABI_Change{"Total"})
     {
-        if(not $FileChanges{$Format}{"Total"}) {
-            next;
+        $TestResults .= "<h2>ABI Status</h2><hr/>\n";
+        $TestResults .= "<table class='summary'>\n";
+        $TestResults .= "<tr><th class='left'>Total Objects<br/>(with debug-info)</th><td>".$ABI_Change{"Total"}."</td></tr>\n";
+        my $Status = $ABI_Change{"Bin"}/$ABI_Change{"Total"};
+        if($Status==100) {
+            $TestResults .= "<tr><th class='left'>ABI Compatibility</th><td><span style='color:Green;'><b>100%</b></span></td></tr>\n";
         }
-        $FileChanges .= "<tr>\n";
-        $FileChanges .= "<td class='left'>".$FormatInfo{$Format}{"Summary"}."</td>\n";
-        foreach ("Total", "Added", "Removed", "Changed")
+        else {
+            $TestResults .= "<tr><th class='left'>ABI Compatibility</th><td><span style='color:Red;'><b>".show_number(100-$Status)."%</b></span></td></tr>\n";
+        }
+        $TestResults .= "</table>\n";
+    }
+    
+    my $FileChgs = "<a name='Files'></a><h2>Changes In Files</h2><hr/>\n";
+    
+    if(keys(%TotalFiles))
+    {
+        $FileChgs .= "<table class='summary'>\n";
+        $FileChgs .= "<tr>";
+        $FileChgs .= "<th>File Type</th>";
+        $FileChgs .= "<th>Total</th>";
+        $FileChgs .= "<th>Added</th>";
+        $FileChgs .= "<th>Removed</th>";
+        $FileChgs .= "<th>Changed</th>";
+        $FileChgs .= "</tr>\n";
+        foreach my $Format (sort {$FormatInfo{$b}{"Weight"}<=>$FormatInfo{$a}{"Weight"}}
+        sort {lc($FormatInfo{$a}{"Summary"}) cmp lc($FormatInfo{$b}{"Summary"})} keys(%FormatInfo))
         {
-            if($FileChanges{$Format}{$_}>0)
+            if(not $FileChanges{$Format}{"Total"}) {
+                next;
+            }
+            $FileChgs .= "<tr>\n";
+            $FileChgs .= "<td class='left'>".$FormatInfo{$Format}{"Summary"}."</td>\n";
+            foreach ("Total", "Added", "Removed", "Changed")
             {
-                my $Link = "<a href='#".$FormatInfo{$Format}{"Anchor"}."' style='color:Blue;'>".$FileChanges{$Format}{$_}."</a>";
-                if($_ eq "Added") {
-                    $FileChanges .= "<td class='new'>".$Link."</td>\n";
-                }
-                elsif($_ eq "Removed") {
-                    $FileChanges .= "<td class='failed'>".$Link."</td>\n";
-                }
-                elsif($_ eq "Changed") {
-                    $FileChanges .= "<td class='warning'>".$Link."</td>\n";
+                if($FileChanges{$Format}{$_}>0)
+                {
+                    my $Link = "<a href='#".$FormatInfo{$Format}{"Anchor"}."' style='color:Blue;'>".$FileChanges{$Format}{$_}."</a>";
+                    if($_ eq "Added") {
+                        $FileChgs .= "<td class='new'>".$Link."</td>\n";
+                    }
+                    elsif($_ eq "Removed") {
+                        $FileChgs .= "<td class='failed'>".$Link."</td>\n";
+                    }
+                    elsif($_ eq "Changed") {
+                        $FileChgs .= "<td class='warning'>".$Link."</td>\n";
+                    }
+                    else {
+                        $FileChgs .= "<td>".$Link."</td>\n";
+                    }
                 }
                 else {
-                    $FileChanges .= "<td>".$Link."</td>\n";
+                    $FileChgs .= "<td>0</td>\n";
                 }
             }
-            else {
-                $FileChanges .= "<td>0</td>\n";
-            }
+            $FileChgs .= "</tr>\n";
         }
-        $FileChanges .= "</tr>\n";
+        $FileChgs .= "</table>\n";
     }
-    $FileChanges .= "</table>\n";
+    else
+    {
+        $FileChgs .= "No files\n";
+    }
+    
     my $Legend = "<br/><table class='summary'>
     <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
     <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>\n";
-    return $Legend.$TestInfo.$TestResults.get_Report_Headers().get_Report_Deps().$FileChanges;
+    
+    return $Legend.$TestInfo.$TestResults.get_Report_Headers().get_Report_Deps().$FileChgs;
 }
 
 sub get_Source()
@@ -3269,13 +3413,32 @@ sub scenario()
     }
     if($ShowDetails)
     {
-        if(my $V = get_dumpversion($ABICC))
+        if(my $V = get_dumpversion($ACC))
         {
-            if(cmpVersions($V, "1.96")==-1)
+            if(cmpVersions($V, $ACC_VER)==-1)
             {
-                printMsg("WARNING", "unsupported version of ABI Compliance Checker detected");
-                $ABICC = "";
+                printMsg("ERROR", "the version of ABI Compliance Checker should be $ACC_VER or newer");
+                $ACC = undef;
             }
+        }
+        else
+        {
+            printMsg("ERROR", "cannot find ABI Compliance Checker");
+            $ACC = undef;
+        }
+        
+        if(my $V = get_dumpversion($ABI_DUMPER))
+        {
+            if(cmpVersions($V, $ABI_DUMPER_VER)==-1)
+            {
+                printMsg("ERROR", "the version of ABI Dumper should be $ABI_DUMPER_VER or newer");
+                $ABI_DUMPER = undef;
+            }
+        }
+        else
+        {
+            printMsg("ERROR", "cannot find ABI Dumper");
+            $ABI_DUMPER = undef;
         }
     }
     if(not $Descriptor{1}) {

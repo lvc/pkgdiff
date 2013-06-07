@@ -9,3 +9,7 @@ USAGE:
 
 ADV. USAGE:
   For advanced usage, see output of --help option
+
+SUGGESTS:
+  ABI Compliance Checker 1.99.1 or newer: https://github.com/lvc/abi-compliance-checker/
+  ABI Dumper 0.97 or newer: https://github.com/lvc/abi-dumper

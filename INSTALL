@@ -6,8 +6,8 @@ All rights reserved.
 RELEASE INFORMATION
 
 Project:           Package Changes Analyzer (pkgdiff)
-Version:           1.5
-Date:              2013-04-04
+Version:           1.6
+Date:              2013-06-07
 
 
 This file explains how to install and setup environment
@@ -41,7 +41,8 @@ Content:
 
 1.3 Suggestions
 
-   ABI Compliance Checker (1.96.7 or newer)
+   1. ABI Compliance Checker (1.99.1 or newer)
+   2. ABI Dumper (0.97 or newer)
 
 
 
@@ -56,7 +57,8 @@ Content:
 
 1.1 Suggestions
 
-   ABI Compliance Checker (1.96.7 or newer)
+   1. ABI Compliance Checker (1.99.1 or newer)
+   2. ABI Dumper (0.97 or newer)
 
 
 

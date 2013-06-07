@@ -35,6 +35,36 @@
 
 <type>
     <id>
+        KERNEL_MODULE
+    </id>
+    <summary>
+        Kernel module
+    </summary>
+    <extensions>
+        ko
+    </extensions>
+    <weight>
+        85
+    </weight>
+</type>
+
+<type>
+    <id>
+        DEBUG_INFO
+    </id>
+    <summary>
+        Debug info file
+    </summary>
+    <extensions>
+        debug
+    </extensions>
+    <weight>
+        80
+    </weight>
+</type>
+
+<type>
+    <id>
         DLL
     </id>
     <summary>
