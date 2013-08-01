@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.6
+# PkgDiff - Package Changes Analyzer 1.6.1
 # A tool for analyzing changes in Linux software packages
 #
 # Copyright (C) 2011-2013 ROSA Laboratory
@@ -53,10 +53,9 @@ use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.6";
+my $TOOL_VERSION = "1.6.1";
 my $OSgroup = get_OSgroup();
 my $ORIG_DIR = cwd();
-my $TMP_DIR = tempdir(CLEANUP=>1);
 
 # Internal modules
 my $MODULES_DIR = get_Modules();
@@ -72,7 +71,7 @@ my ($Help, $ShowVersion, $DumpVersion, $GenerateTemplate, %Descriptor,
 $CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug,
 $SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Browse, $Minimal,
 $IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $OpenReport,
-$ExtraInfo);
+$ExtraInfo, $CustomTmpDir);
 
 my $CmdName = get_filename($0);
 
@@ -138,8 +137,38 @@ GetOptions("h|help!" => \$Help,
   "browse|b=s" => \$Browse,
   "open!" => \$OpenReport,
   "extra-info=s" => \$ExtraInfo,
+  "tmp-dir=s" => \$CustomTmpDir,
   "debug!" => \$Debug
 ) or ERR_MESSAGE();
+
+my $TMP_DIR = undef;
+
+if($CustomTmpDir)
+{
+    printMsg("INFO", "using custom temp directory: $CustomTmpDir");
+    mkpath($TMP_DIR);
+    $TMP_DIR = abs_path($CustomTmpDir);
+    cleanTmp();
+}
+else {
+    $TMP_DIR = tempdir(CLEANUP=>1);
+}
+
+sub cleanTmp()
+{
+    foreach ("null", "error",
+    "unpack", "output", "fmt",
+    "content1", "content2",
+    "xcontent1", "xcontent2")
+    {
+        if(-f $TMP_DIR."/".$_) {
+            unlink($TMP_DIR."/".$_);
+        }
+        elsif(-d $TMP_DIR."/".$_) {
+            rmtree($TMP_DIR."/".$_);
+        }
+    }
+}
 
 if(@ARGV)
 {
@@ -152,7 +181,6 @@ if(@ARGV)
         ERR_MESSAGE();
     }
 }
-
 
 sub ERR_MESSAGE()
 {
@@ -271,6 +299,9 @@ OTHER OPTIONS:
       
   -extra-info DIR
       Dump extra info to DIR.
+      
+  -tmp-dir DIR
+      Use custom temp directory.
 
   -debug
       Show debug info.
@@ -650,6 +681,10 @@ sub compareFiles($$$$)
             my $Page1 = showFile($P1, "ARCHIVE", 1);
             my $Page2 = showFile($P2, "ARCHIVE", 2);
             ($DLink, $Rate) = diffFiles($Page1, $Page2, getRPath("diffs", $N1));
+            
+            # clean space
+            unlink($Page1);
+            unlink($Page2);
         }
         else
         { 
@@ -672,11 +707,20 @@ sub compareFiles($$$$)
         my $Page2 = showFile($P2, $Format, 2);
         if($Format eq "SYMLINK")
         {
-            if(readFile($Page1) eq readFile($Page2)) {
+            if(readFile($Page1) eq readFile($Page2))
+            {
+                # clean space
+                unlink($Page1);
+                unlink($Page2);
+                
                 return (0, "", "", 0, {});
             }
         }
         ($DLink, $Rate) = diffFiles($Page1, $Page2, getRPath("diffs", $N1));
+        
+        # clean space
+        unlink($Page1);
+        unlink($Page2);
     }
     else
     {
@@ -817,7 +861,7 @@ sub showFile($$$)
         $Cmd = "javap \"$Path\""; # -s -c -private -verbose
         chdir($Dir);
     }
-    my $SPath = $TMP_DIR."/".$Format."/".$Version."/".$Name;
+    my $SPath = $TMP_DIR."/fmt/".$Format."/".$Version."/".$Name;
     mkpath(get_dirname($SPath));
     system($Cmd." >\"".$SPath."\" 2>$TMP_DIR/null");
     if($Format eq "JAVA_CLASS") {
@@ -957,6 +1001,9 @@ sub compareABIs($$$$$)
         $Adv->{"DWARFDump"}{2}=~s/\A\Q$REPORT_DIR\E\///;
     }
     
+    # clean space
+    rmtree("$TMP_DIR/extra-info");
+    
     $Cmd = $ACC." -d1 \"$D1\" -d2 \"$D2\"";
     
     $Cmd .= " -l \"".$Name."\"";
@@ -1054,6 +1101,10 @@ sub diffFiles($$$)
         }
     }
     my $Rate = getRate($P1, $P2, $TmpPath);
+    
+    # clean space
+    unlink($TmpPath);
+    
     return ($Path, $Rate);
 }
 
@@ -1566,6 +1617,11 @@ sub detectChanges()
             writeFile($P1, $Old);
             writeFile($P2, $New);
             my ($DLink, $Rate) = diffFiles($P1, $P2, getRPath("info-diffs", $Package."-info"));
+            
+            # clean space
+            rmtree($TMP_DIR."/1/");
+            rmtree($TMP_DIR."/2/");
+            
             $DLink =~s/\A\Q$REPORT_DIR\E\///;
             my %Details = ();
             $Details{"Status"} = "changed";
@@ -3411,6 +3467,7 @@ sub scenario()
     if(not -f $DIFF) {
         exitStatus("Not_Found", "can't access \"$DIFF\"");
     }
+    
     if($ShowDetails)
     {
         if(my $V = get_dumpversion($ACC))
@@ -3455,6 +3512,7 @@ sub scenario()
     }
     readFileTypes();
     printMsg("INFO", "reading packages ...");
+    
     if(getFormat($Descriptor{1})=~/\A(RPM|SRPM|DEB|ARCHIVE)\Z/)
     {
         my $Attr = registerPackage($Descriptor{1}, 1);
@@ -3539,6 +3597,10 @@ sub scenario()
     printMsg("INFO", "comparing packages ...");
     detectChanges();
     createReport($REPORT_PATH);
+    
+    if($CustomTmpDir) {
+        cleanTmp();
+    }
     exit($ERROR_CODE{$RESULT{"status"}});
 }
 
