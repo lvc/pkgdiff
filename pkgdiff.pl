@@ -146,8 +146,8 @@ my $TMP_DIR = undef;
 if($CustomTmpDir)
 {
     printMsg("INFO", "using custom temp directory: $CustomTmpDir");
-    mkpath($TMP_DIR);
     $TMP_DIR = abs_path($CustomTmpDir);
+    mkpath($TMP_DIR);
     cleanTmp();
 }
 else {
