@@ -91,7 +91,7 @@ my %ERROR_CODE = (
 );
 
 my %HomePage = (
-    "Dev"=>"http://pkgdiff.github.com/pkgdiff/"
+    "Dev"=>"http://lvc.github.com/pkgdiff/"
 );
 
 my %Contacts = (
