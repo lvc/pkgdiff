@@ -385,9 +385,9 @@ my %PathName;
 my %FileChanges;
 my %PackageInfo;
 my %InfoChanges;
-my %FileGroup;
 my %PackageUsage;
 my %TotalUsage;
+my %RemovePrefix;
 
 # Deps
 my %PackageDeps;
@@ -2611,20 +2611,26 @@ sub sepDep($)
     }
 }
 
-sub registerPackage($$)
+sub registerPackage(@)
 {
-    my ($Path, $Version) = @_;
+    my ($Path, $Version, $Ph) = @_;
     return () if(not $Path or not -f $Path);
     my $PkgName = get_filename($Path);
     my $PkgFormat = getFormat($Path);
-    my ($CPath, $Attr) = readPackage($Path, $Version);
+    
+    my ($CPath, $Attr) = ();
+    if($Ph)
+    { # already opened
+        ($CPath, $Attr) = ($Ph->{"CPath"}, $Ph->{"Attr"});
+    }
+    else
+    { # not opened
+        ($CPath, $Attr) = readPackage($Path, $Version);
+    }
+    
     $TargetPackages{$Version}{$PkgName} = 1;
     $Group{"Count$Version"} += 1;
-    my @Contents = listDir($CPath);
-    my $Prefix = "";
-    if($#Contents==0 and -d $CPath."/".$Contents[0]) {
-        $Prefix = $Contents[0];
-    }
+    
     my @Files = cmd_find($CPath);
     foreach my $File (sort @Files)
     { # search for all files
@@ -2636,8 +2642,9 @@ sub registerPackage($$)
         }
         elsif($PkgFormat eq "ARCHIVE")
         {
-            if($Prefix) {
-                $FName = cut_path_prefix($FName, $Prefix);
+            if($RemovePrefix{$Version})
+            { # cut common prefix from all files
+                $FName = cut_path_prefix($FName, $RemovePrefix{$Version});
             }
         }
         if(not $FName) {
@@ -2646,15 +2653,14 @@ sub registerPackage($$)
         my $SubDir = "$TMP_DIR/xcontent$Version/$FName";
         $PackageFiles{$Version}{$FName} = $File;
         $PathName{$File} = $FName;
+        
         if(not get_dirname($FName)
         and getFormat($File) eq "ARCHIVE")
         { # go into archives (for SRPM)
             unpackArchive($File, $SubDir);
             my @SubContents = listDir($SubDir);
-            my $G = "";
             if($#SubContents==0 and -d $SubDir."/".$SubContents[0])
             { # libsample-x.y.z.tar.gz/libsample-x.y.z
-                $G = get_filename($File)."/".$SubContents[0];
                 $SubDir .= "/".$SubContents[0];
             }
             foreach my $SubFile (cmd_find($SubDir))
@@ -2664,7 +2670,6 @@ sub registerPackage($$)
                     next;
                 }
                 $PackageFiles{$Version}{$SFName} = $SubFile;
-                $FileGroup{$Version}{$SFName} = $G;
             }
         }
     }
@@ -3517,9 +3522,31 @@ sub scenario()
     readFileTypes();
     printMsg("INFO", "reading packages ...");
     
-    if(getFormat($Descriptor{1})=~/\A(RPM|SRPM|DEB|ARCHIVE)\Z/)
+    my $Fmt1 = getFormat($Descriptor{1});
+    my $Fmt2 = getFormat($Descriptor{2});
+    
+    my ($Ph1, $Ph2) = ();
+    
+    if($Fmt1 eq "ARCHIVE" and $Fmt2 eq "ARCHIVE")
+    { # check if we can remove a common prefix from files of BOTH packages
+        ($Ph1->{"CPath"}, $Ph1->{"Attr"}) = readPackage($Descriptor{1}, 1);
+        ($Ph2->{"CPath"}, $Ph2->{"Attr"}) = readPackage($Descriptor{2}, 2);
+        
+        my @Cnt1 = listDir($Ph1->{"CPath"});
+        my @Cnt2 = listDir($Ph2->{"CPath"});
+        if($#Cnt1==0 and $#Cnt2==0)
+        {
+            if(-d $Ph1->{"CPath"}."/".$Cnt1[0] and -d $Ph2->{"CPath"}."/".$Cnt2[0])
+            {
+                $RemovePrefix{1} = $Cnt1[0];
+                $RemovePrefix{2} = $Cnt2[0];
+            }
+        }
+    }
+    
+    if($Fmt1=~/\A(RPM|SRPM|DEB|ARCHIVE)\Z/)
     {
-        my $Attr = registerPackage($Descriptor{1}, 1);
+        my $Attr = registerPackage($Descriptor{1}, 1, $Ph1);
         $Group{"Name1"} = $Attr->{"Name"};
         $Group{"V1"} = $Attr->{"Version"};
         $Group{"Arch1"} = $Attr->{"Arch"};
@@ -3534,9 +3561,9 @@ sub scenario()
         }
         readDescriptor(1, $Descriptor{1});
     }
-    if(getFormat($Descriptor{2})=~/\A(RPM|SRPM|DEB|ARCHIVE)\Z/)
+    if($Fmt2=~/\A(RPM|SRPM|DEB|ARCHIVE)\Z/)
     {
-        my $Attr = registerPackage($Descriptor{2}, 2);
+        my $Attr = registerPackage($Descriptor{2}, 2, $Ph2);
         $Group{"Name2"} = $Attr->{"Name"};
         $Group{"V2"} = $Attr->{"Version"};
         $Group{"Arch2"} = $Attr->{"Arch"};
