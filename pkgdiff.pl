@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.6.1
+# PkgDiff - Package Changes Analyzer 1.6.2
 # A tool for analyzing changes in Linux software packages
 #
-# Copyright (C) 2011-2013 ROSA Laboratory
+# Copyright (C) 2011-2014 ROSA Laboratory
 #
 # Written by Andrey Ponomarenko
 #
@@ -53,7 +53,7 @@ use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.6.1";
+my $TOOL_VERSION = "1.6.2";
 my $OSgroup = get_OSgroup();
 my $ORIG_DIR = cwd();
 
@@ -2712,7 +2712,7 @@ sub getArchiveFormat($)
 }
 
 sub unpackArchive($$)
-{
+{ # TODO: tar -xf for all tar.* formats
     my ($Pkg, $OutDir) = @_;
     mkpath($OutDir);
     my $Cmd = "";
@@ -2745,7 +2745,7 @@ sub unpackArchive($$)
         $Cmd = "cp $Pkg $OutDir && cd $OutDir && unxz ".get_filename($Pkg);
     }
     elsif($Format eq "ZIP") {
-        $Cmd = "unzip $Pkg -d $OutDir";
+        $Cmd = "unzip -o $Pkg -d $OutDir";
     }
     elsif($Format eq "JAR") {
         $Cmd = "cd $OutDir && jar -xf $Pkg";
@@ -2753,7 +2753,7 @@ sub unpackArchive($$)
     else {
         return "";
     }
-    system($Cmd." >$TMP_DIR/null 2>&1");
+    system($Cmd." >$TMP_DIR/output 2>&1");
 }
 
 sub readPackage($$)
@@ -2862,6 +2862,10 @@ sub parseVersion($)
     { # libsample-N
       # libsample-vN
         return ($1, $3);
+    }
+    elsif($Name=~/\A([\d\.\-]+)\Z/i)
+    { # X.Y-Z
+        return ("", $Name);
     }
     elsif($Name=~/\A(.+?)[\-\_]*(\d[\d\.\-]*)\Z/i)
     { # libsampleN
