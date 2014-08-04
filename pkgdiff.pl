@@ -2722,38 +2722,23 @@ sub unpackArchive($$)
     mkpath($OutDir);
     my $Cmd = "";
     my $Format = getArchiveFormat($Pkg);
-    if($Format eq "TAR.GZ") {
-        $Cmd = "tar -xzf $Pkg --directory=$OutDir";
-    }
-    elsif($Format eq "TAR.BZ2") {
-        $Cmd = "tar -xjf $Pkg --directory=$OutDir";
-    }
-    elsif($Format eq "TAR.XZ") {
-        $Cmd = "tar -Jxf $Pkg --directory=$OutDir";
-    }
-    elsif($Format eq "TAR.LZMA") {
-        $Cmd = "tar -xf $Pkg --lzma --directory=$OutDir";
-    }
-    elsif($Format eq "TAR.LZ") {
-        $Cmd = "tar -xf $Pkg --lzip --directory=$OutDir";
-    }
-    elsif($Format eq "TAR") {
-        $Cmd = "tar -xf $Pkg --directory=$OutDir";
+    if($Format=~/TAR\.\w+/i or $Format eq "TAR") {
+        $Cmd = "tar -xf \"$Pkg\" --directory=\"$OutDir\"";
     }
     elsif($Format eq "GZ") {
-        $Cmd = "cp $Pkg $OutDir && cd $OutDir && gunzip ".get_filename($Pkg);
+        $Cmd = "cp -f \"$Pkg\" \"$OutDir\" && cd \"$OutDir\" && gunzip \"".get_filename($Pkg)."\"";
     }
     elsif($Format eq "LZMA") {
-        $Cmd = "cp $Pkg $OutDir && cd $OutDir && unlzma ".get_filename($Pkg);
+        $Cmd = "cp -f \"$Pkg\" \"$OutDir\" && cd \"$OutDir\" && unlzma \"".get_filename($Pkg)."\"";
     }
     elsif($Format eq "XZ") {
-        $Cmd = "cp $Pkg $OutDir && cd $OutDir && unxz ".get_filename($Pkg);
+        $Cmd = "cp -f \"$Pkg\" \"$OutDir\" && cd \"$OutDir\" && unxz \"".get_filename($Pkg)."\"";
     }
     elsif($Format eq "ZIP") {
-        $Cmd = "unzip -o $Pkg -d $OutDir";
+        $Cmd = "unzip -o \"$Pkg\" -d \"$OutDir\"";
     }
     elsif($Format eq "JAR") {
-        $Cmd = "cd $OutDir && jar -xf $Pkg";
+        $Cmd = "cd \"$OutDir\" && jar -xf \"$Pkg\"";
     }
     else {
         return "";
