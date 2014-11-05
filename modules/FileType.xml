@@ -400,9 +400,15 @@
     <summary>
         Log file
     </summary>
+    <names>
+        xorg.log.1
+    </names>
     <extensions>
-        log
+        log, log.1
     </extensions>
+    <dirs>
+        logs
+    </dirs>
     <weight>
         40
     </weight>

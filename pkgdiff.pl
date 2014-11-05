@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.6.3
+# PkgDiff - Package Changes Analyzer 1.6.4
 # A tool for analyzing changes in Linux software packages
 #
 # Copyright (C) 2011-2014 NTC IT ROSA
@@ -53,7 +53,7 @@ use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.6.3";
+my $TOOL_VERSION = "1.6.4";
 my $OSgroup = get_OSgroup();
 my $ORIG_DIR = cwd();
 
@@ -71,7 +71,7 @@ my ($Help, $ShowVersion, $DumpVersion, $GenerateTemplate, %Descriptor,
 $CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug,
 $SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Browse, $Minimal,
 $IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $OpenReport,
-$ExtraInfo, $CustomTmpDir);
+$ExtraInfo, $CustomTmpDir, $HideUnchanged);
 
 my $CmdName = get_filename($0);
 
@@ -138,6 +138,7 @@ GetOptions("h|help!" => \$Help,
   "open!" => \$OpenReport,
   "extra-info=s" => \$ExtraInfo,
   "tmp-dir=s" => \$CustomTmpDir,
+  "hide-unchanged!" => \$HideUnchanged,
   "debug!" => \$Debug
 ) or ERR_MESSAGE();
 
@@ -302,6 +303,9 @@ OTHER OPTIONS:
       
   -tmp-dir DIR
       Use custom temp directory.
+  
+  -hide-unchanged
+      Don't show unchanged files in the report.
 
   -debug
       Show debug info.
@@ -1887,9 +1891,26 @@ sub get_Report_Files()
     foreach my $Format (sort {$FormatInfo{$b}{"Weight"}<=>$FormatInfo{$a}{"Weight"}}
     sort {lc($FormatInfo{$a}{"Summary"}) cmp lc($FormatInfo{$b}{"Summary"})} keys(%FileChanges))
     {
-        if(not $FileChanges{$Format}{"Total"}) {
+        my $Total = $FileChanges{$Format}{"Total"};
+        
+        if($HideUnchanged) {
+            $Total = $FileChanges{$Format}{"Added"} + $FileChanges{$Format}{"Removed"} + $FileChanges{$Format}{"Changed"};
+        }
+        
+        if(not $Total) {
             next;
         }
+        
+        if($HideUnchanged)
+        {
+            if(not $Total)
+            { # do not show unchanged files
+                next;
+            }
+            
+            $FileChanges{$Format}{"Total"} = $Total;
+        }
+        
         $Report .= "<a name='".$FormatInfo{$Format}{"Anchor"}."'></a>\n";
         $Report .= "<h2>".$FormatInfo{$Format}{"Title"}." (".$FileChanges{$Format}{"Total"}.")</h2><hr/>\n";
         $Report .= "<table class='summary'>\n";
@@ -1922,7 +1943,17 @@ sub get_Report_Files()
             or $MovedFiles_R{$File}) {
                 next;
             }
+            
             my %Info = %{$Details{$File}};
+            
+            if($HideUnchanged)
+            {
+                if($Info{"Status"} eq "unchanged")
+                { # do not show unchanged files
+                    next;
+                }
+            }
+            
             my ($Join, $Color1, $Color2) = ("", "", "");
             if($Info{"Status"} eq "renamed"
             or $Info{"Status"} eq "moved")
@@ -2925,13 +2956,18 @@ sub get_Header()
 {
     my $Header = "";
     if($CheckMode eq "Group") { 
-        $Header = "<h1>Changes report for the <span style='color:Blue;'>".$Group{"Name"}."</span> group of packages between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions</h1>";
+        $Header = "Changes report for the <span style='color:Blue;'>".$Group{"Name"}."</span> group of packages between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions";
     }
     else
     { # single package
-        $Header = "<h1>Changes report for the <span style='color:Blue;'>".$Group{"Name"}."</span> package between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions</h1>";
+        $Header = "Changes report for the <span style='color:Blue;'>".$Group{"Name"}."</span> package between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions";
     }
-    return $Header;
+    
+    if($HideUnchanged) {
+        $Header .= " (hidden unchanged files)";
+    }
+    
+    return "<h1>".$Header."</h1>";
 }
 
 sub show_number($)
@@ -3105,9 +3141,26 @@ sub get_Summary()
         foreach my $Format (sort {$FormatInfo{$b}{"Weight"}<=>$FormatInfo{$a}{"Weight"}}
         sort {lc($FormatInfo{$a}{"Summary"}) cmp lc($FormatInfo{$b}{"Summary"})} keys(%FormatInfo))
         {
-            if(not $FileChanges{$Format}{"Total"}) {
+            my $Total = $FileChanges{$Format}{"Total"};
+            
+            if($HideUnchanged) {
+                $Total = $FileChanges{$Format}{"Added"} + $FileChanges{$Format}{"Removed"} + $FileChanges{$Format}{"Changed"};
+            }
+            
+            if(not $Total) {
                 next;
             }
+            
+            if($HideUnchanged)
+            {
+                if(not $Total)
+                { # do not show unchanged files
+                    next;
+                }
+                
+                $FileChanges{$Format}{"Total"} = $Total;
+            }
+            
             $FileChgs .= "<tr>\n";
             $FileChgs .= "<td class='left'>".$FormatInfo{$Format}{"Summary"}."</td>\n";
             foreach ("Total", "Added", "Removed", "Changed")
@@ -3141,11 +3194,7 @@ sub get_Summary()
         $FileChgs .= "No files\n";
     }
     
-    my $Legend = "<br/><table class='summary'>
-    <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
-    <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>\n";
-    
-    return $Legend.$TestInfo.$TestResults.get_Report_Headers().get_Report_Deps().$FileChgs;
+    return $TestInfo.$TestResults.get_Report_Headers().get_Report_Deps().$FileChgs;
 }
 
 sub get_Source()
@@ -3177,6 +3226,12 @@ sub createReport($)
     
     my $Report = $Header."\n";
     my $MainReport = get_Report_Files();
+    
+    my $Legend = "<br/><table class='summary'>
+    <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
+    <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>\n";
+    
+    $Report .= $Legend;
     $Report .= get_Summary();
     $Report .= $MainReport;
     $Report .= get_Report_Usage();
