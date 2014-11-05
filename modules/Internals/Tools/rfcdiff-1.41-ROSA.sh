@@ -322,7 +322,7 @@ function header(file1, file2) {
 "<!-- Using wdiff: %s: %s --> \n" \
 "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> \n" \
 "<head> \n" \
-"  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" /> \n" \
+"  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /> \n" \
 "  <meta http-equiv=\"Content-Style-Type\" content=\"text/css\" /> \n" \
 "  <title>Diff: %s - %s</title> \n" \
 "  <style type=\"text/css\"> \n" \

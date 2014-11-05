@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.6.2
+# PkgDiff - Package Changes Analyzer 1.6.3
 # A tool for analyzing changes in Linux software packages
 #
-# Copyright (C) 2011-2014 ROSA Laboratory
+# Copyright (C) 2011-2014 NTC IT ROSA
 #
 # Written by Andrey Ponomarenko
 #
@@ -53,7 +53,7 @@ use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.6.2";
+my $TOOL_VERSION = "1.6.3";
 my $OSgroup = get_OSgroup();
 my $ORIG_DIR = cwd();
 
@@ -403,6 +403,7 @@ my %RenamedFiles;
 my %RenamedFiles_R;
 my %MovedFiles;
 my %MovedFiles_R;
+my %ChangeRate;
 
 my %SkipFiles;
 
@@ -1437,7 +1438,9 @@ sub detectChanges()
                 $Details{"Rate"} = $Rate;
                 $Details{"Diff"} = $DLink;
                 $Details{"Report"} = $RLink;
+                $ChangeRate{$Name} = $Rate;
             }
+            
             $ChangedFiles{$Name} = 1;
         }
         elsif($Changed==2)
@@ -1662,7 +1665,7 @@ sub detectChanges()
         {
             $FILES .= "<moved>\n";
             foreach (@Moved) {
-                $FILES .= "    ".$_.";".$MovedFiles{$_}."\n";
+                $FILES .= "    ".$_.";".$MovedFiles{$_}." (".show_number($ChangeRate{$_}*100)."%)\n";
             }
             $FILES .= "</moved>\n\n";
         }
@@ -1670,12 +1673,16 @@ sub detectChanges()
         {
             $FILES .= "<renamed>\n";
             foreach (@Renamed) {
-                $FILES .= "    ".$_.";".$RenamedFiles{$_}."\n";
+                $FILES .= "    ".$_.";".$RenamedFiles{$_}." (".show_number($ChangeRate{$_}*100)."%)\n";
             }
             $FILES .= "</renamed>\n\n";
         }
         if(my @Changed = sort {lc($a) cmp lc($b)} keys(%ChangedFiles))
         {
+            foreach (0 .. $#Changed) {
+                $Changed[$_] .= " (".show_number($ChangeRate{$Changed[$_]}*100)."%)";
+            }
+            
             $FILES .= "<changed>\n    ".join("\n    ", @Changed)."\n</changed>\n\n";
         }
         writeFile($ExtraInfo."/files.xml", $FILES);
