@@ -17,7 +17,7 @@
       margin: 0 auto;
       width: 700px;
     }
-    h1 { font-size: 3.8em; color: #211108; margin-bottom: 3px; }
+    h1 { font-size: 3.8em; color: #211108; margin-bottom: 3px;margin-top:0px;padding-top:0px;}
     h1 .small { font-size: 0.4em; }
     h1 a { text-decoration: none }
     h2 { font-size: 1.5em; color: #211108; }
@@ -47,18 +47,18 @@
 </head>
 
 <body>
-  <a href="https://github.com/pkgdiff/pkgdiff"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  <a href="https://github.com/lvc/pkgdiff"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
   <div id="container">
 
     <div class="download">
-      <a href="https://github.com/pkgdiff/pkgdiff/zipball/master">
+      <a href="https://github.com/lvc/pkgdiff/zipball/master">
         <img style="border: 0;" width="90" src="https://github.com/images/modules/download/zip.png" alt="" /></a>
-      <a href="https://github.com/pkgdiff/pkgdiff/tarball/master">
+      <a href="https://github.com/lvc/pkgdiff/tarball/master">
         <img style="border: 0;" width="90" src="https://github.com/images/modules/download/tar.png" alt="" /></a>
     </div>
-
-    <h1><a href="https://github.com/pkgdiff/pkgdiff">pkgdiff</a></h1>
+    <a href='http://www.rosalab.com/' style='text-decoration:none'>ROSA Lab's</a>
+    <h1><a href="https://github.com/lvc/pkgdiff">pkgdiff</a></h1>
 
     <div class="description">
       A tool for analyzing changes in Linux software packages
@@ -89,13 +89,13 @@ The tool is intended for Linux maintainers who are interested in ensuring compat
 
 <a name="Downloads"></a>
 <h2>Downloads</h2>
-<p>All releases can be downloaded from <a href="https://github.com/pkgdiff/pkgdiff/">this page</a>.</p>
+<p>All releases can be downloaded from <a href="https://github.com/lvc/pkgdiff/">this page</a>.</p>
 
-<p>Latest release: <a href="https://github.com/pkgdiff/pkgdiff/archive/1.6.tar.gz">pkgdiff-1.6.tar.gz</a></p>
+<p>Latest release: <a href="https://github.com/lvc/pkgdiff/archive/1.6.3.tar.gz">pkgdiff-1.6.3.tar.gz</a></p>
 
 <p>Read-only access to the latest development version:</p>
 
-<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;git clone git://github.com/pkgdiff/pkgdiff&nbsp;</code>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;git clone git://github.com/lvc/pkgdiff&nbsp;</code>
 
 <a name="License"></a>
 <h2>License</h2>
@@ -259,16 +259,44 @@ Suggests:
 
 <a name="Bugs"></a>
 <h2>Bugs</h2>
-<p>Please post your bug reports, feature requests and questions to the <a href="https://github.com/pkgdiff/pkgdiff/issues" rel="nofollow">issue tracker</a>.</p>
+<p>Please post your bug reports, feature requests and questions to the <a href="https://github.com/lvc/pkgdiff/issues" rel="nofollow">issue tracker</a>.</p>
 
 <a name="Maintainers"></a>
 <h2>Maintainers</h2>
-The tool is developed by the <a href="http://www.rosalab.com/">ROSA Laboratory</a>.
+The tool is developed by the <a href="http://www.rosalab.com/">NTC IT ROSA</a>.
 
-<p><a href="http://andrey-ponomarenko.myopenid.com/" rel="nofollow">Andrey Ponomarenko</a> is the leader of this project.</p>
+<p><a href="http://www.linkedin.com/pub/andrey-ponomarenko/67/366/818" rel="nofollow">Andrey Ponomarenko</a> is the leader of this project.</p>
 
 <a name="ChangeLog"></a>
 <h2>Changes</h2>
+
+<b>Version 1.6.3 (November 05, 2014)</b><br/>
+<b>New Features</b>
+<ul>
+    <li>
+        Show change rate in the extra info files.xml (moved, changed, renamed)
+    </li>
+    <li>
+        Check if we can remove a common prefix from files of both packages
+    </li>
+    <li>
+        Encoding of diff reports has been changed to utf-8
+    </li>
+</ul>
+<b>Bug Fixes</b>
+<ul>
+    <li>
+        Fixed a problem with spaces in package name
+    </li>
+    <li>
+        Added -o option to unzip command
+    </li>
+    <li>
+        Fixed -tmp-dir option
+    </li>
+</ul>
+
+<br/>
 
 <b>Version 1.6 (June 07, 2013)</b><br/>
 <b>New Features</b>
@@ -360,7 +388,7 @@ The tool is developed by the <a href="http://www.rosalab.com/">ROSA Laboratory</
 </ul>
 
     <div class="footer">
-      get the source code on GitHub : <a href="https://github.com/pkgdiff/pkgdiff">pkgdiff/pkgdiff</a>
+      get the source code on GitHub : <a href="https://github.com/lvc/pkgdiff">lvc/pkgdiff</a>
     </div>
     <div style="height:350px;"></div>
 
