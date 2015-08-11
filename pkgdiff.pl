@@ -1,9 +1,10 @@
 #!/usr/bin/perl
 ###########################################################################
 # PkgDiff - Package Changes Analyzer 1.6.4
-# A tool for analyzing changes in Linux software packages
+# A tool for visualizing changes in Linux software packages
 #
-# Copyright (C) 2011-2014 NTC IT ROSA
+# Copyright (C) 2012-2013 ROSA Laboratory
+# Copyright (C) 2012-2015 Andrey Ponomarenko's ABI Laboratory
 #
 # Written by Andrey Ponomarenko
 #
@@ -61,7 +62,7 @@ my $ORIG_DIR = cwd();
 my $MODULES_DIR = get_Modules();
 push(@INC, get_dirname($MODULES_DIR));
 
-my $DIFF = $MODULES_DIR."/Internals/Tools/rfcdiff-1.41-ROSA.sh";
+my $DIFF = $MODULES_DIR."/Internals/Tools/rfcdiff-1.41-CUSTOM.sh";
 my $ACC = "abi-compliance-checker";
 my $ACC_VER = "1.99.1";
 my $ABI_DUMPER = "abi-dumper";
@@ -99,8 +100,8 @@ my %Contacts = (
 );
 
 my $ShortUsage = "Package Changes Analyzer (PkgDiff) $TOOL_VERSION
-A tool for analyzing changes in Linux software packages
-Copyright (C) 2013 ROSA Laboratory
+A tool for visualizing changes in Linux software packages
+Copyright (C) 2015 Andrey Ponomarenko's ABI Laboratory
 License: GNU GPL
 
 Usage: $CmdName PKG1 PKG2 [options]
@@ -1914,12 +1915,14 @@ sub get_Report_Files()
         $Report .= "<a name='".$FormatInfo{$Format}{"Anchor"}."'></a>\n";
         $Report .= "<h2>".$FormatInfo{$Format}{"Title"}." (".$FileChanges{$Format}{"Total"}.")</h2><hr/>\n";
         $Report .= "<table class='summary'>\n";
-        $Report .= "<tr>";
-        $Report .= "<th $JSort>Name</th>";
-        $Report .= "<th $JSort>Status</th>";
+        $Report .= "<tr>\n";
+        $Report .= "<th $JSort>Name</th>\n";
+        $Report .= "<th $JSort>Status</th>\n";
         if($Format ne "DIR")
         {
-            $Report .= "<th $JSort>Delta</th><th>Visual<br/>Diff</th><th>Detailed<br/>Report</th>";
+            $Report .= "<th $JSort>Delta</th>\n";
+            $Report .= "<th>Visual<br/>Diff</th>\n";
+            $Report .= "<th>Detailed<br/>Report</th>\n";
             
             if($ShowDetails)
             {
@@ -1928,9 +1931,9 @@ sub get_Report_Files()
                 or $Format eq "DEBUG_INFO"
                 or $Format eq "STATIC_LIBRARY")
                 {
-                    $Report .= "<th>ABI<br/>Dumps</th>";
+                    $Report .= "<th>ABI<br/>Dumps</th>\n";
                     if($Debug) {
-                        $Report .= "<th>DWARF<br/>Dumps</th>";
+                        $Report .= "<th>DWARF<br/>Dumps</th>\n";
                     }
                 }
             }
@@ -3207,7 +3210,7 @@ sub get_Source()
         $Packages .= $Name."<br/>\n";
     }
     $Packages .= "</div>\n";
-    $Packages .= "<br/><a style='font-size:11px;' href='#Top'>to the top</a><br/>\n";
+    $Packages .= "<br/><a class='top_ref' href='#Top'>to the top</a><br/>\n";
     return $Packages;
 }
 
@@ -3242,11 +3245,12 @@ sub createReport($)
     $Report .= "</div>\n<br/><br/><br/><hr/>\n";
     
     # footer
-    $Report .= "<div style='width:100%;font-size:11px;' align='right'><i>Generated on ".(localtime time);
-    $Report .= " by <a href='".$HomePage{"Dev"}."' target='_blank'>Package Changes Analyzer</a> - PkgDiff";
-    $Report .= " $TOOL_VERSION &#160;<br/>A tool for analyzing changes in Linux software packages&#160;&#160;</i></div>";
+    $Report .= "<div class='footer' style='width:100%;' align='right'><i>Generated on ".(localtime time);
+    $Report .= " by <a href='".$HomePage{"Dev"}."' target='_blank'>PkgDiff</a>";
+    $Report .= " $TOOL_VERSION &#160;";
+    $Report .= "</i></div><br/>\n";
     
-    $Report .= "\n<div style='height:999px;'></div>\n</body></html>";
+    $Report .= "</body></html>";
     writeFile($Path, $Report);
     
     if($RESULT{"status"} eq "Changed") {
@@ -3495,7 +3499,7 @@ sub scenario()
     }
     if($ShowVersion)
     {
-        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2013 ROSA Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
+        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2015 Andrey Ponomarenko's ABI Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
         exit(0);
     }
     if($DumpVersion)
