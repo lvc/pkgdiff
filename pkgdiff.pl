@@ -91,9 +91,7 @@ my %ERROR_CODE = (
     "Module_Error"=>9
 );
 
-my %HomePage = (
-    "Dev"=>"http://lvc.github.com/pkgdiff/"
-);
+my $HomePage = "http://lvc.github.com/pkgdiff/";
 
 my %Contacts = (
     "Main"=>"aponomarenko\@rosalab.ru"
@@ -323,7 +321,7 @@ REPORT BUGS TO:
     Andrey Ponomarenko <".$Contacts{"Main"}.">
 
 MORE INFORMATION:
-    ".$HomePage{"Dev"}."\n";
+    ".$HomePage."\n";
 
 sub HELP_MESSAGE() {
     printMsg("INFO", $HelpMessage."\n");
@@ -818,13 +816,13 @@ sub showFile($$$)
     if($Format eq "MANPAGE")
     {
         $Name=~s/\.(gz|bz2|xz)\Z//;
-        $Cmd = "man $Path|col -bfx";
+        $Cmd = "man \"$Path\" 2>&1|col -bfx";
     }
     elsif($Format eq "INFODOC")
     {
         $Name=~s/\.(gz|bz2|xz)\Z//;
         $Path=~s/\.(gz|bz2|xz)\Z//;
-        $Cmd = "info $Path";
+        $Cmd = "info \"$Path\"";
     }
     elsif($Format eq "ARCHIVE")
     {
@@ -833,9 +831,10 @@ sub showFile($$$)
         unpackArchive($Path, $Unpack);
         my @Contents = listDir($Unpack);
         if($#Contents==0) {
-            $Cmd = "cat $Unpack/".$Contents[0];
+            $Cmd = "cat \"$Unpack/".$Contents[0]."\"";
         }
-        else {
+        else
+        {
             return "";
         }
     }
@@ -3246,7 +3245,7 @@ sub createReport($)
     
     # footer
     $Report .= "<div class='footer' style='width:100%;' align='right'><i>Generated on ".(localtime time);
-    $Report .= " by <a href='".$HomePage{"Dev"}."' target='_blank'>PkgDiff</a>";
+    $Report .= " by <a href='".$HomePage."'>PkgDiff</a>";
     $Report .= " $TOOL_VERSION &#160;";
     $Report .= "</i></div><br/>\n";
     
@@ -3526,6 +3525,10 @@ sub scenario()
     }
     if(not -f $DIFF) {
         exitStatus("Not_Found", "can't access \"$DIFF\"");
+    }
+    
+    if(not check_Cmd("wdiff")) {
+        print STDERR "WARNING: wdiff is not installed\n";
     }
     
     if($ShowDetails)

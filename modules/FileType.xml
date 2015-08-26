@@ -3562,10 +3562,10 @@
         Configuration file
     </summary>
     <extensions>
-        conf, config, cfg, cnf, inf, INF, sysconf
+        conf, config, cfg, cnf, inf, INF, sysconf, sysconfig
     </extensions>
     <names>
-        Config
+        Config, config
     </names>
     <weight>
         50
