@@ -3,7 +3,6 @@
 # PkgDiff - Package Changes Analyzer 1.6.4
 # A tool for visualizing changes in Linux software packages
 #
-# Copyright (C) 2012-2013 ROSA Laboratory
 # Copyright (C) 2012-2015 Andrey Ponomarenko's ABI Laboratory
 #
 # Written by Andrey Ponomarenko

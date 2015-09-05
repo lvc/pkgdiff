@@ -1,5 +1,4 @@
 
-Copyright (C) 2012-2013 ROSA Laboratory
 Copyright (C) 2012-2015 Andrey Ponomarenko's ABI Laboratory
 All rights reserved.
 
@@ -8,7 +7,7 @@ RELEASE INFORMATION
 
 Project:           Package Changes Analyzer (pkgdiff)
 Version:           1.6.4
-Date:              2015-08-26
+Date:              2015-09-06
 
 
 This file explains how to install and setup environment
