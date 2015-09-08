@@ -65,9 +65,10 @@
     </div>
 
     
-      <p>Package Changes Analyzer (pkgdiff) is a tool for visualizing changes in Linux software packages (RPM, DEB, TAR.GZ, etc).
-
-The tool is intended for Linux maintainers who are interested in ensuring compatibility of old and new versions of packages.</p>
+      <p>Package Changes Analyzer (pkgdiff) is a tool for visualizing changes in Linux software packages (RPM, DEB, TAR.GZ, etc). The tool is intended for Linux maintainers who are interested in ensuring compatibility of old and new versions of packages.</p>
+      
+      <p/>
+      The tool is developed by Andrey Ponomarenko: <a href='http://abi-laboratory.pro/'>http://abi-laboratory.pro/</a>
 
 <table style='border:1px solid grey;'><tr><td>
 <div>Table of Contents</div>
@@ -91,7 +92,7 @@ The tool is intended for Linux maintainers who are interested in ensuring compat
 <h2>Downloads</h2>
 <p>All releases can be downloaded from <a href="https://github.com/lvc/pkgdiff/">this page</a>.</p>
 
-<p>Latest release: <a href="https://github.com/lvc/pkgdiff/archive/1.6.3.tar.gz">pkgdiff-1.6.3.tar.gz</a></p>
+<p>Latest release: <a href="https://github.com/lvc/pkgdiff/archive/1.6.4.tar.gz">pkgdiff-1.6.4.tar.gz</a></p>
 
 <p>Read-only access to the latest development version:</p>
 
@@ -147,7 +148,7 @@ Suggests:
 <p>The tool is <b>ready-to-use</b> after extracting the archive.</p>
 
 <p>You can also use a <b>Makefile</b> to install the tool into the system:</p>
-<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;sudo perl Makefile.pl --install --prefix=PREFIX [/usr, /usr/local]&nbsp;</code>
+<code style="border: dashed 1px gray; background-color: #f0f0f0;">&nbsp;sudo make install prefix=PREFIX [/usr, /usr/local]&nbsp;</code>
 <p>This command will install a  <code>pkgdiff</code>  program to the <code>PREFIX/bin</code> system directory and private modules into the <code>PREFIX/share</code>.</p>
 
 <a name="Usage"></a>
@@ -267,6 +268,28 @@ The tool is developed by <a href="http://www.linkedin.com/pub/andrey-ponomarenko
 
 <a name="ChangeLog"></a>
 <h2>Changes</h2>
+
+<b>Version 1.6.4 (September 08, 2015)</b><br/>
+<b>Bug Fixes</b>
+<ul>
+    <li>
+        Fixed style of the report
+    </li>
+    <li>
+        Fixed install permissions
+    </li>
+    <li>
+        Fixed errors when comparing man pages
+    </li>
+    <li>
+        Added check for wdiff
+    </li>
+    <li>
+        Simplified Makefile
+    </li>
+</ul>
+
+<br/>
 
 <b>Version 1.6.3 (November 05, 2014)</b><br/>
 <b>New Features</b>

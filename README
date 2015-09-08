@@ -1,8 +1,17 @@
 NAME:
-  Package Changes Analyzer (pkgdiff) - a tool for visualizing changes in Linux software packages (RPM, DEB, TAR.GZ, etc).
+  Package Changes Analyzer (pkgdiff) - a tool for visualizing changes in Linux software packages (RPM, DEB, TAR.GZ, etc). The tool is intended for Linux maintainers who are interested in ensuring compatibility of old and new versions of packages.
+  
+  The tool is developed by Andrey Ponomarenko: http://abi-laboratory.pro/
 
 INSTALL:
-  sudo perl Makefile.pl -install --prefix=/usr
+  sudo make install prefix=/usr
+
+REQUIRES:
+  Perl 5
+  GNU Diff
+  GNU Wdiff
+  GNU Awk
+  GNU Binutils
 
 USAGE:
   pkgdiff PKG1 PKG2
