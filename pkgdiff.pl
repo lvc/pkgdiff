@@ -1655,15 +1655,21 @@ sub detectChanges()
         my $N1 = $Names[0];
         my $N2 = $Names[1];
         
-        if(defined $PackageInfo{$N1}{"V2"})
-        {
-            $PackageInfo{$N2}{"V2"} = $PackageInfo{$N1}{"V2"};
-            delete($PackageInfo{$N1});
-        }
-        elsif(defined $PackageInfo{$N2}{"V2"})
-        {
-            $PackageInfo{$N1}{"V2"} = $PackageInfo{$N2}{"V2"};
-            delete($PackageInfo{$N2});
+        if(defined $PackageInfo{$N1}{"V1"}
+        and not defined $PackageInfo{$N2}{"V1"}
+        or defined $PackageInfo{$N1}{"V2"}
+        and not defined $PackageInfo{$N2}{"V2"})
+        { # definitely renamed
+            if(defined $PackageInfo{$N1}{"V2"})
+            {
+                $PackageInfo{$N2}{"V2"} = $PackageInfo{$N1}{"V2"};
+                delete($PackageInfo{$N1});
+            }
+            elsif(defined $PackageInfo{$N2}{"V2"})
+            {
+                $PackageInfo{$N1}{"V2"} = $PackageInfo{$N2}{"V2"};
+                delete($PackageInfo{$N2});
+            }
         }
     }
     
