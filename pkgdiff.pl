@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.6.4
+# PkgDiff - Package Changes Analyzer 1.7.0
 # A tool for visualizing changes in Linux software packages
 #
 # Copyright (C) 2012-2015 Andrey Ponomarenko's ABI Laboratory
@@ -53,8 +53,7 @@ use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.6.4";
-my $OSgroup = get_OSgroup();
+my $TOOL_VERSION = "1.7.0";
 my $ORIG_DIR = cwd();
 
 # Internal modules
@@ -69,9 +68,10 @@ my $ABI_DUMPER_VER = "0.97";
 
 my ($Help, $ShowVersion, $DumpVersion, $GenerateTemplate, %Descriptor,
 $CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug,
-$SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Browse, $Minimal,
-$IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $OpenReport,
-$ExtraInfo, $CustomTmpDir, $HideUnchanged);
+$SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Minimal,
+$IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $ExtraInfo,
+$CustomTmpDir, $HideUnchanged, $TargetName, $TargetTitle, %TargetVersion,
+$CompareDirs, $ListAddedRemoved, $SkipSubArchives, $LinksTarget);
 
 my $CmdName = get_filename($0);
 
@@ -91,10 +91,6 @@ my %ERROR_CODE = (
 );
 
 my $HomePage = "http://lvc.github.com/pkgdiff/";
-
-my %Contacts = (
-    "Main"=>"aponomarenko\@rosalab.ru"
-);
 
 my $ShortUsage = "Package Changes Analyzer (PkgDiff) $TOOL_VERSION
 A tool for visualizing changes in Linux software packages
@@ -132,12 +128,18 @@ GetOptions("h|help!" => \$Help,
   "ignore-blank-lines" => \$IgnoreBlankLines,
   "quick!" => \$QuickMode,
   "minimal!" => \$Minimal,
-  "browse|b=s" => \$Browse,
-  "open!" => \$OpenReport,
   "extra-info=s" => \$ExtraInfo,
   "tmp-dir=s" => \$CustomTmpDir,
   "hide-unchanged!" => \$HideUnchanged,
-  "debug!" => \$Debug
+  "debug!" => \$Debug,
+  "v1|vnum1=s" => \$TargetVersion{1},
+  "v2|vnum2=s" => \$TargetVersion{2},
+  "name=s" => \$TargetName,
+  "title=s" => \$TargetTitle,
+  "d|directories!" => \$CompareDirs,
+  "list-added-removed!" => \$ListAddedRemoved,
+  "skip-subarchives!" => \$SkipSubArchives,
+  "links-target=s" => \$LinksTarget
 ) or ERR_MESSAGE();
 
 my $TMP_DIR = undef;
@@ -205,8 +207,9 @@ DESCRIPTION:
 USAGE:
   $CmdName PKG1 PKG2 [options]
 
-EXAMPLE:
+EXAMPLES:
   $CmdName OLD.rpm NEW.rpm
+  $CmdName OLD.tar.gz NEW.tar.gz
 
 ARGUMENTS:
    PKG1
@@ -252,14 +255,14 @@ GENERAL OPTIONS:
       Try to create detailed reports.
 
   -size-limit SIZE
-      Don't analyze files larger than <size> in kilobytes.
+      Don't analyze files larger than SIZE in kilobytes.
 
-  -width <size>
-      Width of Visual Diff.
+  -width WIDTH
+      Width of the Visual Diff.
       Default: 75
 
   -prelines NUM
-      Size of the context in Visual Diff.
+      Size of the context in the Visual Diff.
       Default: 10
 
   -ignore-space-change
@@ -272,7 +275,7 @@ GENERAL OPTIONS:
       Ignore changes whose lines are all blank.
 
   -quick
-      Quick mode without creating of Visual Diff for files.
+      Quick mode without creating of Visual Diffs for files.
 
   -minimal
       Try to find a smaller set of changes.
@@ -289,12 +292,6 @@ OTHER OPTIONS:
 
   -template
       Create XML-descriptor template ./VERSION.xml
-
-  -b|-browse PROGRAM
-      Open report(s) in the browser (firefox, opera, etc.).
-      
-  -open
-      Open report(s) in the default browser.
       
   -extra-info DIR
       Dump extra info to DIR.
@@ -307,6 +304,32 @@ OTHER OPTIONS:
 
   -debug
       Show debug info.
+  
+  -name NAME
+      Set name of the package to NAME.
+  
+  -title TITLE
+      Set name of the package in the title of the report to TITLE.
+  
+  -vnum1 NUM
+      Set version number of the old package to NUM.
+  
+  -vnum2 NUM
+      Set version number of the new package to NUM.
+  
+  -links-target TARGET
+      Set target attribute for links in the report:
+        _self
+        _blank (default)
+  
+  -list-added-removed
+      Show content of added and removed text files.
+  
+  -skip-subarchives
+      Skip checking of archives inside the input packages.
+  
+  -d|-directories
+      Compare directories instead of packages.
 
 REPORT:
     Report will be generated to:
@@ -315,9 +338,6 @@ REPORT:
 EXIT CODES:
     0 - Unchanged. The tool has run without any errors.
     non-zero - Changed or the tool has run with errors.
-
-REPORT BUGS TO:
-    Andrey Ponomarenko <".$Contacts{"Main"}.">
 
 MORE INFORMATION:
     ".$HomePage."\n";
@@ -1254,6 +1274,58 @@ sub isMoved($$)
     return 0;
 }
 
+sub writeExtraInfo()
+{
+    my $FILES = "";
+    
+    $FILES .= "<rate>\n    ".$RESULT{"affected"}."\n</rate>\n\n";
+    
+    if(my @Added = sort {lc($a) cmp lc($b)} keys(%AddedFiles))
+    {
+        $FILES .= "<added>\n    ".join("\n    ", @Added)."\n</added>\n\n";
+    }
+    if(my @Removed = sort {lc($a) cmp lc($b)} keys(%RemovedFiles))
+    {
+        $FILES .= "<removed>\n    ".join("\n    ", @Removed)."\n</removed>\n\n";
+    }
+    if(my @Moved = sort {lc($a) cmp lc($b)} keys(%MovedFiles))
+    {
+        $FILES .= "<moved>\n";
+        foreach (@Moved) {
+            $FILES .= "    ".$_.";".$MovedFiles{$_}." (".show_number($ChangeRate{$_}*100)."%)\n";
+        }
+        $FILES .= "</moved>\n\n";
+    }
+    if(my @Renamed = sort {lc($a) cmp lc($b)} keys(%RenamedFiles))
+    {
+        $FILES .= "<renamed>\n";
+        foreach (@Renamed) {
+            $FILES .= "    ".$_.";".$RenamedFiles{$_}." (".show_number($ChangeRate{$_}*100)."%)\n";
+        }
+        $FILES .= "</renamed>\n\n";
+    }
+    if(my @Changed = sort {lc($a) cmp lc($b)} keys(%ChangedFiles))
+    {
+        foreach (0 .. $#Changed) {
+            $Changed[$_] .= " (".show_number($ChangeRate{$Changed[$_]}*100)."%)";
+        }
+        
+        $FILES .= "<changed>\n    ".join("\n    ", @Changed)."\n</changed>\n\n";
+    }
+    writeFile($ExtraInfo."/files.xml", $FILES);
+    
+    my $SYMBOLS = "";
+    if(my @AddedSymbols = sort {lc($a) cmp lc($b)} keys(%AddedSymbols))
+    {
+        $SYMBOLS .= "<added>\n    ".join("\n    ", @AddedSymbols)."\n</added>\n\n";
+    }
+    if(my @RemovedSymbols = sort {lc($a) cmp lc($b)} keys(%RemovedSymbols))
+    {
+        $SYMBOLS .= "<removed>\n    ".join("\n    ", @RemovedSymbols)."\n</removed>\n\n";
+    }
+    writeFile($ExtraInfo."/symbols.xml", $SYMBOLS);
+}
+
 sub detectChanges()
 {
     mkpath($REPORT_DIR."/diffs");
@@ -1652,60 +1724,12 @@ sub detectChanges()
     $STAT_LINE .= "moved:".keys(%MovedFiles).";";
     $STAT_LINE .= "renamed:".keys(%RenamedFiles).";";
     $STAT_LINE .= "changed:".keys(%ChangedFiles).";";
-    
-    if($ExtraInfo)
-    {
-        my $FILES = "";
-        if(my @Added = sort {lc($a) cmp lc($b)} keys(%AddedFiles))
-        {
-            $FILES .= "<added>\n    ".join("\n    ", @Added)."\n</added>\n\n";
-        }
-        if(my @Removed = sort {lc($a) cmp lc($b)} keys(%RemovedFiles))
-        {
-            $FILES .= "<removed>\n    ".join("\n    ", @Removed)."\n</removed>\n\n";
-        }
-        if(my @Moved = sort {lc($a) cmp lc($b)} keys(%MovedFiles))
-        {
-            $FILES .= "<moved>\n";
-            foreach (@Moved) {
-                $FILES .= "    ".$_.";".$MovedFiles{$_}." (".show_number($ChangeRate{$_}*100)."%)\n";
-            }
-            $FILES .= "</moved>\n\n";
-        }
-        if(my @Renamed = sort {lc($a) cmp lc($b)} keys(%RenamedFiles))
-        {
-            $FILES .= "<renamed>\n";
-            foreach (@Renamed) {
-                $FILES .= "    ".$_.";".$RenamedFiles{$_}." (".show_number($ChangeRate{$_}*100)."%)\n";
-            }
-            $FILES .= "</renamed>\n\n";
-        }
-        if(my @Changed = sort {lc($a) cmp lc($b)} keys(%ChangedFiles))
-        {
-            foreach (0 .. $#Changed) {
-                $Changed[$_] .= " (".show_number($ChangeRate{$Changed[$_]}*100)."%)";
-            }
-            
-            $FILES .= "<changed>\n    ".join("\n    ", @Changed)."\n</changed>\n\n";
-        }
-        writeFile($ExtraInfo."/files.xml", $FILES);
-        
-        my $SYMBOLS = "";
-        if(my @AddedSymbols = sort {lc($a) cmp lc($b)} keys(%AddedSymbols))
-        {
-            $SYMBOLS .= "<added>\n    ".join("\n    ", @AddedSymbols)."\n</added>\n\n";
-        }
-        if(my @RemovedSymbols = sort {lc($a) cmp lc($b)} keys(%RemovedSymbols))
-        {
-            $SYMBOLS .= "<removed>\n    ".join("\n    ", @RemovedSymbols)."\n</removed>\n\n";
-        }
-        writeFile($ExtraInfo."/symbols.xml", $SYMBOLS);
-    }
 }
 
 sub htmlSpecChars($)
 {
     my $Str = $_[0];
+    $Str=~s/\&([^#])/&amp;$1/g;
     $Str=~s/</&lt;/g;
     $Str=~s/>/&gt;/g;
     $Str=~s/\"/&quot;/g;
@@ -1780,7 +1804,7 @@ sub get_Report_Headers()
             {
                 $Report .= "<td class='warning'>changed</td>\n";
                 $Report .= "<td class='value'>".show_number($Details{$Package}{"Rate"}*100)."%</td>\n";
-                $Report .= "<td><a href='".$Details{$Package}{"Diff"}."' target='_blank'>diff</a></td>\n"; # style='color:Blue;'
+                $Report .= "<td><a href='".$Details{$Package}{"Diff"}."' target=\'$LinksTarget\'>diff</a></td>\n"; # style='color:Blue;'
             }
             else
             {
@@ -1868,19 +1892,38 @@ sub showOp($)
     return $Op;
 }
 
-sub divideStr($)
+sub createFileView($$$)
 {
-    my $Str = $_[0];
-    my $MAXLENGTH = 99;
-    if(length($Str)>$MAXLENGTH)
+    my ($File, $V, $Dir) = @_;
+    
+    my $Path = $PackageFiles{$V}{$File};
+    
+    if(not -T $Path)
     {
-        my $Begin = substr($Str, 0, $MAXLENGTH);
-        my $End = substr($Str, $MAXLENGTH);
-        return ($Begin, divideStr($End));
+        return undef;
     }
-    else {
-        return ($Str);
+    
+    my $Name = get_filename($File);
+    my $Content = readFile($Path);
+    my $CssStyles = readModule("Styles", "View.css");
+    
+    $Content = htmlSpecChars($Content);
+    
+    if($Name=~/\.patch\Z/)
+    {
+       while($Content=~s&(\A|\n)(\+.*?)(\n|\Z)&$1<span class='add'>$2</span>$3&mg){};
+       while($Content=~s&(\A|\n)(\-.*?)(\n|\Z)&$1<span class='rm'>$2</span>$3&mg){};
     }
+    
+    $Content = "<pre class='view'>".$Content."</pre>\n";
+    
+    $Content = "<table cellspacing='0' cellpadding='0'>\n<tr>\n<td class='header'>\n".$Name."</td>\n</tr>\n<tr>\n<td valign='top'>\n".$Content."</td>\n</tr>\n</table>\n";
+    $Content = composeHTML_Head($Name, "", "View file ".$File, $CssStyles, "")."\n<body>\n".$Content;
+    $Content .= "</body></html>";
+    
+    my $R = $Dir."/".$File."-view.html";
+    writeFile($REPORT_DIR."/".$R, $Content);
+    return $R;
 }
 
 sub get_Report_Files()
@@ -1920,10 +1963,11 @@ sub get_Report_Files()
         {
             $Report .= "<th $JSort>Delta</th>\n";
             $Report .= "<th>Visual<br/>Diff</th>\n";
-            $Report .= "<th>Detailed<br/>Report</th>\n";
             
             if($ShowDetails)
             {
+                $Report .= "<th>Detailed<br/>Report</th>\n";
+                
                 if($Format eq "SHARED_OBJECT"
                 or $Format eq "KERNEL_MODULE"
                 or $Format eq "DEBUG_INFO"
@@ -1969,8 +2013,29 @@ sub get_Report_Files()
             elsif($Info{"Status"} eq "removed") {
                 $Color1 = " failed";
             }
+            
+            my $ShowFile = $File;
+            
+            if(defined $ListAddedRemoved
+            and $Info{"Status"}=~/added|removed/)
+            {
+                my $FN = get_filename($ShowFile);
+                if($Info{"Status"} eq "added")
+                {
+                    if(my $View = createFileView($File, 2, "added")) {
+                        $ShowFile=~s&(\A|/)(\Q$FN\E)\Z&$1<a href=\'$View\' target=\'$LinksTarget\' title='View file'>$2</a>&;
+                    }
+                }
+                elsif($Info{"Status"} eq "removed")
+                {
+                    if(my $View = createFileView($File, 1, "removed")) {
+                        $ShowFile=~s&(\A|/)(\Q$FN\E)\Z&$1<a href=\'$View\' target=\'$LinksTarget\' title='View file'>$2</a>&;
+                    }
+                }
+            }
+            
             $Report .= "<tr>\n";
-            $Report .= "<td class='left f_path$Color1\'>".join("<br/>", divideStr($File))."</td>\n";
+            $Report .= "<td class='left f_path$Color1\'>$ShowFile</td>\n";
             if($Info{"Status"} eq "changed") {
                 $Report .= "<td class='warning'>".$Info{"Status"}."</td>\n";
             }
@@ -2002,7 +2067,7 @@ sub get_Report_Files()
                     $Report .= "<td$Join></td>\n";
                 }
                 if(my $Link = $Info{"Diff"}) {
-                    $Report .= "<td$Join><a href='".$Link."' target='_blank'>diff</a></td>\n"; # style='color:Blue;'
+                    $Report .= "<td$Join><a href='".$Link."' target=\'$LinksTarget\'>diff</a></td>\n"; # style='color:Blue;'
                 }
                 elsif($Info{"Empty"}) {
                     $Report .= "<td$Join></td>\n";
@@ -2013,14 +2078,16 @@ sub get_Report_Files()
                 else {
                     $Report .= "<td$Join></td>\n";
                 }
-                if(my $Link = $Info{"Report"}) {
-                    $Report .= "<td$Join><a href='".$Link."' target='_blank'>report</a></td>\n"; # style='color:Blue;'
-                }
-                else {
-                    $Report .= "<td$Join></td>\n";
-                }
+                
                 if($ShowDetails)
                 {
+                    if(my $Link = $Info{"Report"}) {
+                        $Report .= "<td$Join><a href='".$Link."' target=\'$LinksTarget\'>report</a></td>\n"; # style='color:Blue;'
+                    }
+                    else {
+                        $Report .= "<td$Join></td>\n";
+                    }
+                    
                     if($Format eq "SHARED_OBJECT"
                     or $Format eq "KERNEL_MODULE"
                     or $Format eq "DEBUG_INFO"
@@ -2031,7 +2098,7 @@ sub get_Report_Files()
                             my $Link1 = $Info{"ABIDump"}{1};
                             my $Link2 = $Info{"ABIDump"}{2};
                             
-                            $Report .= "<td$Join><a href='".$Link1."' target='_blank'>1</a>, <a href='".$Link2."' target='_blank'>2</a></td>\n"; # style='color:Blue;'
+                            $Report .= "<td$Join><a href='".$Link1."' target=\'$LinksTarget\'>1</a>, <a href='".$Link2."' target=\'$LinksTarget\'>2</a></td>\n"; # style='color:Blue;'
                         }
                         else {
                             $Report .= "<td$Join></td>\n";
@@ -2043,7 +2110,7 @@ sub get_Report_Files()
                                 my $Link1 = $Info{"DWARFDump"}{1};
                                 my $Link2 = $Info{"DWARFDump"}{2};
                                 
-                                $Report .= "<td$Join><a href='".$Link1."' target='_blank'>1</a>, <a href='".$Link2."' target='_blank'>2</a></td>\n"; # style='color:Blue;'
+                                $Report .= "<td$Join><a href='".$Link1."' target=\'$LinksTarget\'>1</a>, <a href='".$Link2."' target=\'$LinksTarget\'>2</a></td>\n"; # style='color:Blue;'
                             }
                             else {
                                 $Report .= "<td$Join></td>\n";
@@ -2653,7 +2720,24 @@ sub sepDep($)
 sub registerPackage(@)
 {
     my ($Path, $Version, $Ph) = @_;
-    return () if(not $Path or not -f $Path);
+    
+    if(not $Path) {
+        return ();
+    }
+    
+    if($CompareDirs)
+    {
+        if(not -d $Path) {
+            return ();
+        }
+    }
+    else
+    {
+        if(not -f $Path) {
+            return ();
+        }
+    }
+    
     my $PkgName = get_filename($Path);
     my $PkgFormat = getFormat($Path);
     
@@ -2694,7 +2778,8 @@ sub registerPackage(@)
         $PathName{$File} = $FName;
         
         if(not get_dirname($FName)
-        and getFormat($File) eq "ARCHIVE")
+        and getFormat($File) eq "ARCHIVE"
+        and not defined $SkipSubArchives)
         { # go into archives (for SRPM)
             unpackArchive($File, $SubDir);
             my @SubContents = listDir($SubDir);
@@ -2788,11 +2873,38 @@ sub unpackArchive($$)
 sub readPackage($$)
 {
     my ($Path, $Version) = @_;
-    return "" if(not $Path or not -f $Path);
-    my $CPath = "$TMP_DIR/content$Version/".get_filename($Path);
+    
+    if(not $Path) {
+        return ();
+    }
+    
+    if($CompareDirs)
+    {
+        if(not -d $Path) {
+            return ();
+        }
+    }
+    else
+    {
+        if(not -f $Path) {
+            return ();
+        }
+    }
+    
+    my $CDir = "$TMP_DIR/content$Version";
+    my $CPath = $CDir."/".get_filename($Path);
+    
     my %Attributes = ();
     my $Format = getFormat($Path);
-    if($Format eq "DEB")
+    
+    if($CompareDirs and $Format eq "DIR")
+    {
+        mkpath($CDir);
+        qx/cp -fr $Path $CDir/;
+        
+        return ($CDir."/".get_filename($Path), {});
+    }
+    elsif($Format eq "DEB")
     { # Deb package
         if(not check_Cmd("dpkg-deb")) {
             exitStatus("Not_Found", "can't find \"dpkg-deb\"");
@@ -2953,15 +3065,29 @@ sub composeHTML_Head($$$$$)
     </head>";
 }
 
+sub get_Title()
+{
+    if($TargetTitle) {
+        return $TargetTitle;
+    }
+    
+    return $Group{"Name"};
+}
+
 sub get_Header()
 {
     my $Header = "";
-    if($CheckMode eq "Group") { 
-        $Header = "Changes report for the <span style='color:Blue;'>".$Group{"Name"}."</span> group of packages between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions";
+    
+    if($CompareDirs and not $TargetName)
+    {
+        $Header = "Changes report between <span style='color:Blue;'>".$Group{"Name1"}."/</span> and <span style='color:Blue;'>".$Group{"Name2"}."/</span> directories";
+    }
+    elsif($CheckMode eq "Group") {
+        $Header = "Changes report for the <span style='color:Blue;'>".get_Title()."</span> group of packages between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions";
     }
     else
     { # single package
-        $Header = "Changes report for the <span style='color:Blue;'>".$Group{"Name"}."</span> package between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions";
+        $Header = "Changes report for the <span style='color:Blue;'>".get_Title()."</span> package between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions";
     }
     
     if($HideUnchanged) {
@@ -3024,17 +3150,26 @@ sub get_Summary()
 {
     my $TestInfo = "<h2>Test Info</h2><hr/>\n";
     $TestInfo .= "<table class='summary'>\n";
-    if($CheckMode eq "Group") {
-        $TestInfo .= "<tr><th class='left'>Group Name</th><td>".$Group{"Name"}."</td></tr>\n";
+    
+    if(not $CompareDirs or $TargetName)
+    {
+        if($CheckMode eq "Group") {
+            $TestInfo .= "<tr><th class='left'>Group Name</th><td>".$Group{"Name"}."</td></tr>\n";
+        }
+        else {
+            $TestInfo .= "<tr><th class='left'>Package Name</th><td>".get_Title()."</td></tr>\n";
+        }
     }
-    else {
-        $TestInfo .= "<tr><th class='left'>Package Name</th><td>".$Group{"Name"}."</td></tr>\n";
+    
+    if(not $CompareDirs)
+    {
+        my @Formats = sort keys(%{$Group{"Format"}});
+        $TestInfo .= "<tr><th class='left'>Package Format</th><td>".join(", ", @Formats)."</td></tr>\n";
+        if($Group{"Arch"}) {
+            $TestInfo .= "<tr><th class='left'>Package Arch</th><td>".$Group{"Arch"}."</td></tr>\n";
+        }
     }
-    my @Formats = sort keys(%{$Group{"Format"}});
-    $TestInfo .= "<tr><th class='left'>Package Format</th><td>".join(", ", @Formats)."</td></tr>\n";
-    if($Group{"Arch"}) {
-        $TestInfo .= "<tr><th class='left'>Package Arch</th><td>".$Group{"Arch"}."</td></tr>\n";
-    }
+    
     $TestInfo .= "<tr><th class='left'>Version #1</th><td>".$Group{"V1"}."</td></tr>\n";
     $TestInfo .= "<tr><th class='left'>Version #2</th><td>".$Group{"V2"}."</td></tr>\n";
     if($QuickMode) {
@@ -3045,12 +3180,15 @@ sub get_Summary()
     my $TestResults = "<h2>Test Results</h2><hr/>\n";
     $TestResults .= "<table class='summary'>\n";
     
-    my $Packages_Link = "0";
-    my %TotalPackages = map {$_=>1} (keys(%{$TargetPackages{1}}), keys(%{$TargetPackages{2}}));
-    if(keys(%TotalPackages)>0) {
-        $Packages_Link = "<a href='#Packages' style='color:Blue;'>".keys(%TotalPackages)."</a>";
+    if(not $CompareDirs)
+    {
+        my $Packages_Link = "0";
+        my %TotalPackages = map {$_=>1} (keys(%{$TargetPackages{1}}), keys(%{$TargetPackages{2}}));
+        if(keys(%TotalPackages)>0) {
+            $Packages_Link = "<a href='#Packages' style='color:Blue;'>".keys(%TotalPackages)."</a>";
+        }
+        $TestResults .= "<tr><th class='left'>Total Packages</th><td>".$Packages_Link."</td></tr>\n";
     }
-    $TestResults .= "<tr><th class='left'>Total Packages</th><td>".$Packages_Link."</td></tr>\n";
     
     my $Deps_Link = "0";
     if(keys(%TotalDeps)>0) {
@@ -3208,7 +3346,6 @@ sub get_Source()
         $Packages .= $Name."<br/>\n";
     }
     $Packages .= "</div>\n";
-    $Packages .= "<br/><a class='top_ref' href='#Top'>to the top</a><br/>\n";
     return $Packages;
 }
 
@@ -3219,8 +3356,20 @@ sub createReport($)
     my $JScripts = readModule("Scripts", "Sort.js");
     printMsg("INFO", "creating changes report ...");
     
-    my $Title = $Group{"Name"}.": ".$Group{"V1"}." to ".$Group{"V2"}." changes report";
-    my $Keywords = $Group{"Name"}.", changes, report";
+    my $Title = undef;
+    my $Keywords = undef;
+    
+    if($CompareDirs and not $TargetName)
+    {
+        $Title = "Changes report between ".$Group{"Name1"}."/ and ".$Group{"Name2"}."/ directories";
+        $Keywords = $Group{"Name1"}.", ".$Group{"Name2"}.", changes, report";
+    }
+    else
+    {
+        $Title = get_Title().": ".$Group{"V1"}." to ".$Group{"V2"}." changes report";
+        $Keywords = get_Title().", changes, report";
+    }
+    
     my $Header = get_Header();
     my $Description = $Header;
     $Description=~s/<[^<>]+>//g;
@@ -3235,8 +3384,14 @@ sub createReport($)
     $Report .= $Legend;
     $Report .= get_Summary();
     $Report .= $MainReport;
-    $Report .= get_Report_Usage();
-    $Report .= get_Source();
+    
+    if(not $CompareDirs)
+    {
+        $Report .= get_Report_Usage();
+        $Report .= get_Source();
+    }
+    
+    $Report .= "<br/><a class='top_ref' href='#Top'>to the top</a><br/>\n";
     
     $STAT_LINE = "changed:".$RESULT{"affected"}.";".$STAT_LINE."tool_version:".$TOOL_VERSION;
     $Report = "<!-- $STAT_LINE -->\n".composeHTML_Head($Title, $Keywords, $Description, $CssStyles, $JScripts)."\n<body>\n<div><a name='Top'></a>\n".$Report;
@@ -3259,11 +3414,6 @@ sub createReport($)
     }
     
     printMsg("INFO", "see detailed report:\n  $Path");
-    
-    if($Browse or $OpenReport)
-    { # open in browser
-        openReport($Path);
-    }
 }
 
 sub check_Cmd($)
@@ -3280,73 +3430,6 @@ sub check_Cmd($)
         }
     }
     return ($Cache{"check_Cmd"}{$Cmd} = 0);
-}
-
-sub get_OSgroup()
-{
-    my $N = $Config{"osname"};
-    if($N=~/macos|darwin|rhapsody/i) {
-        return "macos";
-    }
-    elsif($N=~/freebsd|openbsd|netbsd/i) {
-        return "bsd";
-    }
-    else {
-        return $N;
-    }
-}
-
-sub openReport($)
-{
-    my $Path = $_[0];
-    my $Cmd = "";
-    if($Browse)
-    { # user-defined browser
-        $Cmd = $Browse." \"$Path\"";
-    }
-    if(not $Cmd)
-    { # default browser
-        if($OSgroup eq "macos") {
-            $Cmd = "open \"$Path\"";
-        }
-        else
-        { # linux, freebsd, solaris
-            my @Browsers = (
-                "x-www-browser",
-                "sensible-browser",
-                "firefox",
-                "opera",
-                "xdg-open",
-                "lynx",
-                "links"
-            );
-            foreach my $Br (@Browsers)
-            {
-                if(check_Cmd($Br))
-                {
-                    $Cmd = $Br." \"$Path\"";
-                    last;
-                }
-            }
-        }
-    }
-    if($Cmd)
-    {
-        if($Debug) {
-            printMsg("INFO", "running $Cmd");
-        }
-        if($OSgroup ne "windows"
-        and $OSgroup ne "macos")
-        {
-            if($Cmd!~/lynx|links/) {
-                $Cmd .= "  >\"/dev/null\" 2>&1 &";
-            }
-        }
-        system($Cmd);
-    }
-    else {
-        printMsg("ERROR", "cannot open report in browser");
-    }
 }
 
 sub readFileTypes()
@@ -3530,6 +3613,18 @@ sub scenario()
         print STDERR "WARNING: wdiff is not installed\n";
     }
     
+    if(not $LinksTarget)
+    {
+        $LinksTarget = "_blank";
+    }
+    else
+    {
+        if($LinksTarget!~/\A(_blank|_self)\Z/)
+        {
+            exitStatus("Error", "incorrect value of links target");
+        }
+    }
+    
     if($ShowDetails)
     {
         if(my $V = get_dumpversion($ACC))
@@ -3563,24 +3658,51 @@ sub scenario()
     if(not $Descriptor{1}) {
         exitStatus("Error", "-old option is not specified");
     }
-    if(not -f $Descriptor{1}) {
-        exitStatus("Access_Error", "can't access file \'".$Descriptor{1}."\'");
-    }
+    
     if(not $Descriptor{2}) {
         exitStatus("Error", "-new option is not specified");
     }
-    if(not -f $Descriptor{2}) {
-        exitStatus("Access_Error", "can't access file \'".$Descriptor{2}."\'");
+    
+    
+    if($CompareDirs)
+    {
+        if(not -d $Descriptor{1}) {
+            exitStatus("Access_Error", "can't access directory \'".$Descriptor{1}."\'");
+        }
+        if(not -d $Descriptor{2}) {
+            exitStatus("Access_Error", "can't access directory \'".$Descriptor{2}."\'");
+        }
     }
+    else
+    {
+        if(not -f $Descriptor{1}) {
+            exitStatus("Access_Error", "can't access file \'".$Descriptor{1}."\'");
+        }
+        if(not -f $Descriptor{2}) {
+            exitStatus("Access_Error", "can't access file \'".$Descriptor{2}."\'");
+        }
+    }
+    
     readFileTypes();
-    printMsg("INFO", "reading packages ...");
+    
+    if($CompareDirs) {
+        printMsg("INFO", "reading directories ...");
+    }
+    else {
+        printMsg("INFO", "reading packages ...");
+    }
     
     my $Fmt1 = getFormat($Descriptor{1});
     my $Fmt2 = getFormat($Descriptor{2});
     
     my ($Ph1, $Ph2) = ();
     
-    if($Fmt1 eq "ARCHIVE" and $Fmt2 eq "ARCHIVE")
+    if($CompareDirs and $Fmt1 eq "DIR")
+    {
+        $RemovePrefix{1} = get_dirname($Descriptor{1});
+        $RemovePrefix{2} = get_dirname($Descriptor{2});
+    }
+    elsif($Fmt1 eq "ARCHIVE" and $Fmt2 eq "ARCHIVE")
     { # check if we can remove a common prefix from files of BOTH packages
         ($Ph1->{"CPath"}, $Ph1->{"Attr"}) = readPackage($Descriptor{1}, 1);
         ($Ph2->{"CPath"}, $Ph2->{"Attr"}) = readPackage($Descriptor{2}, 2);
@@ -3597,12 +3719,27 @@ sub scenario()
         }
     }
     
-    if($Fmt1=~/\A(RPM|SRPM|DEB|ARCHIVE)\Z/)
+    if($CompareDirs and $Fmt1 eq "DIR")
+    {
+        registerPackage($Descriptor{1}, 1);
+        $Group{"Name1"} = get_filename($Descriptor{1});
+        if($TargetVersion{1}) {
+            $Group{"V1"} = $TargetVersion{1};
+        }
+        else {
+            $Group{"V1"} = "X";
+        }
+    }
+    elsif($Fmt1=~/\A(RPM|SRPM|DEB|ARCHIVE)\Z/)
     {
         my $Attr = registerPackage($Descriptor{1}, 1, $Ph1);
         $Group{"Name1"} = $Attr->{"Name"};
         $Group{"V1"} = $Attr->{"Version"};
         $Group{"Arch1"} = $Attr->{"Arch"};
+        
+        if(defined $TargetVersion{1}) {
+            $Group{"V1"} = $TargetVersion{1};
+        }
     }
     else
     {
@@ -3614,12 +3751,28 @@ sub scenario()
         }
         readDescriptor(1, $Descriptor{1});
     }
-    if($Fmt2=~/\A(RPM|SRPM|DEB|ARCHIVE)\Z/)
+    
+    if($CompareDirs and $Fmt1 eq "DIR")
+    {
+        registerPackage($Descriptor{2}, 2);
+        $Group{"Name2"} = get_filename($Descriptor{2});
+        if($TargetVersion{2}) {
+            $Group{"V2"} = $TargetVersion{2};
+        }
+        else {
+            $Group{"V2"} = "Y";
+        }
+    }
+    elsif($Fmt2=~/\A(RPM|SRPM|DEB|ARCHIVE)\Z/)
     {
         my $Attr = registerPackage($Descriptor{2}, 2, $Ph2);
         $Group{"Name2"} = $Attr->{"Name"};
         $Group{"V2"} = $Attr->{"Version"};
         $Group{"Arch2"} = $Attr->{"Arch"};
+        
+        if(defined $TargetVersion{2}) {
+            $Group{"V2"} = $TargetVersion{2};
+        }
     }
     else
     {
@@ -3635,14 +3788,25 @@ sub scenario()
     or $Group{"Count2"}>1) {
         $CheckMode = "Group";
     }
-    $Group{"Name"} = $Group{"Name1"};
-    if($Group{"Name1"} ne $Group{"Name2"})
+    
+    if($CompareDirs)
     {
-        if($CheckMode eq "Group") {
-            printMsg("WARNING", "different group names in descriptors (\"".$Group{"Name1"}."\" and \"".$Group{"Name2"}."\")");
+        if($TargetName)
+        {
+            $Group{"Name"} = $TargetName;
         }
-        else {
-            printMsg("WARNING", "different package names (\"".$Group{"Name1"}."\" and \"".$Group{"Name2"}."\")");
+    }
+    else
+    {
+        $Group{"Name"} = $Group{"Name1"};
+        if($Group{"Name1"} ne $Group{"Name2"})
+        {
+            if($CheckMode eq "Group") {
+                printMsg("WARNING", "different group names in descriptors (\"".$Group{"Name1"}."\" and \"".$Group{"Name2"}."\")");
+            }
+            else {
+                printMsg("WARNING", "different package names (\"".$Group{"Name1"}."\" and \"".$Group{"Name2"}."\")");
+            }
         }
     }
     if($Group{"Count1"} ne $Group{"Count2"}) {
@@ -3669,7 +3833,14 @@ sub scenario()
     }
     else
     {
-        $REPORT_DIR = "pkgdiff_reports/".$Group{"Name"}."/".$Group{"V1"}."_to_".$Group{"V2"};
+        if($CompareDirs and not $TargetName)
+        {
+            $REPORT_DIR = "pkgdiff_reports/".$Group{"Name1"}."_to_".$Group{"Name2"};
+        }
+        else
+        {
+            $REPORT_DIR = "pkgdiff_reports/".$Group{"Name"}."/".$Group{"V1"}."_to_".$Group{"V2"};
+        }
         $REPORT_PATH = $REPORT_DIR."/changes_report.html";
         if(-d $REPORT_DIR)
         {
@@ -3679,8 +3850,13 @@ sub scenario()
         }
     }
     printMsg("INFO", "comparing packages ...");
+    
     detectChanges();
     createReport($REPORT_PATH);
+    
+    if($ExtraInfo) {
+        writeExtraInfo();
+    }
     
     if($CustomTmpDir) {
         cleanTmp();

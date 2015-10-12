@@ -1,0 +1,31 @@
+body {
+    margin:0.4em;
+    font-size:0.86em;
+}
+
+.view {
+    cursor:text;
+    /*margin-top:7px;*/
+    font-family:Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
+    background-color:White;
+    word-wrap:break-word;
+    background-color: #FFF;
+    max-width:41.5em;
+    display: inline-block;
+    text-align:left;
+    white-space:pre-wrap;
+}
+
+.header {
+    background-color:Orange;
+    text-align:center;
+    font-weight:bold;
+}
+
+.add {
+    background-color:#C6DEFF;
+}
+
+.rm {
+    background-color:#FFCCCC;
+}

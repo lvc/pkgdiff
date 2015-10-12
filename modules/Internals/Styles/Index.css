@@ -49,6 +49,9 @@ table.summary th.left {
 table.summary td.f_path {
     font-size:0.875em;
     font-family:Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
+    white-space:normal;
+    word-wrap:break-word;
+    max-width:57em;
 }
 table.summary td.value {
     padding-left:10px;

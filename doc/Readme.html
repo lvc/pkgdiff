@@ -92,7 +92,7 @@
 <h2>Downloads</h2>
 <p>All releases can be downloaded from <a href="https://github.com/lvc/pkgdiff/">this page</a>.</p>
 
-<p>Latest release: <a href="https://github.com/lvc/pkgdiff/archive/1.6.4.tar.gz">pkgdiff-1.6.4.tar.gz</a></p>
+<p>Latest release: <a href="https://github.com/lvc/pkgdiff/archive/1.7.0.tar.gz">pkgdiff-1.7.0.tar.gz</a></p>
 
 <p>Read-only access to the latest development version:</p>
 
@@ -269,6 +269,28 @@ The tool is developed by <a href="http://www.linkedin.com/pub/andrey-ponomarenko
 <a name="ChangeLog"></a>
 <h2>Changes</h2>
 
+<b>Version 1.7.0 (October 04, 2015)</b><br/>
+<b>New Features</b>
+<ul>
+    <li>
+        Added -d option: compare directories instead of packages
+    </li>
+    <li>
+        Added -list-added-removed option: show content of added/removed text files
+    </li>
+    <li>
+        Added -vnum1 and -vnum2 options: set version numbers of input packages
+    </li>
+    <li>
+        Added -title option: set name of the package in the title of the report
+    </li>
+    <li>
+        Added -skip-subarchives option: skip checking of archives inside packages
+    </li>
+</ul>
+
+<br/>
+
 <b>Version 1.6.4 (September 08, 2015)</b><br/>
 <b>Bug Fixes</b>
 <ul>
@@ -294,6 +316,9 @@ The tool is developed by <a href="http://www.linkedin.com/pub/andrey-ponomarenko
 <b>Version 1.6.3 (November 05, 2014)</b><br/>
 <b>New Features</b>
 <ul>
+    <li>
+        Added -hide-unchanged option: don't show unchanged files in the report
+    </li>
     <li>
         Show change rate in the extra info files.xml (moved, changed, renamed)
     </li>
