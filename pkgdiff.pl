@@ -71,7 +71,8 @@ $CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug,
 $SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Minimal,
 $IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $ExtraInfo,
 $CustomTmpDir, $HideUnchanged, $TargetName, $TargetTitle, %TargetVersion,
-$CompareDirs, $ListAddedRemoved, $SkipSubArchives, $LinksTarget);
+$CompareDirs, $ListAddedRemoved, $SkipSubArchives, @SkipInArchivePatterns,
+$LinksTarget);
 
 my $CmdName = get_filename($0);
 
@@ -139,8 +140,13 @@ GetOptions("h|help!" => \$Help,
   "d|directories!" => \$CompareDirs,
   "list-added-removed!" => \$ListAddedRemoved,
   "skip-subarchives!" => \$SkipSubArchives,
+  "skip-pattern=s" => \@SkipInArchivePatterns,
   "links-target=s" => \$LinksTarget
 ) or ERR_MESSAGE();
+
+foreach my $aRef (@SkipInArchivePatterns) {
+    $aRef = qr/$aRef/;
+}
 
 my $TMP_DIR = undef;
 
@@ -327,6 +333,10 @@ OTHER OPTIONS:
   
   -skip-subarchives
       Skip checking of archives inside the input packages.
+  
+  -skip-pattern
+      Skip checking of paths within archives matching regex.
+      May specify multiple times.
   
   -d|-directories
       Compare directories instead of packages.
@@ -1472,8 +1482,15 @@ sub detectChanges()
             }
         }
     }
+    COMPARISON:
     foreach my $Name (sort (keys(%StableFiles), keys(%RenamedFiles), keys(%MovedFiles)))
     { # checking files
+        foreach my $Pattern (@SkipInArchivePatterns) {
+            if($Name =~ $Pattern) {
+                printMsg("INFO", "skipping (pattern match) $Name");
+                next COMPARISON;
+            }
+        }
         my $Path = $PackageFiles{1}{$Name};
         my $Size = getSize($Path);
         if($Debug) {
