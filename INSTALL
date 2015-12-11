@@ -6,8 +6,8 @@ All rights reserved.
 RELEASE INFORMATION
 
 Project:           Package Changes Analyzer (pkgdiff)
-Version:           1.7.0
-Date:              2015-10-18
+Version:           1.7.1
+Date:              2015-12-11
 
 
 This file explains how to install and setup environment
@@ -18,8 +18,8 @@ Content:
 
    1. Requirements for Linux and FreeBSD
    2. Requirements for Mac OS X
-   3. Configuring and Installing
-   4. Running the Tool
+   3. Configure and Install
+   4. Usage
 
 
 1. REQUIREMENTS FOR LINUX AND FREEBSD
@@ -55,32 +55,35 @@ Content:
    4. GNU Awk
    5. Xcode (otool)
 
-1.1 Suggestions
+2.1 Suggestions
 
    1. ABI Compliance Checker (1.99.1 or newer)
    2. ABI Dumper (0.97 or newer)
 
 
 
-3. CONFIGURING AND INSTALLING
-=============================
+3. CONFIGURE AND INSTALL
+========================
 
    This command will install the pkgdiff program into the
    PREFIX/bin system directory and private modules into the PREFIX/share:
 
      sudo make install prefix=PREFIX [/usr, /usr/local, ...]
 
-2.1 Remove
+3.1 Remove
 
      sudo make uninstall prefix=PREFIX
 
 
 
-4. RUNNING THE TOOL
-===================
+4. USAGE
+========
 
-   1. pkgdiff PKG1 PKG2
-   2. For advanced usage, see output of --help option
+   Compare two packages:
+
+     pkgdiff PKG1 PKG2
+     
+   For advanced usage, see output of --help option
 
 
 

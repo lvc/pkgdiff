@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.7.0
+# PkgDiff - Package Changes Analyzer 1.7.1
 # A tool for visualizing changes in Linux software packages
 #
 # Copyright (C) 2012-2015 Andrey Ponomarenko's ABI Laboratory
@@ -30,7 +30,6 @@
 #  ABI Compliance Checker (1.99.1 or newer)
 #  ABI Dumper (0.97 or newer)
 #
-#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation.
@@ -53,7 +52,7 @@ use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.7.0";
+my $TOOL_VERSION = "1.7.1";
 my $ORIG_DIR = cwd();
 
 # Internal modules
@@ -71,7 +70,8 @@ $CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug,
 $SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Minimal,
 $IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $ExtraInfo,
 $CustomTmpDir, $HideUnchanged, $TargetName, $TargetTitle, %TargetVersion,
-$CompareDirs, $ListAddedRemoved, $SkipSubArchives, $LinksTarget);
+$CompareDirs, $ListAddedRemoved, $SkipSubArchives, $LinksTarget,
+$SkipPattern);
 
 my $CmdName = get_filename($0);
 
@@ -139,6 +139,7 @@ GetOptions("h|help!" => \$Help,
   "d|directories!" => \$CompareDirs,
   "list-added-removed!" => \$ListAddedRemoved,
   "skip-subarchives!" => \$SkipSubArchives,
+  "skip-pattern=s" => \$SkipPattern,
   "links-target=s" => \$LinksTarget
 ) or ERR_MESSAGE();
 
@@ -327,6 +328,9 @@ OTHER OPTIONS:
   
   -skip-subarchives
       Skip checking of archives inside the input packages.
+  
+  -skip-pattern REGEX
+      Skip checking of paths within archives matching REGEX.
   
   -d|-directories
       Compare directories instead of packages.
@@ -663,7 +667,7 @@ sub compareFiles($$$$)
     { # --quick
         return (3, "", "", 1, {});
     }
-    if(skip_file($P1, 1))
+    if(skipFileCompare($P1, 1))
     { # <skip_files>
         return (2, "", "", 1, {});
     }
@@ -968,8 +972,8 @@ sub compareABIs($$$$$)
     my $Cmd = undef;
     my $Ret = undef;
     
-    my $D1 = $REPORT_DIR."/abi_dumps/".$Group{"V1"}."/".$N1."-ABI.dump.txt";
-    my $D2 = $REPORT_DIR."/abi_dumps/".$Group{"V2"}."/".$N2."-ABI.dump.txt";
+    my $D1 = $REPORT_DIR."/abi_dumps/".$Group{"V1"}."/".$N1."-ABI.dump";
+    my $D2 = $REPORT_DIR."/abi_dumps/".$Group{"V2"}."/".$N2."-ABI.dump";
     
     $Adv->{"ABIDump"}{1} = $D1;
     $Adv->{"ABIDump"}{2} = $D2;
@@ -993,7 +997,7 @@ sub compareABIs($$$$$)
     
     if($Debug)
     {
-        my $DP = $REPORT_DIR."/dwarf_dumps/".$Group{"V1"}."/".$N1."-DWARF.dump.txt";
+        my $DP = $REPORT_DIR."/dwarf_dumps/".$Group{"V1"}."/".$N1."-DWARF.dump";
         mkpath(get_dirname($DP));
         move("$TMP_DIR/extra-info/debug_info", $DP);
         
@@ -1017,7 +1021,7 @@ sub compareABIs($$$$$)
     
     if($Debug)
     {
-        my $DP = $REPORT_DIR."/dwarf_dumps/".$Group{"V2"}."/".$N2."-DWARF.dump.txt";
+        my $DP = $REPORT_DIR."/dwarf_dumps/".$Group{"V2"}."/".$N2."-DWARF.dump";
         mkpath(get_dirname($DP));
         move("$TMP_DIR/extra-info/debug_info", $DP);
         
@@ -1324,6 +1328,22 @@ sub writeExtraInfo()
         $SYMBOLS .= "<removed>\n    ".join("\n    ", @RemovedSymbols)."\n</removed>\n\n";
     }
     writeFile($ExtraInfo."/symbols.xml", $SYMBOLS);
+}
+
+sub skipFile($)
+{
+    my $Name = $_[0];
+    
+    if(defined $SkipPattern)
+    {
+        if($Name=~/($SkipPattern)/)
+        {
+            printMsg("INFO", "skipping (pattern match) ".$Name);
+            return 1;
+        }
+    }
+    
+    return 0;
 }
 
 sub detectChanges()
@@ -1649,7 +1669,12 @@ sub detectChanges()
         "SizeDelta"=>0
     );
     
-    if(keys(%PackageInfo)==2)
+    my $OldPkgs = keys(%{$TargetPackages{1}});
+    my $NewPkgs = keys(%{$TargetPackages{2}});
+    
+    if(keys(%PackageInfo)==2
+    and $OldPkgs==1
+    and $NewPkgs==1)
     { # renamed?
         my @Names = keys(%PackageInfo);
         my $N1 = $Names[0];
@@ -2671,15 +2696,15 @@ sub classifyPath($)
     { # directory or relative path
         return ($Path, "Path");
     }
-    else {
-        return ($Path, "Name");
-    }
+    
+    return ($Path, "Name");
 }
 
-sub skip_file($$)
+sub skipFileCompare($$)
 {
     my ($Path, $Version) = @_;
     return 0 if(not $Path or not $Version);
+    
     my $Name = get_filename($Path);
     if($SkipFiles{$Version}{"Name"}{$Name}) {
         return 1;
@@ -2692,10 +2717,10 @@ sub skip_file($$)
     }
     foreach my $Pattern (keys(%{$SkipFiles{$Version}{"Pattern"}}))
     {
-        if($Name=~/$Pattern/) {
+        if($Name=~/($Pattern)/) {
             return 1;
         }
-        if($Pattern=~/[\/\\]/ and $Path=~/$Pattern/) {
+        if($Pattern=~/[\/\\]/ and $Path=~/($Pattern)/) {
             return 1;
         }
     }
@@ -2773,7 +2798,14 @@ sub registerPackage(@)
         if(not $FName) {
             next;
         }
-        my $SubDir = "$TMP_DIR/xcontent$Version/$FName";
+        
+        if(defined $SkipPattern)
+        {
+            if(skipFile($FName)) {
+                next;
+            }
+        }
+        
         $PackageFiles{$Version}{$FName} = $File;
         $PathName{$File} = $FName;
         
@@ -2781,6 +2813,7 @@ sub registerPackage(@)
         and getFormat($File) eq "ARCHIVE"
         and not defined $SkipSubArchives)
         { # go into archives (for SRPM)
+            my $SubDir = "$TMP_DIR/xcontent$Version/$FName";
             unpackArchive($File, $SubDir);
             my @SubContents = listDir($SubDir);
             if($#SubContents==0 and -d $SubDir."/".$SubContents[0])
@@ -2793,6 +2826,14 @@ sub registerPackage(@)
                 if(not $SFName) {
                     next;
                 }
+                
+                if(defined $SkipPattern)
+                {
+                    if(skipFile($SFName)) {
+                        next;
+                    }
+                }
+                
                 $PackageFiles{$Version}{$SFName} = $SubFile;
             }
         }
