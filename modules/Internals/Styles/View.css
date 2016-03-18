@@ -16,10 +16,17 @@ body {
     white-space:pre-wrap;
 }
 
-.header {
+.header, .plain {
     background-color:Orange;
     text-align:center;
     font-weight:bold;
+    padding-left:1em;
+    padding-right:1em;
+}
+
+.plain {
+    background-color:#BFEFFF;
+    width:0px;
 }
 
 .add {

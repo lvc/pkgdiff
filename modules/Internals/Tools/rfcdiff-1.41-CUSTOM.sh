@@ -1058,6 +1058,7 @@ if [ $optkeep -eq 0 ]; then
           rm $tmpdiff
       fi
    fi
+   rm -f $workdir/$tmpdiff
    rmdir $workdir
 else
    cd /tmp

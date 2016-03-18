@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.7.1
+# PkgDiff - Package Changes Analyzer 1.7.2
 # A tool for visualizing changes in Linux software packages
 #
-# Copyright (C) 2012-2015 Andrey Ponomarenko's ABI Laboratory
+# Copyright (C) 2012-2016 Andrey Ponomarenko's ABI Laboratory
 #
 # Written by Andrey Ponomarenko
 #
@@ -46,13 +46,13 @@ use Getopt::Long;
 Getopt::Long::Configure ("posix_default", "no_ignore_case", "permute");
 use File::Path qw(mkpath rmtree);
 use File::Temp qw(tempdir);
-use File::Copy qw(move);
+use File::Copy qw(move copy);
 use File::Compare;
 use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.7.1";
+my $TOOL_VERSION = "1.7.2";
 my $ORIG_DIR = cwd();
 
 # Internal modules
@@ -94,7 +94,7 @@ my $HomePage = "http://lvc.github.com/pkgdiff/";
 
 my $ShortUsage = "Package Changes Analyzer (PkgDiff) $TOOL_VERSION
 A tool for visualizing changes in Linux software packages
-Copyright (C) 2015 Andrey Ponomarenko's ABI Laboratory
+Copyright (C) 2016 Andrey Ponomarenko's ABI Laboratory
 License: GNU GPL
 
 Usage: $CmdName PKG1 PKG2 [options]
@@ -1942,12 +1942,16 @@ sub createFileView($$$)
     
     $Content = "<pre class='view'>".$Content."</pre>\n";
     
-    $Content = "<table cellspacing='0' cellpadding='0'>\n<tr>\n<td class='header'>\n".$Name."</td>\n</tr>\n<tr>\n<td valign='top'>\n".$Content."</td>\n</tr>\n</table>\n";
+    $Content = "<table cellspacing='0' cellpadding='0'>\n<tr>\n<td class='header'>\n".$Name."</td><td class='plain'><a href=\'$Name\'>plain</a></td>\n</tr>\n<tr>\n<td valign='top' colspan='2'>\n".$Content."</td>\n</tr>\n</table>\n";
     $Content = composeHTML_Head($Name, "", "View file ".$File, $CssStyles, "")."\n<body>\n".$Content;
     $Content .= "</body></html>";
     
     my $R = $Dir."/".$File."-view.html";
     writeFile($REPORT_DIR."/".$R, $Content);
+    
+    # plain copy
+    copy($Path, $REPORT_DIR."/".$Dir."/".get_dirname($File)."/");
+    
     return $R;
 }
 
@@ -2047,13 +2051,13 @@ sub get_Report_Files()
                 my $FN = get_filename($ShowFile);
                 if($Info{"Status"} eq "added")
                 {
-                    if(my $View = createFileView($File, 2, "added")) {
+                    if(my $View = createFileView($File, 2, "view/added")) {
                         $ShowFile=~s&(\A|/)(\Q$FN\E)\Z&$1<a href=\'$View\' target=\'$LinksTarget\' title='View file'>$2</a>&;
                     }
                 }
                 elsif($Info{"Status"} eq "removed")
                 {
-                    if(my $View = createFileView($File, 1, "removed")) {
+                    if(my $View = createFileView($File, 1, "view/removed")) {
                         $ShowFile=~s&(\A|/)(\Q$FN\E)\Z&$1<a href=\'$View\' target=\'$LinksTarget\' title='View file'>$2</a>&;
                     }
                 }
@@ -3395,7 +3399,7 @@ sub createReport($)
     my $Path = $_[0];
     my $CssStyles = readModule("Styles", "Index.css");
     my $JScripts = readModule("Scripts", "Sort.js");
-    printMsg("INFO", "creating changes report ...");
+    printMsg("INFO", "creating report ...");
     
     my $Title = undef;
     my $Keywords = undef;
@@ -3439,7 +3443,7 @@ sub createReport($)
     $Report .= "</div>\n<br/><br/><br/><hr/>\n";
     
     # footer
-    $Report .= "<div class='footer' style='width:100%;' align='right'><i>Generated on ".(localtime time);
+    $Report .= "<div class='footer' style='width:100%;' align='right'><i>Generated";
     $Report .= " by <a href='".$HomePage."'>PkgDiff</a>";
     $Report .= " $TOOL_VERSION &#160;";
     $Report .= "</i></div><br/>\n";
@@ -3454,7 +3458,7 @@ sub createReport($)
         printMsg("INFO", "result: UNCHANGED");
     }
     
-    printMsg("INFO", "see detailed report:\n  $Path");
+    printMsg("INFO", "report: $Path");
 }
 
 sub check_Cmd($)
@@ -3621,7 +3625,7 @@ sub scenario()
     }
     if($ShowVersion)
     {
-        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2015 Andrey Ponomarenko's ABI Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
+        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2016 Andrey Ponomarenko's ABI Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
         exit(0);
     }
     if($DumpVersion)
