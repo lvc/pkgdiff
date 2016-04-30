@@ -2352,13 +2352,13 @@ sub identifyFile($$)
     if($Type eq "Ext"
     or $Type eq "iExt")
     {
-        if($Name=~/\.(\w+\.\w+)(\.in|)\Z/i)
+        if($Name=~/\.(\w+\.\w+)(\.(in|\d+)|)\Z/i)
         { # Double extension
             if(my $ID = $FileFormat{$Type}{$1}) {
                 return $ID;
             }
         }
-        if($Name=~/\.(\w+)(\.in|)\Z/i)
+        if($Name=~/\.(\w+)(\.(in|\d+)|)\Z/i)
         { # Single extension
             if(my $ID = $FileFormat{$Type}{$1}) {
                 return $ID;
@@ -2456,7 +2456,7 @@ sub getFormat($)
     { # automatic
         if(my $Info = getType($Path))
         {
-            if($Info=~/compressed/i) {
+            if($Info=~/compressed|Zip archive/i) {
                 $Format = "ARCHIVE";
             }
             elsif($Info=~/data/i) {
@@ -2564,7 +2564,8 @@ sub getFormat_($)
     elsif((($Name=~/\.(gz|xz|lzma)\Z/i or $Name=~/\.(\d+)\Z/i)
     and $Dir=~/\/(man\d*|manpages)(\/|\Z)/)
     or ($Name=~/\.(\d+)\Z/i and $Dir=~/\/(doc|docs|src|libs|utils)(\/|\Z)/)
-    or $Name=~/\.(man)\Z/ or $Name=~/[a-z]{3,}\.(\d+)\Z/i)
+    or $Name=~/\.(man)\Z/
+    or ($Name=~/[a-z]{3,}\.(\d+)\Z/i and $Name!~/\.($ARCHIVE_EXT)\./i))
     { # harmattan/manpages/uic.1
       # t1utils-1.36/t1asm.1
         return "MANPAGE";
@@ -2878,7 +2879,7 @@ sub getArchiveFormat($)
     foreach (sort {length($b)<=>length($a)} keys(%ArchiveFormats))
     {
         my $P = $ArchiveFormats{$_};
-        if($Pkg=~/\.($P)\Z/) {
+        if($Pkg=~/\.($P)(|\.\d+)\Z/) {
             return $_;
         }
     }
@@ -2888,9 +2889,17 @@ sub getArchiveFormat($)
 sub unpackArchive($$)
 { # TODO: tar -xf for all tar.* formats
     my ($Pkg, $OutDir) = @_;
-    mkpath($OutDir);
-    my $Cmd = "";
+    
     my $Format = getArchiveFormat($Pkg);
+    if(not $Format)
+    {
+        printMsg("ERROR", "can't determine format of archive \'".get_filename($Pkg)."\'");
+        return 1;
+    }
+    
+    my $Cmd = "";
+    mkpath($OutDir);
+    
     if($Format=~/TAR\.\w+/i or $Format eq "TAR") {
         $Cmd = "tar -xf \"$Pkg\" --directory=\"$OutDir\"";
     }
@@ -2910,8 +2919,9 @@ sub unpackArchive($$)
         $Cmd = "cd \"$OutDir\" && jar -xf \"$Pkg\"";
     }
     else {
-        return "";
+        return 1;
     }
+    
     system($Cmd." >$TMP_DIR/output 2>&1");
 }
 
@@ -3020,7 +3030,10 @@ sub readPackage($$)
     }
     elsif($Format eq "ARCHIVE")
     { # TAR.GZ and others
-        unpackArchive(abs_path($Path), $CPath);
+        if(unpackArchive(abs_path($Path), $CPath)!=0) {
+            exitStatus("Error", "can't extract package \'".get_filename($Path)."\'");
+        }
+        
         if(my ($N, $V) = parseVersion(get_filename($Path))) {
             ($Attributes{"Name"}, $Attributes{"Version"}) = ($N, $V);
         }
