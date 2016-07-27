@@ -260,7 +260,7 @@ GENERAL OPTIONS:
 
   -width WIDTH
       Width of the Visual Diff.
-      Default: 75
+      Default: 80
 
   -prelines NUM
       Size of the context in the Visual Diff.
@@ -381,7 +381,7 @@ my $RENAME_FILE_MATCH = 0.55;
 my $RENAME_CONTENT_MATCH = 0.85;
 my $MOVE_CONTENT_MATCH = 0.90;
 my $MOVE_DEPTH = 4;
-my $DEFAULT_WIDTH = 75;
+my $DEFAULT_WIDTH = 80;
 my $DIFF_PRE_LINES = 10;
 my $EXACT_DIFF_SIZE = 256*1024;
 my $EXACT_DIFF_RATE = 0.1;

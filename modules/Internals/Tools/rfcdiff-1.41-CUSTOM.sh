@@ -968,12 +968,12 @@ if [ $optnowdiff -eq 0 ]; then
       wdiffver=$($wdiffbin --version 2>/dev/null | egrep "(wdiff|GNU).+[0-9]\.[0-9]")
       if [ -z "$wdiffver" ]; then
         wdiffbin="";
-	echo -en "\n  Found wdiff, but it reported no recognisable version."
+        #echo -en "\n  Found wdiff, but it reported no recognisable version."
       fi
-   else
-      echo -en "\n  Couldn't find wdiff."
+   #else
+      #echo -en "\n  Couldn't find wdiff."
    fi
-   if [ -z "$wdiffbin" ]; then echo " Falling back to builtin diff colouring..."; fi
+   #if [ -z "$wdiffbin" ]; then echo " Falling back to builtin diff colouring..."; fi
    export wdiffbin
    export wdiffver
    #echo "Found wdiff at $wdiffbin"
