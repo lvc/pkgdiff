@@ -1,9 +1,9 @@
 NAME:
   Package Changes Analyzer (pkgdiff) - a tool for visualizing changes in Linux software packages (RPM, DEB, TAR.GZ, etc). The tool is intended for Linux maintainers who are interested in ensuring compatibility of old and new versions of packages.
   
-  Sample report: http://abi-laboratory.pro/tracker/package_diff/libssh/0.6.5/0.7.0/report.html
+  Sample report: https://abi-laboratory.pro/tracker/package_diff/libssh/0.6.5/0.7.0/report.html
   
-  The tool is developed by Andrey Ponomarenko: http://abi-laboratory.pro/
+  The tool is developed by Andrey Ponomarenko: https://abi-laboratory.pro/
 
 INSTALL:
   sudo make install prefix=/usr
