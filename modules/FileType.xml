@@ -1666,13 +1666,31 @@
 
 <type>
     <id>
-        QT_TS
+        QT_QPH
     </id>
     <summary>
         Qt Translation file
     </summary>
     <extensions>
-        ts, qph
+        qph
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        QT_MS_TS
+    </id>
+    <summary>
+        Qt Translation or MS TypeScript file
+    </summary>
+    <extensions>
+        ts
     </extensions>
     <weight>
         40
@@ -1959,6 +1977,96 @@
 
 <type>
     <id>
+        SEED7_INCLUDE
+    </id>
+    <summary>
+        Seed7 include/library
+    </summary>
+    <extensions>
+        s7i
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        SEED7_PROGRAM
+    </id>
+    <summary>
+        Seed7 program
+    </summary>
+    <extensions>
+        sd7
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        HASKELL_SOURCE
+    </id>
+    <summary>
+        Haskell program
+    </summary>
+    <extensions>
+        hs
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        HASKELL_CABAL
+    </id>
+    <summary>
+        Haskell metadata
+    </summary>
+    <extensions>
+        cabal
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        RUST
+    </id>
+    <summary>
+        Rust program
+    </summary>
+    <extensions>
+        rs
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
         PASCAL
     </id>
     <summary>
@@ -2017,6 +2125,24 @@
     </summary>
     <extensions>
         js, sjs, jsm
+    </extensions>
+    <weight>
+        50
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        COFFEESCRIPT
+    </id>
+    <summary>
+        CoffeeScript file
+    </summary>
+    <extensions>
+        coffee
     </extensions>
     <weight>
         50
@@ -2695,7 +2821,7 @@
         Shell program
     </summary>
     <extensions>
-        sh, SH, csh, ksh, bash
+        sh, SH, csh, ksh, bash, tcsh, zsh
     </extensions>
     <weight>
         70
@@ -3375,6 +3501,24 @@
     <anchor>
         CSS
     </anchor>
+</type>
+
+<type>
+    <id>
+        SCSS
+    </id>
+    <summary>
+        Sass CSS style sheet
+    </summary>
+    <extensions>
+        scss
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>

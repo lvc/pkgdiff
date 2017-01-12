@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 ###########################################################################
-# PkgDiff - Package Changes Analyzer 1.7.2
+# PkgDiff - Package Changes Analyzer 1.8
 # A tool for visualizing changes in Linux software packages
 #
-# Copyright (C) 2012-2016 Andrey Ponomarenko's ABI Laboratory
+# Copyright (C) 2012-2017 Andrey Ponomarenko's ABI Laboratory
 #
 # Written by Andrey Ponomarenko
 #
@@ -52,7 +52,7 @@ use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.7.2";
+my $TOOL_VERSION = "1.8";
 my $ORIG_DIR = cwd();
 
 # Internal modules
@@ -90,11 +90,11 @@ my %ERROR_CODE = (
     "Module_Error"=>9
 );
 
-my $HomePage = "http://lvc.github.com/pkgdiff/";
+my $HomePage = "https://github.com/lvc/pkgdiff";
 
 my $ShortUsage = "Package Changes Analyzer (PkgDiff) $TOOL_VERSION
 A tool for visualizing changes in Linux software packages
-Copyright (C) 2016 Andrey Ponomarenko's ABI Laboratory
+Copyright (C) 2017 Andrey Ponomarenko's ABI Laboratory
 License: GNU GPL
 
 Usage: $CmdName PKG1 PKG2 [options]
@@ -3638,7 +3638,7 @@ sub scenario()
     }
     if($ShowVersion)
     {
-        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2016 Andrey Ponomarenko's ABI Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
+        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2017 Andrey Ponomarenko's ABI Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
         exit(0);
     }
     if($DumpVersion)
@@ -3907,7 +3907,13 @@ sub scenario()
             rmtree($REPORT_DIR."/details");
         }
     }
-    printMsg("INFO", "comparing packages ...");
+    
+    if($CompareDirs) {
+        printMsg("INFO", "comparing directories ...");
+    }
+    else {
+        printMsg("INFO", "comparing packages ...");
+    }
     
     detectChanges();
     createReport($REPORT_PATH);
