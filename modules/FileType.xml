@@ -3700,13 +3700,115 @@
 
 <type>
     <id>
+        CACHE
+    </id>
+    <summary>
+        Cache file
+    </summary>
+    <extensions>
+        cache
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        HIDDEN
+    </id>
+    <summary>
+        Hidden file
+    </summary>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        BACKUP
+    </id>
+    <summary>
+        Backup file
+    </summary>
+    <extensions>
+        bak
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        SERVICE
+    </id>
+    <summary>
+        Service file
+    </summary>
+    <extensions>
+        service
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        YUM_DB
+    </id>
+    <summary>
+        Yum DB file
+    </summary>
+    <dirs>
+        yumdb
+    </dirs>
+    <weight>
+        40
+    </weight>
+</type>
+
+<type>
+    <id>
+        FIRMWARE
+    </id>
+    <summary>
+        Firmware file
+    </summary>
+    <extensions>
+        fw
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Binary
+    </format>
+</type>
+
+<type>
+    <id>
         CONFIGURATION
     </id>
     <summary>
         Configuration file
     </summary>
     <extensions>
-        conf, config, cfg, cnf, inf, INF, sysconf, sysconfig
+        conf, config, cfg, cnf, inf, INF, sysconf, sysconfig, rules
     </extensions>
     <names>
         Config, config
