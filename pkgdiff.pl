@@ -3039,6 +3039,13 @@ sub unpackArchive($$)
     }
     elsif($Format eq "APK") {
         $Cmd = "apktool d -f -o \"$OutDir\" \"$Pkg\"";
+
+        if(not defined $SkipPattern) {
+            $SkipPattern = "apktool.yml|original\/META-INF";
+        }
+        elsif(not $SkipPattern=~m/apktool.yml|original\/META-INF/) {
+            $SkipPattern = "apktool.yml|original\/META-INF|$SkipPattern";
+        }
     }
     
     if($Cmd)
