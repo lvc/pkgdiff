@@ -22,6 +22,7 @@
 #  GNU Wdiff
 #  GNU Awk
 #  GNU Binutils (readelf)
+#  Perl-File-LibMagic
 #  RPM (rpm, rpmbuild, rpm2cpio) for analysis of RPM-packages
 #  DPKG (dpkg, dpkg-deb) for analysis of DEB-packages
 #
@@ -68,7 +69,7 @@ my $ABI_DUMPER_VER = "0.97";
 
 my ($Help, $ShowVersion, $DumpVersion, $GenerateTemplate, %Descriptor,
 $CheckUsage, $PackageManager, $OutputReportPath, $ShowDetails, $Debug,
-$SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Minimal,
+$SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Minimal, $NoWdiff,
 $IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $ExtraInfo,
 $CustomTmpDir, $HideUnchanged, $TargetName, $TargetTitle, %TargetVersion,
 $CompareDirs, $ListAddedRemoved, $SkipSubArchives, $LinksTarget,
@@ -129,6 +130,7 @@ GetOptions("h|help!" => \$Help,
   "ignore-blank-lines" => \$IgnoreBlankLines,
   "quick!" => \$QuickMode,
   "minimal!" => \$Minimal,
+  "no-wdiff!" => \$NoWdiff,
   "extra-info=s" => \$ExtraInfo,
   "tmp-dir=s" => \$CustomTmpDir,
   "hide-unchanged!" => \$HideUnchanged,
@@ -286,6 +288,11 @@ GENERAL OPTIONS:
 
   -minimal
       Try to find a smaller set of changes.
+  
+  -no-wdiff
+      Do not use GNU Wdiff for analysis of changes.
+      This may be two times faster, but produces lower
+      quality reports.
 
 OTHER OPTIONS:
   -check-usage
@@ -391,6 +398,8 @@ my $DEFAULT_WIDTH = 80;
 my $DIFF_PRE_LINES = 10;
 my $EXACT_DIFF_SIZE = 256*1024;
 my $EXACT_DIFF_RATE = 0.1;
+
+my $USE_LIBMAGIC = 0;
 
 my %Group = (
     "Count1"=>0,
@@ -812,10 +821,11 @@ sub checkDiff($$)
     if($AvgSize<$EXACT_DIFF_SIZE
     and $Rate<$EXACT_DIFF_RATE)
     {
+        my $TmpFile = $TMP_DIR."/null";
         if(-T $P1)
         { # Text
             my $TDiff = $TMP_DIR."/txtdiff";
-            system("diff -Bw \"$P1\" \"$P2\" >$TDiff 2>$TMP_DIR/null");
+            qx/diff -Bw \"$P1\" \"$P2\" >$TDiff 2>$TmpFile/;
             $Rate = getRate($P1, $P2, $TDiff);
             unlink($TDiff);
         }
@@ -826,7 +836,7 @@ sub checkDiff($$)
             my $T2 = $TMP_DIR."/tmp2.txt";
             writeFile($T1, hexDump($P1));
             writeFile($T2, hexDump($P2));
-            system("diff -Bw \"$T1\" \"$T2\" >$TDiff 2>$TMP_DIR/null");
+            qx/diff -Bw \"$T1\" \"$T2\" >$TDiff 2>$TmpFile/;
             unlink($T1);
             unlink($T2);
             $Rate = getRate($P1, $P2, $TDiff);
@@ -843,7 +853,9 @@ sub showFile($$$)
 {
     my ($Path, $Format, $Version) = @_;
     my ($Dir, $Name) = sepPath($Path);
-    my $Cmd = "";
+    
+    my $Cmd = undef;
+    
     if($Format eq "MANPAGE")
     {
         $Name=~s/\.(gz|bz2|xz)\Z//;
@@ -896,9 +908,16 @@ sub showFile($$$)
         $Cmd = "javap \"$Path\""; # -s -c -private -verbose
         chdir($Dir);
     }
+    else
+    { # error
+        return undef;
+    }
+    
     my $SPath = $TMP_DIR."/fmt/".$Format."/".$Version."/".$Name;
     mkpath(getDirname($SPath));
-    system($Cmd." >\"".$SPath."\" 2>$TMP_DIR/null");
+    
+    my $TmpFile = $TMP_DIR."/null";
+    qx/$Cmd." >\"".$SPath."\" 2>$TmpFile/;
     
     if($Format eq "JAVA_CLASS") {
         chdir($ORIG_DIR);
@@ -1079,6 +1098,19 @@ sub compareABIs($$$$$)
     return ($Path, $Adv);
 }
 
+sub checkModule($)
+{
+    foreach my $P (@INC)
+    {
+        if(-e $P."/".$_[0])
+        {
+            return 1;
+        }
+    }
+    
+    return 0;
+}
+
 sub getSize($)
 {
     my $Path = $_[0];
@@ -1110,6 +1142,7 @@ sub diffFiles($$$)
     
     my $Cmd = "sh $DIFF --width $DiffWidth --stdout";
     $Cmd .= " --tmpdiff \"$TmpPath\" --prelines $DiffLines";
+    
     if($IgnoreSpaceChange) {
         $Cmd .= " --ignore-space-change";
     }
@@ -1123,10 +1156,14 @@ sub diffFiles($$$)
     { # diff --minimal
         $Cmd .= " --minimal";
     }
+    if($NoWdiff) {
+        $Cmd .= " --nowdiff";
+    }
+    
     $Cmd .= " \"".$P1."\" \"".$P2."\" >\"".$Path."\" 2>$TMP_DIR/null";
     $Cmd=~s/\$/\\\$/g;
     
-    system($Cmd);
+    qx/$Cmd/;
     
     if(getSize($Path)<3500)
     { # may be identical
@@ -1203,7 +1240,13 @@ sub getType($)
         return $Cache{"getType"}{$Path};
     }
     
-    return ($Cache{"getType"}{$Path} = `file -b \"$Path\"`);
+    if($USE_LIBMAGIC)
+    {
+        my $Magic = File::LibMagic->new();
+        return ($Cache{"getType"}{$Path} = $Magic->describe_filename($Path));
+    }
+    
+    return ($Cache{"getType"}{$Path} = qx/file -b \"$Path\"/);
 }
 
 sub isRenamed($$$)
@@ -1394,15 +1437,15 @@ sub detectChanges()
         my $Format = getFormat($PackageFiles{1}{$Name});
         if(not defined $PackageFiles{2}{$Name})
         { # removed files
-            $RemovedFiles{$Name}=1;
-            $RemovedByDir{getDirname($Name)}{$Name}=1;
-            $RemovedByName{getFilename($Name)}{$Name}=1;
+            $RemovedFiles{$Name} = 1;
+            $RemovedByDir{getDirname($Name)}{$Name} = 1;
+            $RemovedByName{getFilename($Name)}{$Name} = 1;
             foreach (getPrefixes($Name, $MOVE_DEPTH)) {
                 $RemovedByPrefix{$_}{$Name} = 1;
             }
         }
         else {
-            $StableFiles{$Name}=1;
+            $StableFiles{$Name} = 1;
         }
     }
     
@@ -1411,11 +1454,11 @@ sub detectChanges()
         my $Format = getFormat($PackageFiles{2}{$Name});
         if(not defined $PackageFiles{1}{$Name})
         { # added files
-            $AddedFiles{$Name}=1;
-            $AddedByDir{getDirname($Name)}{$Name}=1;
-            $AddedByName{getFilename($Name)}{$Name}=1;
+            $AddedFiles{$Name} = 1;
+            $AddedByDir{getDirname($Name)}{$Name} = 1;
+            $AddedByName{getFilename($Name)}{$Name} = 1;
             foreach (getPrefixes($Name, $MOVE_DEPTH)) {
-                $AddedByPrefix{$_}{$Name}=1;
+                $AddedByPrefix{$_}{$Name} = 1;
             }
         }
     }
@@ -2382,8 +2425,10 @@ sub generateTemplate()
 
 sub isSCM_File($)
 { # .svn, .git, .bzr, .hg and CVS
-    my ($Dir, $Name) = sepPath($_[0]);
-    if($Dir=~/(\A|[\/\\]+)\.(svn|git|bzr|hg)([\/\\]+|\Z)/) {
+    my $Dir = getDirname($_[0]);
+    my $Name = getFilename($_[0]);
+    
+    if($Dir=~/(\A|[\/\\])\.(svn|git|bzr|hg)([\/\\]|\Z)/) {
         return uc($2);
     }
     elsif($Name=~/\A\.(git|cvs|hg).*/)
@@ -2391,9 +2436,10 @@ sub isSCM_File($)
       # .cvsignore
         return uc($1);
     }
-    elsif($Dir=~/(\A|[\/\\]+)(CVS)([\/\\]+|\Z)/) {
-        return uc($2);
+    elsif($Dir=~/(\A|[\/\\])(CVS)([\/\\]|\Z)/) {
+        return "cvs";
     }
+    
     return undef;
 }
 
@@ -2577,7 +2623,9 @@ sub getFormat_I($)
 {
     my $Path = $_[0];
     
-    my ($Dir, $Name) = sepPath($Path);
+    my $Dir = getDirname($Path);
+    my $Name = getFilename($Path);
+    
     $Name=~s/\~\Z//g; # backup files
     
     if(-l $Path) {
@@ -2586,15 +2634,16 @@ sub getFormat_I($)
     elsif(-d $Path) {
         return "DIR";
     }
-    elsif(my $ID = identifyFile(getFilename($Path), "Name"))
+    elsif(my $ID = identifyFile($Name, "Name"))
     { # check by exact name (case sensitive)
         return $ID;
     }
-    elsif(my $ID2 = identifyFile(getFilename($Path), "iName"))
+    elsif(my $ID2 = identifyFile($Name, "iName"))
     { # check by exact name (case insensitive)
         return $ID2;
     }
-    elsif(my $Kind = isSCM_File($Path)) {
+    elsif($Path=~/svn|git|bzr|hg|cvs/i
+    and my $Kind = isSCM_File($Path)) {
         return $Kind;
     }
     elsif($Name!~/\.(\w+)\Z/i
@@ -2657,11 +2706,11 @@ sub getFormat_I($)
     elsif($Name=~/\A(CMakeLists.*\.txt)\Z/i) {
         return "CMAKE";
     }
-    elsif(my $ID3 = identifyFile(getFilename($Path), "Ext"))
+    elsif(my $ID3 = identifyFile($Name, "Ext"))
     { # check by extension (case sensitive)
         return $ID3;
     }
-    elsif(my $ID4 = identifyFile(getFilename($Path), "iExt"))
+    elsif(my $ID4 = identifyFile($Name, "iExt"))
     { # check by extension (case insensitive)
         return $ID4;
     }
@@ -2991,7 +3040,8 @@ sub unpackArchive($$)
     if($Cmd)
     {
         mkpath($OutDir);
-        system($Cmd." >$TMP_DIR/output 2>&1");
+        my $TmpFile = $TMP_DIR."/output";
+        qx/$Cmd >$TmpFile 2>&1/;
         return 0;
     }
     
@@ -3710,6 +3760,16 @@ sub scenario()
         generateTemplate();
         exit(0);
     }
+    
+    if(checkModule("File/LibMagic.pm"))
+    {
+        $USE_LIBMAGIC = 1;
+        require File::LibMagic;
+    }
+    else {
+        printMsg("WARNING", "perl-File-LibMagic is not installed");
+    }
+    
     if(not $DiffWidth) {
         $DiffWidth = $DEFAULT_WIDTH;
     }
@@ -3805,10 +3865,10 @@ sub scenario()
     readFileTypes();
     
     if($CompareDirs) {
-        printMsg("INFO", "reading directories ...");
+        printMsg("INFO", "Reading directories ...");
     }
     else {
-        printMsg("INFO", "reading packages ...");
+        printMsg("INFO", "Reading packages ...");
     }
     
     my $Fmt1 = getFormat($Descriptor{1});
@@ -3970,10 +4030,10 @@ sub scenario()
     }
     
     if($CompareDirs) {
-        printMsg("INFO", "comparing directories ...");
+        printMsg("INFO", "Comparing directories ...");
     }
     else {
-        printMsg("INFO", "comparing packages ...");
+        printMsg("INFO", "Comparing packages ...");
     }
     
     detectChanges();

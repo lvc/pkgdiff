@@ -16,6 +16,7 @@ REQUIRES:
   GNU Wdiff
   GNU Awk
   GNU Binutils
+  Perl-File-LibMagic
 
 USAGE:
   pkgdiff PKG1 PKG2 [options]

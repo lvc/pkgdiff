@@ -30,6 +30,7 @@ Content:
    3. GNU Wdiff
    4. GNU Awk
    5. GNU Binutils (readelf)
+   6. Perl-File-LibMagic
 
 1.1 Analysis of RPM packages
 
