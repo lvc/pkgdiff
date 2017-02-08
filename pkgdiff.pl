@@ -917,7 +917,7 @@ sub showFile($$$)
     mkpath(getDirname($SPath));
     
     my $TmpFile = $TMP_DIR."/null";
-    qx/$Cmd." >\"".$SPath."\" 2>$TmpFile/;
+    qx/$Cmd >"$SPath" 2>$TmpFile/;
     
     if($Format eq "JAVA_CLASS") {
         chdir($ORIG_DIR);
