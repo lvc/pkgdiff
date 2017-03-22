@@ -1919,7 +1919,7 @@ sub getReportHeaders()
             {
                 $Report .= "<td class='warning'>changed</td>\n";
                 $Report .= "<td class='value'>".showNumber($Details{$Package}{"Rate"}*100)."%</td>\n";
-                $Report .= "<td><a href='".$Details{$Package}{"Diff"}."' target=\'$LinksTarget\'>diff</a></td>\n"; # style='color:Blue;'
+                $Report .= "<td><a href='".encodeUrl($Details{$Package}{"Diff"})."' target=\'$LinksTarget\'>diff</a></td>\n";
             }
             else
             {
@@ -2033,7 +2033,7 @@ sub createFileView($$$)
     
     $Content = "<pre class='view'>".$Content."</pre>\n";
     
-    $Content = "<table cellspacing='0' cellpadding='0'>\n<tr>\n<td class='header'>\n".$Name."</td><td class='plain'><a href=\'$Name\'>plain</a></td>\n</tr>\n<tr>\n<td valign='top' colspan='2'>\n".$Content."</td>\n</tr>\n</table>\n";
+    $Content = "<table cellspacing='0' cellpadding='0'>\n<tr>\n<td class='header'>\n".$Name."</td><td class='plain'><a href=\'".encodeUrl($Name)."\'>plain</a></td>\n</tr>\n<tr>\n<td valign='top' colspan='2'>\n".$Content."</td>\n</tr>\n</table>\n";
     $Content = composeHTMLHead($Name, "", "View file ".$File, $CssStyles, "")."\n<body>\n".$Content;
     $Content .= "</body></html>";
     
@@ -2142,13 +2142,13 @@ sub getReportFiles()
                 my $FN = getFilename($ShowFile);
                 if($Info{"Status"} eq "added")
                 {
-                    if(my $View = createFileView($File, 2, "view/added")) {
+                    if(my $View = encodeUrl(createFileView($File, 2, "view/added"))) {
                         $ShowFile=~s&(\A|/)(\Q$FN\E)\Z&$1<a href=\'$View\' target=\'$LinksTarget\' title='View file'>$2</a>&;
                     }
                 }
                 elsif($Info{"Status"} eq "removed")
                 {
-                    if(my $View = createFileView($File, 1, "view/removed")) {
+                    if(my $View = encodeUrl(createFileView($File, 1, "view/removed"))) {
                         $ShowFile=~s&(\A|/)(\Q$FN\E)\Z&$1<a href=\'$View\' target=\'$LinksTarget\' title='View file'>$2</a>&;
                     }
                 }
@@ -2187,7 +2187,7 @@ sub getReportFiles()
                     $Report .= "<td$Join></td>\n";
                 }
                 if(my $Link = $Info{"Diff"}) {
-                    $Report .= "<td$Join><a href='".$Link."' target=\'$LinksTarget\'>diff</a></td>\n"; # style='color:Blue;'
+                    $Report .= "<td$Join><a href='".encodeUrl($Link)."' target=\'$LinksTarget\'>diff</a></td>\n";
                 }
                 elsif($Info{"Empty"}) {
                     $Report .= "<td$Join></td>\n";
@@ -2202,7 +2202,7 @@ sub getReportFiles()
                 if($ShowDetails)
                 {
                     if(my $Link = $Info{"Report"}) {
-                        $Report .= "<td$Join><a href='".$Link."' target=\'$LinksTarget\'>report</a></td>\n"; # style='color:Blue;'
+                        $Report .= "<td$Join><a href='".encodeUrl($Link)."' target=\'$LinksTarget\'>report</a></td>\n";
                     }
                     else {
                         $Report .= "<td$Join></td>\n";
@@ -2218,7 +2218,7 @@ sub getReportFiles()
                             my $Link1 = $Info{"ABIDump"}{1};
                             my $Link2 = $Info{"ABIDump"}{2};
                             
-                            $Report .= "<td$Join><a href='".$Link1."' target=\'$LinksTarget\'>1</a>, <a href='".$Link2."' target=\'$LinksTarget\'>2</a></td>\n"; # style='color:Blue;'
+                            $Report .= "<td$Join><a href='".encodeUrl($Link1)."' target=\'$LinksTarget\'>1</a>, <a href='".encodeUrl($Link2)."' target=\'$LinksTarget\'>2</a></td>\n";
                         }
                         else {
                             $Report .= "<td$Join></td>\n";
@@ -2230,7 +2230,7 @@ sub getReportFiles()
                                 my $Link1 = $Info{"DWARFDump"}{1};
                                 my $Link2 = $Info{"DWARFDump"}{2};
                                 
-                                $Report .= "<td$Join><a href='".$Link1."' target=\'$LinksTarget\'>1</a>, <a href='".$Link2."' target=\'$LinksTarget\'>2</a></td>\n"; # style='color:Blue;'
+                                $Report .= "<td$Join><a href='".encodeUrl($Link1)."' target=\'$LinksTarget\'>1</a>, <a href='".encodeUrl($Link2)."' target=\'$LinksTarget\'>2</a></td>\n";
                             }
                             else {
                                 $Report .= "<td$Join></td>\n";
@@ -3747,6 +3747,13 @@ sub getArchivePattern()
         push(@Groups, $ArchiveFormats{$_});
     }
     return join("|", @Groups);
+}
+
+sub encodeUrl($)
+{
+    my $Url = $_[0];
+    $Url=~s/#/\%23/g;
+    return $Url;
 }
 
 sub scenario()

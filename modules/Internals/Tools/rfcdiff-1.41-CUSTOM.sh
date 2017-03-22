@@ -605,7 +605,7 @@ END	{
 "     <tr><td></td><td class=\"left\"></td><td> </td><td class=\"right\"></td><td></td></tr>\n" \
 "     <tr bgcolor=\"gray\"><th colspan=\"5\" align=\"center\"><a name=\"end\">&nbsp;%s. %s change blocks.&nbsp;</a></th></tr>\n" \
 "     <tr class=\"stats\"><td></td><th><i>%s lines changed or deleted</i></th><th><i> </i></th><th><i>%s lines changed or added</i></th><td></td></tr>\n" \
-"     <tr><td colspan=\"5\" align=\"center\" class=\"small\"><br/>This html diff was produced by rfcdiff %s. The latest version is available from <a href=\"http://www.tools.ietf.org/tools/rfcdiff/\" >http://tools.ietf.org/tools/rfcdiff/</a> </td></tr>\n" \
+"     <tr><td colspan=\"5\" align=\"center\" class=\"small\"><br/>This html diff was produced by rfcdiff %s</td></tr>\n" \
 "   </table>\n" \
 "   </body>\n" \
 "   </html>\n", diffnum?"End of changes":"No changes", difftag, diffcount1, diffcount2, ENVIRON["version"]);
