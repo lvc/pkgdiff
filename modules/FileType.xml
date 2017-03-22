@@ -4025,7 +4025,7 @@
         tar.bz2, tbz2, tbz, tb2, tar.lzma, tlzma
         tar.lz, tlz, zip, zae, tar, lzma, gz
         jar, war, ear, xz, 7z, rar, sfx, ace
-        bz, bz2, zipx
+        bz, bz2, zipx, apk
     </extensions>
     <weight>
         10
