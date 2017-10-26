@@ -72,9 +72,6 @@ div.p_list {
     padding-left:10px;
     color:#333333;
 }
-.dataTables_info {
-    display: none;
-}
 input[type="search"] {
     outline: none;
     border: 1px solid #c0c0c0;

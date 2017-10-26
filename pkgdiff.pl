@@ -3263,7 +3263,8 @@ sub composeHTMLHead($$$$$)
     \$(function() {
         \$('.summary.report-files').DataTable({
             'order': [[ 0, 'asc' ]],
-            'paging': false,
+            //'paging': false,
+            'pageLength': 50,
         });
     });
     -->
