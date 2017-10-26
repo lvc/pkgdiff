@@ -54,7 +54,7 @@ use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
 
-my $TOOL_VERSION = "1.8";
+my $TOOL_VERSION = "1.8-tweaked";
 my $ORIG_DIR = cwd();
 
 # Internal modules
@@ -74,7 +74,7 @@ $SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Minimal, $NoWdiff,
 $IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $ExtraInfo,
 $CustomTmpDir, $HideUnchanged, $TargetName, $TargetTitle, %TargetVersion,
 $CompareDirs, $ListAddedRemoved, $SkipSubArchives, $LinksTarget,
-$SkipPattern);
+$SkipPattern, $CheckByteCode);
 
 my $CmdName = getFilename($0);
 
@@ -144,7 +144,8 @@ GetOptions("h|help!" => \$Help,
   "list-added-removed!" => \$ListAddedRemoved,
   "skip-subarchives!" => \$SkipSubArchives,
   "skip-pattern=s" => \$SkipPattern,
-  "links-target=s" => \$LinksTarget
+  "links-target=s" => \$LinksTarget,
+  "check-byte-code!" => \$CheckByteCode
 ) or errMsg();
 
 my $TMP_DIR = undef;
@@ -201,7 +202,7 @@ NAME:
 
 DESCRIPTION:
   Package Changes Analyzer (PkgDiff) is a tool for visualizing
-  changes in Linux software packages (RPM, DEB, TAR.GZ, etc).
+  changes in Linux software packages (JAR, RPM, TAR.GZ, etc).
   
   The tool can compare directories as well (with the help of
   the -d option).
@@ -348,6 +349,9 @@ OTHER OPTIONS:
   
   -d|-directories
       Compare directories instead of packages.
+  
+  -check-byte-code
+      When comparing Java classes, also check for byte code changes.
 
 REPORT:
     Report will be generated to:
@@ -907,7 +911,11 @@ sub showFile($$$)
         $Name=~s/\.class\Z//;
         $Name=~s/\$/./;
         $Path = $Name;
-        $Cmd = "$JAVA_DUMP \"$Path\""; # javap -s -c -private -verbose
+        if ($CheckByteCode) {
+            $Cmd = "$JAVA_DUMP \"$Path\"";
+        } else {
+            $Cmd = "javap \"$Path\""; # -c -private -verbose
+        }
         chdir($Dir);
     }
     else
@@ -1896,8 +1904,12 @@ sub getReportHeaders()
     
     my $Report = "<a name='Info'></a>\n";
     $Report .= "<h2>Changes In Package Info</h2><hr/>\n";
-    $Report .= "<table class='summary'>\n";
-    $Report .= "<tr><th>Package</th><th>Status</th><th>Delta</th><th>Visual Diff</th></tr>\n";
+    $Report .= "<table class='summary' id='file-table'>\n";
+    $Report .= "<thead>\n";
+    $Report .= "<tr><th>Package</th><th>Status</th><th>Delta</th><th>Diff</th></tr>\n";
+    $Report .= "</thead>\n";
+
+    $Report .= "<tbody>\n";
     
     my %Details = %{$InfoChanges{"Details"}};
     foreach my $Package (sort keys(%Details))
@@ -1931,6 +1943,8 @@ sub getReportHeaders()
         }
         $Report .= "</tr>\n";
     }
+
+    $Report .= "</tbody>\n";
     $Report .= "</table>\n";
     
     return $Report;
@@ -2051,7 +2065,7 @@ sub createFileView($$$)
 sub getReportFiles()
 {
     my $Report = "";
-    my $JSort = "title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'";
+    my $JSort = ""; # "title='sort' onclick='javascript:sort(this, 1)' style='cursor:pointer'";
     foreach my $Format (sort {$FormatInfo{$b}{"Weight"}<=>$FormatInfo{$a}{"Weight"}}
     sort {lc($FormatInfo{$a}{"Summary"}) cmp lc($FormatInfo{$b}{"Summary"})} keys(%FileChanges))
     {
@@ -2077,14 +2091,15 @@ sub getReportFiles()
         
         $Report .= "<a name='".$FormatInfo{$Format}{"Anchor"}."'></a>\n";
         $Report .= "<h2>".$FormatInfo{$Format}{"Title"}." (".$FileChanges{$Format}{"Total"}.")</h2><hr/>\n";
-        $Report .= "<table class='summary'>\n";
+        $Report .= "<table class='summary report-files'>\n";
+        $Report .= "<thead>\n";
         $Report .= "<tr>\n";
         $Report .= "<th $JSort>Name</th>\n";
         $Report .= "<th $JSort>Status</th>\n";
         if($Format ne "DIR")
         {
             $Report .= "<th $JSort>Delta</th>\n";
-            $Report .= "<th>Visual<br/>Diff</th>\n";
+            $Report .= "<th>Diff</th>\n";
             
             if($ShowDetails)
             {
@@ -2103,6 +2118,8 @@ sub getReportFiles()
             }
         }
         $Report .= "</tr>\n";
+        $Report .= "</thead>\n";
+        $Report .= "<tbody>\n";
         my %Details = %{$FileChanges{$Format}{"Details"}};
         foreach my $File (sort {lc($a) cmp lc($b)} keys(%Details))
         {
@@ -2249,6 +2266,7 @@ sub getReportFiles()
                 $Report .= "<tr><td class='left f_path $Color2\'>".$MovedTo."</td></tr>\n";
             }
         }
+        $Report .= "</tbody>\n";
         $Report .= "</table>\n";
     }
     return $Report;
@@ -3234,12 +3252,20 @@ sub composeHTMLHead($$$$$)
     <title>
         $Title
     </title>
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css\" />
     <style type=\"text/css\">
     $Styles
     </style>
+    <script type=\"text/javascript\" src=\"https://code.jquery.com/jquery-1.12.4.js\"></script>
+    <script type=\"text/javascript\" src=\"https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js\"></script>
     <script type=\"text/javascript\" language=\"JavaScript\">
     <!--
-    $Scripts
+    \$(function() {
+        \$('.summary.report-files').DataTable({
+            'order': [[ 0, 'asc' ]],
+            'paging': false,
+        });
+    });
     -->
     </script>
     </head>";
@@ -3419,7 +3445,7 @@ sub getSummary()
     my $Verdict = "";
     if($TotalChanged)
     {
-        $Verdict = "<span style='color:Red;'><b>Changed<br/>(".$Affected."%)</b></span>";
+        $Verdict = "<span style='color:Red;'><b>Changed</b> (".$Affected."%)</span>";
         $RESULT{"status"} = "Changed";
     }
     else
@@ -3449,9 +3475,9 @@ sub getSummary()
     
     if(keys(%TotalFiles))
     {
-        $FileChgs .= "<table class='summary'>\n";
+        $FileChgs .= "<table class='summary changes'>\n";
         $FileChgs .= "<tr>";
-        $FileChgs .= "<th>File Type</th>";
+        $FileChgs .= "<th class=\"left\">File Type</th>";
         $FileChgs .= "<th>Total</th>";
         $FileChgs .= "<th>Added</th>";
         $FileChgs .= "<th>Removed</th>";
@@ -3557,9 +3583,9 @@ sub createReport($)
     my $Report = $Header."\n";
     my $MainReport = getReportFiles();
     
-    my $Legend = "<br/><table class='summary'>
-    <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
-    <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>\n";
+    my $Legend = "<br/><table class='legend summary'>
+    <tr><td class='new'>added</td><td class='passed'>unchanged</td>
+    <td class='warning'>changed</td><td class='failed'>removed</td></tr></table>\n";
     
     $Report .= $Legend;
     $Report .= getSummary();
