@@ -62,6 +62,7 @@ my $MODULES_DIR = getModules();
 push(@INC, getDirname($MODULES_DIR));
 
 my $DIFF = $MODULES_DIR."/Internals/Tools/rfcdiff-1.41-CUSTOM.sh";
+my $JAVA_DUMP = $MODULES_DIR."/Internals/Tools/java-dump.sh";
 my $ACC = "abi-compliance-checker";
 my $ACC_VER = "1.99.1";
 my $ABI_DUMPER = "abi-dumper";
@@ -394,7 +395,7 @@ my $RENAME_FILE_MATCH = 0.55;
 my $RENAME_CONTENT_MATCH = 0.85;
 my $MOVE_CONTENT_MATCH = 0.90;
 my $MOVE_DEPTH = 4;
-my $DEFAULT_WIDTH = 80;
+my $DEFAULT_WIDTH = 120;
 my $DIFF_PRE_LINES = 10;
 my $EXACT_DIFF_SIZE = 256*1024;
 my $EXACT_DIFF_RATE = 0.1;
@@ -906,7 +907,7 @@ sub showFile($$$)
         $Name=~s/\.class\Z//;
         $Name=~s/\$/./;
         $Path = $Name;
-        $Cmd = "javap \"$Path\""; # -s -c -private -verbose
+        $Cmd = "$JAVA_DUMP \"$Path\""; # javap -s -c -private -verbose
         chdir($Dir);
     }
     else
@@ -1141,7 +1142,8 @@ sub diffFiles($$$)
     my $TmpPath = $TMP_DIR."/diff";
     unlink($TmpPath);
     
-    my $Cmd = "sh $DIFF --width $DiffWidth --stdout";
+    my $Cmd = "sh $DIFF";
+    $Cmd .= " --width $DiffWidth --stdout";
     $Cmd .= " --tmpdiff \"$TmpPath\" --prelines $DiffLines";
     
     if($IgnoreSpaceChange) {
