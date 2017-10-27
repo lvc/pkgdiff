@@ -30,8 +30,8 @@ a:hover {
 table.summary.report-files tr td {
     border-bottom: 1px solid #e8e8e8;
 }
-table.summary {
-    margin-bottom: 20px;
+div.dataTables_wrapper {
+    margin-bottom: 40px;
 }
 table.summary.report-files td {
     text-align: center;
@@ -83,8 +83,11 @@ table.summary.report-files th {
     background-color: #f8f8f8;
     border-top: 1px solid #000000;
 }
+table.summary {
+    margin-bottom: 20px;
+}
 table.summary.report-files {
-    margin-bottom: 40px;
+    margin-bottom: 5px;
 }
 th.left, td.left {
     text-align: left;

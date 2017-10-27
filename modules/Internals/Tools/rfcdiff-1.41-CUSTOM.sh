@@ -345,7 +345,7 @@ function header(file1, file2) {
 "</head> \n" \
 "<body > \n" \
 "  <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> \n" \
-"  <tr bgcolor=\"#c0c0c0\"><th></th><th>%s&nbsp;%s&nbsp;</th><th> </th><th>&nbsp;%s&nbsp;%s</th><th></th></tr> \n" \
+"  <tr bgcolor=\"#404040\"><th></th><th style=\"color:#fff;\">%s&nbsp;%s&nbsp;</th><th> </th><th style=\"color:#fff;\">&nbsp;%s&nbsp;%s</th><th></th></tr> \n" \
 "", file1, file2, prev, url1, url2, nxt;
 }
 
@@ -604,8 +604,8 @@ END	{
 	   flush();
 	   printf("\n" \
 "     <tr><td></td><td class=\"left\"></td><td> </td><td class=\"right\"></td><td></td></tr>\n" \
-"     <tr bgcolor=\"#c0c0c0\"><th colspan=\"5\" align=\"center\"><a name=\"end\">&nbsp;%s. %s change blocks.&nbsp;</a></th></tr>\n" \
-"     <tr class=\"stats\"><td></td><th><i>%s lines changed or deleted</i></th><th><i> </i></th><th><i>%s lines changed or added</i></th><td></td></tr>\n" \
+"     <tr bgcolor=\"#c0c0c0\"><th colspan=\"5\" align=\"center\"><a name=\"end\">&nbsp;%s. %s change block(s).&nbsp;</a></th></tr>\n" \
+"     <tr class=\"stats\"><td></td><th><i>%s line(s) changed or deleted</i></th><th><i> </i></th><th><i>%s line(s) changed or added</i></th><td></td></tr>\n" \
 "     <tr><td colspan=\"5\" align=\"center\" class=\"small\"><br/>This html diff was produced by rfcdiff %s</td></tr>\n" \
 "   </table>\n" \
 "   </body>\n" \

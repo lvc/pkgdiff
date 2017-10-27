@@ -2094,11 +2094,11 @@ sub getReportFiles()
         $Report .= "<table class='summary report-files'>\n";
         $Report .= "<thead>\n";
         $Report .= "<tr>\n";
-        $Report .= "<th $JSort>Name</th>\n";
-        $Report .= "<th $JSort>Status</th>\n";
+        $Report .= "<th>Name</th>\n";
+        $Report .= "<th>Status</th>\n";
         if($Format ne "DIR")
         {
-            $Report .= "<th $JSort>Delta</th>\n";
+            $Report .= "<th>Delta</th>\n";
             $Report .= "<th>Diff</th>\n";
             
             if($ShowDetails)
@@ -2120,6 +2120,7 @@ sub getReportFiles()
         $Report .= "</tr>\n";
         $Report .= "</thead>\n";
         $Report .= "<tbody>\n";
+        $Report .= "<!-- exclusions -->\n";
         my %Details = %{$FileChanges{$Format}{"Details"}};
         foreach my $File (sort {lc($a) cmp lc($b)} keys(%Details))
         {
@@ -3264,7 +3265,7 @@ sub composeHTMLHead($$$$$)
         \$('.summary.report-files').DataTable({
             'order': [[ 0, 'asc' ]],
             //'paging': false,
-            'pageLength': 50,
+            'pageLength': 10,
         });
     });
     -->
