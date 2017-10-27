@@ -1,4 +1,4 @@
-prefix ?= /usr
+prefix ?= /usr/local
 
 .PHONY: install
 install:
