@@ -1,11 +1,12 @@
 body {
     font-family:Arial, sans-serif;
+    font-size:11px;
     background-color:White;
     color:Black;
 }
 hr {
     color:Black;
-    background-color:Black;
+    background-color:#c0c0c0;
     height:1px;
     border:0;
 }
@@ -20,41 +21,28 @@ h2 {
     font-size:1.25em;
     white-space:nowrap;
 }
-table.summary {
-    border-collapse:collapse;
-    border:1px outset black;
+a {
+    text-decoration: none;
 }
-table.summary th {
-    background-color:#eeeeee;
-    font-weight:bold;
-    text-align:left;
-    font-size:0.94em;
-    white-space:nowrap;
-    border:1px inset gray;
-    padding: 3px;
+a:hover {
+    text-decoration: underline;
 }
-table.summary td {
-    text-align:right;
-    white-space:nowrap;
-    border:1px inset gray;
-    padding: 3px 5px 3px 5px;
+table.summary.report-files tr td {
+    border-bottom: 1px solid #e8e8e8;
 }
-table.summary td.left {
-    text-align:left;
+div.dataTables_wrapper {
+    margin-bottom: 40px;
 }
-table.summary th.left {
-    text-align:left;
-    font-weight:100;
+table.summary.report-files td {
+    text-align: center;
 }
 table.summary td.f_path {
+    text-align: left;
     font-size:0.875em;
     font-family:Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
     white-space:normal;
     word-wrap:break-word;
-    max-width:57em;
-}
-table.summary td.value {
-    padding-left:10px;
+    width:70%;
 }
 td.passed, tr.passed {
     background-color:#CCFFCC;
@@ -71,6 +59,9 @@ td.moved, tr.moved {
 td.failed, tr.failed {
     background-color:#FFC3CE;
 }
+td.left {
+    background-color: inherit !important;
+}
 td.new, tr.new {
     background-color:#C6DEFF;
 }
@@ -80,11 +71,35 @@ a.default {
 div.p_list {
     padding-left:10px;
     color:#333333;
-    font-size:0.94em;
 }
-.top_ref {
-    font-size:0.69em;
+input[type="search"] {
+    outline: none;
+    border: 1px solid #c0c0c0;
+    padding: 5px;
+    width: 250px;
+    margin-bottom: 5px;
 }
-.footer {
-    font-size:0.75em;
+table.summary.report-files th {
+    background-color: #f8f8f8;
+    border-top: 1px solid #000000;
+}
+table.summary {
+    margin-bottom: 20px;
+}
+table.summary.report-files {
+    margin-bottom: 5px;
+}
+th.left, td.left {
+    text-align: left;
+    padding-right: 20px;
+}
+table.summary.changes th, table.summary.changes td {
+    text-align: center;
+}
+table.summary.changes th.left, table.summary.changes td.left {
+    text-align: left;
+}
+table.legend td {
+    text-align: center;
+    width: 90px;
 }
