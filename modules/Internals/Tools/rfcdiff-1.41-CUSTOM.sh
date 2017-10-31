@@ -316,7 +316,8 @@ function header(file1, file2) {
 "  <meta http-equiv=\"Content-Style-Type\" content=\"text/css\" /> \n" \
 "  <title>Diff: %s - %s</title> \n" \
 "  <style type=\"text/css\"> \n" \
-"    body    { font-size:16px; margin: 0.4ex; margin-right: auto; } \n" \
+"    body    { font-family: Arial, sans-serif; font-size:11px; margin: 0.4ex; margin-right: auto; } \n" \
+"    table   { width: 100%; } \n" \
 "    tr      { } \n" \
 "    td      { white-space: pre; font-family: Consolas, \"DejaVu Sans Mono\", \"Droid Sans Mono\", Monaco, Monospace; vertical-align: top; font-size: 0.86em;} \n" \
 "    th      { font-size: 0.86em; } \n" \
@@ -344,7 +345,7 @@ function header(file1, file2) {
 "</head> \n" \
 "<body > \n" \
 "  <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> \n" \
-"  <tr bgcolor=\"orange\"><th></th><th>%s&nbsp;%s&nbsp;</th><th> </th><th>&nbsp;%s&nbsp;%s</th><th></th></tr> \n" \
+"  <tr bgcolor=\"#404040\"><th></th><th style=\"color:#fff;\">%s&nbsp;%s&nbsp;</th><th> </th><th style=\"color:#fff;\">&nbsp;%s&nbsp;%s</th><th></th></tr> \n" \
 "", file1, file2, prev, url1, url2, nxt;
 }
 
@@ -564,7 +565,7 @@ function maybebreakline(line,    width) {
 		 posinfo2 = sprintf("<a name=\"part-r%s\" /><small>skipping to change at</small><em> page %s, line %s</em>", diffnum, page2, getpageline(2, linenum2, page2));
 	      }
 
-	      printf "      <tr bgcolor=\"gray\" ><td></td><th>%s</th><th> </th><th>%s</th><td></td></tr>\n", posinfo1, posinfo2;
+	      printf "      <tr bgcolor=\"#c0c0c0\" ><td></td><th>%s</th><th> </th><th>%s</th><td></td></tr>\n", posinfo1, posinfo2;
 	   }
 	}
 
@@ -603,8 +604,8 @@ END	{
 	   flush();
 	   printf("\n" \
 "     <tr><td></td><td class=\"left\"></td><td> </td><td class=\"right\"></td><td></td></tr>\n" \
-"     <tr bgcolor=\"gray\"><th colspan=\"5\" align=\"center\"><a name=\"end\">&nbsp;%s. %s change blocks.&nbsp;</a></th></tr>\n" \
-"     <tr class=\"stats\"><td></td><th><i>%s lines changed or deleted</i></th><th><i> </i></th><th><i>%s lines changed or added</i></th><td></td></tr>\n" \
+"     <tr bgcolor=\"#c0c0c0\"><th colspan=\"5\" align=\"center\"><a name=\"end\">&nbsp;%s. %s change block(s).&nbsp;</a></th></tr>\n" \
+"     <tr class=\"stats\"><td></td><th><i>%s line(s) changed or deleted</i></th><th><i> </i></th><th><i>%s line(s) changed or added</i></th><td></td></tr>\n" \
 "     <tr><td colspan=\"5\" align=\"center\" class=\"small\"><br/>This html diff was produced by rfcdiff %s</td></tr>\n" \
 "   </table>\n" \
 "   </body>\n" \
