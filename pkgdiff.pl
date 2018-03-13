@@ -2685,7 +2685,7 @@ sub getFormat_I($)
     and $Dir=~/\/(man\d*|manpages)(\/|\Z)/)
     or ($Name=~/\.(\d+)\Z/i and $Dir=~/\/(doc|docs|src|libs|utils)(\/|\Z)/)
     or $Name=~/\.(man)\Z/
-    or ($Name=~/[a-z]{3,}\.(\d+)\Z/i and $Name!~/\.($ARCHIVE_EXT)\./i))
+    or ($Name=~/[a-z]{3,}\.(\d+)\Z/i and $Name!~/\.($ARCHIVE_EXT)\./i and $Dir!~/log/i))
     { # harmattan/manpages/uic.1
       # t1utils-1.36/t1asm.1
         return "MANPAGE";
