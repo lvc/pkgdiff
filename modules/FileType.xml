@@ -407,7 +407,7 @@
         log, log.1
     </extensions>
     <dirs>
-        logs
+        logs, log
     </dirs>
     <weight>
         40
@@ -3003,6 +3003,9 @@
     <weight>
         40
     </weight>
+    <format>
+        Text
+    </format>
 </type>
 
 <type>
