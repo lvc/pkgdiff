@@ -3,7 +3,7 @@
 # PkgDiff - Package Changes Analyzer 1.8
 # A tool for visualizing changes in Linux software packages
 #
-# Copyright (C) 2012-2017 Andrey Ponomarenko's ABI Laboratory
+# Copyright (C) 2012-2018 Andrey Ponomarenko's ABI Laboratory
 #
 # Written by Andrey Ponomarenko
 #
@@ -74,7 +74,7 @@ $SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Minimal, $NoWdiff,
 $IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $ExtraInfo,
 $CustomTmpDir, $HideUnchanged, $TargetName, $TargetTitle, %TargetVersion,
 $CompareDirs, $ListAddedRemoved, $SkipSubArchives, $LinksTarget,
-$SkipPattern, $CheckByteCode, $FullMethodDiffs, $TrackUnchanged);
+$SkipPattern, $AllText, $CheckByteCode, $FullMethodDiffs, $TrackUnchanged);
 
 my $CmdName = getFilename($0);
 
@@ -97,7 +97,7 @@ my $HomePage = "https://github.com/lvc/pkgdiff";
 
 my $ShortUsage = "Package Changes Analyzer (PkgDiff) $TOOL_VERSION
 A tool for visualizing changes in Linux software packages
-Copyright (C) 2017 Andrey Ponomarenko's ABI Laboratory
+Copyright (C) 2018 Andrey Ponomarenko's ABI Laboratory
 License: GNU GPL
 
 Usage: $CmdName PKG1 PKG2 [options]
@@ -144,6 +144,7 @@ GetOptions("h|help!" => \$Help,
   "list-added-removed!" => \$ListAddedRemoved,
   "skip-subarchives!" => \$SkipSubArchives,
   "skip-pattern=s" => \$SkipPattern,
+  "all-text!" => \$AllText,
   "links-target=s" => \$LinksTarget,
   "check-byte-code!" => \$CheckByteCode,
   "full-method-diffs!" => \$FullMethodDiffs,
@@ -337,8 +338,8 @@ OTHER OPTIONS:
   
   -links-target TARGET
       Set target attribute for links in the report:
-        _self
-        _blank (default)
+        _self (default)
+        _blank
   
   -list-added-removed
       Show content of added and removed text files.
@@ -351,6 +352,9 @@ OTHER OPTIONS:
   
   -d|-directories
       Compare directories instead of packages.
+  
+  -all-text
+      Treat all files in the archive as text files.
 
   -check-byte-code
       When comparing Java classes, also check for byte code changes.
@@ -1886,7 +1890,7 @@ sub getReportUsage()
     
     my $Report = "<a name='Usage'></a>\n";
     $Report .= "<h2>Usage Analysis</h2><hr/>\n";
-    $Report .= "<table class='summary'>\n";
+    $Report .= "<table class='summary highlight'>\n";
     $Report .= "<tr><th>Package</th><th>Status</th><th>Used By</th></tr>\n";
     
     foreach my $Package (sort keys(%PackageUsage))
@@ -1925,7 +1929,7 @@ sub getReportHeaders()
     
     my $Report = "<a name='Info'></a>\n";
     $Report .= "<h2>Changes In Package Info</h2><hr/>\n";
-    $Report .= "<table class='summary'>\n";
+    $Report .= "<table class='summary highlight'>\n";
     $Report .= "<tr><th>Package</th><th>Status</th><th>Delta</th><th>Visual Diff</th></tr>\n";
     
     my %Details = %{$InfoChanges{"Details"}};
@@ -1975,7 +1979,7 @@ sub getReportDeps()
             next;
         }
         $Report .= "<h2>Changes In \"".ucfirst($Kind)."\" Dependencies</h2><hr/>\n";
-        $Report .= "<table class='summary'>\n";
+        $Report .= "<table class='summary highlight'>\n";
         $Report .= "<tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>\n";
         foreach my $Name (sort {lc($a) cmp lc($b)} @Names)
         {
@@ -2106,7 +2110,7 @@ sub getReportFiles()
         
         $Report .= "<a name='".$FormatInfo{$Format}{"Anchor"}."'></a>\n";
         $Report .= "<h2>".$FormatInfo{$Format}{"Title"}." (".$FileChanges{$Format}{"Total"}.")</h2><hr/>\n";
-        $Report .= "<table class='summary'>\n";
+        $Report .= "<table class='summary highlight'>\n";
         $Report .= "<tr>\n";
         $Report .= "<th $JSort>Name</th>\n";
         $Report .= "<th $JSort>Status</th>\n";
@@ -2648,6 +2652,13 @@ sub getFormat($)
         $Format = "OTHER";
     }
     
+    if($Format eq "OTHER")
+    {
+        if($AllText) {
+            $Format = "TEXT";
+        }
+    }
+    
     return ($Cache{"getFormat"}{$Path}=$Format);
 }
 
@@ -2716,7 +2727,7 @@ sub getFormat_I($)
     and $Dir=~/\/(man\d*|manpages)(\/|\Z)/)
     or ($Name=~/\.(\d+)\Z/i and $Dir=~/\/(doc|docs|src|libs|utils)(\/|\Z)/)
     or $Name=~/\.(man)\Z/
-    or ($Name=~/[a-z]{3,}\.(\d+)\Z/i and $Name!~/\.($ARCHIVE_EXT)\./i))
+    or ($Name=~/[a-z]{3,}\.(\d+)\Z/i and $Name!~/\.($ARCHIVE_EXT)\./i and $Dir!~/log/i))
     { # harmattan/manpages/uic.1
       # t1utils-1.36/t1asm.1
         return "MANPAGE";
@@ -3030,7 +3041,7 @@ sub getArchiveFormat($)
     foreach (sort {length($b)<=>length($a)} keys(%ArchiveFormats))
     {
         my $P = $ArchiveFormats{$_};
-        if($Pkg=~/\.($P)(|\.\d+)\Z/) {
+        if($Pkg=~/\.($P)(|\.\d+)\Z/i) {
             return $_;
         }
     }
@@ -3258,6 +3269,7 @@ sub composeHTMLHead($$$$$)
     <html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">
     <head>
     <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />
     <meta name=\"keywords\" content=\"$Keywords\" />
     <meta name=\"description\" content=\"$Description\" />
     <title>
@@ -3358,7 +3370,7 @@ sub cutNumber($$$)
 sub getSummary()
 {
     my $TestInfo = "<h2>Test Info</h2><hr/>\n";
-    $TestInfo .= "<table class='summary'>\n";
+    $TestInfo .= "<table class='summary highlight'>\n";
     
     if(not $CompareDirs or $TargetName)
     {
@@ -3387,7 +3399,7 @@ sub getSummary()
     $TestInfo .= "</table>\n";
 
     my $TestResults = "<h2>Test Results</h2><hr/>\n";
-    $TestResults .= "<table class='summary'>\n";
+    $TestResults .= "<table class='summary highlight'>\n";
     
     if(not $CompareDirs)
     {
@@ -3462,7 +3474,7 @@ sub getSummary()
     if(defined $ABI_Change{"Total"})
     {
         $TestResults .= "<h2>ABI Status</h2><hr/>\n";
-        $TestResults .= "<table class='summary'>\n";
+        $TestResults .= "<table class='summary highlight'>\n";
         $TestResults .= "<tr><th class='left'>Total Objects<br/>(with debug-info)</th><td>".$ABI_Change{"Total"}."</td></tr>\n";
         my $Status = $ABI_Change{"Bin"}/$ABI_Change{"Total"};
         if($Status==100) {
@@ -3478,7 +3490,7 @@ sub getSummary()
     
     if(keys(%TotalFiles))
     {
-        $FileChgs .= "<table class='summary'>\n";
+        $FileChgs .= "<table class='summary highlight'>\n";
         $FileChgs .= "<tr>";
         $FileChgs .= "<th>File Type</th>";
         $FileChgs .= "<th>Total</th>";
@@ -3586,7 +3598,7 @@ sub createReport($)
     my $Report = $Header."\n";
     my $MainReport = getReportFiles();
     
-    my $Legend = "<br/><table class='summary'>
+    my $Legend = "<br/><table class='summary highlight'>
     <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
     <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>\n";
     
@@ -3796,7 +3808,7 @@ sub scenario()
     }
     if($ShowVersion)
     {
-        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2017 Andrey Ponomarenko's ABI Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
+        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2018 Andrey Ponomarenko's ABI Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
         exit(0);
     }
     if($DumpVersion)
@@ -3841,7 +3853,7 @@ sub scenario()
     
     if(not $LinksTarget)
     {
-        $LinksTarget = "_blank";
+        $LinksTarget = "_self";
     }
     else
     {

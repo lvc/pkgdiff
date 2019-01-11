@@ -56,6 +56,9 @@ table.summary td.f_path {
 table.summary td.value {
     padding-left:10px;
 }
+table.highlight tr:hover {
+    background-color:#E0E0E0;
+}
 td.passed, tr.passed {
     background-color:#CCFFCC;
 }
