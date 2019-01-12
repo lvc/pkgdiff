@@ -13,7 +13,7 @@
 #
 # PACKAGE FORMATS
 # ===============
-#  RPM, DEB, TAR.GZ, etc.
+#  RPM, DEB, TAR.GZ, JAR, etc.
 #
 # REQUIREMENTS
 # ============
@@ -62,6 +62,7 @@ my $MODULES_DIR = getModules();
 push(@INC, getDirname($MODULES_DIR));
 
 my $DIFF = $MODULES_DIR."/Internals/Tools/rfcdiff-1.41-CUSTOM.sh";
+my $JAVA_DUMP = $MODULES_DIR."/Internals/Tools/java-dump.sh";
 my $ACC = "abi-compliance-checker";
 my $ACC_VER = "1.99.1";
 my $ABI_DUMPER = "abi-dumper";
@@ -73,7 +74,7 @@ $SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Minimal, $NoWdiff,
 $IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $ExtraInfo,
 $CustomTmpDir, $HideUnchanged, $TargetName, $TargetTitle, %TargetVersion,
 $CompareDirs, $ListAddedRemoved, $SkipSubArchives, $LinksTarget,
-$SkipPattern, $AllText);
+$SkipPattern, $AllText, $CheckByteCode, $FullMethodDiffs, $TrackUnchanged);
 
 my $CmdName = getFilename($0);
 
@@ -144,7 +145,10 @@ GetOptions("h|help!" => \$Help,
   "skip-subarchives!" => \$SkipSubArchives,
   "skip-pattern=s" => \$SkipPattern,
   "all-text!" => \$AllText,
-  "links-target=s" => \$LinksTarget
+  "links-target=s" => \$LinksTarget,
+  "check-byte-code!" => \$CheckByteCode,
+  "full-method-diffs!" => \$FullMethodDiffs,
+  "track-unchanged!" => \$TrackUnchanged
 ) or errMsg();
 
 my $TMP_DIR = undef;
@@ -352,6 +356,15 @@ OTHER OPTIONS:
   -all-text
       Treat all files in the archive as text files.
 
+  -check-byte-code
+      When comparing Java classes, also check for byte code changes.
+
+  -full-method-diffs
+      Perform a full diff of method bodies when -check-byte-code is specified.
+
+  -track-unchanged
+      Track unchanged files in extra info.
+
 REPORT:
     Report will be generated to:
         pkgdiff_reports/<pkg>/<v1>_to_<v2>/changes_report.html
@@ -443,6 +456,7 @@ my %DepChanges;
 my %AddedFiles;
 my %RemovedFiles;
 my %ChangedFiles;
+my %UnchangedFiles;
 my %StableFiles;
 my %RenamedFiles;
 my %RenamedFiles_R;
@@ -910,7 +924,15 @@ sub showFile($$$)
         $Name=~s/\.class\Z//;
         $Name=~s/\$/./;
         $Path = $Name;
-        $Cmd = "javap \"$Path\""; # -s -c -private -verbose
+        if ($CheckByteCode) {
+            if ($FullMethodDiffs) {
+                $Cmd = "$JAVA_DUMP \"$Path\"";
+            } else {
+                $Cmd = "$JAVA_DUMP -s \"$Path\"";
+            }
+        } else {
+            $Cmd = "javap \"$Path\""; # -c -private -verbose
+        }
         chdir($Dir);
     }
     else
@@ -1388,6 +1410,12 @@ sub writeExtraInfo()
         
         $FILES .= "<changed>\n    ".join("\n    ", @Changed)."\n</changed>\n\n";
     }
+    if ($TrackUnchanged) {
+        if(my @Unchanged = sort {lc($a) cmp lc($b)} keys(%UnchangedFiles))
+        {
+            $FILES .= "<unchanged>\n    ".join("\n    ", @Unchanged)."\n</unchanged>\n\n";
+        }
+    }
     writeFile($ExtraInfo."/files.xml", $FILES);
     
     my $SYMBOLS = "";
@@ -1626,11 +1654,13 @@ sub detectChanges()
             $Details{"Status"} = "unchanged";
             $Details{"Empty"} = 1;
             $Details{"Rate"} = 0;
+            $UnchangedFiles{$Name} = 1;
         }
         else
         {
             $Details{"Status"} = "unchanged";
             $Details{"Rate"} = 0;
+            $UnchangedFiles{$Name} = 1;
         }
         if($NewName = $RenamedFiles{$Name})
         { # renamed files
@@ -1838,6 +1868,7 @@ sub detectChanges()
     $STAT_LINE .= "moved:".keys(%MovedFiles).";";
     $STAT_LINE .= "renamed:".keys(%RenamedFiles).";";
     $STAT_LINE .= "changed:".keys(%ChangedFiles).";";
+    $STAT_LINE .= "unchanged:".keys(%UnchangedFiles).";";
 }
 
 sub htmlSpecChars($)
