@@ -501,7 +501,7 @@ my %ArchiveFormats = (
     "XZ"       => ["xz"],
 
     "JAR"      => ["jar", "war",
-                   "ear"],
+                   "ear", "aar"],
     "APK"      => ["apk"]
 );
 
