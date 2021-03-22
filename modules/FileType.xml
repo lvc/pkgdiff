@@ -2544,7 +2544,7 @@
         SQLITE
     </id>
     <summary>
-        QSLite database
+        SQLite database
     </summary>
     <extensions>
         sqlite
