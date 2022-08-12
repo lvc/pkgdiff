@@ -3,7 +3,7 @@
 # PkgDiff - Package Changes Analyzer 1.8
 # A tool for visualizing changes in Linux software packages
 #
-# Copyright (C) 2012-2018 Andrey Ponomarenko's ABI Laboratory
+# Copyright (C) 2012-2022 Andrey Ponomarenko's ABI Laboratory
 #
 # Written by Andrey Ponomarenko
 #
@@ -93,11 +93,11 @@ my %ERROR_CODE = (
     "Module_Error"=>9
 );
 
-my $HomePage = "https://github.com/lvc/pkgdiff";
+my $HomePage = "https://lvc.github.io/pkgdiff/";
 
 my $ShortUsage = "Package Changes Analyzer (PkgDiff) $TOOL_VERSION
 A tool for visualizing changes in Linux software packages
-Copyright (C) 2018 Andrey Ponomarenko's ABI Laboratory
+Copyright (C) 2022 Andrey Ponomarenko's ABI Laboratory
 License: GNU GPL
 
 Usage: $CmdName PKG1 PKG2 [options]
@@ -762,7 +762,9 @@ sub compareFiles($$$$)
     or $Format eq "MANPAGE"
     or $Format eq "INFODOC"
     or $Format eq "SYMLINK"
-    or $Format eq "JAVA_CLASS")
+    or $Format eq "JAVA_CLASS"
+    or $Format eq "JAVASCRIPT"
+    or $Format eq "GETTEXT_MO")
     {
         my $Page1 = showFile($P1, $Format, 1);
         my $Page2 = showFile($P2, $Format, 2);
@@ -934,6 +936,20 @@ sub showFile($$$)
             $Cmd = "javap \"$Path\""; # -c -private -verbose
         }
         chdir($Dir);
+    }
+    elsif($Format eq "JAVASCRIPT")
+    {
+        if(not checkCmd("js-beautify")) {
+            return undef;
+        }
+        $Cmd = "js-beautify \"$Path\"";
+    }
+    elsif($Format eq "GETTEXT_MO")
+    {
+        if(not checkCmd("msgunfmt")) {
+            return undef;
+        }
+        $Cmd = "msgunfmt \"$Path\"";
     }
     else
     { # error
@@ -1390,7 +1406,7 @@ sub writeExtraInfo()
     {
         $FILES .= "<moved>\n";
         foreach (@Moved) {
-            $FILES .= "    ".$_.";".$MovedFiles{$_}." (".showNumber($ChangeRate{$_}*100)."%)\n";
+            $FILES .= "    ".$_.";".$MovedFiles{$_}.";".showNumber($ChangeRate{$_}*100)."\n";
         }
         $FILES .= "</moved>\n\n";
     }
@@ -1398,14 +1414,14 @@ sub writeExtraInfo()
     {
         $FILES .= "<renamed>\n";
         foreach (@Renamed) {
-            $FILES .= "    ".$_.";".$RenamedFiles{$_}." (".showNumber($ChangeRate{$_}*100)."%)\n";
+            $FILES .= "    ".$_.";".$RenamedFiles{$_}.";".showNumber($ChangeRate{$_}*100)."\n";
         }
         $FILES .= "</renamed>\n\n";
     }
     if(my @Changed = sort {lc($a) cmp lc($b)} keys(%ChangedFiles))
     {
         foreach (0 .. $#Changed) {
-            $Changed[$_] .= " (".showNumber($ChangeRate{$Changed[$_]}*100)."%)";
+            $Changed[$_] .= ";".showNumber($ChangeRate{$Changed[$_]}*100);
         }
         
         $FILES .= "<changed>\n    ".join("\n    ", @Changed)."\n</changed>\n\n";
@@ -1446,8 +1462,12 @@ sub skipFile($)
 
 sub detectChanges()
 {
-    foreach my $E ("info-diffs", "diffs", "details") {
+    foreach my $E ("info-diffs", "diffs") {
         mkpath($REPORT_DIR."/".$E);
+    }
+
+    if($ShowDetails) {
+        mkpath($REPORT_DIR."/details");
     }
     
     foreach my $Format (keys(%FormatInfo))
@@ -3808,7 +3828,7 @@ sub scenario()
     }
     if($ShowVersion)
     {
-        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2018 Andrey Ponomarenko's ABI Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
+        printMsg("INFO", "Package Changes Analyzer (PkgDiff) $TOOL_VERSION\nCopyright (C) 2022 Andrey Ponomarenko's ABI Laboratory\nLicense: GNU GPL <http://www.gnu.org/licenses/>\nThis program is free software: you can redistribute it and/or modify it.\n\nWritten by Andrey Ponomarenko.");
         exit(0);
     }
     if($DumpVersion)

@@ -2129,9 +2129,6 @@
     <weight>
         50
     </weight>
-    <format>
-        Text
-    </format>
 </type>
 
 <type>
@@ -3052,7 +3049,25 @@
         Gettext file
     </summary>
     <extensions>
-        gmo, po, mo, pot
+        po, pot
+    </extensions>
+    <weight>
+        40
+    </weight>
+    <format>
+        Text
+    </format>
+</type>
+
+<type>
+    <id>
+        GETTEXT_MO
+    </id>
+    <summary>
+        Gettext object
+    </summary>
+    <extensions>
+        gmo, mo
     </extensions>
     <weight>
         40
