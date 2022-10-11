@@ -2168,7 +2168,7 @@ sub getReportFiles()
             
             if($HideUnchanged)
             {
-                if($Info{"Status"} eq "unchanged")
+                if($Info{"Status"} eq "unchanged" or show_number($Info{"Rate"}*100) eq 0)
                 { # do not show unchanged files
                     next;
                 }

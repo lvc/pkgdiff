@@ -6,9 +6,17 @@ Package Changes Analyzer (pkgdiff) — a tool for visualizing changes in Linux s
 Contents
 --------
 
-1. [ About   ](#about)
-2. [ Install ](#install)
-3. [ Usage   ](#usage)
+0. [ Fork Info ](#fork)
+1. [ About     ](#about)
+2. [ Install   ](#install)
+3. [ Usage     ](#usage)
+
+Fork
+----
+
+This fork's aim is to enhance PkgDiff to fill 'InteractiviteVideoEtSystemes' company needs.
+I'll try to pull requests all changes to lvc/pkgdiff.
+
 
 About
 -----
