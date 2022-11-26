@@ -2176,7 +2176,7 @@ sub getReportFiles()
             
             if($HideUnchanged)
             {
-                if($Info{"Status"} eq "unchanged" or show_number($Info{"Rate"}*100) eq 0)
+                if($Info{"Status"} eq "unchanged" or showNumber($Info{"Rate"}*100) eq 0)
                 { # do not show unchanged files
                     next;
                 }
@@ -3426,7 +3426,6 @@ sub getSummary()
     if($QuickMode) {
         $TestInfo .= "<tr><th class='left'>Mode</th><td>Quick</td></tr>\n";
     }
-
     $TestInfo .= "</table>\n";
 
     my $TestResults = "<h2>Test Results</h2><hr/>\n";
@@ -3534,7 +3533,7 @@ sub getSummary()
         {
             my $Total = $FileChanges{$Format}{"Total"};
             
-            if($HideUnchanged) {
+            if($HideUnchanged or showNumber($Info{"Rate"}*100) eq 0) {
                 $Total = $FileChanges{$Format}{"Added"} + $FileChanges{$Format}{"Removed"} + $FileChanges{$Format}{"Changed"};
             }
             
