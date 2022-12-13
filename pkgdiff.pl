@@ -74,7 +74,7 @@ $SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Minimal, $NoWdiff,
 $IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $ExtraInfo,
 $CustomTmpDir, $HideUnchanged, $TargetName, $TargetTitle, %TargetVersion,
 $CompareDirs, $ListAddedRemoved, $SkipSubArchives, $LinksTarget,
-$SkipPattern, $AllText, $CheckByteCode, $FullMethodDiffs, $TrackUnchanged);
+$SkipPattern, $AllText, $CheckByteCode, $FullMethodDiffs, $TrackUnchanged, $StripDir);
 
 my $CmdName = getFilename($0);
 
@@ -148,7 +148,8 @@ GetOptions("h|help!" => \$Help,
   "links-target=s" => \$LinksTarget,
   "check-byte-code!" => \$CheckByteCode,
   "full-method-diffs!" => \$FullMethodDiffs,
-  "track-unchanged!" => \$TrackUnchanged
+  "track-unchanged!" => \$TrackUnchanged,
+  "strip-dir=s" => \$StripDir
 ) or errMsg();
 
 my $TMP_DIR = undef;
@@ -364,6 +365,9 @@ OTHER OPTIONS:
 
   -track-unchanged
       Track unchanged files in extra info.
+
+  -strip-dir NUM
+      Strip the smallest prefix containing NUM leading slashes.
 
 REPORT:
     Report will be generated to:
@@ -2959,6 +2963,11 @@ sub registerPackage(@)
     foreach my $File (sort @Files)
     {
         my $FName = cutPathPrefix($File, $CPath);
+        if ($StripDir) {
+            my @SplittedPath = split(/[\/]+/, $FName);
+            my $PrefixToRemove = join('/', @SplittedPath[0..$StripDir-1]);
+            $FName = cutPathPrefix($FName, $PrefixToRemove);
+        }
         if($PkgFormat eq "RPM"
         or $PkgFormat eq "DEB")
         { # files installed to the system
