@@ -4044,6 +4044,7 @@
         tar.lz, tlz, zip, zae, tar, lzma, gz
         jar, war, ear, xz, 7z, rar, sfx, ace
         bz, bz2, zipx, apk
+        hpkg
     </extensions>
     <weight>
         10
