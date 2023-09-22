@@ -317,7 +317,7 @@ function header(file1, file2) {
 "  <title>Diff: %s - %s</title> \n" \
 "  <style type=\"text/css\"> \n" \
 "    body    { font-family: Arial, sans-serif; font-size:16px; margin: 0.4ex; margin-right: auto; } \n" \
-"    table   { width: 100%; } \n" \
+"    table   { width: 100%%; } \n" \
 "    tr      { } \n" \
 "    td      { white-space: pre; font-family: Consolas, \"DejaVu Sans Mono\", \"Droid Sans Mono\", Monaco, Monospace; vertical-align: top; font-size: 0.86em;} \n" \
 "    th      { font-size: 0.86em; } \n" \
