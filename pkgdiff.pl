@@ -53,6 +53,7 @@ use File::Compare;
 use Cwd qw(abs_path cwd);
 use Config;
 use Fcntl;
+use Digest::MD5 qw(md5);
 
 my $TOOL_VERSION = "1.8";
 my $ORIG_DIR = cwd();
@@ -1168,6 +1169,13 @@ sub getSize($)
         return ($Cache{"getSize"}{$Path} = length(getType($Path)));
     }
     return ($Cache{"getSize"}{$Path} = -s $Path);
+}
+
+sub getMd5sum($)
+{
+    my $md5 = Digest::MD5->new;
+    $md5->add($_[0]);
+    return $md5->hexdigest;
 }
 
 sub diffFiles($$$)
@@ -3412,7 +3420,9 @@ sub getSummary()
     }
     
     $TestInfo .= "<tr><th class='left'>Version #1</th><td>".$Group{"V1"}."</td></tr>\n";
+    $TestInfo .= "<tr><th class='left'>Checksum #1 (MD5)</th><td>".$Group{"Checksum1"}."</td></tr>\n";
     $TestInfo .= "<tr><th class='left'>Version #2</th><td>".$Group{"V2"}."</td></tr>\n";
+    $TestInfo .= "<tr><th class='left'>Checksum #2 (MD5)</th><td>".$Group{"Checksum2"}."</td></tr>\n";
     if($QuickMode) {
         $TestInfo .= "<tr><th class='left'>Mode</th><td>Quick</td></tr>\n";
     }
@@ -3996,6 +4006,7 @@ sub scenario()
         $Group{"Name1"} = $Attr->{"Name"};
         $Group{"V1"} = $Attr->{"Version"};
         $Group{"Arch1"} = $Attr->{"Arch"};
+        $Group{"Checksum1"} = getMd5sum($Descriptor{1});
         
         if(defined $TargetVersion{1}) {
             $Group{"V1"} = $TargetVersion{1};
@@ -4029,6 +4040,7 @@ sub scenario()
         $Group{"Name2"} = $Attr->{"Name"};
         $Group{"V2"} = $Attr->{"Version"};
         $Group{"Arch2"} = $Attr->{"Arch"};
+        $Group{"Checksum2"} = getMd5sum($Descriptor{2});
         
         if(defined $TargetVersion{2}) {
             $Group{"V2"} = $TargetVersion{2};
