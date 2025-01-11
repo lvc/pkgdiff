@@ -3,7 +3,7 @@
 # PkgDiff - Package Changes Analyzer 1.8
 # A tool for visualizing changes in Linux software packages
 #
-# Copyright (C) 2012-2022 Andrey Ponomarenko's ABI Laboratory
+# Copyright (C) 2012-2025 Andrey Ponomarenko's ABI Laboratory
 #
 # Written by Andrey Ponomarenko
 #
@@ -74,7 +74,8 @@ $SizeLimit, $QuickMode, $DiffWidth, $DiffLines, $Minimal, $NoWdiff,
 $IgnoreSpaceChange, $IgnoreAllSpace, $IgnoreBlankLines, $ExtraInfo,
 $CustomTmpDir, $HideUnchanged, $TargetName, $TargetTitle, %TargetVersion,
 $CompareDirs, $ListAddedRemoved, $SkipSubArchives, $LinksTarget,
-$SkipPattern, $AllText, $CheckByteCode, $FullMethodDiffs, $TrackUnchanged);
+$SkipPattern, $AllText, $CheckByteCode, $FullMethodDiffs, $TrackUnchanged,
+$MoveStyles);
 
 my $CmdName = getFilename($0);
 
@@ -93,7 +94,7 @@ my %ERROR_CODE = (
     "Module_Error"=>9
 );
 
-my $HomePage = "https://lvc.github.io/pkgdiff/";
+my $HomePage = "https://github.com/lvc/pkgdiff";
 
 my $ShortUsage = "Package Changes Analyzer (PkgDiff) $TOOL_VERSION
 A tool for visualizing changes in Linux software packages
@@ -134,7 +135,7 @@ GetOptions("h|help!" => \$Help,
   "no-wdiff!" => \$NoWdiff,
   "extra-info=s" => \$ExtraInfo,
   "tmp-dir=s" => \$CustomTmpDir,
-  "hide-unchanged!" => \$HideUnchanged,
+  "c|hide-unchanged!" => \$HideUnchanged,
   "debug!" => \$Debug,
   "v1|vnum1=s" => \$TargetVersion{1},
   "v2|vnum2=s" => \$TargetVersion{2},
@@ -148,7 +149,8 @@ GetOptions("h|help!" => \$Help,
   "links-target=s" => \$LinksTarget,
   "check-byte-code!" => \$CheckByteCode,
   "full-method-diffs!" => \$FullMethodDiffs,
-  "track-unchanged!" => \$TrackUnchanged
+  "track-unchanged!" => \$TrackUnchanged,
+  "move-styles=s" => \$MoveStyles
 ) or errMsg();
 
 my $TMP_DIR = undef;
@@ -318,7 +320,7 @@ OTHER OPTIONS:
   -tmp-dir DIR
       Use custom temp directory.
   
-  -hide-unchanged
+  -c|-hide-unchanged
       Don't show unchanged files in the report.
 
   -debug
@@ -407,7 +409,7 @@ my $DescriptorTemplate = "
 </descriptor>";
 
 # Settings
-my $RENAME_FILE_MATCH = 0.55;
+my $RENAME_FILE_MATCH = 0.25; # 0.55
 my $RENAME_CONTENT_MATCH = 0.85;
 my $MOVE_CONTENT_MATCH = 0.90;
 my $MOVE_DEPTH = 4;
@@ -537,11 +539,17 @@ sub getModules()
 sub readModule($$)
 {
     my ($Module, $Name) = @_;
-    my $Path = $MODULES_DIR."/Internals/$Module/".$Name;
+    my $Path = getModulePath($Module, $Name);
     if(not -f $Path) {
         exitStatus("Module_Error", "can't access \'$Path\'");
     }
     return readFile($Path);
+}
+
+sub getModulePath($$)
+{
+    my ($Module, $Name) = @_;
+    return $MODULES_DIR."/Internals/$Module/".$Name;
 }
 
 sub readBytes($)
@@ -1316,8 +1324,7 @@ sub isRenamed($$$)
             }
         }
     }
-    $Match/=$RENAME_FILE_MATCH;
-    my $HL = ($L1+$L2)/$Match;
+    my $HL = ($L1+$L2)*$RENAME_FILE_MATCH/$Match;
     return (getBaseLen($N1, $N2)>=$HL);
 }
 
@@ -1909,7 +1916,7 @@ sub getReportUsage()
     }
     
     my $Report = "<a name='Usage'></a>\n";
-    $Report .= "<h2>Usage Analysis</h2><hr/>\n";
+    $Report .= "<h2>Usage Analysis</h2>\n";
     $Report .= "<table class='summary highlight'>\n";
     $Report .= "<tr><th>Package</th><th>Status</th><th>Used By</th></tr>\n";
     
@@ -1948,7 +1955,7 @@ sub getReportHeaders()
     }
     
     my $Report = "<a name='Info'></a>\n";
-    $Report .= "<h2>Changes In Package Info</h2><hr/>\n";
+    $Report .= "<h2>Changes In Package Info</h2>\n";
     $Report .= "<table class='summary highlight'>\n";
     $Report .= "<tr><th>Package</th><th>Status</th><th>Delta</th><th>Visual Diff</th></tr>\n";
     
@@ -1998,7 +2005,7 @@ sub getReportDeps()
         if(not @Names) {
             next;
         }
-        $Report .= "<h2>Changes In \"".ucfirst($Kind)."\" Dependencies</h2><hr/>\n";
+        $Report .= "<h2>Changes In \"".ucfirst($Kind)."\" Dependencies</h2>\n";
         $Report .= "<table class='summary highlight'>\n";
         $Report .= "<tr><th>Name</th><th>Status</th><th>Old<br/>Version</th><th>New<br/>Version</th></tr>\n";
         foreach my $Name (sort {lc($a) cmp lc($b)} @Names)
@@ -2028,7 +2035,7 @@ sub getReportDeps()
             if($PackageDeps{1}{$Kind}{$Name})
             {
                 my %Info1 = %{$PackageDeps{1}{$Kind}{$Name}};
-                $Report .= "<td class='value'>".htmlSpecChars(showOp($Info1{"Op"}).$Info1{"V"})."</td>\n";
+                $Report .= "<td class='value'>".showOp($Info1{"Op"}).htmlSpecChars($Info1{"V"})."</td>\n";
             }
             else {
                 $Report .= "<td></td>\n";
@@ -2036,7 +2043,7 @@ sub getReportDeps()
             if($PackageDeps{2}{$Kind}{$Name})
             {
                 my %Info2 = %{$PackageDeps{2}{$Kind}{$Name}};
-                $Report .= "<td class='value'>".htmlSpecChars(showOp($Info2{"Op"}).$Info2{"V"})."</td>\n";
+                $Report .= "<td class='value'>".showOp($Info2{"Op"}).htmlSpecChars($Info2{"V"})."</td>\n";
             }
             else {
                 $Report .= "<td></td>\n";
@@ -2051,11 +2058,13 @@ sub getReportDeps()
 sub showOp($)
 {
     my $Op = $_[0];
+
     #$Op=~s/<=/&le;/g;
     #$Op=~s/>=/&ge;/g;
+
     if($Op eq "=")
     { # do not show "="
-        $Op="";
+        $Op = "";
     }
     if($Op) {
         $Op = $Op." ";
@@ -2089,7 +2098,7 @@ sub createFileView($$$)
     $Content = "<pre class='view'>".$Content."</pre>\n";
     
     $Content = "<table cellspacing='0' cellpadding='0'>\n<tr>\n<td class='header'>\n".$Name."</td><td class='plain'><a href=\'".encodeUrl($Name)."\'>plain</a></td>\n</tr>\n<tr>\n<td valign='top' colspan='2'>\n".$Content."</td>\n</tr>\n</table>\n";
-    $Content = composeHTMLHead($Name, "", "View file ".$File, $CssStyles, "")."\n<body>\n".$Content;
+    $Content = composeHTMLHead($Name, "", "View file ".$File, "", "", $CssStyles)."\n<body>\n".$Content;
     $Content .= "</body></html>";
     
     my $R = $Dir."/".$File."-view.html";
@@ -2129,7 +2138,7 @@ sub getReportFiles()
         }
         
         $Report .= "<a name='".$FormatInfo{$Format}{"Anchor"}."'></a>\n";
-        $Report .= "<h2>".$FormatInfo{$Format}{"Title"}." (".$FileChanges{$Format}{"Total"}.")</h2><hr/>\n";
+        $Report .= "<h2>".$FormatInfo{$Format}{"Title"}." (".$FileChanges{$Format}{"Total"}.")</h2>\n";
         $Report .= "<table class='summary highlight'>\n";
         $Report .= "<tr>\n";
         $Report .= "<th $JSort>Name</th>\n";
@@ -3282,9 +3291,9 @@ sub queryRPM($$)
     return `rpm -qp $Query \"$Path\" 2>$TMP_DIR/null`;
 }
 
-sub composeHTMLHead($$$$$)
+sub composeHTMLHead($$$$$$)
 {
-    my ($Title, $Keywords, $Description, $Styles, $Scripts) = @_;
+    my ($Title, $Keywords, $Description, $StylesPath, $ScriptsPath, $Styles) = @_;
     return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
     <html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">
     <head>
@@ -3295,14 +3304,11 @@ sub composeHTMLHead($$$$$)
     <title>
         $Title
     </title>
+    <link rel='stylesheet' type='text/css' href=\'$StylesPath\' />
+    <script type='text/javascript' src=\'$ScriptsPath\'></script>
     <style type=\"text/css\">
-    $Styles
+        $Styles
     </style>
-    <script type=\"text/javascript\" language=\"JavaScript\">
-    <!--
-    $Scripts
-    -->
-    </script>
     </head>";
 }
 
@@ -3321,19 +3327,19 @@ sub getHeader()
     
     if($CompareDirs and not $TargetName)
     {
-        $Header = "Changes report between <span style='color:Blue;'>".$Group{"Name1"}."/</span> and <span style='color:Blue;'>".$Group{"Name2"}."/</span> directories";
+        $Header = "Changes report between <span style='color:Red;'>".$Group{"Name1"}."</span> and <span style='color:Red;'>".$Group{"Name2"}."</span>";
     }
     elsif($CheckMode eq "Group") {
-        $Header = "Changes report for the <span style='color:Blue;'>".getTitle()."</span> group of packages between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions";
+        $Header = "Changes report for <span style='color:Blue;'>".getTitle()."</span> group of packages between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions";
     }
     else
     { # single package
-        $Header = "Changes report for the <span style='color:Blue;'>".getTitle()."</span> package between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions";
+        $Header = "Changes report for <span style='color:Blue;'>".getTitle()."</span> package between <span style='color:Red;'>".$Group{"V1"}."</span> and <span style='color:Red;'>".$Group{"V2"}."</span> versions";
     }
     
-    if($HideUnchanged) {
-        $Header .= " (hidden unchanged files)";
-    }
+    #if($HideUnchanged) {
+    #    $Header .= " (hidden unchanged files)";
+    #}
     
     return "<h1>".$Header."</h1>";
 }
@@ -3389,7 +3395,7 @@ sub cutNumber($$$)
 
 sub getSummary()
 {
-    my $TestInfo = "<h2>Test Info</h2><hr/>\n";
+    my $TestInfo = "<h2>Test Info</h2>\n";
     $TestInfo .= "<table class='summary highlight'>\n";
     
     if(not $CompareDirs or $TargetName)
@@ -3418,7 +3424,7 @@ sub getSummary()
     }
     $TestInfo .= "</table>\n";
 
-    my $TestResults = "<h2>Test Results</h2><hr/>\n";
+    my $TestResults = "<h2>Test Results</h2>\n";
     $TestResults .= "<table class='summary highlight'>\n";
     
     if(not $CompareDirs)
@@ -3493,7 +3499,7 @@ sub getSummary()
     
     if(defined $ABI_Change{"Total"})
     {
-        $TestResults .= "<h2>ABI Status</h2><hr/>\n";
+        $TestResults .= "<h2>ABI Status</h2>\n";
         $TestResults .= "<table class='summary highlight'>\n";
         $TestResults .= "<tr><th class='left'>Total Objects<br/>(with debug-info)</th><td>".$ABI_Change{"Total"}."</td></tr>\n";
         my $Status = $ABI_Change{"Bin"}/$ABI_Change{"Total"};
@@ -3506,7 +3512,7 @@ sub getSummary()
         $TestResults .= "</table>\n";
     }
     
-    my $FileChgs = "<a name='Files'></a><h2>Changes In Files</h2><hr/>\n";
+    my $FileChgs = "<a name='Files'></a><h2>Changes In Files</h2>\n";
     
     if(keys(%TotalFiles))
     {
@@ -3581,7 +3587,7 @@ sub getSource()
 {
     my $Packages = "<a name='Packages'></a>\n";
     my %Pkgs = map {$_=>1} (keys(%{$TargetPackages{1}}), keys(%{$TargetPackages{2}}));
-    $Packages .= "<h2>Packages (".keys(%Pkgs).")</h2><hr/>\n";
+    $Packages .= "<h2>Packages (".keys(%Pkgs).")</h2>\n";
     $Packages .= "<div class='p_list'>\n";
     foreach my $Name (sort keys(%Pkgs)) {
         $Packages .= $Name."<br/>\n";
@@ -3593,8 +3599,32 @@ sub getSource()
 sub createReport($)
 {
     my $Path = $_[0];
-    my $CssStyles = readModule("Styles", "Index.css");
-    my $JScripts = readModule("Scripts", "Sort.js");
+
+    my $CssStyles = getModulePath("Styles", "Index.css");
+    my $JScripts = getModulePath("Scripts", "Sort.js");
+    my $VeraMono = getModulePath("Fonts", "VeraMono.ttf");
+    my $OpenSans = getModulePath("Fonts", "OpenSans.ttf");
+
+    my $StuffDir = getDirname($Path);
+    my $SuffixDir = "";
+    if($MoveStyles) {
+        $SuffixDir = $MoveStyles;
+    }
+
+    my $EmbedStyles = $StuffDir."/".$SuffixDir."css/Index.css";
+    my $EmbedJS = $StuffDir."/".$SuffixDir."js/Sort.js";
+    my $EmbedVeraMono = $StuffDir."/".$SuffixDir."fonts/VeraMono.ttf";
+    my $EmbedOpenSans = $StuffDir."/".$SuffixDir."fonts/OpenSans.ttf";
+
+    mkpath(getDirname($EmbedStyles));
+    mkpath(getDirname($EmbedJS));
+    mkpath(getDirname($EmbedVeraMono));
+
+    copy($CssStyles, $EmbedStyles);
+    copy($JScripts, $EmbedJS);
+    copy($VeraMono, $EmbedVeraMono);
+    copy($OpenSans, $EmbedOpenSans);
+
     printMsg("INFO", "creating report ...");
     
     my $Title = undef;
@@ -3618,7 +3648,7 @@ sub createReport($)
     my $Report = $Header."\n";
     my $MainReport = getReportFiles();
     
-    my $Legend = "<br/><table class='summary highlight'>
+    my $Legend = "<table class='summary highlight'>
     <tr><td class='new' width='80px'>added</td><td class='passed' width='80px'>unchanged</td></tr>
     <tr><td class='warning'>changed</td><td class='failed'>removed</td></tr></table>\n";
     
@@ -3635,14 +3665,11 @@ sub createReport($)
     $Report .= "<br/><a class='top_ref' href='#Top'>to the top</a><br/>\n";
     
     $STAT_LINE = "changed:".$RESULT{"affected"}.";".$STAT_LINE."tool_version:".$TOOL_VERSION;
-    $Report = "<!-- $STAT_LINE -->\n".composeHTMLHead($Title, $Keywords, $Description, $CssStyles, $JScripts)."\n<body>\n<div><a name='Top'></a>\n".$Report;
-    $Report .= "</div>\n<br/><br/><br/><hr/>\n";
+    $Report = "<!-- $STAT_LINE -->\n".composeHTMLHead($Title, $Keywords, $Description, $SuffixDir."css/Index.css", $SuffixDir."js/Sort.js", "")."\n<body>\n<div><a name='Top'></a>\n".$Report;
+    $Report .= "</div>\n<br/><hr/>\n";
     
     # footer
-    $Report .= "<div class='footer' style='width:100%;' align='right'><i>Generated";
-    $Report .= " by <a href='".$HomePage."'>PkgDiff</a>";
-    $Report .= " $TOOL_VERSION &#160;";
-    $Report .= "</i></div><br/>\n";
+    $Report .= "<div class='footer' style='width:100%;' align='center'><a href='".$HomePage."'>github.com/lvc/pkgdiff</a></div><br/>\n";
     
     $Report .= "</body></html>";
     writeFile($Path, $Report);

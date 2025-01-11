@@ -316,10 +316,10 @@ function header(file1, file2) {
 "  <meta http-equiv=\"Content-Style-Type\" content=\"text/css\" /> \n" \
 "  <title>Diff: %s - %s</title> \n" \
 "  <style type=\"text/css\"> \n" \
-"    body    { font-family: Arial, sans-serif; font-size:16px; margin: 0.4ex; margin-right: auto; } \n" \
+"    body    { font-family: Arial, sans-serif; margin: 0.4ex; margin-right: auto; } \n" \
 "    table   { width: 100%; } \n" \
 "    tr      { } \n" \
-"    td      { white-space: pre; font-family: Consolas, \"DejaVu Sans Mono\", \"Droid Sans Mono\", Monaco, Monospace; vertical-align: top; font-size: 0.86em;} \n" \
+"    td      { white-space: pre; font-family: Consolas, \"DejaVu Sans Mono\", \"Droid Sans Mono\", Monaco, Monospace; vertical-align: top;} \n" \
 "    th      { font-size: 0.86em; } \n" \
 "    .small  { font-size: 0.6em; font-style: italic; font-family: Verdana, Helvetica, sans-serif; } \n" \
 "    .left   { background-color: #EEE; } \n" \
@@ -345,7 +345,7 @@ function header(file1, file2) {
 "</head> \n" \
 "<body > \n" \
 "  <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"> \n" \
-"  <tr bgcolor=\"#404040\"><th></th><th style=\"color:#fff;\">%s&nbsp;%s&nbsp;</th><th> </th><th style=\"color:#fff;\">&nbsp;%s&nbsp;%s</th><th></th></tr> \n" \
+"  <tr bgcolor=\"orange\"><th></th><th>%s&nbsp;%s&nbsp;</th><th> </th><th>&nbsp;%s&nbsp;%s</th><th></th></tr> \n" \
 "", file1, file2, prev, url1, url2, nxt;
 }
 

@@ -1,43 +1,51 @@
+@font-face {
+    font-family:"Open Sans";
+    src:url("../fonts/OpenSans.ttf") format("truetype");
+}
+
+@font-face {
+    font-family:"VeraMono";
+    src:url("../fonts/VeraMono.ttf") format("truetype");
+}
+
 body {
-    font-family:Arial, sans-serif;
+    font-family:'Open Sans', Arial, sans-serif;
     background-color:White;
     color:Black;
 }
 hr {
-    color:Black;
-    background-color:Black;
-    height:1px;
+    color:#ececec;
+    background-color:#ececec;
+    height:3px;
     border:0;
 }
 h1 {
-    margin-bottom:0px;
-    padding-bottom:0px;
     font-size:1.625em;
+    text-decoration:underline;
 }
 h2 {
-    margin-bottom:0px;
-    padding-bottom:0px;
     font-size:1.25em;
     white-space:nowrap;
+    text-decoration:underline;
 }
 table.summary {
     border-collapse:collapse;
-    border:1px outset black;
+    border:1px solid Gray;
+}
+table.summary td, table.summary th {
+    border:1px solid Gray;
+    white-space:nowrap;
 }
 table.summary th {
-    background-color:#eeeeee;
+    background-color:#EEEEEE;
     font-weight:bold;
     text-align:left;
-    font-size:0.94em;
-    white-space:nowrap;
-    border:1px inset gray;
     padding: 3px;
 }
 table.summary td {
     text-align:right;
-    white-space:nowrap;
-    border:1px inset gray;
     padding: 3px 5px 3px 5px;
+    font-family:'VeraMono', Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
 }
 table.summary td.left {
     text-align:left;
@@ -47,8 +55,6 @@ table.summary th.left {
     font-weight:100;
 }
 table.summary td.f_path {
-    font-size:0.875em;
-    font-family:Consolas, 'DejaVu Sans Mono', 'Droid Sans Mono', Monaco, Monospace;
     white-space:normal;
     word-wrap:break-word;
     max-width:57em;
@@ -89,5 +95,6 @@ div.p_list {
     font-size:0.69em;
 }
 .footer {
-    font-size:0.75em;
+    font-size:1.2em;
+    margin-top:23px;
 }
