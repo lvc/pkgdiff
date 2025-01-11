@@ -55,7 +55,7 @@ Usage
 
 | Option              | Meaning                                      |
 |---------------------|----------------------------------------------|
-| -hide-unchanged     | Don't show unchanged files in the report     |
+| -c/-hide-unchanged  | Don't show unchanged files in the report     |
 | -list-added-removed | Show content of added and removed text files |
 | -skip-pattern REGEX | Don't check files matching REGEX             |
 | -tmp-dir DIR        | Use custom temp directory                    |
