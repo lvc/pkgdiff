@@ -504,7 +504,9 @@ my %ArchiveFormats = (
 
     "JAR"      => ["jar", "war",
                    "ear", "aar"],
-    "APK"      => ["apk"]
+    "APK"      => ["apk"],
+    "HPKG"     => ["hpkg"]
+
 );
 
 my $ARCHIVE_EXT = getArchivePattern();
@@ -3107,6 +3109,9 @@ sub unpackArchive($$)
     }
     elsif($Format eq "JAR") {
         $Cmd = "cd \"$OutDir\" && jar -xf \"$Pkg\"";
+    }
+    elsif($Format eq "HPKG") {
+        $Cmd = "cd \"$OutDir\" && package extract \"$Pkg\"";
     }
     elsif($Format eq "APK") {
         $Cmd = "apktool d -f -o \"$OutDir\" \"$Pkg\"";
